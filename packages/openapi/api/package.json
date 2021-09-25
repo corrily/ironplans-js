@@ -1,0 +1,13 @@
+{
+  "name": "@ironplans/api",
+  "version": "0.0.31-alpha.0",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "prepare": "run build",
+    "lint": "eslint src",
+    "generate": ""
+  }
+}
