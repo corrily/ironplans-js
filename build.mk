@@ -43,6 +43,10 @@ dist: dist-cdn dist-esm dist-types dist-cjs
 clean:
 	rm -rf dist .build
 
+.PHONY: test
+test: 
+	npx jest --coverage
+
 serve: dist/$(name).min.js
 	npx esbuild \
 		--serve=localhost:3030 --servedir=example \
