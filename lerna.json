@@ -8,7 +8,7 @@
     "version": {
       "allowBranch": "main",
       "conventionalCommits": true,
-      "message": "chore(release): %s"
+      "message": "chore(release): bump"
     }
   }
 }
