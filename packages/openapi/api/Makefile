@@ -1,4 +1,4 @@
-include ../../../build.mk
-
 name := api
-entry := src/index.ts
+entry = src/index.ts
+
+include ../../../build.mk

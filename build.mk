@@ -55,12 +55,14 @@ dist-cdn: dist/$(name).min.js
 dist/$(name).min.js: $(entry)
 	@echo "Building CDN bundle"
 	@npx esbuild $(cdn_opts) --outfile=$@ $<
+	@echo "CDN done!"
 	
 
 dist-esm: dist/$(name).esm.js 
 dist/$(name).esm.js: $(entry)
 	@echo "Building ESM bundle"
 	@npx esbuild $(esm_opts) $<
+	@echo "ESM done!"
 
 
 dist-types: dist/$(name).d.ts
@@ -70,6 +72,7 @@ dist/$(name).d.ts: $(entry)
 		--declaration --declarationMap \
 		--emitDeclarationOnly \
 		--outFile $@ || rm -f dist/*.d.ts*
+	@echo "Types done!"
 
 # depend on .build/%
 .build/%::
