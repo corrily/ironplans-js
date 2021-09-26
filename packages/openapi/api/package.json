@@ -2,14 +2,21 @@
   "name": "@ironplans/api",
   "license": "MIT",
   "version": "0.0.32-alpha.0",
+  "browser": "./dist/api.esm.js",
+  "module": "./dist/api.esm.js",
+  "exports": {
+    ".": "./dist/api.esm.js"
+  },
   "files": [
     "src",
     "dist"
   ],
-  "browser": "./dist/api.min.js",
-  "module": "./dist/api.esm.js",
-  "exports": {
-    ".": "./dist/api.esm.js"
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ironplans/js.git"
   },
   "scripts": {
     "prepare": "make -s all lint -j8",
@@ -20,6 +27,9 @@
     "clean": "make clean",
     "generate": "../scripts/gen-browser.sh -d ./src",
     "analyze": "size-limit --why"
+  },
+  "bugs": {
+    "url": "https://github.com/ironplans/js/issues"
   },
   "size-limit": [
     {

@@ -5,5 +5,12 @@
   "typings": "types.ts",
   "files": [
     "types.ts"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ironplans/js.git"
+  }
 }

@@ -6,6 +6,8 @@
     "declarationMap": true,
     "module": "esnext",
     "target": "esnext",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "esModuleInterop": false, // only needed for node < 12
+    "allowSyntheticDefaultImports": true
   }
 }
