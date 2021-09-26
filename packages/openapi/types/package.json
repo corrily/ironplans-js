@@ -1,0 +1,9 @@
+{
+  "name": "@ironplans/types",
+  "version": "0.0.31-alpha.0",
+  "license": "MIT",
+  "typings": "types.ts",
+  "files": [
+    "types.ts"
+  ]
+}

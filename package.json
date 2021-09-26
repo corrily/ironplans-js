@@ -2,28 +2,42 @@
   "name": "root",
   "private": true,
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@openapitools/openapi-generator-cli": "^2.4.5",
     "@tsconfig/recommended": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "dts-cli": "^0.17.1",
+    "esbuild": "^0.13.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-unicorn": "^36.0.0",
     "husky": "^7.0.2",
     "lerna": "^4.0.0",
     "lint-staged": "^11.1.2",
+    "npm-run-all": "^4.1.5",
+    "openapi-typescript": "^4.0.2",
     "prettier": "^2.4.1",
+    "size-limit": "^5.0.4",
     "tslib": "^2.3.1",
     "typescript": "^4.4.3"
   },
   "scripts": {
     "prepare": "husky install",
-    "lint": "lerna run lint"
+    "lint": "prettier --check . && eslint .",
+    "build": "lerna run build"
   },
   "lint-staged": {
-    "*.{json,js,jsx,ts,tsx}": [
+    "*.{md,html,css,json}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "eslint --fix"
+    ],
+    "*.sh": [
+      "shfmt -w -s -i 2"
     ]
   }
 }

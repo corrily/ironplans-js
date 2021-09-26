@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
+  "shellformat.flag": "-s",
 
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -15,5 +16,11 @@
   },
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "files.associations": {
+    "*ignore": "ignore"
   }
 }

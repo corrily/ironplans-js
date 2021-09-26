@@ -1,0 +1,3458 @@
+openapi: 3.0.3
+info:
+  title: Iron Plans API
+  version: 1.0.0
+paths:
+  /accounts/v1/me/:
+    get:
+      operationId: accounts_v1_me_retrieve
+      description: |-
+        Shortcut to `/accounts/v1/{{my customer id}}`.
+
+        Automatically creates a new customer account if one does not
+        exist for the authenticated user.
+      tags:
+      - accounts
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: ''
+  /customers/v1/:
+    get:
+      operationId: customers_v1_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - customers
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCustomerList'
+          description: ''
+    post:
+      operationId: customers_v1_create
+      tags:
+      - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+  /customers/v1/{id}/:
+    get:
+      operationId: customers_v1_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this customer.
+        required: true
+      tags:
+      - customers
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+    put:
+      operationId: customers_v1_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this customer.
+        required: true
+      tags:
+      - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+    patch:
+      operationId: customers_v1_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this customer.
+        required: true
+      tags:
+      - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomerRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomerRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCustomerRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+    delete:
+      operationId: customers_v1_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this customer.
+        required: true
+      tags:
+      - customers
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /customers/v1/oidc-exchange/:
+    post:
+      operationId: customers_v1_oidc_exchange_create
+      tags:
+      - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IDTokenExchangeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IDTokenExchangeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IDTokenExchangeRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerTokenResponse'
+          description: ''
+  /customers/v1/payment_intent/:
+    post:
+      operationId: customers_v1_payment_intent_create
+      tags:
+      - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerPaymentIntentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerPaymentIntentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomerPaymentIntentRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentIntentResponse'
+          description: ''
+  /customers/v1/renew_token/:
+    post:
+      operationId: customers_v1_renew_token_create
+      tags:
+      - customers
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerTokenResponse'
+          description: ''
+  /customers/v1/token/:
+    post:
+      operationId: customers_v1_token_create
+      tags:
+      - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueCustomerTokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IssueCustomerTokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IssueCustomerTokenRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerTokenResponse'
+          description: ''
+  /features/v1/:
+    get:
+      operationId: features_v1_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - in: query
+        name: slug
+        schema:
+          type: string
+      tags:
+      - features
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedFeatureList'
+          description: ''
+    post:
+      operationId: features_v1_create
+      tags:
+      - features
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeatureRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FeatureRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FeatureRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+          description: ''
+  /features/v1/{id}/:
+    get:
+      operationId: features_v1_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this feature.
+        required: true
+      tags:
+      - features
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+          description: ''
+    put:
+      operationId: features_v1_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this feature.
+        required: true
+      tags:
+      - features
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeatureRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FeatureRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FeatureRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+          description: ''
+    patch:
+      operationId: features_v1_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this feature.
+        required: true
+      tags:
+      - features
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFeatureRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFeatureRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFeatureRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feature'
+          description: ''
+    delete:
+      operationId: features_v1_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this feature.
+        required: true
+      tags:
+      - features
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /featurespecs/v1/:
+    get:
+      operationId: featurespecs_v1_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - featurespecs
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedFeatureSpecList'
+          description: ''
+    post:
+      operationId: featurespecs_v1_create
+      tags:
+      - featurespecs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeatureSpecRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FeatureSpecRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FeatureSpecRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureSpec'
+          description: ''
+  /featurespecs/v1/{id}/:
+    get:
+      operationId: featurespecs_v1_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this feature spec.
+        required: true
+      tags:
+      - featurespecs
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureSpec'
+          description: ''
+    put:
+      operationId: featurespecs_v1_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this feature spec.
+        required: true
+      tags:
+      - featurespecs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeatureSpecRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FeatureSpecRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FeatureSpecRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureSpec'
+          description: ''
+    patch:
+      operationId: featurespecs_v1_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this feature spec.
+        required: true
+      tags:
+      - featurespecs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFeatureSpecRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFeatureSpecRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFeatureSpecRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeatureSpec'
+          description: ''
+    delete:
+      operationId: featurespecs_v1_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this feature spec.
+        required: true
+      tags:
+      - featurespecs
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /invites/v1/:
+    get:
+      operationId: invites_v1_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - invites
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInviteList'
+          description: ''
+    post:
+      operationId: invites_v1_create
+      description: Send an invitation via email.
+      tags:
+      - invites
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InviteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InviteRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          description: No response body
+  /invites/v1/{id}/:
+    get:
+      operationId: invites_v1_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this invite.
+        required: true
+      tags:
+      - invites
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+          description: ''
+    put:
+      operationId: invites_v1_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this invite.
+        required: true
+      tags:
+      - invites
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InviteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InviteRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+          description: ''
+    patch:
+      operationId: invites_v1_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this invite.
+        required: true
+      tags:
+      - invites
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedInviteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedInviteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedInviteRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+          description: ''
+    delete:
+      operationId: invites_v1_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this invite.
+        required: true
+      tags:
+      - invites
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /invites/v1/bulk/:
+    post:
+      operationId: invites_v1_bulk_create
+      description: Send multiple invitations via email.
+      tags:
+      - invites
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkCreateInviteRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BulkCreateInviteRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BulkCreateInviteRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          description: No response body
+  /invites/v1/claim/:
+    get:
+      operationId: invites_v1_claim_retrieve
+      description: Claim an invite and be redirected to provider's auth url.
+      parameters:
+      - in: query
+        name: token
+        schema:
+          type: string
+        required: true
+      tags:
+      - invites
+      security:
+      - OAuth2: []
+      responses:
+        '302':
+          description: No response body
+  /openapi.yaml:
+    get:
+      operationId: openapi.yaml_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - openapi.yaml
+      security:
+      - OAuth2: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /plans/v1/:
+    get:
+      operationId: plans_v1_list
+      parameters:
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - in: query
+        name: is_public
+        schema:
+          type: boolean
+      - in: query
+        name: is_trial_allowed
+        schema:
+          type: boolean
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - plans
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPlanList'
+          description: ''
+    post:
+      operationId: plans_v1_create
+      description: |-
+        Add a feature and optionally specification to a plan by specifying a
+        `feature_id` and `spec_id` in the list of features.
+      tags:
+      - plans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PlanRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+  /plans/v1/{id}/:
+    get:
+      operationId: plans_v1_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this plan.
+        required: true
+      tags:
+      - plans
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+    put:
+      operationId: plans_v1_update
+      description: |-
+        Remove a feature and spec from a plan by specifying `id` and
+        `is_active: false` in the plan feature list in an update operation.  An
+        empty list for PUT or PATCH does nothing.  A PlanFeature cannot change
+        which feature or spec once created. A deactivated PlanFeature can be
+        reactivated by setting `is_active: true`
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this plan.
+        required: true
+      tags:
+      - plans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PlanRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+    patch:
+      operationId: plans_v1_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this plan.
+        required: true
+      tags:
+      - plans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+    delete:
+      operationId: plans_v1_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this plan.
+        required: true
+      tags:
+      - plans
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /providers/v1/:
+    get:
+      operationId: providers_v1_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - providers
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProviderList'
+          description: ''
+    post:
+      operationId: providers_v1_create
+      tags:
+      - providers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+          description: ''
+  /providers/v1/{id}/:
+    get:
+      operationId: providers_v1_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider.
+        required: true
+      tags:
+      - providers
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+          description: ''
+    put:
+      operationId: providers_v1_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider.
+        required: true
+      tags:
+      - providers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+          description: ''
+    patch:
+      operationId: providers_v1_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider.
+        required: true
+      tags:
+      - providers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProviderRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProviderRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProviderRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+          description: ''
+    delete:
+      operationId: providers_v1_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider.
+        required: true
+      tags:
+      - providers
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /providers/v1/{id}/stripe/:
+    get:
+      operationId: providers_v1_stripe_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider.
+        required: true
+      tags:
+      - providers
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+          description: ''
+    post:
+      operationId: providers_v1_stripe_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider.
+        required: true
+      tags:
+      - providers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProviderRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+          description: ''
+  /providers/v1/slug/:
+    get:
+      operationId: providers_v1_slug_retrieve
+      parameters:
+      - in: query
+        name: slug
+        schema:
+          type: string
+      tags:
+      - providers
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Slug'
+          description: ''
+  /subscriptions/v1/:
+    get:
+      operationId: subscriptions_v1_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - subscriptions
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSubscriptionList'
+          description: ''
+    post:
+      operationId: subscriptions_v1_create
+      tags:
+      - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: ''
+  /subscriptions/v1/{id}/:
+    get:
+      operationId: subscriptions_v1_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this subscription.
+        required: true
+      tags:
+      - subscriptions
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: ''
+    put:
+      operationId: subscriptions_v1_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this subscription.
+        required: true
+      tags:
+      - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: ''
+    patch:
+      operationId: subscriptions_v1_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this subscription.
+        required: true
+      tags:
+      - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSubscriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSubscriptionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSubscriptionRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: ''
+    delete:
+      operationId: subscriptions_v1_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this subscription.
+        required: true
+      tags:
+      - subscriptions
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /subscriptions/v1/{id}/report/:
+    get:
+      operationId: subscriptions_v1_report_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this subscription.
+        required: true
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - subscriptions
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUsageList'
+          description: ''
+  /subscriptions/v1/{id}/switch/:
+    patch:
+      operationId: subscriptions_v1_switch_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this subscription.
+        required: true
+      tags:
+      - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanSwitchRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanSwitchRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPlanSwitchRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: ''
+  /subscriptions/v1/{id}/usage/:
+    post:
+      operationId: subscriptions_v1_usage_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this subscription.
+        required: true
+      tags:
+      - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportUsageRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReportUsageRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReportUsageRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usage'
+          description: ''
+  /team_memberships/v1/:
+    get:
+      operationId: team_memberships_v1_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - team_memberships
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTeammateList'
+          description: ''
+    post:
+      operationId: team_memberships_v1_create
+      tags:
+      - team_memberships
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeammateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TeammateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TeammateRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teammate'
+          description: ''
+  /team_memberships/v1/{id}/:
+    get:
+      operationId: team_memberships_v1_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this team membership.
+        required: true
+      tags:
+      - team_memberships
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teammate'
+          description: ''
+    put:
+      operationId: team_memberships_v1_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this team membership.
+        required: true
+      tags:
+      - team_memberships
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeammateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TeammateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TeammateRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teammate'
+          description: ''
+    patch:
+      operationId: team_memberships_v1_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this team membership.
+        required: true
+      tags:
+      - team_memberships
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTeammateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTeammateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTeammateRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teammate'
+          description: ''
+    delete:
+      operationId: team_memberships_v1_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this team membership.
+        required: true
+      tags:
+      - team_memberships
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /teams/v1/:
+    get:
+      operationId: teams_v1_list
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - teams
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTeamList'
+          description: ''
+    post:
+      operationId: teams_v1_create
+      tags:
+      - teams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamDetailRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TeamDetailRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TeamDetailRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamDetail'
+          description: ''
+  /teams/v1/{id}/:
+    get:
+      operationId: teams_v1_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this team.
+        required: true
+      tags:
+      - teams
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamDetail'
+          description: ''
+    put:
+      operationId: teams_v1_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this team.
+        required: true
+      tags:
+      - teams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamDetailRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TeamDetailRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TeamDetailRequest'
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamDetail'
+          description: ''
+    patch:
+      operationId: teams_v1_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this team.
+        required: true
+      tags:
+      - teams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTeamDetailRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTeamDetailRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTeamDetailRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamDetail'
+          description: ''
+    delete:
+      operationId: teams_v1_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this team.
+        required: true
+      tags:
+      - teams
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+  /teams/v1/{id}/invoices/:
+    get:
+      operationId: teams_v1_invoices_list
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this team.
+        required: true
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - teams
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInvoiceList'
+          description: ''
+  /tokens/v1/:
+    get:
+      operationId: tokens_v1_list
+      description: Management of Provider Tokens.
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - tokens
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTokenList'
+          description: ''
+    post:
+      operationId: tokens_v1_create
+      description: Management of Provider Tokens.
+      tags:
+      - tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+  /tokens/v1/{id}/:
+    get:
+      operationId: tokens_v1_retrieve
+      description: Management of Provider Tokens.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider token.
+        required: true
+      tags:
+      - tokens
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+    put:
+      operationId: tokens_v1_update
+      description: Management of Provider Tokens.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider token.
+        required: true
+      tags:
+      - tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+    patch:
+      operationId: tokens_v1_partial_update
+      description: Management of Provider Tokens.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider token.
+        required: true
+      tags:
+      - tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTokenRequest'
+      security:
+      - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+    delete:
+      operationId: tokens_v1_destroy
+      description: Management of Provider Tokens.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this provider token.
+        required: true
+      tags:
+      - tokens
+      security:
+      - OAuth2: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+          readOnly: true
+          default: []
+        email:
+          type: string
+          format: email
+          readOnly: true
+        is_verified:
+          type: boolean
+          readOnly: true
+      required:
+      - email
+      - id
+      - is_verified
+      - teams
+    AggregationEnum:
+      enum:
+      - sum
+      - last
+      type: string
+    BillingPeriodEnum:
+      enum:
+      - hourly
+      - daily
+      - weekly
+      - monthly
+      - annually
+      type: string
+    BulkCreateInviteRequest:
+      type: object
+      properties:
+        sent_to_email:
+          type: string
+          format: email
+        is_claimed:
+          type: boolean
+        expires_at:
+          type: string
+          format: date-time
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        team_id:
+          type: string
+          format: uuid
+        to_emails:
+          type: array
+          items:
+            type: string
+            format: email
+      required:
+      - team_id
+      - to_emails
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          readOnly: true
+        source_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - email
+      - id
+      - source_id
+      - updated_at
+    CustomerPaymentIntentRequest:
+      type: object
+      properties:
+        plan_id:
+          type: string
+          format: uuid
+        team_id:
+          type: string
+          format: uuid
+      required:
+      - plan_id
+      - team_id
+    CustomerRequest:
+      type: object
+      properties:
+        source_id:
+          type: string
+      required:
+      - source_id
+    CustomerTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        is_new:
+          type: boolean
+      required:
+      - is_new
+      - token
+    Feature:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        display:
+          type: string
+          nullable: true
+          maxLength: 128
+        tooltip:
+          type: string
+          nullable: true
+          maxLength: 512
+        is_builtin:
+          type: boolean
+          readOnly: true
+      required:
+      - id
+      - is_builtin
+    FeatureRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        display:
+          type: string
+          nullable: true
+          maxLength: 128
+        tooltip:
+          type: string
+          nullable: true
+          maxLength: 512
+    FeatureSpec:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 128
+        record_period:
+          allOf:
+          - $ref: '#/components/schemas/RecordPeriodEnum'
+          default: monthly
+        aggregation:
+          allOf:
+          - $ref: '#/components/schemas/AggregationEnum'
+          default: sum
+        max_limit:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          nullable: true
+          description: Amount in cents
+          minimum: 0
+        provider_id:
+          type: string
+          format: uuid
+      required:
+      - id
+      - name
+    FeatureSpecRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 128
+        record_period:
+          allOf:
+          - $ref: '#/components/schemas/RecordPeriodEnum'
+          default: monthly
+        aggregation:
+          allOf:
+          - $ref: '#/components/schemas/AggregationEnum'
+          default: sum
+        max_limit:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          nullable: true
+          description: Amount in cents
+          minimum: 0
+        provider_id:
+          type: string
+          format: uuid
+      required:
+      - name
+    IDTokenExchangeRequest:
+      type: object
+      properties:
+        id_token:
+          type: string
+      required:
+      - id_token
+    Invite:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        sent_by:
+          allOf:
+          - $ref: '#/components/schemas/PublicProfile'
+          readOnly: true
+        sent_to_email:
+          type: string
+          maxLength: 128
+        is_claimed:
+          type: boolean
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        team_id:
+          type: string
+          format: uuid
+      required:
+      - created_at
+      - id
+      - sent_by
+      - sent_to_email
+      - team_id
+    InviteRequest:
+      type: object
+      properties:
+        sent_to_email:
+          type: string
+          maxLength: 128
+        is_claimed:
+          type: boolean
+        expires_at:
+          type: string
+          format: date-time
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        team_id:
+          type: string
+          format: uuid
+      required:
+      - sent_to_email
+      - team_id
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        billing_period:
+          $ref: '#/components/schemas/BillingPeriodEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        team_id:
+          type: string
+          format: uuid
+          readOnly: true
+        plan_name:
+          type: string
+        subscription_id:
+          type: string
+          format: uuid
+          nullable: true
+          readOnly: true
+        state:
+          $ref: '#/components/schemas/StateEnum'
+        stripe_payment_id:
+          type: string
+          nullable: true
+          maxLength: 128
+        total:
+          type: number
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - state
+      - subscription_id
+      - team_id
+      - total
+      - updated_at
+    IssueCustomerTokenRequest:
+      type: object
+      properties:
+        customer_id:
+          type: string
+          format: uuid
+        customer_email:
+          type: string
+          format: email
+        customer_source_id:
+          type: string
+    OpEnum:
+      enum:
+      - inc
+      - dec
+      - set
+      - reset
+      type: string
+    PaginatedCustomerList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+    PaginatedFeatureList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Feature'
+    PaginatedFeatureSpecList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureSpec'
+    PaginatedInviteList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invite'
+    PaginatedInvoiceList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+    PaginatedPlanList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plan'
+    PaginatedProviderList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Provider'
+    PaginatedSubscriptionList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+    PaginatedTeamList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    PaginatedTeammateList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Teammate'
+    PaginatedTokenList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+    PaginatedUsageList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Usage'
+    PatchedCustomerRequest:
+      type: object
+      properties:
+        source_id:
+          type: string
+    PatchedFeatureRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        display:
+          type: string
+          nullable: true
+          maxLength: 128
+        tooltip:
+          type: string
+          nullable: true
+          maxLength: 512
+    PatchedFeatureSpecRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 128
+        record_period:
+          allOf:
+          - $ref: '#/components/schemas/RecordPeriodEnum'
+          default: monthly
+        aggregation:
+          allOf:
+          - $ref: '#/components/schemas/AggregationEnum'
+          default: sum
+        max_limit:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          nullable: true
+          description: Amount in cents
+          minimum: 0
+        provider_id:
+          type: string
+          format: uuid
+    PatchedInviteRequest:
+      type: object
+      properties:
+        sent_to_email:
+          type: string
+          maxLength: 128
+        is_claimed:
+          type: boolean
+        expires_at:
+          type: string
+          format: date-time
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        team_id:
+          type: string
+          format: uuid
+    PatchedPlanRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 32
+        tier:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        is_active:
+          type: boolean
+        is_public:
+          type: boolean
+        is_trial_allowed:
+          type: boolean
+        per_year_price_cents:
+          type: integer
+          maximum: 2147483647
+          nullable: true
+          description: Amount in cents
+          minimum: 0
+        per_month_price_cents:
+          type: integer
+          maximum: 2147483647
+          nullable: true
+          description: Amount in cents
+          minimum: 0
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanFeatureRequest'
+        teams_access:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamAccessRequest'
+    PatchedPlanSwitchRequest:
+      type: object
+      properties:
+        plan_id:
+          type: string
+          format: uuid
+    PatchedProviderRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 64
+        slug:
+          type: string
+          pattern: ^[a-z]+[0-9]*(?:-[a-z0-9]+)*$
+        auth_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        home_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        default_plan:
+          type: string
+          format: uuid
+          nullable: true
+        trial_days:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        is_card_required:
+          type: boolean
+    PatchedSubscriptionRequest:
+      type: object
+      properties:
+        plan_id:
+          type: string
+          format: uuid
+        team_id:
+          type: string
+          format: uuid
+        is_paused:
+          type: boolean
+    PatchedTeamDetailRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+          maxLength: 128
+    PatchedTeammateRequest:
+      type: object
+      properties:
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+    PatchedTokenRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+        is_active:
+          type: boolean
+        is_public:
+          type: boolean
+    PaymentIntentResponse:
+      type: object
+      properties:
+        client_secret:
+          type: string
+      required:
+      - client_secret
+    Plan:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 32
+        tier:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        is_active:
+          type: boolean
+        is_public:
+          type: boolean
+        is_trial_allowed:
+          type: boolean
+        per_year_price_cents:
+          type: integer
+          maximum: 2147483647
+          nullable: true
+          description: Amount in cents
+          minimum: 0
+        per_month_price_cents:
+          type: integer
+          maximum: 2147483647
+          nullable: true
+          description: Amount in cents
+          minimum: 0
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanFeature'
+        teams_access:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamAccess'
+      required:
+      - features
+      - id
+      - is_active
+      - is_public
+      - is_trial_allowed
+      - name
+      - teams_access
+    PlanFeature:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        is_active:
+          type: boolean
+        feature:
+          allOf:
+          - $ref: '#/components/schemas/Feature'
+          readOnly: true
+        spec:
+          allOf:
+          - $ref: '#/components/schemas/FeatureSpec'
+          readOnly: true
+        display:
+          type: string
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        max_limit:
+          type: integer
+          readOnly: true
+      required:
+      - display
+      - feature
+      - max_limit
+      - slug
+      - spec
+    PlanFeatureRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        feature_id:
+          type: string
+          format: uuid
+          writeOnly: true
+        spec_id:
+          type: string
+          format: uuid
+          writeOnly: true
+        is_active:
+          type: boolean
+    PlanRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 32
+        tier:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        is_active:
+          type: boolean
+        is_public:
+          type: boolean
+        is_trial_allowed:
+          type: boolean
+        per_year_price_cents:
+          type: integer
+          maximum: 2147483647
+          nullable: true
+          description: Amount in cents
+          minimum: 0
+        per_month_price_cents:
+          type: integer
+          maximum: 2147483647
+          nullable: true
+          description: Amount in cents
+          minimum: 0
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanFeatureRequest'
+        teams_access:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamAccessRequest'
+      required:
+      - features
+      - is_active
+      - is_public
+      - is_trial_allowed
+      - name
+      - teams_access
+    Provider:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 64
+        slug:
+          type: string
+          pattern: ^[a-z]+[0-9]*(?:-[a-z0-9]+)*$
+        auth_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        home_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        default_plan:
+          type: string
+          format: uuid
+          nullable: true
+        trial_days:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        is_card_required:
+          type: boolean
+        owner_id:
+          type: string
+          format: uuid
+          readOnly: true
+        stripe_account_id:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+      - owner_id
+      - slug
+      - stripe_account_id
+    ProviderRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 64
+        slug:
+          type: string
+          pattern: ^[a-z]+[0-9]*(?:-[a-z0-9]+)*$
+        auth_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        home_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        default_plan:
+          type: string
+          format: uuid
+          nullable: true
+        trial_days:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        is_card_required:
+          type: boolean
+      required:
+      - name
+      - slug
+    PublicProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+      required:
+      - email
+      - id
+    RecordPeriodEnum:
+      enum:
+      - hourly
+      - daily
+      - weekly
+      - monthly
+      - annually
+      type: string
+    ReportUsageRequest:
+      type: object
+      properties:
+        slug:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        op:
+          $ref: '#/components/schemas/OpEnum'
+        value:
+          type: integer
+          default: 1
+      required:
+      - op
+      - slug
+    RoleEnum:
+      enum:
+      - owner
+      - member
+      type: string
+    Slug:
+      type: object
+      properties:
+        slug:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+      required:
+      - slug
+    StateEnum:
+      enum:
+      - draft
+      - open
+      - paid
+      - canceled
+      - void
+      type: string
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        plan_id:
+          type: string
+          format: uuid
+        team_id:
+          type: string
+          format: uuid
+        start_at:
+          type: string
+          format: date-time
+          readOnly: true
+        end_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_paused:
+          type: boolean
+        is_active:
+          type: boolean
+          readOnly: true
+      required:
+      - end_at
+      - id
+      - is_active
+      - plan_id
+      - start_at
+      - team_id
+    SubscriptionDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        plan:
+          allOf:
+          - $ref: '#/components/schemas/Plan'
+          readOnly: true
+        plan_id:
+          type: string
+          format: uuid
+          readOnly: true
+        start_at:
+          type: string
+          format: date-time
+          readOnly: true
+        end_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        is_paused:
+          type: boolean
+          readOnly: true
+        is_active:
+          type: boolean
+          readOnly: true
+        days_used:
+          type: integer
+          readOnly: true
+        days_left:
+          type: integer
+          readOnly: true
+        billing_period:
+          type: string
+          readOnly: true
+        usages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Usage'
+          readOnly: true
+      required:
+      - billing_period
+      - days_left
+      - days_used
+      - end_at
+      - id
+      - is_active
+      - is_paused
+      - plan
+      - plan_id
+      - start_at
+      - usages
+    SubscriptionRequest:
+      type: object
+      properties:
+        plan_id:
+          type: string
+          format: uuid
+        team_id:
+          type: string
+          format: uuid
+        is_paused:
+          type: boolean
+      required:
+      - plan_id
+      - team_id
+    Team:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          maxLength: 128
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - updated_at
+    TeamAccess:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        team_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - team_id
+    TeamAccessRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        team_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        revoke:
+          type: boolean
+          writeOnly: true
+          default: false
+      required:
+      - team_id
+    TeamDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+          maxLength: 128
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/Teammate'
+          readOnly: true
+        invites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invite'
+          readOnly: true
+        subscription:
+          allOf:
+          - $ref: '#/components/schemas/SubscriptionDetail'
+          readOnly: true
+          nullable: true
+        available_plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plan'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - available_plans
+      - created_at
+      - id
+      - invites
+      - members
+      - name
+      - subscription
+      - updated_at
+    TeamDetailRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+          maxLength: 128
+      required:
+      - name
+    Teammate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer_id:
+          type: string
+          format: uuid
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        email:
+          type: string
+          readOnly: true
+      required:
+      - customer_id
+      - email
+      - id
+      - role
+    TeammateRequest:
+      type: object
+      properties:
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+      required:
+      - role
+    Token:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_id:
+          type: string
+          format: uuid
+        token:
+          type: string
+          readOnly: true
+        is_active:
+          type: boolean
+        is_public:
+          type: boolean
+        last_used_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - last_used_at
+      - token
+    TokenRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+        is_active:
+          type: boolean
+        is_public:
+          type: boolean
+    Usage:
+      type: object
+      properties:
+        slug:
+          type: string
+          readOnly: true
+          pattern: ^[-a-zA-Z0-9_]+$
+        value:
+          type: integer
+          readOnly: true
+        limit:
+          type: integer
+          readOnly: true
+      required:
+      - limit
+      - slug
+      - value
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://ironplans.us.auth0.com/authorize?audience=https://api.ironplans.com/
+          tokenUrl: https://ironplans.us.auth0.com/oauth/token
+          scopes:
+            openid: OIDC
+            profile: Profile
+            email: Email

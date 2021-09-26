@@ -3,6 +3,9 @@
   "compilerOptions": {
     "outDir": "dist",
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node"
   }
 }

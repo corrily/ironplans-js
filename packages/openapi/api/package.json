@@ -1,13 +1,33 @@
 {
   "name": "@ironplans/api",
+  "license": "MIT",
   "version": "0.0.31-alpha.0",
   "files": [
     "src",
     "dist"
   ],
+  "browser": "./dist/api.min.js",
+  "module": "./dist/api.esm.js",
+  "exports": {
+    ".": "./dist/api.esm.js"
+  },
   "scripts": {
-    "prepare": "run build",
-    "lint": "eslint src",
-    "generate": ""
+    "prepare": "make -s all lint -j8",
+    "start": "make serve",
+    "lint": "make lint -j8",
+    "build": "make all format -j8",
+    "format": "make format -j8",
+    "clean": "make clean",
+    "generate": "../scripts/gen-browser.sh -d ./src",
+    "analyze": "size-limit --why"
+  },
+  "size-limit": [
+    {
+      "path": "dist/api.esm.js",
+      "limit": "10 kB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^5.0.4"
   }
 }
