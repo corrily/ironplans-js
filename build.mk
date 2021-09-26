@@ -10,25 +10,26 @@ once = .build/${1}
 
 esb_opts = \
 	--bundle \
-	--minify \
-	--platform=browser \
 	--sourcemap
 
 cjs_opts = \
 	--format=cjs \
 	--target=es2015 \
+	--platform=node \
 	--outfile=$@ \
 	$(patsubst %,--external:% ,$(dependencies))
 
 cdn_opts = \
 	--format=iife \
 	--target=es2017 \
+	--platform=browser \
 	--global-name=IronPlans \
 	--outfile=$@
 
 esm_opts = \
 	--format=esm \
 	--target=es2017 \
+	--platform=browser \
 	--outdir=$(@D) \
 	--entry-names=$(basename $(@F)) \
 	--splitting \
@@ -73,8 +74,8 @@ dist/$(name).esm.js: $(entry)
 	@npx esbuild $(esb_opts) $(esm_opts) $<
 	@echo "ESM done!"
 
-dist-cjs: dist/$(name).cjs.mjs 
-dist/$(name).cjs.mjs: $(entry)
+dist-cjs: dist/$(name).cjs.js 
+dist/$(name).cjs.js: $(entry)
 	@echo "Building CJS bundle"
 	@npx esbuild $(esb_opts) $(cjs_opts) $<
 	@echo "CJS done!"
