@@ -12,5 +12,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ironplans/js.git"
-  }
+  },
+  "gitHead": "34974fc7e41488c7eea692ac70362c4a016ad944"
 }
