@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.35-alpha.0](https://github.com/ironplans/js/compare/@ironplans/api@0.0.34-alpha.0...@ironplans/api@0.0.35-alpha.0) (2021-09-26)
+
+### Bug Fixes
+
+- **api:** build types as a module ([f0418d0](https://github.com/ironplans/js/commit/f0418d0bec355f6a40114640872f422a1eb9a57b))
+
 ## [0.0.34-alpha.0](https://github.com/ironplans/js/compare/@ironplans/api@0.0.33-alpha.0...@ironplans/api@0.0.34-alpha.0) (2021-09-26)
 
 ### Bug Fixes
