@@ -19,12 +19,13 @@ cjs_opts = \
 	--outfile=$@ \
 	$(patsubst %,--external:% ,$(dependencies))
 
+cdn_outfile = $@
 cdn_opts = \
 	--format=iife \
 	--target=es2017 \
 	--platform=browser \
 	--global-name=IronPlans \
-	--outfile=$@
+	--outfile=$(cdn_outfile)
 
 esm_opts = \
 	--format=esm \
@@ -47,11 +48,14 @@ clean:
 test: 
 	npx jest --coverage
 
+# Override the default build destination to be from the example folder so the
+# built JS can be served at root.
+serve: cdn_outfile = example/$(notdir $<)
 serve: dist/$(name).min.js
 	npx esbuild \
 		--serve=localhost:3030 --servedir=example \
-		--outfile=example/$(name).min.js \
-		$(cdn_opts) $(entry)
+		$(esb_opts) $(cdn_opts) \
+		$(entry)
 
 lint: lint-eslint lint-size
 
