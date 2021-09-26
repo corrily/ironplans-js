@@ -1,7 +1,7 @@
 {
   "name": "@ironplans/api",
   "license": "MIT",
-  "version": "0.0.35-alpha.0",
+  "version": "0.0.35-alpha.1",
   "typings": "dist/index.d.ts",
   "type": "module",
   "main": "dist/api.cjs.js",
@@ -48,6 +48,5 @@
   "devDependencies": {
     "@size-limit/preset-small-lib": "^5.0.4"
   },
-  "gitHead": "ad428f2611c6d6b84fdf3bc876a292346ddfb042",
-  "dependencies": {}
+  "gitHead": "ad428f2611c6d6b84fdf3bc876a292346ddfb042"
 }

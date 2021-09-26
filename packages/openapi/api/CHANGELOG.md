@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.35-alpha.1](https://github.com/ironplans/js/compare/@ironplans/api@0.0.35-alpha.0...@ironplans/api@0.0.35-alpha.1) (2021-09-26)
+
+### Bug Fixes
+
+- **api:** build CJS too ([413ba61](https://github.com/ironplans/js/commit/413ba6164da31495a0e251b9f51248e4fc8e6195))
+- **api:** include cjs distributable ([0d0014c](https://github.com/ironplans/js/commit/0d0014c0be615898e8a005f0eb1fe02a9e5b023f))
+
 ## [0.0.35-alpha.0](https://github.com/ironplans/js/compare/@ironplans/api@0.0.34-alpha.0...@ironplans/api@0.0.35-alpha.0) (2021-09-26)
 
 ### Bug Fixes
