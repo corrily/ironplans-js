@@ -1,5 +1,7 @@
 src := $(shell find src -name '*.ts' -type f )
 out := $(shell find dist -name '*.js' -type f )
+name ?= $(shell basename $$(jq -r '.name' package.json))
+entry ?= src/index.ts
 tsconfig ?= tsconfig.json
 
 size_targets := $(shell jq -r '.["size-limit"][].path' package.json)
