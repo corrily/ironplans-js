@@ -25,5 +25,7 @@
   },
   "files.associations": {
     "*ignore": "ignore"
-  }
+  },
+  "terminal.integrated.scrollback": 1000,
+  "jest.jestCommandLine": "yarn jest"
 }
