@@ -23,7 +23,7 @@
     "url": "git+https://github.com/ironplans/js.git"
   },
   "scripts": {
-    "prepare": "make clean all lint -j8",
+    "prepare": "make clean all lint",
     "start": "make serve",
     "lint": "make lint -j8",
     "build": "make all format -j8",
@@ -48,5 +48,5 @@
   "devDependencies": {
     "@size-limit/preset-small-lib": "^5.0.4"
   },
-  "gitHead": "ad428f2611c6d6b84fdf3bc876a292346ddfb042"
+  "gitHead": "2851d83bcc43ebf50a5bf43dc6160a767e82e3f8"
 }
