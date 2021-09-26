@@ -8,6 +8,7 @@
     "version": {
       "allowBranch": "main",
       "conventionalCommits": true,
+      "conventionalPrerelease": true,
       "message": "chore(release): bump"
     }
   }
