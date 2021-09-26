@@ -5,10 +5,14 @@
   "author": "team@ironplans.com",
   "homepage": "https://github.com/ironplans/js#readme",
   "license": "MIT",
-  "browser": "./dist/sdk.esm.js",
-  "module": "./dist/sdk.esm.js",
+  "main": "dist/sdk.cjs.js",
+  "browser": "dist/sdk.esm.js",
+  "module": "dist/sdk.esm.js",
+  "typings": "dist/index.d.ts",
+  "type": "module",
   "exports": {
-    ".": "./dist/sdk.esm.js"
+    ".": "./dist/sdk.esm.js",
+    "./package.json": "./package.json"
   },
   "files": [
     "src",
@@ -22,9 +26,13 @@
     "url": "git+https://github.com/ironplans/js.git"
   },
   "scripts": {
-    "prepare": "make clean lint all -j8",
-    "build": "make all -j8",
-    "test": "jest"
+    "prepare": "make all lint",
+    "start": "make serve",
+    "lint": "make lint -j8",
+    "build": "make all format -j8",
+    "format": "make format -j8",
+    "clean": "make clean",
+    "analyze": "size-limit --why"
   },
   "bugs": {
     "url": "https://github.com/ironplans/js/issues"
