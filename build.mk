@@ -71,7 +71,7 @@ dist/$(name).d.ts: $(entry)
 	@npx tsc -p tsconfig.json \
 		--declaration --declarationMap \
 		--emitDeclarationOnly \
-		--outFile $@ || rm -f dist/*.d.ts*
+		--outDir $(@D) || rm -f dist/*.d.ts*
 	@echo "Types done!"
 
 # depend on .build/%
