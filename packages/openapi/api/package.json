@@ -3,10 +3,10 @@
   "license": "MIT",
   "version": "0.0.35-alpha.2",
   "typings": "dist/index.d.ts",
-  "type": "module",
   "main": "dist/api.cjs.js",
   "browser": "dist/api.esm.js",
   "module": "dist/api.esm.js",
+  "type": "module",
   "exports": {
     ".": "./dist/api.esm.js",
     "./package.json": "./package.json"
@@ -29,7 +29,6 @@
     "build": "make all format -j8",
     "format": "make format -j8",
     "clean": "make clean",
-    "generate": "../scripts/gen-browser.sh -d ./src",
     "analyze": "size-limit --why"
   },
   "bugs": {
