@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.35-alpha.2](https://github.com/ironplans/js/compare/@ironplans/api@0.0.35-alpha.1...@ironplans/api@0.0.35-alpha.2) (2021-09-26)
+
+### Bug Fixes
+
+- **api:** race condition in prepare script ([d4785c9](https://github.com/ironplans/js/commit/d4785c9efb5aff13bcb9da9abf8ba93320a959b8))
+
 ## [0.0.35-alpha.1](https://github.com/ironplans/js/compare/@ironplans/api@0.0.35-alpha.0...@ironplans/api@0.0.35-alpha.1) (2021-09-26)
 
 ### Bug Fixes
