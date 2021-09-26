@@ -23,7 +23,7 @@
     "url": "git+https://github.com/ironplans/js.git"
   },
   "scripts": {
-    "prepare": "make clean all lint",
+    "prepare": "make all lint",
     "start": "make serve",
     "lint": "make lint -j8",
     "build": "make all format -j8",

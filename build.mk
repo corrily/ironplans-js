@@ -62,27 +62,27 @@ format: $(entry)
 	@npx eslint --fix src
 
 dist-cdn: dist/$(name).min.js
-dist/$(name).min.js: $(entry)
+dist/$(name).min.js: $(entry) $(src)
 	@echo "Building CDN bundle"
-	@npx esbuild $(esb_opts) $(cdn_opts) $<
+	@npx esbuild $(esb_opts) $(cdn_opts) $(entry)
 	@echo "CDN done!"
 	
 
 dist-esm: dist/$(name).esm.js 
-dist/$(name).esm.js: $(entry)
+dist/$(name).esm.js: $(entry) $(src)
 	@echo "Building ESM bundle"
-	@npx esbuild $(esb_opts) $(esm_opts) $<
+	@npx esbuild $(esb_opts) $(esm_opts) $(entry)
 	@echo "ESM done!"
 
 dist-cjs: dist/$(name).cjs.js 
-dist/$(name).cjs.js: $(entry)
+dist/$(name).cjs.js: $(entry) $(src)
 	@echo "Building CJS bundle"
-	@npx esbuild $(esb_opts) $(cjs_opts) $<
+	@npx esbuild $(esb_opts) $(cjs_opts) $(entry)
 	@echo "CJS done!"
 
 
 dist-types: dist/index.d.ts
-dist/index.d.ts: $(entry)
+dist/index.d.ts: $(entry) $(src)
 	@echo "Building types"
 	@npx tsc -p tsconfig.json \
 		--declaration --declarationMap \
