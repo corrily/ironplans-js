@@ -22,7 +22,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **sdk:** use esm in web bundlers ([9dfa421](https://github.com/ironplans/js/commit/9dfa421ab2b99774c332b48f0203057dc1c67080))
+- **api:** use esm in web bundlers ([9dfa421](https://github.com/ironplans/js/commit/9dfa421ab2b99774c332b48f0203057dc1c67080))
 
 ## 0.0.32-alpha.0 (2021-09-26)
 

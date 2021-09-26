@@ -7,7 +7,6 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
-    "esModuleInterop": false, // only needed for node < 12
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true
   }
 }

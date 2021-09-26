@@ -3,10 +3,13 @@
   "license": "MIT",
   "version": "0.0.35-alpha.0",
   "typings": "./dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/api.esm.js",
   "browser": "./dist/api.esm.js",
   "module": "./dist/api.esm.js",
   "exports": {
-    ".": "./dist/api.esm.js"
+    ".": "./dist/api.esm.js",
+    "./package.json": "./package.json"
   },
   "files": [
     "src",
@@ -36,10 +39,15 @@
     {
       "path": "dist/api.esm.js",
       "limit": "10 kB"
+    },
+    {
+      "path": "dist/api.cjs.mjs",
+      "limit": "10 kB"
     }
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^5.0.4"
   },
-  "gitHead": "ad428f2611c6d6b84fdf3bc876a292346ddfb042"
+  "gitHead": "ad428f2611c6d6b84fdf3bc876a292346ddfb042",
+  "dependencies": {}
 }
