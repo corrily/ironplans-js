@@ -1,5 +1,6 @@
 src := $(shell find src -name '*.ts' -type f )
 out := $(shell find dist -name '*.js' -type f )
+tsconfig ?= tsconfig.json
 
 size_targets := $(shell jq -r '.["size-limit"][].path' package.json)
 dependencies := $(shell jq -r '[(.dependencies // {} | keys), (.peerDependencies // {} | keys)] | flatten | .[]' package.json)
@@ -38,8 +39,9 @@ esm_opts = \
 	$(patsubst %,--external:% ,$(dependencies))
 
 all: dist
+
 .PHONY: dist
-dist: dist-cdn dist-esm dist-types dist-cjs
+dist: cdn esm cjs types
 
 clean:
 	rm -rf dist .build
@@ -69,33 +71,33 @@ format: $(entry)
 	@npx prettier --write src
 	@npx eslint --fix src
 
-dist-cdn: dist/$(name).min.js
+cdn: dist/$(name).min.js
 dist/$(name).min.js: $(entry) $(src)
 	@echo "Building CDN bundle"
 	@npx esbuild $(esb_opts) $(cdn_opts) $(entry)
 	@echo "CDN done!"
 	
 
-dist-esm: dist/$(name).esm.js 
+esm: dist/$(name).esm.js 
 dist/$(name).esm.js: $(entry) $(src)
 	@echo "Building ESM bundle"
 	@npx esbuild $(esb_opts) $(esm_opts) $(entry)
 	@echo "ESM done!"
 
-dist-cjs: dist/$(name).cjs.js 
+cjs: dist/$(name).cjs.js 
 dist/$(name).cjs.js: $(entry) $(src)
 	@echo "Building CJS bundle"
 	@npx esbuild $(esb_opts) $(cjs_opts) $(entry)
 	@echo "CJS done!"
 
 
-dist-types: dist/index.d.ts
+types: dist/index.d.ts
 dist/index.d.ts: $(entry) $(src)
 	@echo "Building types"
-	@npx tsc -p tsconfig.json \
+	npx tsc -p $(tsconfig) \
 		--declaration --declarationMap \
 		--emitDeclarationOnly \
-		--outDir $(@D) || rm -f dist/*.d.ts*
+		--outDir $(@D) || (rm -f dist/*.d.ts* && exit 1)
 	@echo "Types done!"
 
 # depend on .build/%
