@@ -9,6 +9,7 @@
       "allowBranch": "main",
       "conventionalCommits": true,
       "conventionalPrerelease": true,
+      "preDistTag": "next",
       "message": "chore(release): bump"
     }
   }
