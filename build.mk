@@ -1,9 +1,20 @@
+project_root := $(shell git rev-parse --show-toplevel)
+project_tsconfig := $(project_root)/tsconfig.json
+project_target := $(shell jq -r '.compilerOptions.target' $(project_tsconfig))
+target ?= project_target
+
+cjs_target ?= es2015
+cdn_target ?= es2017
+esm_target ?= es2017
+
 src := $(shell find src -name '*.ts' -type f )
 out := $(shell find dist -name '*.js' -type f )
 name ?= $(shell basename $$(jq -r '.name' package.json))
 entry ?= src/index.ts
 tsconfig ?= tsconfig.json
 platforms ?= browser node
+
+project_deps = $(project_tsconfig) $(tsconfig)
 dist_deps = types
 lint_deps = lint-eslint
 
@@ -36,7 +47,7 @@ esb_opts = \
 
 cjs_opts = \
 	--format=cjs \
-	--target=es2015 \
+	--target=$(cjs_target) \
 	--platform=node \
 	--outfile=$@ \
 	$(patsubst %,--external:% ,$(dependencies))
@@ -44,14 +55,14 @@ cjs_opts = \
 cdn_outfile = $@
 cdn_opts = \
 	--format=iife \
-	--target=es2017 \
+	--target=$(cdn_target) \
 	--platform=browser \
 	--global-name=IP \
 	--outfile=$(cdn_outfile)
 
 esm_opts = \
 	--format=esm \
-	--target=esnext \
+	--target=$(esm_target) \
 	--platform=node \
 	--outdir=$(@D) \
 	--entry-names=$(basename $(@F)) \
@@ -62,7 +73,7 @@ esm_opts = \
 all: dist
 
 .PHONY: dist
-dist: $(dist_deps)
+dist: $(dist_deps) 
 
 clean:
 	rm -rf dist .build
@@ -93,20 +104,20 @@ format: $(entry)
 	@npx eslint --fix src
 
 cdn: dist/$(name).min.js
-dist/$(name).min.js: $(entry) $(src)
+dist/$(name).min.js: $(entry) $(src) $(project_deps)
 	@echo "Building CDN bundle"
 	@npx esbuild $(esb_opts) $(cdn_opts) $(entry)
 	@echo "CDN done!"
 	
 
 esm: dist/$(name).esm.js 
-dist/$(name).esm.js: $(entry) $(src)
+dist/$(name).esm.js: $(entry) $(src) $(project_deps)
 	@echo "Building ESM bundle"
 	@npx esbuild $(esb_opts) $(esm_opts) $(entry)
 	@echo "ESM done!"
 
 cjs: dist/$(name).cjs.js 
-dist/$(name).cjs.js dist/$(name).cjs: $(entry) $(src)
+dist/$(name).cjs.js dist/$(name).cjs: $(entry) $(src) $(project_deps)
 	@echo "Building CJS bundle"
 	@npx esbuild $(esb_opts) $(cjs_opts) $(entry)
 	@cp dist/$(name).cjs.js dist/$(name).cjs
@@ -114,7 +125,7 @@ dist/$(name).cjs.js dist/$(name).cjs: $(entry) $(src)
 
 
 types: dist/index.d.ts
-dist/index.d.ts: $(entry) $(src)
+dist/index.d.ts: $(entry) $(src) $(project_deps)
 	@echo "Building types"
 	@npx tsc -p $(tsconfig) \
 		--declaration --declarationMap \
