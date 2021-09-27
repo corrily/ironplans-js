@@ -1,7 +1,18 @@
 import { URL } from 'url'
 import { IncomingMessage } from 'http'
-import * as IronPlanTypes from '@ironplans/types'
+import * as IPTypes from '@ironplans/types'
 
+export type Route<
+  P extends keyof IPTypes.paths,
+  M extends keyof IPTypes.paths[P],
+  C
+> = (c: C) => ExtractResponse<IPTypes.paths[P][M]>
+
+export type Routes<C = unknown> = {
+  [P in keyof IPTypes.paths]?: {
+    [M in keyof IPTypes.paths[P]]?: Route<P, M, C>
+  }
+}
 type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch'
 type ValueOf<T> = T[keyof T]
 type ExtractJSONByStatus<R> = {
@@ -14,23 +25,26 @@ type ExtractJSONByStatus<R> = {
     : never
 }
 
-type StubResponse<R = unknown, S = number> = {
+export type StubResponse<R = unknown, S = number> = {
   status?: S
   data: R
 }
 
+type ExtractResponse<R> = R extends {
+  responses: infer R2
+}
+  ? StubResponse<
+      ValueOf<ExtractJSONByStatus<R2>>,
+      keyof ExtractJSONByStatus<R2>
+    >
+  : StubResponse<any, number>
+
 type Stub = {
-  [P in string & keyof IronPlanTypes.paths]?:
+  [P in string & keyof IPTypes.paths]?:
     | {
-        [M in string &
-          keyof IronPlanTypes.paths[P]]?: IronPlanTypes.paths[P][M] extends {
-          responses: infer R
-        }
-          ? StubResponse<
-              ValueOf<ExtractJSONByStatus<R>>,
-              keyof ExtractJSONByStatus<R>
-            >
-          : undefined
+        [M in string & keyof IPTypes.paths[P]]?: ExtractResponse<
+          IPTypes.paths[P][M]
+        >
       }
 }
 

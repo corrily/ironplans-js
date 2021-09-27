@@ -46,7 +46,7 @@ cdn_opts = \
 	--format=iife \
 	--target=es2017 \
 	--platform=browser \
-	--global-name=IronPlans \
+	--global-name=IP \
 	--outfile=$(cdn_outfile)
 
 esm_opts = \

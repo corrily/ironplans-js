@@ -543,7 +543,7 @@ export class Customer implements CustomerOpts {
         console.error(
           `Failed to exchange ID token for new Customer Token: ${e}`
         )
-        if (token) console.warn(`Using cached Customer Token.`)
+        throw e
       }
 
       if (token) {

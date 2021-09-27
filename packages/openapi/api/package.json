@@ -3,10 +3,9 @@
   "license": "MIT",
   "version": "0.0.35-alpha.4",
   "typings": "dist/index.d.ts",
-  "main": "dist/api.cjs.js",
+  "main": "dist/api.cjs",
   "browser": "dist/api.esm.js",
   "module": "dist/api.esm.js",
-  "type": "module",
   "exports": {
     ".": "./dist/api.esm.js",
     "./package.json": "./package.json"
@@ -23,7 +22,7 @@
     "url": "git+https://github.com/ironplans/js.git"
   },
   "scripts": {
-    "prepare": "make all lint",
+    "prepare": "make all",
     "start": "make serve",
     "lint": "make lint -j8",
     "build": "make all format -j8",

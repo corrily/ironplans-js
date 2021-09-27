@@ -1,31 +1,15 @@
-import { enableFetchMocks } from 'jest-fetch-mock'
-import decode, { JwtPayload } from 'jwt-decode'
+import * as IP from '@ironplans/proxy'
+import 'jest-fetch-mock'
 import { Customer } from '../src'
-import StubBackend from './stub'
 
-enableFetchMocks()
+const app = new IP.Server()
+const server = app.listen(3000)
 
-jest.mock('jwt-decode')
-const decodeMock = decode as jest.Mock
-
-const providerClaim = 'https://api.ironplans.com/.jwt/provider/'
-const dummyProviderId = 'uuid'
-const customerJwtClaims: JwtPayload | Record<string, string> = {
-  sub: '123',
-  iss: 'https://api.ironplans.com',
-  aud: 'https://api.ironplans.com',
-  exp: Math.floor(Date.now() / 1000) + 3600,
-  iat: Math.floor(Date.now() / 1000),
-  [providerClaim]: dummyProviderId,
-}
+afterAll(() => {
+  server.close()
+})
 
 describe('validate options', () => {
-  beforeEach(() => {
-    fetchMock.resetMocks()
-    decodeMock.mockReturnValue(customerJwtClaims)
-    fetchMock.mockResponse(new StubBackend().matcher())
-  })
-
   test('empty public token', async () => {
     const c = new Customer({ publicToken: '', idToken: 'dummy' })
     await expect(c.init()).rejects.toThrow(/publicToken/)
@@ -35,26 +19,20 @@ describe('validate options', () => {
     const c = new Customer({
       publicToken: 'dummy',
       idToken: 'dummy',
+      apiBaseUrl: 'http://localhost:3000',
     })
 
     await expect(c.init()).resolves.toBeInstanceOf(Customer)
+    expect(c.token).toBeDefined()
   })
 
   test('options merged in init', async () => {
-    const c = new Customer({})
+    const c = new Customer({
+      apiBaseUrl: 'http://localhost:3000',
+    })
     await expect(
       c.init({ publicToken: 'dummy', idToken: 'dummy' })
     ).resolves.toBeInstanceOf(Customer)
-  })
-
-  test('oidc init saves access token', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify({ token: 'bigdummy' }))
-    const c = new Customer({
-      publicToken: 'dummy',
-      idToken: 'dummy',
-    })
-    expect(c.token).toBeUndefined()
-    await c.init()
-    expect(c.token).toBe('bigdummy')
+    expect(c.token).toBeDefined()
   })
 })
