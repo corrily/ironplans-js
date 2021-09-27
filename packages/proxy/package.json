@@ -8,6 +8,7 @@
   "main": "dist/proxy.cjs",
   "browser": "dist/proxy.esm.js",
   "module": "dist/proxy.esm.js",
+  "typings": "dist/index.d.ts",
   "files": [
     "src",
     "dist"
