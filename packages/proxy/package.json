@@ -1,6 +1,6 @@
 {
   "name": "@ironplans/proxy",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.0",
   "description": "> TODO: description",
   "author": "team@ironplans.com",
   "homepage": "https://github.com/ironplans/js#readme",
@@ -43,7 +43,7 @@
     "react-dom": "^16 || ^17"
   },
   "dependencies": {
-    "@ironplans/sdk": "^0.1.0-alpha.2",
+    "@ironplans/sdk": "^0.1.0-alpha.3",
     "@types/koa": "^2.13.4",
     "koa": "^2.13.3"
   }
