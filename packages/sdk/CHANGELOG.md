@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.4](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.3...@ironplans/sdk@0.1.0-alpha.4) (2021-09-27)
+
+### Bug Fixes
+
+- default to CJS and other testing fixes ([0d3409a](https://github.com/ironplans/js/commit/0d3409a00aef6e3c29f63e9f9a683cfbff662d24))
+
 # [0.1.0-alpha.3](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.2...@ironplans/sdk@0.1.0-alpha.3) (2021-09-27)
 
 **Note:** Version bump only for package @ironplans/sdk
