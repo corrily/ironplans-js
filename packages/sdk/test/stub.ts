@@ -34,7 +34,7 @@ type ExtractJSONByStatus<R> = {
 }
 
 type StubResponse<R = unknown, S = number> = {
-  status: S
+  status?: S
   response: R
 }
 
@@ -56,7 +56,6 @@ type Stub = {
 const stub: Stub = {
   '/customers/v1/oidc-exchange/': {
     post: {
-      status: 200,
       response: {
         token: 'dummy',
         is_new: true,
@@ -65,13 +64,11 @@ const stub: Stub = {
   },
   '/teams/v1/': {
     get: {
-      status: 200,
       response: paginate([withDates({ id: '1', name: 'dumdum' })]),
     },
   },
   '/teams/v1/{id}/': {
     get: {
-      status: 200,
       response: withDates({
         id: '1',
         name: 'dumdum',
@@ -84,7 +81,6 @@ const stub: Stub = {
   },
   '/providers/v1/{id}/': {
     get: {
-      status: 200,
       response: withDates({
         id: '1',
         name: 'dumdum',
@@ -100,7 +96,7 @@ function pathToRegexp(path: string) {
   return new RegExp(`^${path.replace(/{([^}]+)}/g, '([^/]+)')}$`)
 }
 
-export class StubBackend {
+export default class StubBackend {
   stubs = stub
 
   paths: Array<{ matcher: RegExp; path: keyof Stub }>

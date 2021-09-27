@@ -1,7 +1,7 @@
 import { enableFetchMocks } from 'jest-fetch-mock'
 import decode, { JwtPayload } from 'jwt-decode'
 import { Customer } from '../src'
-import { StubBackend } from './stub'
+import StubBackend from './stub'
 
 enableFetchMocks()
 

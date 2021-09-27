@@ -3,9 +3,28 @@ out := $(shell find dist -name '*.js' -type f )
 name ?= $(shell basename $$(jq -r '.name' package.json))
 entry ?= src/index.ts
 tsconfig ?= tsconfig.json
+platforms ?= browser node
+dist_deps = types
+lint_deps = lint-eslint
 
-size_targets := $(shell jq -r '.["size-limit"][].path' package.json)
+ifneq (,$(findstring browser,$(platforms)))
+# build libraries for browsers
+	dist_deps += cdn 
+endif
+ifneq (,$(findstring node,$(platforms)))
+# build libraries for node
+	dist_deps += esm
+ifeq (,$(esm_only))
+	dist_deps += cjs
+endif
+endif
+
+size_targets := $(shell jq -r '(.["size-limit"] // [])[].path' package.json)
 dependencies := $(shell jq -r '[(.dependencies // {} | keys), (.peerDependencies // {} | keys)] | flatten | .[]' package.json)
+
+ifneq (,$(size_targets))
+	lint_deps += lint-size
+endif
 
 # depend on $(call event,{name}) to only trigger the recipe once, or if any other
 # dependencies change. Useful for only running PHONY targets once.
@@ -32,8 +51,8 @@ cdn_opts = \
 
 esm_opts = \
 	--format=esm \
-	--target=es2017 \
-	--platform=browser \
+	--target=esnext \
+	--platform=node \
 	--outdir=$(@D) \
 	--entry-names=$(basename $(@F)) \
 	--splitting \
@@ -43,7 +62,7 @@ esm_opts = \
 all: dist
 
 .PHONY: dist
-dist: cdn esm cjs types
+dist: $(dist_deps)
 
 clean:
 	rm -rf dist .build
@@ -61,7 +80,7 @@ serve: dist/$(name).min.js
 		$(esb_opts) $(cdn_opts) \
 		$(entry)
 
-lint: lint-eslint lint-size
+lint: $(lint_deps)
 
 lint-eslint: $(src)
 	@npx eslint $?
@@ -87,21 +106,22 @@ dist/$(name).esm.js: $(entry) $(src)
 	@echo "ESM done!"
 
 cjs: dist/$(name).cjs.js 
-dist/$(name).cjs.js: $(entry) $(src)
+dist/$(name).cjs.js dist/$(name).cjs: $(entry) $(src)
 	@echo "Building CJS bundle"
 	@npx esbuild $(esb_opts) $(cjs_opts) $(entry)
+	@cp dist/$(name).cjs.js dist/$(name).cjs
 	@echo "CJS done!"
 
 
 types: dist/index.d.ts
 dist/index.d.ts: $(entry) $(src)
 	@echo "Building types"
-	npx tsc -p $(tsconfig) \
+	@npx tsc -p $(tsconfig) \
 		--declaration --declarationMap \
 		--emitDeclarationOnly \
 		--outDir $(@D) || (rm -f dist/*.d.ts* && exit 1)
 	@echo "Types done!"
 
 # depend on .build/%
-.build/%::
-	mkdir -p .build && echo $(date) > .build/$*
+build/%::
+	@mkdir -p .build && echo $(date) > $@

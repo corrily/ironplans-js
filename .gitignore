@@ -19,8 +19,8 @@
 /packages/**/out/
 
 # production
-/build
-/packages/**/dist
+/.?build
+/packages/**/.?build
 /dist
 /packages/**/dist
 
