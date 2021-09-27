@@ -8,7 +8,6 @@
   "main": "dist/react.cjs.js",
   "browser": "dist/react.esm.js",
   "module": "dist/react.esm.js",
-  "type": "module",
   "exports": {
     ".": "./dist/react.esm.js",
     "./package.json": "./package.json"
@@ -25,7 +24,7 @@
     "url": "git+https://github.com/ironplans/js.git"
   },
   "scripts": {
-    "prepare": "make all lint",
+    "prepare": "make all",
     "start": "make serve",
     "lint": "make lint -j8",
     "build": "make all format -j8",
@@ -47,6 +46,7 @@
     }
   ],
   "devDependencies": {
+    "@ironplans/proxy": "^0.1.0-alpha.0",
     "@ironplans/types": "^0.0.30-alpha.0",
     "@size-limit/preset-small-lib": "^5.0.4"
   },
