@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src"],
+
+  "compilerOptions": {
+    "target": "ES5",
+    "jsx": "react-jsx"
+  }
+}

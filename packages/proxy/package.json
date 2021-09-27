@@ -1,0 +1,50 @@
+{
+  "name": "@ironplans/proxy",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "team@ironplans.com",
+  "homepage": "https://github.com/ironplans/js#readme",
+  "license": "MIT",
+  "main": "dist/proxy.cjs",
+  "browser": "dist/proxy.esm.js",
+  "module": "dist/proxy.esm.js",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ironplans/js.git"
+  },
+  "scripts": {
+    "prepare": "make all lint",
+    "start": "nodemon ./src/index.ts",
+    "lint": "make lint -j8",
+    "build": "make all format -j8",
+    "format": "make format -j8",
+    "clean": "make clean",
+    "analyze": "size-limit --why"
+  },
+  "bugs": {
+    "url": "https://github.com/ironplans/js/issues"
+  },
+  "devDependencies": {
+    "@ironplans/types": "^0.0.30-alpha.0",
+    "@size-limit/preset-small-lib": "^5.0.4",
+    "@types/node": "^16.10.1",
+    "nodemon": "^2.0.13",
+    "ts-node": "^10.2.1"
+  },
+  "peerDependencies": {
+    "react": "^16 || ^17",
+    "react-dom": "^16 || ^17"
+  },
+  "dependencies": {
+    "@ironplans/sdk": "^0.1.0-alpha.2",
+    "@types/koa": "^2.13.4",
+    "koa": "^2.13.3"
+  }
+}
