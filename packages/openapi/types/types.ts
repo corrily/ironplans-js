@@ -27,6 +27,10 @@ export interface paths {
     post: operations['customers_v1_oidc_exchange_create']
   }
   '/customers/v1/payment_intent/': {
+    /**
+     * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side.
+     * Returns payment intent client secret to give client ability to collect new card details and charge it.
+     */
     post: operations['customers_v1_payment_intent_create']
   }
   '/customers/v1/renew_token/': {
@@ -733,6 +737,10 @@ export interface operations {
       }
     }
   }
+  /**
+   * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side.
+   * Returns payment intent client secret to give client ability to collect new card details and charge it.
+   */
   customers_v1_payment_intent_create: {
     responses: {
       200: {
