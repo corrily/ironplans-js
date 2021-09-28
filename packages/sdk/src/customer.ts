@@ -113,12 +113,11 @@ export class Customer implements CustomerOptions {
   async init(opts: Partial<CustomerOptions> = {}) {
     Object.assign(this, opts)
 
+    this.validateOpts()
     this.token = await this.initToken()
     this.publicToken = this.initPublicToken()
 
     this.api = createAPI(this)
-
-    this.validateOpts()
 
     this.team = new Team(this.api, await this.loadTeam(this.lookupTeamId()))
 
