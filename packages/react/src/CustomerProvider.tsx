@@ -1,4 +1,4 @@
-import { Customer, CustomerOpts } from '@ironplans/sdk'
+import { Customer, CustomerOptions } from '@ironplans/sdk'
 import React, { useCallback, useEffect } from 'react'
 
 interface CustomerContextInterface {
@@ -15,7 +15,7 @@ const CustomerContext = React.createContext<CustomerContextInterface>({
 
 export const CustomerConsumer = CustomerContext.Consumer
 
-export interface CustomerProviderProps extends CustomerOpts {}
+export interface CustomerProviderProps extends CustomerOptions {}
 
 export const CustomerProvider: React.FC<CustomerProviderProps> = ({
   children,
