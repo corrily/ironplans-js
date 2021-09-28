@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.8](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.7...@ironplans/sdk@0.1.0-alpha.8) (2021-09-28)
+
+### Bug Fixes
+
+- **sdk:** reexport utility types ([60307ce](https://github.com/ironplans/js/commit/60307cee7aee2da5d88d64030bb135ebb002a96f))
+
 # [0.1.0-alpha.7](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.6...@ironplans/sdk@0.1.0-alpha.7) (2021-09-28)
 
 **Note:** Version bump only for package @ironplans/sdk
