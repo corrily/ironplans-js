@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.15](https://github.com/ironplans/js/compare/@ironplans/react@0.1.0-alpha.14...@ironplans/react@0.1.0-alpha.15) (2021-09-28)
+
+### Features
+
+- **react:** plan-select component ([cf871fd](https://github.com/ironplans/js/commit/cf871fd0e67ef63b2727e67b77bac54e0f9172bc))
+
 # [0.1.0-alpha.14](https://github.com/ironplans/js/compare/@ironplans/react@0.1.0-alpha.13...@ironplans/react@0.1.0-alpha.14) (2021-09-28)
 
 **Note:** Version bump only for package @ironplans/react

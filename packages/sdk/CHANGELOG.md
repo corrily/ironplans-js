@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.15](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.14...@ironplans/sdk@0.1.0-alpha.15) (2021-09-28)
+
+### Bug Fixes
+
+- **sdk:** stability ([77d73d0](https://github.com/ironplans/js/commit/77d73d03adc911c51b81396918057c0e7375003c))
+
 # [0.1.0-alpha.14](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.13...@ironplans/sdk@0.1.0-alpha.14) (2021-09-28)
 
 ### Bug Fixes
