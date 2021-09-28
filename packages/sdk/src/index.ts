@@ -23,6 +23,8 @@ import {
   preventScroll,
   checkIframeRect,
   createModalBackdrop,
+  IPublicTheme,
+  themeToQueryString,
 } from './utils'
 
 const providerClaim = 'https://api.ironplans.com/.jwt/provider/'
@@ -421,7 +423,7 @@ export class Customer implements CustomerOpts {
     const { div: backdrop, show } = createModalBackdrop()
     backdrop.appendChild(iframe)
 
-    const url = new URL('public/plans', this.appBaseUrl)
+    const url = new URL('plans', this.appBaseUrl)
 
     url.searchParams.set('ct', this.token ?? '')
     url.searchParams.set('tid', teamId)
@@ -441,24 +443,24 @@ export class Customer implements CustomerOpts {
    * Generates a URL that you can insert into an iframe's src attribute to show a customer's available plans.
    * Customer must be authenticated.
    */
-  createPlanUrl() {
-    return this.createIframeUrl('public/plans')
+  createPlanUrl(theme?: IPublicTheme) {
+    return this.createIframeUrl('plans', theme)
   }
 
   /**
    * Generates a URL that you can insert into an iframe's src attribute to show a team management widget.
    * Customer must be authenticated.
    */
-  createTeamUrl() {
-    return this.createIframeUrl('public/team')
+  createTeamUrl(theme?: IPublicTheme) {
+    return this.createIframeUrl('team', theme)
   }
 
   /**
    * Generates a URL that you can insert into an iframe's src attribute to show a table of invoices.
    * Customer must be authenticated.
    */
-  createInvoicesUrl() {
-    return this.createIframeUrl('public/invoices')
+  createInvoicesUrl(theme?: IPublicTheme) {
+    return this.createIframeUrl('invoices', theme)
   }
 
   /**
@@ -485,11 +487,12 @@ export class Customer implements CustomerOpts {
 
   /** * PRIVATE METHODS ** */
 
-  private createIframeUrl(uri: string) {
+  private createIframeUrl(uri: string, theme?: IPublicTheme) {
     const url = new URL(uri, this.appBaseUrl)
     url.searchParams.set('ct', this.token ?? '')
     url.searchParams.set('tid', this.activeTeam?.id ?? '')
-    return url
+
+    return `${url}${theme && `&${themeToQueryString(theme as IPublicTheme)}`}`
   }
 
   private getClaims(token?: string) {
@@ -543,7 +546,7 @@ export class Customer implements CustomerOpts {
         console.error(
           `Failed to exchange ID token for new Customer Token: ${e}`
         )
-        throw e
+        if (token) console.warn(`Using cached Customer Token.`)
       }
 
       if (token) {

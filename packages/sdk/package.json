@@ -38,11 +38,7 @@
   },
   "size-limit": [
     {
-      "path": "dist/sdk.esm.js",
-      "limit": "20 kB"
-    },
-    {
-      "path": "dist/sdk.cjs.js",
+      "path": "dist/sdk.min.js",
       "limit": "20 kB"
     }
   ],
@@ -57,6 +53,7 @@
     "@ironplans/api": "^0.0.35-alpha.7",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
-    "micro-typed-events": "^1.0.2"
+    "micro-typed-events": "^1.0.2",
+    "qs": "^6.10.1"
   }
 }

@@ -1,3 +1,16 @@
+import { stringify } from 'qs'
+
+export interface IPublicThemeFull {
+  base: {
+    customFont?: string
+    primaryColor: string
+    fontFamily: string
+    darkMode: 'off' | 'on' | 'auto'
+  }
+}
+
+export type IPublicTheme = Partial<IPublicThemeFull>
+
 export function createModalIframe({ zIndex = 1 } = {}) {
   const frame = document.createElement('iframe')
   frame.width = '70%'
@@ -30,6 +43,10 @@ export function checkIframeRect(rect: DOMRect) {
   if (rect.height < 100 || rect.width < 100) {
     console.error('iframe is too small')
   }
+}
+
+export function themeToQueryString(theme: IPublicTheme): string {
+  return stringify({ theme })
 }
 
 export function createModalBackdrop() {
