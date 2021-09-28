@@ -3,11 +3,14 @@ import * as IPTypes from '@ironplans/types'
 import * as Exports from '../src'
 
 const app = new Exports.Server()
-const server = app.listen(5432)
-const path = (url: keyof IPTypes.paths) => `http://localhost:5432${url}`
+let port: number
+const path = (url: keyof IPTypes.paths) => `http://localhost:${port}${url}`
 
+beforeAll(async () => {
+  port = await app.start()
+})
 afterAll(() => {
-  server.close()
+  app.stop()
 })
 
 describe('server', () => {
