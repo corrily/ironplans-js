@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: yarn install
-      - run: lerna bootstrap
+      - run: yarn install --frozen-lockfile
       - run: yarn lint
       - run: yarn jest --coverage
   size:
@@ -20,8 +19,7 @@ jobs:
         package: ['openapi/api', 'sdk', 'react']
     steps:
       - uses: actions/checkout@v2
-      - run: yarn install
-      - run: lerna bootstrap
+      - run: yarn install --frozen-lockfile
       - uses: andresz1/size-limit-action@v1
         with:
           directory: packages/${{ matrix.package }}
