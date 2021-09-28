@@ -1,7 +1,12 @@
 import { TeamDetail, TeamDetailRequest } from '@ironplans/api'
 import { createAPI, IPAPI } from './api'
 import Team from './team'
-import { getClaims, isTokenExpired } from './utils'
+import {
+  first,
+  getClaims,
+  getProviderIdFromToken,
+  isTokenExpired,
+} from './utils'
 
 export interface CustomerOptions {
   /**
@@ -65,11 +70,11 @@ export class Customer implements CustomerOptions {
 
   teamId: string | undefined = undefined
 
-  team: Team | undefined = undefined
-
   timeout?: number | undefined
 
   private params: URLSearchParams
+
+  private team: Team | undefined = undefined
 
   /**
    * A convenience method for creating a new customer and immediately calling
@@ -94,6 +99,11 @@ export class Customer implements CustomerOptions {
     return payload.sub ?? ('anon' as string)
   }
 
+  getTeam() {
+    if (!this.team) throw new Error('Customer not initialized')
+    return this.team
+  }
+
   /**
    * Authenticates Customer credentials and registers housekeeping loops to keep
    * data up-to-date. Must be called before any other instance methods.  The
@@ -102,10 +112,13 @@ export class Customer implements CustomerOptions {
    * */
   async init(opts: Partial<CustomerOptions> = {}) {
     Object.assign(this, opts)
-    this.validateOpts()
 
     this.token = await this.initToken()
+    this.publicToken = this.initPublicToken()
+
     this.api = createAPI(this)
+
+    this.validateOpts()
 
     this.team = new Team(this.api, await this.loadTeam(this.lookupTeamId()))
 
@@ -203,9 +216,11 @@ export class Customer implements CustomerOptions {
     if (this.idToken && this.token) {
       throw new Error('idToken and token are mutually exclusive')
     }
+
     if (!this.idToken && !this.token) {
       throw new Error('idToken or token must be provided')
     }
+
     if (
       this.idToken &&
       (!this.publicToken || this.publicToken.trim().length === 0)
@@ -222,6 +237,15 @@ export class Customer implements CustomerOptions {
     // Other sources of access tokens (e.g. query params) go here
 
     throw new Error('No valid token found')
+  }
+
+  private initPublicToken() {
+    if (this.publicToken) return this.publicToken
+    const paramToken = this.params.get('pt')
+    if (paramToken) return paramToken
+    // Other sources of access tokens (e.g. query params) go here
+
+    return undefined
   }
 
   private async exchangeIdToken(): Promise<string> {
@@ -256,5 +280,17 @@ export class Customer implements CustomerOptions {
   isTokenAboutToExpire(graceMs = 60 * 1000) {
     const payload = this.getClaims()
     return payload.exp * 1000 - graceMs < Date.now()
+  }
+
+  async getProvider() {
+    if (!this.token && this.publicToken) {
+      return first(await this.api.providers.providersV1List({ limit: 1 }))
+    }
+
+    if (!this.token) throw new Error('No token available')
+    const pid = getProviderIdFromToken(this.token)
+
+    if (!pid) throw new Error('No provider ID found in token')
+    return this.api.providers.providersV1Retrieve({ id: pid })
   }
 }

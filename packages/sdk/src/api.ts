@@ -12,6 +12,7 @@ import { Immutable } from './types'
 
 export interface IPAPI {
   token?: string
+  publicToken?: string
   apiBaseUrl: string
   appBaseUrl: string
 
@@ -37,12 +38,14 @@ export function createConfiguration(
 export function createAPI(opts: {
   apiBaseUrl: string
   appBaseUrl: string
-  at?: string
+  token?: string
+  publicToken?: string
 }): IPAPI {
-  const { apiBaseUrl, appBaseUrl, at } = opts
-  const config = createConfiguration(apiBaseUrl, at)
+  const { apiBaseUrl, appBaseUrl, token, publicToken } = opts
+  const config = createConfiguration(apiBaseUrl, token ?? publicToken)
   return {
-    token: at,
+    token,
+    publicToken,
     appBaseUrl,
     apiBaseUrl,
     customers: new CustomersApi(config),

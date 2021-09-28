@@ -45,7 +45,7 @@ export default class Team extends Resource<TeamDetail> {
   /**
    * Invite multiple Customers via email to a team.
    */
-  async bulkInvite(teamId: string, emails: string[], role?: RoleEnum) {
+  async bulkInvite(emails: string[], role?: RoleEnum) {
     return this.api.invites.invitesV1BulkCreate({
       bulkCreateInviteRequest: {
         teamId: this.id,

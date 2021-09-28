@@ -17,3 +17,7 @@ export type Immutable<T> = T extends ImmutablePrimitive
   : T extends Set<infer M>
   ? ImmutableSet<M>
   : ImmutableObject<T>
+
+export type Mutable<T> = {
+  -readonly [K in keyof T]: T[K] extends Immutable<T[K]> ? Mutable<T[K]> : T[K]
+}

@@ -1,5 +1,12 @@
 import jwtDecode, { JwtPayload } from 'jwt-decode'
 import { stringify } from 'qs-lite'
+import { Immutable, Mutable } from './types'
+
+export function clone<T extends Immutable<T2>, T2 = unknown>(
+  obj: T
+): Mutable<T2> {
+  return JSON.parse(JSON.stringify(obj))
+}
 
 export interface IPublicThemeFull {
   base: {
@@ -17,6 +24,14 @@ export interface IFrameOptions {
   teamId?: string
 }
 
+type Paginated<T> = {
+  results?: T[]
+}
+
+export function first<T>(page: Paginated<T>): T | undefined {
+  return page.results?.[0]
+}
+
 const providerClaim = 'https://api.ironplans.com/.jwt/provider/'
 interface IPClaims {
   [providerClaim]?: string
@@ -30,6 +45,11 @@ export function getClaims(token: string) {
     exp: 0,
     ...payload,
   }
+}
+
+export function getProviderIdFromToken(token: string) {
+  const claims = getClaims(token)
+  return claims[providerClaim]
 }
 
 export function isTokenExpired(token: string): boolean {
