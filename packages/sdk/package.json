@@ -44,16 +44,16 @@
   ],
   "devDependencies": {
     "@ironplans/proxy": "^0.1.0-alpha.4",
-    "@ironplans/types": "^0.0.30-alpha.0",
     "@size-limit/preset-small-lib": "^5.0.4",
     "@types/js-cookie": "^2.2.7",
     "jest-fetch-mock": "^3.0.3"
   },
   "dependencies": {
     "@ironplans/api": "^0.0.35-alpha.7",
+    "@ironplans/types": "^0.0.30-alpha.0",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "micro-typed-events": "^1.0.2",
-    "qs": "^6.10.1"
+    "qs-lite": "^0.0.3"
   }
 }

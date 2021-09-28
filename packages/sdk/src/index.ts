@@ -27,6 +27,9 @@ import {
   themeToQueryString,
 } from './utils'
 
+export * as Api from '@ironplans/api'
+export { IPublicTheme, IPublicThemeFull } from './utils'
+
 const providerClaim = 'https://api.ironplans.com/.jwt/provider/'
 
 interface CustomerCache {

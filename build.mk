@@ -43,6 +43,7 @@ once = .build/${1}
 
 esb_opts = \
 	--bundle \
+	--minify \
 	--sourcemap
 
 cjs_opts = \
