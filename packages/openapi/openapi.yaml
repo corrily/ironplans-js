@@ -207,6 +207,9 @@ paths:
   /customers/v1/payment_intent/:
     post:
       operationId: customers_v1_payment_intent_create
+      description: |-
+        Create a payment intent for a new plan. Validates server-side the right amount to charge client-side.
+        Returns payment intent client secret to give client ability to collect new card details and charge it.
       tags:
         - customers
       requestBody:

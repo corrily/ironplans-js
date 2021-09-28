@@ -34,7 +34,7 @@ clean-%:
 .PHONY: schema
 schema openapi.yaml: 
 	@wget https://api.ironplans.com/openapi.yaml -qO openapi.yaml
-	npx prettier . --write
+	npx prettier openapi.yaml --write
 
 # depend on build/%
 build/%::

@@ -372,6 +372,7 @@ export class CustomersApi extends runtime.BaseAPI {
   }
 
   /**
+   * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side. Returns payment intent client secret to give client ability to collect new card details and charge it.
    */
   async customersV1PaymentIntentCreateRaw(
     requestParameters: CustomersV1PaymentIntentCreateRequest,
@@ -420,6 +421,7 @@ export class CustomersApi extends runtime.BaseAPI {
   }
 
   /**
+   * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side. Returns payment intent client secret to give client ability to collect new card details and charge it.
    */
   async customersV1PaymentIntentCreate(
     requestParameters: CustomersV1PaymentIntentCreateRequest,
