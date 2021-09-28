@@ -28,6 +28,8 @@
 .DS_Store
 *.pem
 .cache
+.yalc
+yalc.lock
 
 # debug
 npm-debug.log*

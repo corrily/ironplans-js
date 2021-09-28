@@ -23,8 +23,9 @@ module.exports = {
       plugins: ['@typescript-eslint'],
       rules: {
         '@typescript-eslint/no-explicit-any': 1,
-        // This is not an issue in TS
+        // These are not an issue in TS
         'react/jsx-props-no-spreading': 0,
+        'react/require-default-props': 0,
       },
     },
     {

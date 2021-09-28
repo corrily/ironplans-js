@@ -7,7 +7,7 @@ cjs_target ?= es2015
 cdn_target ?= es2017
 esm_target ?= es2017
 
-src := $(shell find src -name '*.ts' -type f )
+src := $(shell find -E src -regex '.*\.[jt]sx?$$' -type f )
 out := $(shell find dist -name '*.js' -type f )
 name ?= $(shell basename $$(jq -r '.name' package.json))
 entry ?= src/index.ts
@@ -15,7 +15,7 @@ tsconfig ?= tsconfig.json
 platforms ?= browser node
 
 project_deps = $(project_tsconfig) $(tsconfig)
-dist_deps = types
+dist_deps = $(MAKEFILE_LIST) types
 lint_deps = lint-eslint
 
 ifneq (,$(findstring browser,$(platforms)))
@@ -43,7 +43,6 @@ once = build/${1}
 
 esb_opts = \
 	--bundle \
-	--minify \
 	--sourcemap
 
 cjs_opts = \
@@ -86,11 +85,22 @@ test:
 # Override the default build destination to be from the example folder so the
 # built JS can be served at root.
 serve: cdn_outfile = example/$(notdir $<)
+# Pretends like a CDN but rebuilds the package on every request.
 serve: dist/$(name).min.js
 	npx esbuild \
 		--serve=localhost:3030 --servedir=example \
 		$(esb_opts) $(cdn_opts) \
 		$(entry)
+
+.PHONY: watch
+watch:
+	npx nodemon --ext js,ts,jsx,tsx,json \
+		--watch $(dir $(entry)) \
+		--watch $(tsconfig) \
+		--watch $(project_tsconfig) \
+		$(patsubst %,--watch %,$(MAKEFILE_LIST)) \
+		--watch package.json \
+		--exec "make dist"
 
 lint: $(lint_deps)
 
