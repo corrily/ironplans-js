@@ -546,7 +546,7 @@
   resolved "https://registry.yarnpkg.com/@hutson/parse-repository-url/-/parse-repository-url-3.0.2.tgz#98c23c950a3d9b6c8f0daed06da6c3af06981340"
   integrity sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==
 
-"@ironplans/api@^0.1.0-alpha.1":
+"@ironplans/api@^0.1.0-alpha.0":
   version "0.1.0-alpha.0"
   resolved "https://registry.yarnpkg.com/@ironplans/api/-/api-0.1.0-alpha.0.tgz#01abaa7063e4f91309e1499ede0afa61fc6849bd"
   integrity sha512-p+pesfAEXggDt1a3qfspQpmYFd5AZCFXawcvYiaEzgvygCVrC1nwok3yYyXy6ACTzT2rsBc43L86VjuPHuyI1Q==
