@@ -1,6 +1,6 @@
 {
   "name": "@ironplans/sdk",
-  "version": "0.1.0-alpha.12",
+  "version": "0.1.0-alpha.13",
   "description": "> TODO: description",
   "author": "team@ironplans.com",
   "homepage": "https://github.com/ironplans/js#readme",
@@ -43,7 +43,7 @@
     }
   ],
   "devDependencies": {
-    "@ironplans/proxy": "^0.1.0-alpha.7",
+    "@ironplans/proxy": "^0.1.0-alpha.8",
     "@size-limit/preset-small-lib": "^5.0.4",
     "@types/js-cookie": "^2.2.7",
     "jest-fetch-mock": "^3.0.3"

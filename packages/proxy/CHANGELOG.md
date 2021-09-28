@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.8](https://github.com/ironplans/js/compare/@ironplans/proxy@0.1.0-alpha.7...@ironplans/proxy@0.1.0-alpha.8) (2021-09-28)
+
+### Bug Fixes
+
+- fix broken dep ([ceae857](https://github.com/ironplans/js/commit/ceae8578da889f65e961b6f7c74ac6bac53fa111))
+
 # [0.1.0-alpha.7](https://github.com/ironplans/js/compare/@ironplans/proxy@0.1.0-alpha.6...@ironplans/proxy@0.1.0-alpha.7) (2021-09-28)
 
 **Note:** Version bump only for package @ironplans/proxy

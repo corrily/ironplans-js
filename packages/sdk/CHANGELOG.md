@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.13](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.12...@ironplans/sdk@0.1.0-alpha.13) (2021-09-28)
+
+### Bug Fixes
+
+- fix broken dep ([ceae857](https://github.com/ironplans/js/commit/ceae8578da889f65e961b6f7c74ac6bac53fa111))
+
 # [0.1.0-alpha.12](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.11...@ironplans/sdk@0.1.0-alpha.12) (2021-09-28)
 
 **Note:** Version bump only for package @ironplans/sdk
