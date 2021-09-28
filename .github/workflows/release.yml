@@ -26,7 +26,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: yarn install --frozen-lockfile
-      - run: lerna bootstrap
 
       - run: lerna publish --yes --no-verify-access
         env:

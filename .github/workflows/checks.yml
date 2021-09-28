@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: yarn install
+      - run: lerna bootstrap
       - run: yarn lint
       - run: yarn jest --coverage
   size:
@@ -19,6 +20,8 @@ jobs:
         package: ['openapi/api', 'sdk', 'react']
     steps:
       - uses: actions/checkout@v2
+      - run: yarn install
+      - run: lerna bootstrap
       - uses: andresz1/size-limit-action@v1
         with:
           directory: packages/${{ matrix.package }}
