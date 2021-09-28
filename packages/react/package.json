@@ -8,6 +8,7 @@
   "main": "dist/react.cjs.js",
   "browser": "dist/react.esm.js",
   "module": "dist/react.esm.js",
+  "typings": "dist/index.d.ts",
   "exports": {
     ".": "./dist/react.esm.js",
     "./package.json": "./package.json"
