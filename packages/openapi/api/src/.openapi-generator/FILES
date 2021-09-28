@@ -41,7 +41,6 @@ models/PaginatedSubscriptionList.ts
 models/PaginatedTeamList.ts
 models/PaginatedTeammateList.ts
 models/PaginatedTokenList.ts
-models/PaginatedUsageList.ts
 models/PatchedCustomerRequest.ts
 models/PatchedFeatureRequest.ts
 models/PatchedFeatureSpecRequest.ts

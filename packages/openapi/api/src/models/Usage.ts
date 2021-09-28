@@ -37,6 +37,12 @@ export interface Usage {
    * @memberof Usage
    */
   readonly limit: number
+  /**
+   *
+   * @type {number}
+   * @memberof Usage
+   */
+  readonly perUnit: number
 }
 
 export function UsageFromJSON(json: any): Usage {
@@ -54,6 +60,7 @@ export function UsageFromJSONTyped(
     slug: json['slug'],
     value: json['value'],
     limit: json['limit'],
+    perUnit: json['per_unit'],
   }
 }
 

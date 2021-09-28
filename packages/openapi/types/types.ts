@@ -126,19 +126,20 @@ export interface paths {
     post: operations['subscriptions_v1_create']
   }
   '/subscriptions/v1/{id}/': {
+    /** Detailed subscription data. */
     get: operations['subscriptions_v1_retrieve']
     put: operations['subscriptions_v1_update']
     delete: operations['subscriptions_v1_destroy']
     patch: operations['subscriptions_v1_partial_update']
   }
   '/subscriptions/v1/{id}/report/': {
-    get: operations['subscriptions_v1_report_list']
+    post: operations['subscriptions_v1_report_create']
   }
   '/subscriptions/v1/{id}/switch/': {
     patch: operations['subscriptions_v1_switch_partial_update']
   }
   '/subscriptions/v1/{id}/usage/': {
-    post: operations['subscriptions_v1_usage_create']
+    get: operations['subscriptions_v1_usage_list']
   }
   '/team_memberships/v1/': {
     get: operations['team_memberships_v1_list']
@@ -353,12 +354,6 @@ export interface components {
       next?: string | null
       previous?: string | null
       results?: components['schemas']['Token'][]
-    }
-    PaginatedUsageList: {
-      count?: number
-      next?: string | null
-      previous?: string | null
-      results?: components['schemas']['Usage'][]
     }
     PatchedCustomerRequest: {
       source_id?: string
@@ -597,6 +592,7 @@ export interface components {
       slug: string
       value: number
       limit: number
+      per_unit: number
     }
   }
 }
@@ -1541,6 +1537,7 @@ export interface operations {
       }
     }
   }
+  /** Detailed subscription data. */
   subscriptions_v1_retrieve: {
     parameters: {
       path: {
@@ -1551,7 +1548,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Subscription']
+          'application/json': components['schemas']['SubscriptionDetail']
         }
       }
     }
@@ -1612,24 +1609,25 @@ export interface operations {
       }
     }
   }
-  subscriptions_v1_report_list: {
+  subscriptions_v1_report_create: {
     parameters: {
       path: {
         /** A UUID string identifying this subscription. */
         id: string
       }
-      query: {
-        /** Number of results to return per page. */
-        limit?: number
-        /** The initial index from which to return the results. */
-        offset?: number
-      }
     }
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['PaginatedUsageList']
+          'application/json': components['schemas']['Usage']
         }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ReportUsageRequest']
+        'application/x-www-form-urlencoded': components['schemas']['ReportUsageRequest']
+        'multipart/form-data': components['schemas']['ReportUsageRequest']
       }
     }
   }
@@ -1655,7 +1653,7 @@ export interface operations {
       }
     }
   }
-  subscriptions_v1_usage_create: {
+  subscriptions_v1_usage_list: {
     parameters: {
       path: {
         /** A UUID string identifying this subscription. */
@@ -1665,15 +1663,8 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Usage']
+          'application/json': components['schemas']['Usage'][]
         }
-      }
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ReportUsageRequest']
-        'application/x-www-form-urlencoded': components['schemas']['ReportUsageRequest']
-        'multipart/form-data': components['schemas']['ReportUsageRequest']
       }
     }
   }

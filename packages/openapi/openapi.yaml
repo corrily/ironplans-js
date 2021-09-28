@@ -12,9 +12,9 @@ paths:
         Automatically creates a new customer account if one does not
         exist for the authenticated user.
       tags:
-      - accounts
+        - accounts
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -26,22 +26,22 @@ paths:
     get:
       operationId: customers_v1_list
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - customers
+        - customers
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -52,7 +52,7 @@ paths:
     post:
       operationId: customers_v1_create
       tags:
-      - customers
+        - customers
       requestBody:
         content:
           application/json:
@@ -66,7 +66,7 @@ paths:
               $ref: '#/components/schemas/CustomerRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           content:
@@ -78,17 +78,17 @@ paths:
     get:
       operationId: customers_v1_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this customer.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this customer.
+          required: true
       tags:
-      - customers
+        - customers
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -99,15 +99,15 @@ paths:
     put:
       operationId: customers_v1_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this customer.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this customer.
+          required: true
       tags:
-      - customers
+        - customers
       requestBody:
         content:
           application/json:
@@ -121,7 +121,7 @@ paths:
               $ref: '#/components/schemas/CustomerRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -132,15 +132,15 @@ paths:
     patch:
       operationId: customers_v1_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this customer.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this customer.
+          required: true
       tags:
-      - customers
+        - customers
       requestBody:
         content:
           application/json:
@@ -153,7 +153,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedCustomerRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -164,17 +164,17 @@ paths:
     delete:
       operationId: customers_v1_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this customer.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this customer.
+          required: true
       tags:
-      - customers
+        - customers
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
@@ -182,7 +182,7 @@ paths:
     post:
       operationId: customers_v1_oidc_exchange_create
       tags:
-      - customers
+        - customers
       requestBody:
         content:
           application/json:
@@ -196,7 +196,7 @@ paths:
               $ref: '#/components/schemas/IDTokenExchangeRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -208,7 +208,7 @@ paths:
     post:
       operationId: customers_v1_payment_intent_create
       tags:
-      - customers
+        - customers
       requestBody:
         content:
           application/json:
@@ -222,7 +222,7 @@ paths:
               $ref: '#/components/schemas/CustomerPaymentIntentRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -234,9 +234,9 @@ paths:
     post:
       operationId: customers_v1_renew_token_create
       tags:
-      - customers
+        - customers
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -248,7 +248,7 @@ paths:
     post:
       operationId: customers_v1_token_create
       tags:
-      - customers
+        - customers
       requestBody:
         content:
           application/json:
@@ -261,7 +261,7 @@ paths:
             schema:
               $ref: '#/components/schemas/IssueCustomerTokenRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -273,26 +273,26 @@ paths:
     get:
       operationId: features_v1_list
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
-      - in: query
-        name: slug
-        schema:
-          type: string
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: query
+          name: slug
+          schema:
+            type: string
       tags:
-      - features
+        - features
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -303,7 +303,7 @@ paths:
     post:
       operationId: features_v1_create
       tags:
-      - features
+        - features
       requestBody:
         content:
           application/json:
@@ -316,7 +316,7 @@ paths:
             schema:
               $ref: '#/components/schemas/FeatureRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           content:
@@ -328,17 +328,17 @@ paths:
     get:
       operationId: features_v1_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this feature.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this feature.
+          required: true
       tags:
-      - features
+        - features
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -349,15 +349,15 @@ paths:
     put:
       operationId: features_v1_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this feature.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this feature.
+          required: true
       tags:
-      - features
+        - features
       requestBody:
         content:
           application/json:
@@ -370,7 +370,7 @@ paths:
             schema:
               $ref: '#/components/schemas/FeatureRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -381,15 +381,15 @@ paths:
     patch:
       operationId: features_v1_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this feature.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this feature.
+          required: true
       tags:
-      - features
+        - features
       requestBody:
         content:
           application/json:
@@ -402,7 +402,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedFeatureRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -413,17 +413,17 @@ paths:
     delete:
       operationId: features_v1_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this feature.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this feature.
+          required: true
       tags:
-      - features
+        - features
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
@@ -431,22 +431,22 @@ paths:
     get:
       operationId: featurespecs_v1_list
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - featurespecs
+        - featurespecs
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -457,7 +457,7 @@ paths:
     post:
       operationId: featurespecs_v1_create
       tags:
-      - featurespecs
+        - featurespecs
       requestBody:
         content:
           application/json:
@@ -471,7 +471,7 @@ paths:
               $ref: '#/components/schemas/FeatureSpecRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           content:
@@ -483,17 +483,17 @@ paths:
     get:
       operationId: featurespecs_v1_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this feature spec.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this feature spec.
+          required: true
       tags:
-      - featurespecs
+        - featurespecs
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -504,15 +504,15 @@ paths:
     put:
       operationId: featurespecs_v1_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this feature spec.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this feature spec.
+          required: true
       tags:
-      - featurespecs
+        - featurespecs
       requestBody:
         content:
           application/json:
@@ -526,7 +526,7 @@ paths:
               $ref: '#/components/schemas/FeatureSpecRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -537,15 +537,15 @@ paths:
     patch:
       operationId: featurespecs_v1_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this feature spec.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this feature spec.
+          required: true
       tags:
-      - featurespecs
+        - featurespecs
       requestBody:
         content:
           application/json:
@@ -558,7 +558,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedFeatureSpecRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -569,17 +569,17 @@ paths:
     delete:
       operationId: featurespecs_v1_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this feature spec.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this feature spec.
+          required: true
       tags:
-      - featurespecs
+        - featurespecs
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
@@ -587,22 +587,22 @@ paths:
     get:
       operationId: invites_v1_list
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - invites
+        - invites
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -614,7 +614,7 @@ paths:
       operationId: invites_v1_create
       description: Send an invitation via email.
       tags:
-      - invites
+        - invites
       requestBody:
         content:
           application/json:
@@ -628,7 +628,7 @@ paths:
               $ref: '#/components/schemas/InviteRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           description: No response body
@@ -636,17 +636,17 @@ paths:
     get:
       operationId: invites_v1_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this invite.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this invite.
+          required: true
       tags:
-      - invites
+        - invites
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -657,15 +657,15 @@ paths:
     put:
       operationId: invites_v1_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this invite.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this invite.
+          required: true
       tags:
-      - invites
+        - invites
       requestBody:
         content:
           application/json:
@@ -679,7 +679,7 @@ paths:
               $ref: '#/components/schemas/InviteRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -690,15 +690,15 @@ paths:
     patch:
       operationId: invites_v1_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this invite.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this invite.
+          required: true
       tags:
-      - invites
+        - invites
       requestBody:
         content:
           application/json:
@@ -711,7 +711,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedInviteRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -722,17 +722,17 @@ paths:
     delete:
       operationId: invites_v1_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this invite.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this invite.
+          required: true
       tags:
-      - invites
+        - invites
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
@@ -741,7 +741,7 @@ paths:
       operationId: invites_v1_bulk_create
       description: Send multiple invitations via email.
       tags:
-      - invites
+        - invites
       requestBody:
         content:
           application/json:
@@ -755,7 +755,7 @@ paths:
               $ref: '#/components/schemas/BulkCreateInviteRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           description: No response body
@@ -764,15 +764,15 @@ paths:
       operationId: invites_v1_claim_retrieve
       description: Claim an invite and be redirected to provider's auth url.
       parameters:
-      - in: query
-        name: token
-        schema:
-          type: string
-        required: true
+        - in: query
+          name: token
+          schema:
+            type: string
+          required: true
       tags:
-      - invites
+        - invites
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '302':
           description: No response body
@@ -785,119 +785,119 @@ paths:
         - YAML: application/vnd.oai.openapi
         - JSON: application/vnd.oai.openapi+json
       parameters:
-      - in: query
-        name: format
-        schema:
-          type: string
-          enum:
-          - json
-          - yaml
-      - in: query
-        name: lang
-        schema:
-          type: string
-          enum:
-          - af
-          - ar
-          - ar-dz
-          - ast
-          - az
-          - be
-          - bg
-          - bn
-          - br
-          - bs
-          - ca
-          - cs
-          - cy
-          - da
-          - de
-          - dsb
-          - el
-          - en
-          - en-au
-          - en-gb
-          - eo
-          - es
-          - es-ar
-          - es-co
-          - es-mx
-          - es-ni
-          - es-ve
-          - et
-          - eu
-          - fa
-          - fi
-          - fr
-          - fy
-          - ga
-          - gd
-          - gl
-          - he
-          - hi
-          - hr
-          - hsb
-          - hu
-          - hy
-          - ia
-          - id
-          - ig
-          - io
-          - is
-          - it
-          - ja
-          - ka
-          - kab
-          - kk
-          - km
-          - kn
-          - ko
-          - ky
-          - lb
-          - lt
-          - lv
-          - mk
-          - ml
-          - mn
-          - mr
-          - my
-          - nb
-          - ne
-          - nl
-          - nn
-          - os
-          - pa
-          - pl
-          - pt
-          - pt-br
-          - ro
-          - ru
-          - sk
-          - sl
-          - sq
-          - sr
-          - sr-latn
-          - sv
-          - sw
-          - ta
-          - te
-          - tg
-          - th
-          - tk
-          - tr
-          - tt
-          - udm
-          - uk
-          - ur
-          - uz
-          - vi
-          - zh-hans
-          - zh-hant
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - json
+              - yaml
+        - in: query
+          name: lang
+          schema:
+            type: string
+            enum:
+              - af
+              - ar
+              - ar-dz
+              - ast
+              - az
+              - be
+              - bg
+              - bn
+              - br
+              - bs
+              - ca
+              - cs
+              - cy
+              - da
+              - de
+              - dsb
+              - el
+              - en
+              - en-au
+              - en-gb
+              - eo
+              - es
+              - es-ar
+              - es-co
+              - es-mx
+              - es-ni
+              - es-ve
+              - et
+              - eu
+              - fa
+              - fi
+              - fr
+              - fy
+              - ga
+              - gd
+              - gl
+              - he
+              - hi
+              - hr
+              - hsb
+              - hu
+              - hy
+              - ia
+              - id
+              - ig
+              - io
+              - is
+              - it
+              - ja
+              - ka
+              - kab
+              - kk
+              - km
+              - kn
+              - ko
+              - ky
+              - lb
+              - lt
+              - lv
+              - mk
+              - ml
+              - mn
+              - mr
+              - my
+              - nb
+              - ne
+              - nl
+              - nn
+              - os
+              - pa
+              - pl
+              - pt
+              - pt-br
+              - ro
+              - ru
+              - sk
+              - sl
+              - sq
+              - sr
+              - sr-latn
+              - sv
+              - sw
+              - ta
+              - te
+              - tg
+              - th
+              - tk
+              - tr
+              - tt
+              - udm
+              - uk
+              - ur
+              - uz
+              - vi
+              - zh-hans
+              - zh-hant
       tags:
-      - openapi.yaml
+        - openapi.yaml
       security:
-      - OAuth2: []
-      - {}
+        - OAuth2: []
+        - {}
       responses:
         '200':
           content:
@@ -922,34 +922,34 @@ paths:
     get:
       operationId: plans_v1_list
       parameters:
-      - in: query
-        name: is_active
-        schema:
-          type: boolean
-      - in: query
-        name: is_public
-        schema:
-          type: boolean
-      - in: query
-        name: is_trial_allowed
-        schema:
-          type: boolean
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - in: query
+          name: is_active
+          schema:
+            type: boolean
+        - in: query
+          name: is_public
+          schema:
+            type: boolean
+        - in: query
+          name: is_trial_allowed
+          schema:
+            type: boolean
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - plans
+        - plans
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -963,7 +963,7 @@ paths:
         Add a feature and optionally specification to a plan by specifying a
         `feature_id` and `spec_id` in the list of features.
       tags:
-      - plans
+        - plans
       requestBody:
         content:
           application/json:
@@ -977,7 +977,7 @@ paths:
               $ref: '#/components/schemas/PlanRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           content:
@@ -989,17 +989,17 @@ paths:
     get:
       operationId: plans_v1_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this plan.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this plan.
+          required: true
       tags:
-      - plans
+        - plans
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1016,15 +1016,15 @@ paths:
         which feature or spec once created. A deactivated PlanFeature can be
         reactivated by setting `is_active: true`
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this plan.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this plan.
+          required: true
       tags:
-      - plans
+        - plans
       requestBody:
         content:
           application/json:
@@ -1038,7 +1038,7 @@ paths:
               $ref: '#/components/schemas/PlanRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1049,15 +1049,15 @@ paths:
     patch:
       operationId: plans_v1_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this plan.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this plan.
+          required: true
       tags:
-      - plans
+        - plans
       requestBody:
         content:
           application/json:
@@ -1070,7 +1070,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedPlanRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1081,17 +1081,17 @@ paths:
     delete:
       operationId: plans_v1_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this plan.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this plan.
+          required: true
       tags:
-      - plans
+        - plans
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
@@ -1099,22 +1099,22 @@ paths:
     get:
       operationId: providers_v1_list
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - providers
+        - providers
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1125,7 +1125,7 @@ paths:
     post:
       operationId: providers_v1_create
       tags:
-      - providers
+        - providers
       requestBody:
         content:
           application/json:
@@ -1139,7 +1139,7 @@ paths:
               $ref: '#/components/schemas/ProviderRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           content:
@@ -1151,17 +1151,17 @@ paths:
     get:
       operationId: providers_v1_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider.
+          required: true
       tags:
-      - providers
+        - providers
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1172,15 +1172,15 @@ paths:
     put:
       operationId: providers_v1_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider.
+          required: true
       tags:
-      - providers
+        - providers
       requestBody:
         content:
           application/json:
@@ -1194,7 +1194,7 @@ paths:
               $ref: '#/components/schemas/ProviderRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1205,15 +1205,15 @@ paths:
     patch:
       operationId: providers_v1_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider.
+          required: true
       tags:
-      - providers
+        - providers
       requestBody:
         content:
           application/json:
@@ -1226,7 +1226,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedProviderRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1237,17 +1237,17 @@ paths:
     delete:
       operationId: providers_v1_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider.
+          required: true
       tags:
-      - providers
+        - providers
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
@@ -1255,17 +1255,17 @@ paths:
     get:
       operationId: providers_v1_stripe_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider.
+          required: true
       tags:
-      - providers
+        - providers
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1276,15 +1276,15 @@ paths:
     post:
       operationId: providers_v1_stripe_create
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider.
+          required: true
       tags:
-      - providers
+        - providers
       requestBody:
         content:
           application/json:
@@ -1298,7 +1298,7 @@ paths:
               $ref: '#/components/schemas/ProviderRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1310,14 +1310,14 @@ paths:
     get:
       operationId: providers_v1_slug_retrieve
       parameters:
-      - in: query
-        name: slug
-        schema:
-          type: string
+        - in: query
+          name: slug
+          schema:
+            type: string
       tags:
-      - providers
+        - providers
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1329,22 +1329,22 @@ paths:
     get:
       operationId: subscriptions_v1_list
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - subscriptions
+        - subscriptions
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1355,7 +1355,7 @@ paths:
     post:
       operationId: subscriptions_v1_create
       tags:
-      - subscriptions
+        - subscriptions
       requestBody:
         content:
           application/json:
@@ -1369,7 +1369,7 @@ paths:
               $ref: '#/components/schemas/SubscriptionRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           content:
@@ -1380,37 +1380,38 @@ paths:
   /subscriptions/v1/{id}/:
     get:
       operationId: subscriptions_v1_retrieve
+      description: Detailed subscription data.
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this subscription.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
       tags:
-      - subscriptions
+        - subscriptions
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Subscription'
+                $ref: '#/components/schemas/SubscriptionDetail'
           description: ''
     put:
       operationId: subscriptions_v1_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this subscription.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
       tags:
-      - subscriptions
+        - subscriptions
       requestBody:
         content:
           application/json:
@@ -1424,7 +1425,7 @@ paths:
               $ref: '#/components/schemas/SubscriptionRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1435,15 +1436,15 @@ paths:
     patch:
       operationId: subscriptions_v1_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this subscription.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
       tags:
-      - subscriptions
+        - subscriptions
       requestBody:
         content:
           application/json:
@@ -1456,7 +1457,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedSubscriptionRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1467,67 +1468,67 @@ paths:
     delete:
       operationId: subscriptions_v1_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this subscription.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
       tags:
-      - subscriptions
+        - subscriptions
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
   /subscriptions/v1/{id}/report/:
-    get:
-      operationId: subscriptions_v1_report_list
+    post:
+      operationId: subscriptions_v1_report_create
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this subscription.
-        required: true
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
       tags:
-      - subscriptions
+        - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportUsageRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReportUsageRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReportUsageRequest'
+        required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedUsageList'
+                $ref: '#/components/schemas/Usage'
           description: ''
   /subscriptions/v1/{id}/switch/:
     patch:
       operationId: subscriptions_v1_switch_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this subscription.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
       tags:
-      - subscriptions
+        - subscriptions
       requestBody:
         content:
           application/json:
@@ -1540,7 +1541,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedPlanSwitchRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1549,59 +1550,49 @@ paths:
                 $ref: '#/components/schemas/Subscription'
           description: ''
   /subscriptions/v1/{id}/usage/:
-    post:
-      operationId: subscriptions_v1_usage_create
+    get:
+      operationId: subscriptions_v1_usage_list
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this subscription.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
       tags:
-      - subscriptions
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ReportUsageRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/ReportUsageRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/ReportUsageRequest'
-        required: true
+        - subscriptions
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Usage'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usage'
           description: ''
   /team_memberships/v1/:
     get:
       operationId: team_memberships_v1_list
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - team_memberships
+        - team_memberships
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1612,7 +1603,7 @@ paths:
     post:
       operationId: team_memberships_v1_create
       tags:
-      - team_memberships
+        - team_memberships
       requestBody:
         content:
           application/json:
@@ -1626,7 +1617,7 @@ paths:
               $ref: '#/components/schemas/TeammateRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           content:
@@ -1638,17 +1629,17 @@ paths:
     get:
       operationId: team_memberships_v1_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this team membership.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team membership.
+          required: true
       tags:
-      - team_memberships
+        - team_memberships
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1659,15 +1650,15 @@ paths:
     put:
       operationId: team_memberships_v1_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this team membership.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team membership.
+          required: true
       tags:
-      - team_memberships
+        - team_memberships
       requestBody:
         content:
           application/json:
@@ -1681,7 +1672,7 @@ paths:
               $ref: '#/components/schemas/TeammateRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1692,15 +1683,15 @@ paths:
     patch:
       operationId: team_memberships_v1_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this team membership.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team membership.
+          required: true
       tags:
-      - team_memberships
+        - team_memberships
       requestBody:
         content:
           application/json:
@@ -1713,7 +1704,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedTeammateRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1724,17 +1715,17 @@ paths:
     delete:
       operationId: team_memberships_v1_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this team membership.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team membership.
+          required: true
       tags:
-      - team_memberships
+        - team_memberships
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
@@ -1742,22 +1733,22 @@ paths:
     get:
       operationId: teams_v1_list
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - teams
+        - teams
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1768,7 +1759,7 @@ paths:
     post:
       operationId: teams_v1_create
       tags:
-      - teams
+        - teams
       requestBody:
         content:
           application/json:
@@ -1782,7 +1773,7 @@ paths:
               $ref: '#/components/schemas/TeamDetailRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           content:
@@ -1794,17 +1785,17 @@ paths:
     get:
       operationId: teams_v1_retrieve
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this team.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team.
+          required: true
       tags:
-      - teams
+        - teams
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1815,15 +1806,15 @@ paths:
     put:
       operationId: teams_v1_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this team.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team.
+          required: true
       tags:
-      - teams
+        - teams
       requestBody:
         content:
           application/json:
@@ -1837,7 +1828,7 @@ paths:
               $ref: '#/components/schemas/TeamDetailRequest'
         required: true
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1848,15 +1839,15 @@ paths:
     patch:
       operationId: teams_v1_partial_update
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this team.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team.
+          required: true
       tags:
-      - teams
+        - teams
       requestBody:
         content:
           application/json:
@@ -1869,7 +1860,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedTeamDetailRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1880,17 +1871,17 @@ paths:
     delete:
       operationId: teams_v1_destroy
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this team.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team.
+          required: true
       tags:
-      - teams
+        - teams
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
@@ -1898,29 +1889,29 @@ paths:
     get:
       operationId: teams_v1_invoices_list
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this team.
-        required: true
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team.
+          required: true
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - teams
+        - teams
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1933,22 +1924,22 @@ paths:
       operationId: tokens_v1_list
       description: Management of Provider Tokens.
       parameters:
-      - name: limit
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
       tags:
-      - tokens
+        - tokens
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -1960,7 +1951,7 @@ paths:
       operationId: tokens_v1_create
       description: Management of Provider Tokens.
       tags:
-      - tokens
+        - tokens
       requestBody:
         content:
           application/json:
@@ -1973,7 +1964,7 @@ paths:
             schema:
               $ref: '#/components/schemas/TokenRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '201':
           content:
@@ -1986,17 +1977,17 @@ paths:
       operationId: tokens_v1_retrieve
       description: Management of Provider Tokens.
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider token.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider token.
+          required: true
       tags:
-      - tokens
+        - tokens
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -2008,15 +1999,15 @@ paths:
       operationId: tokens_v1_update
       description: Management of Provider Tokens.
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider token.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider token.
+          required: true
       tags:
-      - tokens
+        - tokens
       requestBody:
         content:
           application/json:
@@ -2029,7 +2020,7 @@ paths:
             schema:
               $ref: '#/components/schemas/TokenRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -2041,15 +2032,15 @@ paths:
       operationId: tokens_v1_partial_update
       description: Management of Provider Tokens.
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider token.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider token.
+          required: true
       tags:
-      - tokens
+        - tokens
       requestBody:
         content:
           application/json:
@@ -2062,7 +2053,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedTokenRequest'
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '200':
           content:
@@ -2074,17 +2065,17 @@ paths:
       operationId: tokens_v1_destroy
       description: Management of Provider Tokens.
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-          format: uuid
-        description: A UUID string identifying this provider token.
-        required: true
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this provider token.
+          required: true
       tags:
-      - tokens
+        - tokens
       security:
-      - OAuth2: []
+        - OAuth2: []
       responses:
         '204':
           description: No response body
@@ -2111,22 +2102,22 @@ components:
           type: boolean
           readOnly: true
       required:
-      - email
-      - id
-      - is_verified
-      - teams
+        - email
+        - id
+        - is_verified
+        - teams
     AggregationEnum:
       enum:
-      - sum
-      - last
+        - sum
+        - last
       type: string
     BillingPeriodEnum:
       enum:
-      - hourly
-      - daily
-      - weekly
-      - monthly
-      - annually
+        - hourly
+        - daily
+        - weekly
+        - monthly
+        - annually
       type: string
     BulkCreateInviteRequest:
       type: object
@@ -2150,8 +2141,8 @@ components:
             type: string
             format: email
       required:
-      - team_id
-      - to_emails
+        - team_id
+        - to_emails
     Customer:
       type: object
       properties:
@@ -2173,11 +2164,11 @@ components:
           format: date-time
           readOnly: true
       required:
-      - created_at
-      - email
-      - id
-      - source_id
-      - updated_at
+        - created_at
+        - email
+        - id
+        - source_id
+        - updated_at
     CustomerPaymentIntentRequest:
       type: object
       properties:
@@ -2188,15 +2179,15 @@ components:
           type: string
           format: uuid
       required:
-      - plan_id
-      - team_id
+        - plan_id
+        - team_id
     CustomerRequest:
       type: object
       properties:
         source_id:
           type: string
       required:
-      - source_id
+        - source_id
     CustomerTokenResponse:
       type: object
       properties:
@@ -2205,8 +2196,8 @@ components:
         is_new:
           type: boolean
       required:
-      - is_new
-      - token
+        - is_new
+        - token
     Feature:
       type: object
       properties:
@@ -2232,8 +2223,8 @@ components:
           type: boolean
           readOnly: true
       required:
-      - id
-      - is_builtin
+        - id
+        - is_builtin
     FeatureRequest:
       type: object
       properties:
@@ -2263,11 +2254,11 @@ components:
           maxLength: 128
         record_period:
           allOf:
-          - $ref: '#/components/schemas/RecordPeriodEnum'
+            - $ref: '#/components/schemas/RecordPeriodEnum'
           default: monthly
         aggregation:
           allOf:
-          - $ref: '#/components/schemas/AggregationEnum'
+            - $ref: '#/components/schemas/AggregationEnum'
           default: sum
         max_limit:
           type: integer
@@ -2284,8 +2275,8 @@ components:
           type: string
           format: uuid
       required:
-      - id
-      - name
+        - id
+        - name
     FeatureSpecRequest:
       type: object
       properties:
@@ -2294,11 +2285,11 @@ components:
           maxLength: 128
         record_period:
           allOf:
-          - $ref: '#/components/schemas/RecordPeriodEnum'
+            - $ref: '#/components/schemas/RecordPeriodEnum'
           default: monthly
         aggregation:
           allOf:
-          - $ref: '#/components/schemas/AggregationEnum'
+            - $ref: '#/components/schemas/AggregationEnum'
           default: sum
         max_limit:
           type: integer
@@ -2315,14 +2306,14 @@ components:
           type: string
           format: uuid
       required:
-      - name
+        - name
     IDTokenExchangeRequest:
       type: object
       properties:
         id_token:
           type: string
       required:
-      - id_token
+        - id_token
     Invite:
       type: object
       properties:
@@ -2332,7 +2323,7 @@ components:
           readOnly: true
         sent_by:
           allOf:
-          - $ref: '#/components/schemas/PublicProfile'
+            - $ref: '#/components/schemas/PublicProfile'
           readOnly: true
         sent_to_email:
           type: string
@@ -2352,11 +2343,11 @@ components:
           type: string
           format: uuid
       required:
-      - created_at
-      - id
-      - sent_by
-      - sent_to_email
-      - team_id
+        - created_at
+        - id
+        - sent_by
+        - sent_to_email
+        - team_id
     InviteRequest:
       type: object
       properties:
@@ -2374,8 +2365,8 @@ components:
           type: string
           format: uuid
       required:
-      - sent_to_email
-      - team_id
+        - sent_to_email
+        - team_id
     Invoice:
       type: object
       properties:
@@ -2414,13 +2405,13 @@ components:
           type: number
           readOnly: true
       required:
-      - created_at
-      - id
-      - state
-      - subscription_id
-      - team_id
-      - total
-      - updated_at
+        - created_at
+        - id
+        - state
+        - subscription_id
+        - team_id
+        - total
+        - updated_at
     IssueCustomerTokenRequest:
       type: object
       properties:
@@ -2434,10 +2425,10 @@ components:
           type: string
     OpEnum:
       enum:
-      - inc
-      - dec
-      - set
-      - reset
+        - inc
+        - dec
+        - set
+        - reset
       type: string
     PaginatedCustomerList:
       type: object
@@ -2659,26 +2650,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Token'
-    PaginatedUsageList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=400&limit=100
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=200&limit=100
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Usage'
     PatchedCustomerRequest:
       type: object
       properties:
@@ -2709,11 +2680,11 @@ components:
           maxLength: 128
         record_period:
           allOf:
-          - $ref: '#/components/schemas/RecordPeriodEnum'
+            - $ref: '#/components/schemas/RecordPeriodEnum'
           default: monthly
         aggregation:
           allOf:
-          - $ref: '#/components/schemas/AggregationEnum'
+            - $ref: '#/components/schemas/AggregationEnum'
           default: sum
         max_limit:
           type: integer
@@ -2861,7 +2832,7 @@ components:
         client_secret:
           type: string
       required:
-      - client_secret
+        - client_secret
     Plan:
       type: object
       properties:
@@ -2906,13 +2877,13 @@ components:
           items:
             $ref: '#/components/schemas/TeamAccess'
       required:
-      - features
-      - id
-      - is_active
-      - is_public
-      - is_trial_allowed
-      - name
-      - teams_access
+        - features
+        - id
+        - is_active
+        - is_public
+        - is_trial_allowed
+        - name
+        - teams_access
     PlanFeature:
       type: object
       properties:
@@ -2923,11 +2894,11 @@ components:
           type: boolean
         feature:
           allOf:
-          - $ref: '#/components/schemas/Feature'
+            - $ref: '#/components/schemas/Feature'
           readOnly: true
         spec:
           allOf:
-          - $ref: '#/components/schemas/FeatureSpec'
+            - $ref: '#/components/schemas/FeatureSpec'
           readOnly: true
         display:
           type: string
@@ -2939,11 +2910,11 @@ components:
           type: integer
           readOnly: true
       required:
-      - display
-      - feature
-      - max_limit
-      - slug
-      - spec
+        - display
+        - feature
+        - max_limit
+        - slug
+        - spec
     PlanFeatureRequest:
       type: object
       properties:
@@ -3000,12 +2971,12 @@ components:
           items:
             $ref: '#/components/schemas/TeamAccessRequest'
       required:
-      - features
-      - is_active
-      - is_public
-      - is_trial_allowed
-      - name
-      - teams_access
+        - features
+        - is_active
+        - is_public
+        - is_trial_allowed
+        - name
+        - teams_access
     Provider:
       type: object
       properties:
@@ -3047,11 +3018,11 @@ components:
           type: string
           readOnly: true
       required:
-      - id
-      - name
-      - owner_id
-      - slug
-      - stripe_account_id
+        - id
+        - name
+        - owner_id
+        - slug
+        - stripe_account_id
     ProviderRequest:
       type: object
       properties:
@@ -3082,8 +3053,8 @@ components:
         is_card_required:
           type: boolean
       required:
-      - name
-      - slug
+        - name
+        - slug
     PublicProfile:
       type: object
       properties:
@@ -3096,15 +3067,15 @@ components:
           format: email
           readOnly: true
       required:
-      - email
-      - id
+        - email
+        - id
     RecordPeriodEnum:
       enum:
-      - hourly
-      - daily
-      - weekly
-      - monthly
-      - annually
+        - hourly
+        - daily
+        - weekly
+        - monthly
+        - annually
       type: string
     ReportUsageRequest:
       type: object
@@ -3118,12 +3089,12 @@ components:
           type: integer
           default: 1
       required:
-      - op
-      - slug
+        - op
+        - slug
     RoleEnum:
       enum:
-      - owner
-      - member
+        - owner
+        - member
       type: string
     Slug:
       type: object
@@ -3132,14 +3103,14 @@ components:
           type: string
           pattern: ^[-a-zA-Z0-9_]+$
       required:
-      - slug
+        - slug
     StateEnum:
       enum:
-      - draft
-      - open
-      - paid
-      - canceled
-      - void
+        - draft
+        - open
+        - paid
+        - canceled
+        - void
       type: string
     Subscription:
       type: object
@@ -3168,12 +3139,12 @@ components:
           type: boolean
           readOnly: true
       required:
-      - end_at
-      - id
-      - is_active
-      - plan_id
-      - start_at
-      - team_id
+        - end_at
+        - id
+        - is_active
+        - plan_id
+        - start_at
+        - team_id
     SubscriptionDetail:
       type: object
       properties:
@@ -3183,7 +3154,7 @@ components:
           readOnly: true
         plan:
           allOf:
-          - $ref: '#/components/schemas/Plan'
+            - $ref: '#/components/schemas/Plan'
           readOnly: true
         plan_id:
           type: string
@@ -3219,17 +3190,17 @@ components:
             $ref: '#/components/schemas/Usage'
           readOnly: true
       required:
-      - billing_period
-      - days_left
-      - days_used
-      - end_at
-      - id
-      - is_active
-      - is_paused
-      - plan
-      - plan_id
-      - start_at
-      - usages
+        - billing_period
+        - days_left
+        - days_used
+        - end_at
+        - id
+        - is_active
+        - is_paused
+        - plan
+        - plan_id
+        - start_at
+        - usages
     SubscriptionRequest:
       type: object
       properties:
@@ -3242,8 +3213,8 @@ components:
         is_paused:
           type: boolean
       required:
-      - plan_id
-      - team_id
+        - plan_id
+        - team_id
     Team:
       type: object
       properties:
@@ -3264,9 +3235,9 @@ components:
           format: date-time
           readOnly: true
       required:
-      - created_at
-      - id
-      - updated_at
+        - created_at
+        - id
+        - updated_at
     TeamAccess:
       type: object
       properties:
@@ -3279,7 +3250,7 @@ components:
         name:
           type: string
       required:
-      - team_id
+        - team_id
     TeamAccessRequest:
       type: object
       properties:
@@ -3296,7 +3267,7 @@ components:
           writeOnly: true
           default: false
       required:
-      - team_id
+        - team_id
     TeamDetail:
       type: object
       properties:
@@ -3323,7 +3294,7 @@ components:
           readOnly: true
         subscription:
           allOf:
-          - $ref: '#/components/schemas/SubscriptionDetail'
+            - $ref: '#/components/schemas/SubscriptionDetail'
           readOnly: true
           nullable: true
         available_plans:
@@ -3340,14 +3311,14 @@ components:
           format: date-time
           readOnly: true
       required:
-      - available_plans
-      - created_at
-      - id
-      - invites
-      - members
-      - name
-      - subscription
-      - updated_at
+        - available_plans
+        - created_at
+        - id
+        - invites
+        - members
+        - name
+        - subscription
+        - updated_at
     TeamDetailRequest:
       type: object
       properties:
@@ -3359,7 +3330,7 @@ components:
           nullable: true
           maxLength: 128
       required:
-      - name
+        - name
     Teammate:
       type: object
       properties:
@@ -3377,17 +3348,17 @@ components:
           type: string
           readOnly: true
       required:
-      - customer_id
-      - email
-      - id
-      - role
+        - customer_id
+        - email
+        - id
+        - role
     TeammateRequest:
       type: object
       properties:
         role:
           $ref: '#/components/schemas/RoleEnum'
       required:
-      - role
+        - role
     Token:
       type: object
       properties:
@@ -3414,10 +3385,10 @@ components:
           format: date-time
           readOnly: true
       required:
-      - created_at
-      - id
-      - last_used_at
-      - token
+        - created_at
+        - id
+        - last_used_at
+        - token
     TokenRequest:
       type: object
       properties:
@@ -3441,10 +3412,14 @@ components:
         limit:
           type: integer
           readOnly: true
+        per_unit:
+          type: integer
+          readOnly: true
       required:
-      - limit
-      - slug
-      - value
+        - limit
+        - per_unit
+        - slug
+        - value
   securitySchemes:
     OAuth2:
       type: oauth2

@@ -17,9 +17,6 @@ import {
   PaginatedSubscriptionList,
   PaginatedSubscriptionListFromJSON,
   PaginatedSubscriptionListToJSON,
-  PaginatedUsageList,
-  PaginatedUsageListFromJSON,
-  PaginatedUsageListToJSON,
   PatchedPlanSwitchRequest,
   PatchedPlanSwitchRequestFromJSON,
   PatchedPlanSwitchRequestToJSON,
@@ -32,6 +29,9 @@ import {
   Subscription,
   SubscriptionFromJSON,
   SubscriptionToJSON,
+  SubscriptionDetail,
+  SubscriptionDetailFromJSON,
+  SubscriptionDetailToJSON,
   SubscriptionRequest,
   SubscriptionRequestFromJSON,
   SubscriptionRequestToJSON,
@@ -58,10 +58,9 @@ export interface SubscriptionsV1PartialUpdateRequest {
   patchedSubscriptionRequest?: PatchedSubscriptionRequest
 }
 
-export interface SubscriptionsV1ReportListRequest {
+export interface SubscriptionsV1ReportCreateRequest {
   id: string
-  limit?: number
-  offset?: number
+  reportUsageRequest: ReportUsageRequest
 }
 
 export interface SubscriptionsV1RetrieveRequest {
@@ -78,9 +77,8 @@ export interface SubscriptionsV1UpdateRequest {
   subscriptionRequest: SubscriptionRequest
 }
 
-export interface SubscriptionsV1UsageCreateRequest {
+export interface SubscriptionsV1UsageListRequest {
   id: string
-  reportUsageRequest: ReportUsageRequest
 }
 
 /**
@@ -313,28 +311,32 @@ export class SubscriptionsApi extends runtime.BaseAPI {
 
   /**
    */
-  async subscriptionsV1ReportListRaw(
-    requestParameters: SubscriptionsV1ReportListRequest,
+  async subscriptionsV1ReportCreateRaw(
+    requestParameters: SubscriptionsV1ReportCreateRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<PaginatedUsageList>> {
+  ): Promise<runtime.ApiResponse<Usage>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
-        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1ReportList.'
+        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1ReportCreate.'
+      )
+    }
+
+    if (
+      requestParameters.reportUsageRequest === null ||
+      requestParameters.reportUsageRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'reportUsageRequest',
+        'Required parameter requestParameters.reportUsageRequest was null or undefined when calling subscriptionsV1ReportCreate.'
       )
     }
 
     const queryParameters: any = {}
 
-    if (requestParameters.limit !== undefined) {
-      queryParameters['limit'] = requestParameters.limit
-    }
-
-    if (requestParameters.offset !== undefined) {
-      queryParameters['offset'] = requestParameters.offset
-    }
-
     const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
       // oauth required
@@ -350,25 +352,26 @@ export class SubscriptionsApi extends runtime.BaseAPI {
           `{${'id'}}`,
           encodeURIComponent(String(requestParameters.id))
         ),
-        method: 'GET',
+        method: 'POST',
         headers: headerParameters,
         query: queryParameters,
+        body: ReportUsageRequestToJSON(requestParameters.reportUsageRequest),
       },
       initOverrides
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      PaginatedUsageListFromJSON(jsonValue)
+      UsageFromJSON(jsonValue)
     )
   }
 
   /**
    */
-  async subscriptionsV1ReportList(
-    requestParameters: SubscriptionsV1ReportListRequest,
+  async subscriptionsV1ReportCreate(
+    requestParameters: SubscriptionsV1ReportCreateRequest,
     initOverrides?: RequestInit
-  ): Promise<PaginatedUsageList> {
-    const response = await this.subscriptionsV1ReportListRaw(
+  ): Promise<Usage> {
+    const response = await this.subscriptionsV1ReportCreateRaw(
       requestParameters,
       initOverrides
     )
@@ -376,11 +379,12 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   }
 
   /**
+   * Detailed subscription data.
    */
   async subscriptionsV1RetrieveRaw(
     requestParameters: SubscriptionsV1RetrieveRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<Subscription>> {
+  ): Promise<runtime.ApiResponse<SubscriptionDetail>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
@@ -414,16 +418,17 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      SubscriptionFromJSON(jsonValue)
+      SubscriptionDetailFromJSON(jsonValue)
     )
   }
 
   /**
+   * Detailed subscription data.
    */
   async subscriptionsV1Retrieve(
     requestParameters: SubscriptionsV1RetrieveRequest,
     initOverrides?: RequestInit
-  ): Promise<Subscription> {
+  ): Promise<SubscriptionDetail> {
     const response = await this.subscriptionsV1RetrieveRaw(
       requestParameters,
       initOverrides
@@ -563,32 +568,20 @@ export class SubscriptionsApi extends runtime.BaseAPI {
 
   /**
    */
-  async subscriptionsV1UsageCreateRaw(
-    requestParameters: SubscriptionsV1UsageCreateRequest,
+  async subscriptionsV1UsageListRaw(
+    requestParameters: SubscriptionsV1UsageListRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<Usage>> {
+  ): Promise<runtime.ApiResponse<Array<Usage>>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
-        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1UsageCreate.'
-      )
-    }
-
-    if (
-      requestParameters.reportUsageRequest === null ||
-      requestParameters.reportUsageRequest === undefined
-    ) {
-      throw new runtime.RequiredError(
-        'reportUsageRequest',
-        'Required parameter requestParameters.reportUsageRequest was null or undefined when calling subscriptionsV1UsageCreate.'
+        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1UsageList.'
       )
     }
 
     const queryParameters: any = {}
 
     const headerParameters: runtime.HTTPHeaders = {}
-
-    headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
       // oauth required
@@ -604,26 +597,25 @@ export class SubscriptionsApi extends runtime.BaseAPI {
           `{${'id'}}`,
           encodeURIComponent(String(requestParameters.id))
         ),
-        method: 'POST',
+        method: 'GET',
         headers: headerParameters,
         query: queryParameters,
-        body: ReportUsageRequestToJSON(requestParameters.reportUsageRequest),
       },
       initOverrides
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      UsageFromJSON(jsonValue)
+      jsonValue.map(UsageFromJSON)
     )
   }
 
   /**
    */
-  async subscriptionsV1UsageCreate(
-    requestParameters: SubscriptionsV1UsageCreateRequest,
+  async subscriptionsV1UsageList(
+    requestParameters: SubscriptionsV1UsageListRequest,
     initOverrides?: RequestInit
-  ): Promise<Usage> {
-    const response = await this.subscriptionsV1UsageCreateRaw(
+  ): Promise<Array<Usage>> {
+    const response = await this.subscriptionsV1UsageListRaw(
       requestParameters,
       initOverrides
     )
