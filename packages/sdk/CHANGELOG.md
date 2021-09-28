@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.11](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.10...@ironplans/sdk@0.1.0-alpha.11) (2021-09-28)
+
+### Features
+
+- **sdk:** add utility methods ([39b0106](https://github.com/ironplans/js/commit/39b0106a567a3d931b7e8d4c726efe5a64db48b8))
+
 # [0.1.0-alpha.10](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.9...@ironplans/sdk@0.1.0-alpha.10) (2021-09-28)
 
 **Note:** Version bump only for package @ironplans/sdk

@@ -1,6 +1,6 @@
 {
   "name": "@ironplans/react",
-  "version": "0.1.0-alpha.10",
+  "version": "0.1.0-alpha.11",
   "description": "> TODO: description",
   "author": "team@ironplans.com",
   "homepage": "https://github.com/ironplans/js#readme",
@@ -56,6 +56,6 @@
     "react-dom": "^16 || ^17"
   },
   "dependencies": {
-    "@ironplans/sdk": "^0.1.0-alpha.10"
+    "@ironplans/sdk": "^0.1.0-alpha.11"
   }
 }
