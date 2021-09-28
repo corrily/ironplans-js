@@ -1,3 +1,4 @@
+import jwtDecode, { JwtPayload } from 'jwt-decode'
 import { stringify } from 'qs-lite'
 
 export interface IPublicThemeFull {
@@ -8,13 +9,59 @@ export interface IPublicThemeFull {
     darkMode: 'off' | 'on' | 'auto'
   }
 }
-
 export type IPublicTheme = Partial<IPublicThemeFull>
+export interface IFrameOptions {
+  url: string | URL
+  theme?: IPublicTheme
+  token?: string
+  teamId?: string
+}
 
-export function createModalIframe({ zIndex = 1 } = {}) {
+const providerClaim = 'https://api.ironplans.com/.jwt/provider/'
+interface IPClaims {
+  [providerClaim]?: string
+}
+
+export function getClaims(token: string) {
+  const payload = jwtDecode<JwtPayload & IPClaims>(token)
+  return {
+    // typesafety defaults
+    sub: payload.sub ?? 'anon',
+    exp: 0,
+    ...payload,
+  }
+}
+
+export function isTokenExpired(token: string): boolean {
+  const claims = getClaims(token)
+  return claims.exp < Date.now() / 1000
+}
+
+export function themeToQueryString(theme: IPublicTheme): string {
+  return stringify({ theme })
+}
+
+export function urlish(url: string | URL): URL {
+  if (typeof url === 'string') {
+    return new URL(url)
+  }
+  return url
+}
+
+export function createIframeUrl(opts: IFrameOptions) {
+  const url = urlish(opts.url)
+
+  const { token, teamId, theme } = opts
+  url.searchParams.set('ct', token ?? '')
+  url.searchParams.set('tid', teamId ?? '')
+
+  return `${url}${theme ? `&${themeToQueryString(theme)}` : ''}`
+}
+
+export function createIframe({ zIndex = 1 } = {}) {
   const frame = document.createElement('iframe')
-  frame.width = '70%'
-  frame.height = '70%'
+  frame.width = '100%'
+  frame.height = '100%'
   frame.style.backgroundColor = 'transparent'
   frame.style.zIndex = zIndex.toString()
   frame.setAttribute('allowtransparency', 'true')
@@ -45,10 +92,6 @@ export function checkIframeRect(rect: DOMRect) {
   }
 }
 
-export function themeToQueryString(theme: IPublicTheme): string {
-  return stringify({ theme })
-}
-
 export function createModalBackdrop() {
   const div = document.createElement('div')
   div.style.position = 'fixed'
@@ -73,4 +116,60 @@ export function createModalBackdrop() {
   }
 
   return { div, show }
+}
+
+export function showWidgetAt(
+  urlish_: string | URL,
+  el: Element | string,
+  { zIndex }: ShowWidgetOptions = {}
+) {
+  const url = urlish(urlish_)
+
+  const render = () => {
+    const elem = typeof el === 'string' ? document.querySelector(el) : el
+
+    if (elem == null) throw new Error(`selector '${el}' returned no elements`)
+
+    const rect = elem.getBoundingClientRect()
+    checkIframeRect(rect)
+
+    const iframe = createIframe({ zIndex })
+    iframe.src = url.toString()
+    elem.appendChild(iframe)
+    return elem
+  }
+
+  if (document.readyState === 'complete') {
+    render()
+  } else {
+    window.addEventListener('load', render)
+  }
+}
+
+export function showWidgetModal(
+  urlish_: string,
+  { zIndex }: ShowWidgetOptions = {}
+) {
+  const url = urlish(urlish_)
+
+  const iframe = createIframe({ zIndex })
+  const { div: backdrop, show } = createModalBackdrop()
+
+  const allowScroll = preventScroll()
+
+  backdrop.appendChild(iframe)
+  document.appendChild(backdrop)
+  iframe.src = url.toString()
+
+  const onClose = () => {
+    document.body.removeChild(backdrop)
+    allowScroll()
+  }
+
+  show(onClose)
+  return onClose
+}
+
+interface ShowWidgetOptions {
+  zIndex?: number
 }

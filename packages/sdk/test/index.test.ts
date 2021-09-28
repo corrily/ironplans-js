@@ -3,10 +3,15 @@ import 'jest-fetch-mock'
 import { Customer } from '../src'
 
 const app = new IP.Server()
-const server = app.listen(3000)
+let port: number
+
+beforeAll(async () => {
+  port = await app.start()
+  console.debug(`Server started on port ${port}`)
+})
 
 afterAll(() => {
-  server.close()
+  app.stop()
 })
 
 describe('validate options', () => {
@@ -19,7 +24,7 @@ describe('validate options', () => {
     const c = new Customer({
       publicToken: 'dummy',
       idToken: 'dummy',
-      apiBaseUrl: 'http://localhost:3000',
+      apiBaseUrl: `http://localhost:${port}`,
     })
 
     await expect(c.init()).resolves.toBeInstanceOf(Customer)
@@ -28,7 +33,7 @@ describe('validate options', () => {
 
   test('options merged in init', async () => {
     const c = new Customer({
-      apiBaseUrl: 'http://localhost:3000',
+      apiBaseUrl: `http://localhost:${port}`,
     })
     await expect(
       c.init({ publicToken: 'dummy', idToken: 'dummy' })
