@@ -87,9 +87,9 @@ export class Customer implements CustomerOptions {
   }
 
   constructor(opts: CustomerOptions) {
-    Object.assign(this, opts)
-
     this.params = new URLSearchParams(window.location.search)
+    this.token = this.params.get('ct') ?? undefined
+    Object.assign(this, opts)
     this.api = createAPI(this)
   }
 
@@ -100,7 +100,10 @@ export class Customer implements CustomerOptions {
   }
 
   getTeam() {
-    if (!this.team) throw new Error('Customer not initialized')
+    if (!this.team) {
+      if (!this.isInitialized) throw new Error('Customer not initialized')
+      throw new Error('Customer has no team')
+    }
     return this.team
   }
 
@@ -111,6 +114,7 @@ export class Customer implements CustomerOptions {
    * immediately calling this.
    * */
   async init(opts: Partial<CustomerOptions> = {}) {
+    if (this.isInitialized) throw new Error('Customer already initialized')
     Object.assign(this, opts)
 
     this.validateOpts()
@@ -216,7 +220,7 @@ export class Customer implements CustomerOptions {
       throw new Error('idToken and token are mutually exclusive')
     }
 
-    if (!this.idToken && !this.token) {
+    if (!this.idToken && !this.token && !this.params.get('ct')) {
       throw new Error('idToken or token must be provided')
     }
 
@@ -232,7 +236,13 @@ export class Customer implements CustomerOptions {
     if (this.token && !isTokenExpired(this.token)) return this.token
     if (this.idToken) return this.exchangeIdToken()
     const paramToken = this.params.get('ct')
-    if (paramToken) return paramToken
+    if (paramToken) {
+      console.debug(
+        'IP: Initializing customer from query parameter token',
+        paramToken
+      )
+      return paramToken
+    }
     // Other sources of access tokens (e.g. query params) go here
 
     throw new Error('No valid token found')

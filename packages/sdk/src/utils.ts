@@ -178,7 +178,7 @@ export function showWidgetModal(
   const allowScroll = preventScroll()
 
   backdrop.appendChild(iframe)
-  document.appendChild(backdrop)
+  document.body.appendChild(backdrop)
   iframe.src = url.toString()
 
   const onClose = () => {

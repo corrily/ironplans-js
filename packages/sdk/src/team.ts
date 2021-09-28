@@ -154,6 +154,9 @@ export default class Team extends Resource<TeamDetail> {
     const url = this.createWidgetUrl(widget, theme)
     if (elOrSelector) {
       showWidgetAt(url, elOrSelector)
+      return () => {
+        /* noop */
+      }
     }
     return showWidgetModal(url)
   }
