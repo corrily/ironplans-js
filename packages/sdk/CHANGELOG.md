@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.1.0-alpha.9 (2021-09-28)
+
+### Bug Fixes
+
+- github workflow ([6f787db](https://github.com/ironplans/js/commit/6f787db5378a5f1e8c676c06f8b9c529fd7b5ee6))
+
 # [0.1.0-alpha.8](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.7...@ironplans/sdk@0.1.0-alpha.8) (2021-09-28)
 
 ### Bug Fixes
