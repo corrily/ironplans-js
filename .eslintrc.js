@@ -12,8 +12,8 @@ module.exports = {
     {
       files: ['**/*.ts', '**/*.tsx'],
       extends: ['airbnb', 'airbnb-typescript', 'airbnb/hooks', 'prettier'],
-      globals: { Atomics: 'readonly', SharedArrayBuffer: 'readonly' },
       parser: '@typescript-eslint/parser',
+      globals: { Atomics: 'readonly', SharedArrayBuffer: 'readonly' },
       parserOptions: {
         ecmaFeatures: { jsx: true },
         ecmaVersion: 2018,
