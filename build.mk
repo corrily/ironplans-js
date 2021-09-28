@@ -39,7 +39,7 @@ endif
 
 # depend on $(call event,{name}) to only trigger the recipe once, or if any other
 # dependencies change. Useful for only running PHONY targets once.
-once = .build/${1}
+once = build/${1}
 
 esb_opts = \
 	--bundle \
@@ -77,7 +77,7 @@ all: dist
 dist: $(dist_deps) 
 
 clean:
-	rm -rf dist .build
+	rm -rf dist build
 
 .PHONY: test
 test: 
@@ -134,6 +134,6 @@ dist/index.d.ts: $(entry) $(src) $(project_deps)
 		--outDir $(@D) || (rm -f dist/*.d.ts* && exit 1)
 	@echo "Types done!"
 
-# depend on .build/%
+# depend on build/%
 build/%::
-	@mkdir -p .build && echo $(date) > $@
+	@mkdir -p build && echo $(date) > $@
