@@ -6,6 +6,6 @@ all: $(packages)
 $(packages):
 	@[ -f ./$@/Makefile ] || exit 0
 	@echo "🔨 Building $@"
-	@$(MAKE) -C ./$@ > $@.log 2>&1 || (echo "🔥 Building $@ failed" && cat tmp/$@.log && rm -rf tmp && exit 1)
+	@$(MAKE) -C ./$@ > $@.log 2>&1 || (echo "🔥 Building $@ failed" && cat $@.log && rm -rf tmp && exit 1)
 
 
