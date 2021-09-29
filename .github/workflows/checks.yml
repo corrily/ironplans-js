@@ -20,6 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: yarn install --frozen-lockfile
+      - run: make all
       - uses: andresz1/size-limit-action@v1
         with:
           directory: packages/${{ matrix.package }}
