@@ -2788,6 +2788,11 @@ components:
           format: uri
           nullable: true
           maxLength: 200
+        invoice_logo_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
         default_plan:
           type: string
           format: uuid
@@ -3013,6 +3018,11 @@ components:
           format: uri
           nullable: true
           maxLength: 200
+        invoice_logo_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
         default_plan:
           type: string
           format: uuid
@@ -3056,6 +3066,11 @@ components:
           nullable: true
           maxLength: 200
         webhook_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        invoice_logo_url:
           type: string
           format: uri
           nullable: true
