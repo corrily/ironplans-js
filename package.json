@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/**"
   ],
   "nohoist": true,
   "devDependencies": {
@@ -51,8 +51,7 @@
       "prettier --write"
     ],
     "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix"
+      "prettier --write"
     ],
     "*.sh": [
       "shfmt -w -s -i 2"
