@@ -3,6 +3,10 @@ packages := $(shell find packages -type f \( ! -path "*node_modules*" \) -name M
 
 all: $(packages)
 
+packages/react: packages/sdk packages/proxy packages/openapi
+packages/sdk: packages/proxy packages/openapi
+packages/proxy: packages/openapi
+
 $(packages):
 	@[ -f ./$@/Makefile ] || exit 0
 	@echo "🔨 Building $@"
