@@ -48,6 +48,12 @@ export interface PatchedProviderRequest {
    * @type {string}
    * @memberof PatchedProviderRequest
    */
+  webhookUrl?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof PatchedProviderRequest
+   */
   defaultPlan?: string | null
   /**
    *
@@ -81,6 +87,7 @@ export function PatchedProviderRequestFromJSONTyped(
     slug: !exists(json, 'slug') ? undefined : json['slug'],
     authUrl: !exists(json, 'auth_url') ? undefined : json['auth_url'],
     homeUrl: !exists(json, 'home_url') ? undefined : json['home_url'],
+    webhookUrl: !exists(json, 'webhook_url') ? undefined : json['webhook_url'],
     defaultPlan: !exists(json, 'default_plan')
       ? undefined
       : json['default_plan'],
@@ -105,6 +112,7 @@ export function PatchedProviderRequestToJSON(
     slug: value.slug,
     auth_url: value.authUrl,
     home_url: value.homeUrl,
+    webhook_url: value.webhookUrl,
     default_plan: value.defaultPlan,
     trial_days: value.trialDays,
     is_card_required: value.isCardRequired,

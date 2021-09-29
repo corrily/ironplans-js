@@ -54,6 +54,12 @@ export interface Provider {
    * @type {string}
    * @memberof Provider
    */
+  webhookUrl?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof Provider
+   */
   defaultPlan?: string | null
   /**
    *
@@ -98,6 +104,7 @@ export function ProviderFromJSONTyped(
     slug: json['slug'],
     authUrl: !exists(json, 'auth_url') ? undefined : json['auth_url'],
     homeUrl: !exists(json, 'home_url') ? undefined : json['home_url'],
+    webhookUrl: !exists(json, 'webhook_url') ? undefined : json['webhook_url'],
     defaultPlan: !exists(json, 'default_plan')
       ? undefined
       : json['default_plan'],
@@ -122,6 +129,7 @@ export function ProviderToJSON(value?: Provider | null): any {
     slug: value.slug,
     auth_url: value.authUrl,
     home_url: value.homeUrl,
+    webhook_url: value.webhookUrl,
     default_plan: value.defaultPlan,
     trial_days: value.trialDays,
     is_card_required: value.isCardRequired,

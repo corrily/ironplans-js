@@ -406,6 +406,7 @@ export interface components {
       slug?: string
       auth_url?: string | null
       home_url?: string | null
+      webhook_url?: string | null
       default_plan?: string | null
       trial_days?: number
       is_card_required?: boolean
@@ -480,6 +481,7 @@ export interface components {
       slug: string
       auth_url?: string | null
       home_url?: string | null
+      webhook_url?: string | null
       default_plan?: string | null
       trial_days?: number
       is_card_required?: boolean
@@ -491,6 +493,7 @@ export interface components {
       slug: string
       auth_url?: string | null
       home_url?: string | null
+      webhook_url?: string | null
       default_plan?: string | null
       trial_days?: number
       is_card_required?: boolean

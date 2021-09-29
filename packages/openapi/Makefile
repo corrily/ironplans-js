@@ -10,7 +10,13 @@ once = build/${1}
 clean_api_files = src/
 clean_types_files = types.ts
 
-all: $(packages)
+ifneq (,$(SCHEMA_URL))
+schema_url := $(SCHEMA_URL)
+else
+schema_url := https://api.ironplans.com/openapi.yaml
+endif
+
+all: schema $(packages)
 
 api: openapi.yaml $(call once,api)
 	npx @openapitools/openapi-generator-cli generate \
@@ -33,7 +39,8 @@ clean-%:
 
 .PHONY: schema
 schema openapi.yaml: 
-	@wget https://api.ironplans.com/openapi.yaml -qO openapi.yaml
+	@echo "👩‍💻 Downloading schema from $(schema_url)..."
+	@wget $(schema_url) -qO openapi.yaml
 	npx prettier openapi.yaml --write
 
 # depend on build/%
