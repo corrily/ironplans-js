@@ -23,6 +23,8 @@ export const CustomerProvider: React.FC<CustomerProviderProps> = ({
   children,
   ...props
 }) => {
+  const [, setRender] = React.useState(0)
+  const forceRender = () => setRender((renderCount) => renderCount + 1)
   const [state, setState] = React.useState<CustomerContextInterface>({
     customer: new Customer({ ...props }),
     isLoading: true,
@@ -64,12 +66,25 @@ export const CustomerProvider: React.FC<CustomerProviderProps> = ({
     state.isInitializing,
   ])
 
+  const { teamId } = props
   useEffect(() => {
-    if (!props.teamId || !state.customer.isInitialized) return
-    if (props.teamId !== state.customer.getTeam().id) {
-      state.customer.setTeam(props.teamId)
+    // capture value
+    if (!teamId) return () => {}
+
+    const setTeam = (c: Customer) => {
+      const team = c.getTeam()
+      if (teamId !== team.id) {
+        c.setTeam(teamId).then(forceRender)
+      }
     }
-  }, [props.teamId, state.customer])
+
+    if (!state.customer.isInitialized) {
+      const unsub = state.customer.onInitialized(setTeam)
+      return () => unsub()
+    }
+    setTeam(state.customer)
+    return () => {}
+  }, [state.customer, teamId])
 
   return (
     <CustomerContext.Provider value={state}>

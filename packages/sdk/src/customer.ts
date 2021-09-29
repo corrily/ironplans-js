@@ -1,4 +1,5 @@
 import { TeamDetail, TeamDetailRequest } from '@ironplans/api'
+import { createEvents } from 'micro-typed-events'
 import { createAPI, IPAPI } from './api'
 import Team from './team'
 import {
@@ -6,6 +7,7 @@ import {
   getClaims,
   getProviderIdFromToken,
   isTokenExpired,
+  parseRequestError,
 } from './utils'
 
 export interface CustomerOptions {
@@ -38,9 +40,6 @@ export interface CustomerOptions {
 
   /** The amount of milliseconds to wait before timing out an API request. */
   timeout?: number
-
-  /** Called when initialization finishes and the class is ready for use. */
-  onInitialized?: (customer: Customer) => void
 }
 
 export class Customer implements CustomerOptions {
@@ -51,8 +50,6 @@ export class Customer implements CustomerOptions {
   token?: string
 
   isInitialized = false
-
-  onInitialized: (c: Customer) => void = () => {}
 
   apiBaseUrl = 'https://api.ironplans.com/'
 
@@ -75,6 +72,14 @@ export class Customer implements CustomerOptions {
   private params: URLSearchParams
 
   private team: Team | undefined = undefined
+
+  private teamEvent = createEvents<Team>()
+
+  private lifeEvent = createEvents<Customer>()
+
+  onTeamChanged = this.teamEvent.subscribe
+
+  onInitialized = this.lifeEvent.subscribe
 
   /**
    * A convenience method for creating a new customer and immediately calling
@@ -126,7 +131,7 @@ export class Customer implements CustomerOptions {
     this.team = new Team(this.api, await this.loadTeam(this.lookupTeamId()))
 
     this.isInitialized = true
-    this.onInitialized(this)
+    this.lifeEvent.emit(this)
 
     return this
   }
@@ -134,7 +139,9 @@ export class Customer implements CustomerOptions {
   lookupTeamId() {
     if (this.teamId) return this.teamId
     const ptid = this.params.get('tid') ?? undefined
-    if (ptid) this.teamId = ptid
+    if (ptid) {
+      this.teamId = ptid
+    }
     return this.teamId
   }
 
@@ -153,7 +160,11 @@ export class Customer implements CustomerOptions {
 
   /** Returns detailed information about a Customer's team. */
   async fetchTeamInfo(teamId: string) {
-    return this.api.teams.teamsV1Retrieve({ id: teamId })
+    try {
+      return await this.api.teams.teamsV1Retrieve({ id: teamId })
+    } catch (e) {
+      throw await parseRequestError(e)
+    }
   }
 
   /**
@@ -166,7 +177,7 @@ export class Customer implements CustomerOptions {
 
     console.warn('State Error: Customer has no teams available.')
     const team = await this.createTeam({ name: 'developers' })
-    return [team]
+    return [team.data]
   }
 
   /**
@@ -175,6 +186,7 @@ export class Customer implements CustomerOptions {
    * */
   async setTeam(teamId: string) {
     this.team = new Team(this.api, await this.fetchTeamInfo(teamId))
+    this.teamEvent.emit(this.team)
     return this.team
   }
 
@@ -278,11 +290,9 @@ export class Customer implements CustomerOptions {
       )
       return response.token
     } catch (e) {
-      if (e instanceof Response) {
-        const body = await e.text()
-        throw new Error(`Failed to exchange idToken: ${e.statusText} ${body}`)
-      }
-      throw new Error(`Failed to exchange idToken: ${e}`)
+      throw new Error(
+        `Failed to exchange id token: ${await parseRequestError(e)}`
+      )
     }
   }
 

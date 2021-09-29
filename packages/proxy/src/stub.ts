@@ -6,7 +6,9 @@ export type Route<
   P extends keyof IPTypes.paths,
   M extends keyof IPTypes.paths[P],
   C
-> = (c: C) => ExtractResponse<IPTypes.paths[P][M]>
+> = (
+  c: C
+) => ExtractResponse<IPTypes.paths[P][M]> | { status: number; data: unknown }
 
 export type Routes<C = unknown> = {
   [P in keyof IPTypes.paths]?: {
@@ -37,7 +39,7 @@ type ExtractResponse<R> = R extends {
       ValueOf<ExtractJSONByStatus<R2>>,
       keyof ExtractJSONByStatus<R2>
     >
-  : StubResponse<any, number>
+  : StubResponse<unknown, number>
 
 type Stub = {
   [P in string & keyof IPTypes.paths]?:

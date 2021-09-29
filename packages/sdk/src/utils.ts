@@ -78,8 +78,9 @@ export function createIframeUrl(opts: IFrameOptions) {
   return `${url}${theme ? `&${themeToQueryString(theme)}` : ''}`
 }
 
-export function createIframe({ zIndex = 1 } = {}) {
+function createIframe({ zIndex = 1 } = {}) {
   const frame = document.createElement('iframe')
+  frame.name = 'ironplans'
   frame.width = '100%'
   frame.height = '100%'
   frame.style.backgroundColor = 'transparent'
@@ -88,7 +89,7 @@ export function createIframe({ zIndex = 1 } = {}) {
   return frame
 }
 
-export function preventScroll() {
+function preventScroll() {
   const { scrollY } = window
   const oldOverflow = document.body.style.overflow
   const oldHeight = document.body.style.height
@@ -106,13 +107,13 @@ export function preventScroll() {
   return resetBody
 }
 
-export function checkIframeRect(rect: DOMRect) {
+function checkIframeRect(rect: DOMRect) {
   if (rect.height < 100 || rect.width < 100) {
     console.error('iframe is too small')
   }
 }
 
-export function createModalBackdrop() {
+function createModalBackdrop() {
   const div = document.createElement('div')
   div.style.position = 'fixed'
   div.style.top = '0'
@@ -138,32 +139,43 @@ export function createModalBackdrop() {
   return { div, show }
 }
 
-export function showWidgetAt(
+function findIframe(el: Element) {
+  const frames = el.querySelectorAll("iframe[name='ironplans']")
+  if (frames.length === 1) {
+    return frames[0] as HTMLIFrameElement
+  }
+  return undefined
+}
+
+export async function showWidgetAt(
   urlish_: string | URL,
   el: Element | string,
   { zIndex }: ShowWidgetOptions = {}
 ) {
-  const url = urlish(urlish_)
+  return new Promise<Element>((resolve) => {
+    const url = urlish(urlish_)
 
-  const render = () => {
-    const elem = typeof el === 'string' ? document.querySelector(el) : el
+    const render = () => {
+      const elem = typeof el === 'string' ? document.querySelector(el) : el
 
-    if (elem == null) throw new Error(`selector '${el}' returned no elements`)
+      if (elem == null) throw new Error(`selector '${el}' returned no elements`)
 
-    const rect = elem.getBoundingClientRect()
-    checkIframeRect(rect)
+      const rect = elem.getBoundingClientRect()
+      checkIframeRect(rect)
 
-    const iframe = createIframe({ zIndex })
-    iframe.src = url.toString()
-    elem.appendChild(iframe)
-    return elem
-  }
+      const oldFrame = findIframe(elem)
+      const iframe = oldFrame || createIframe({ zIndex })
+      iframe.src = url.toString()
+      if (!oldFrame) elem.appendChild(iframe)
+      resolve(elem)
+    }
 
-  if (document.readyState === 'complete') {
-    render()
-  } else {
-    window.addEventListener('load', render)
-  }
+    if (document.readyState === 'complete') {
+      render()
+    } else {
+      window.addEventListener('load', render)
+    }
+  })
 }
 
 export function showWidgetModal(
@@ -187,9 +199,17 @@ export function showWidgetModal(
   }
 
   show(onClose)
-  return onClose
+  return { el: backdrop, onClose }
 }
 
 interface ShowWidgetOptions {
   zIndex?: number
+}
+
+export async function parseRequestError(e: unknown) {
+  if (e instanceof Response) {
+    const body = await e.text()
+    return new Error(`Request failed: ${body}`)
+  }
+  return e
 }

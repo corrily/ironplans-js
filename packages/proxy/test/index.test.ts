@@ -1,10 +1,11 @@
 import axios from 'axios'
 import * as IPTypes from '@ironplans/types'
-import * as Exports from '../src'
+import * as Exports from '../src/server'
 
 const app = new Exports.Server()
 let port: number
-const path = (url: keyof IPTypes.paths) => `http://localhost:${port}${url}`
+const path = (url: string | keyof IPTypes.paths) =>
+  `http://localhost:${port}${url}`
 
 beforeAll(async () => {
   port = await app.start()
@@ -26,5 +27,15 @@ describe('server', () => {
     expect(data.results).toBeDefined()
     expect(data.count).toBeGreaterThan(0)
     expect(data.results[0].id).toBeDefined()
+  })
+  it('handles get team', async () => {
+    await Promise.all(
+      app.teams.map(async (team) => {
+        expect(team.id).toBeDefined()
+        const { data } = await axios.get(path(`/teams/v1/${team.id}`))
+        expect(data).toBeDefined()
+        expect(data.id).toEqual(team.id)
+      })
+    )
   })
 })
