@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.18](https://github.com/ironplans/js/compare/@ironplans/react@0.1.0-alpha.17...@ironplans/react@0.1.0-alpha.18) (2021-09-29)
+
+### Features
+
+- **react:** track teamId ([0126364](https://github.com/ironplans/js/commit/0126364fb599eb265e80bdc45757cd3c28bf0b8c))
+
 # [0.1.0-alpha.17](https://github.com/ironplans/js/compare/@ironplans/react@0.1.0-alpha.16...@ironplans/react@0.1.0-alpha.17) (2021-09-29)
 
 **Note:** Version bump only for package @ironplans/react
