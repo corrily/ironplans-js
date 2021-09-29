@@ -3,6 +3,9 @@ packages := $(shell find packages -type f \( ! -path "*node_modules*" \) -name M
 
 all: $(packages)
 
+# utiltiy for building packages by specifying the package folder only.
+$(patsubst packages/%, %, $(packages)): % : packages/%
+
 packages/react: packages/sdk packages/proxy packages/openapi
 packages/sdk: packages/proxy packages/openapi
 packages/proxy: packages/openapi
