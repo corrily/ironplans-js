@@ -32,6 +32,7 @@ export const CustomerProvider: React.FC<CustomerProviderProps> = ({
   const setComplete = useCallback(() => {
     setState((s) => ({ ...s, isLoading: false, isInitializing: false }))
   }, [])
+
   const setError = useCallback((e: Error) => {
     setState((s) => ({
       ...s,
@@ -40,6 +41,7 @@ export const CustomerProvider: React.FC<CustomerProviderProps> = ({
       isInitializing: false,
     }))
   }, [])
+
   useEffect(() => {
     if (state.error) return
     if (state.customer.isInitialized) return
@@ -61,6 +63,13 @@ export const CustomerProvider: React.FC<CustomerProviderProps> = ({
     state.error,
     state.isInitializing,
   ])
+
+  useEffect(() => {
+    if (!props.teamId || !state.customer.isInitialized) return
+    if (props.teamId !== state.customer.getTeam().id) {
+      state.customer.setTeam(props.teamId)
+    }
+  }, [props.teamId, state.customer])
 
   return (
     <CustomerContext.Provider value={state}>
