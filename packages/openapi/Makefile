@@ -29,7 +29,7 @@ clean: $(patsubst %,clean-%,$(packages))
 clean-%:
 	@echo "Cleaning $*..."
 	rm -rf $(patsubst %,$*/%,$($(subst PKG,$*,clean_PKG_files)))
-	rm -f .build/$*
+	rm -f build/$*
 
 .PHONY: schema
 schema openapi.yaml: 
@@ -38,4 +38,4 @@ schema openapi.yaml:
 
 # depend on build/%
 build/%::
-	mkdir -p .build && echo $(date) > .build/$*
+	mkdir -p build && echo $(date) > build/$*
