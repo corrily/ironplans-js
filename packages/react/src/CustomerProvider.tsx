@@ -66,9 +66,9 @@ export const CustomerProvider: React.FC<CustomerProviderProps> = ({
     state.isInitializing,
   ])
 
+  // capture value
   const { teamId } = props
   useEffect(() => {
-    // capture value
     if (!teamId) return () => {}
 
     const setTeam = (c: Customer) => {
