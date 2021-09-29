@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: yarn install --frozen-lockfile
-      - run: yarn lint
+      - run: make all
       - run: yarn jest --coverage
   size:
     runs-on: ubuntu-latest
