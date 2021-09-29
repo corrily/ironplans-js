@@ -1,13 +1,18 @@
 project_root := $(shell git rev-parse --show-toplevel)
 project_tsconfig := $(project_root)/tsconfig.json
 project_target := $(shell jq -r '.compilerOptions.target' $(project_tsconfig))
+
 target ?= project_target
 
 cjs_target ?= es2015
 cdn_target ?= es2017
 esm_target ?= es2017
 
-src := $(shell find -E src -regex '.*\.[jt]sx?$$' -type f )
+os := $(shell uname -s)
+is_macos := $(shell test $(os) = "Darwin" && echo true || echo '')
+find_args := $(if $(is_macos),-E,)
+src := $(shell find $(find_args) src -regex '.*\.[jt]sx?$$' -type f )
+
 out := $(shell find dist -name '*.js' -type f )
 name ?= $(shell basename $$(jq -r '.name' package.json))
 entry ?= src/index.ts

@@ -11,11 +11,16 @@ interface Props {
 export const Widget: FC<Props> = ({ customer: c, theme, widget }) => {
   const { customer, error, isLoading } = useCustomer(c)
   const ref = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
-    if (!isLoading && !error && ref.current) {
-      customer.getTeam().showWidget(widget, theme, ref.current)
-    }
+    if (isLoading || error || !ref.current) return () => {}
+    customer.getTeam().showWidget(widget, theme, ref.current)
+    const unsub = customer.onTeamChanged((team) => {
+      // show widget handles the case where the old widget is already rendered in a target div.
+      if (ref.current) {
+        team.showWidget(widget, theme, ref.current)
+      }
+    })
+    return () => unsub()
   }, [customer, error, isLoading, theme, widget])
 
   if (isLoading) return <div>Loading...</div>
