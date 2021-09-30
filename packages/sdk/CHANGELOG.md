@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.22](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.21...@ironplans/sdk@0.1.0-alpha.22) (2021-09-30)
+
+### Bug Fixes
+
+- qs-lite -> qs ([a62513c](https://github.com/ironplans/js/commit/a62513c6e0b5fb0163c2f8203af51972a0970e4f))
+- try increasing size limit ([6b7fa30](https://github.com/ironplans/js/commit/6b7fa300252b92ddb1a5d8596495c2d68e36797d))
+
+### Features
+
+- minor readme update (trying to force branch update) ([23dd89a](https://github.com/ironplans/js/commit/23dd89a59407aa8889a1be492d58205fa0e020ce))
+
 # [0.1.0-alpha.21](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.0-alpha.20...@ironplans/sdk@0.1.0-alpha.21) (2021-09-30)
 
 **Note:** Version bump only for package @ironplans/sdk
