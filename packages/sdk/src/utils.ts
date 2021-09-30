@@ -1,5 +1,5 @@
 import jwtDecode, { JwtPayload } from 'jwt-decode'
-import { stringify } from 'qs-lite'
+import { stringify } from 'qs'
 import { Immutable, Mutable } from './types'
 
 export function clone<T extends Immutable<T2>, T2 = unknown>(

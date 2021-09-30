@@ -39,7 +39,7 @@
   "size-limit": [
     {
       "path": "dist/sdk.min.js",
-      "limit": "20 kB"
+      "limit": "30 kB"
     }
   ],
   "devDependencies": {
@@ -54,6 +54,6 @@
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "micro-typed-events": "^1.0.2",
-    "qs-lite": "^0.0.3"
+    "qs": "^6.10.1"
   }
 }

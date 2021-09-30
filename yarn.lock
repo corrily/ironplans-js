@@ -546,11 +546,6 @@
   resolved "https://registry.yarnpkg.com/@hutson/parse-repository-url/-/parse-repository-url-3.0.2.tgz#98c23c950a3d9b6c8f0daed06da6c3af06981340"
   integrity sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==
 
-"@ironplans/api@^0.1.0-alpha.0":
-  version "0.1.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@ironplans/api/-/api-0.1.0-alpha.0.tgz#01abaa7063e4f91309e1499ede0afa61fc6849bd"
-  integrity sha512-p+pesfAEXggDt1a3qfspQpmYFd5AZCFXawcvYiaEzgvygCVrC1nwok3yYyXy6ACTzT2rsBc43L86VjuPHuyI1Q==
-
 "@ironplans/types@^0.0.30-alpha.0":
   version "0.0.30-alpha.0"
   resolved "https://registry.yarnpkg.com/@ironplans/types/-/types-0.0.30-alpha.0.tgz#f7705ceeb9abd8cc842e755f004f9cce146eee25"
@@ -9622,12 +9617,7 @@ q@^1.5.1:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qs-lite@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/qs-lite/-/qs-lite-0.0.3.tgz#54a36dc10ea581247ee7557d748b4d0923a0d7c2"
-  integrity sha512-u8BCp4VR8/HIuuECEw77x7Jruc0DhoFZAtuXWsm/gNctzBMQaEOujdZYtJt0VJPzFEXfHH6REFVD36i0nh7H+g==
-
-qs@^6.9.4:
+qs@^6.10.1, qs@^6.9.4:
   version "6.10.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.1.tgz#4931482fa8d647a5aab799c5271d2133b981fb6a"
   integrity sha512-M528Hph6wsSVOBiYUnGf+K/7w0hNshs/duGsNXPUCLH5XAqjEtiPGwNONLV0tBH8NoGb0mvD5JubnUTrujKDTg==
