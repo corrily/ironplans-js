@@ -39,7 +39,7 @@
   "size-limit": [
     {
       "path": "dist/sdk.min.js",
-      "limit": "20 kB"
+      "limit": "30 kB"
     }
   ],
   "devDependencies": {
