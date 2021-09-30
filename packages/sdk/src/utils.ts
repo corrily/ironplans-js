@@ -85,6 +85,7 @@ function createIframe({ zIndex = 1 } = {}) {
   frame.height = '100%'
   frame.style.backgroundColor = 'transparent'
   frame.style.zIndex = zIndex.toString()
+  frame.style.border = '0px'
   frame.setAttribute('allowtransparency', 'true')
   return frame
 }
