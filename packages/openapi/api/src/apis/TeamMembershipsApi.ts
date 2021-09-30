@@ -14,6 +14,12 @@
 
 import * as runtime from '../runtime'
 import {
+  CreateTeammate,
+  CreateTeammateFromJSON,
+  CreateTeammateToJSON,
+  CreateTeammateRequest,
+  CreateTeammateRequestFromJSON,
+  CreateTeammateRequestToJSON,
   PaginatedTeammateList,
   PaginatedTeammateListFromJSON,
   PaginatedTeammateListToJSON,
@@ -29,7 +35,7 @@ import {
 } from '../models'
 
 export interface TeamMembershipsV1CreateRequest {
-  teammateRequest: TeammateRequest
+  createTeammateRequest: CreateTeammateRequest
 }
 
 export interface TeamMembershipsV1DestroyRequest {
@@ -60,18 +66,19 @@ export interface TeamMembershipsV1UpdateRequest {
  */
 export class TeamMembershipsApi extends runtime.BaseAPI {
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1CreateRaw(
     requestParameters: TeamMembershipsV1CreateRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<Teammate>> {
+  ): Promise<runtime.ApiResponse<CreateTeammate>> {
     if (
-      requestParameters.teammateRequest === null ||
-      requestParameters.teammateRequest === undefined
+      requestParameters.createTeammateRequest === null ||
+      requestParameters.createTeammateRequest === undefined
     ) {
       throw new runtime.RequiredError(
-        'teammateRequest',
-        'Required parameter requestParameters.teammateRequest was null or undefined when calling teamMembershipsV1Create.'
+        'createTeammateRequest',
+        'Required parameter requestParameters.createTeammateRequest was null or undefined when calling teamMembershipsV1Create.'
       )
     }
 
@@ -95,22 +102,25 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
         method: 'POST',
         headers: headerParameters,
         query: queryParameters,
-        body: TeammateRequestToJSON(requestParameters.teammateRequest),
+        body: CreateTeammateRequestToJSON(
+          requestParameters.createTeammateRequest
+        ),
       },
       initOverrides
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      TeammateFromJSON(jsonValue)
+      CreateTeammateFromJSON(jsonValue)
     )
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1Create(
     requestParameters: TeamMembershipsV1CreateRequest,
     initOverrides?: RequestInit
-  ): Promise<Teammate> {
+  ): Promise<CreateTeammate> {
     const response = await this.teamMembershipsV1CreateRaw(
       requestParameters,
       initOverrides
@@ -119,6 +129,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1DestroyRaw(
     requestParameters: TeamMembershipsV1DestroyRequest,
@@ -160,6 +171,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1Destroy(
     requestParameters: TeamMembershipsV1DestroyRequest,
@@ -169,6 +181,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1ListRaw(
     requestParameters: TeamMembershipsV1ListRequest,
@@ -210,6 +223,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1List(
     requestParameters: TeamMembershipsV1ListRequest,
@@ -223,6 +237,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1PartialUpdateRaw(
     requestParameters: TeamMembershipsV1PartialUpdateRequest,
@@ -271,6 +286,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1PartialUpdate(
     requestParameters: TeamMembershipsV1PartialUpdateRequest,
@@ -284,6 +300,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1RetrieveRaw(
     requestParameters: TeamMembershipsV1RetrieveRequest,
@@ -327,6 +344,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1Retrieve(
     requestParameters: TeamMembershipsV1RetrieveRequest,
@@ -340,6 +358,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1UpdateRaw(
     requestParameters: TeamMembershipsV1UpdateRequest,
@@ -396,6 +415,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   }
 
   /**
+   * As a Customer, access memberships for all your teams.  As a Provider, full admin access to teams.
    */
   async teamMembershipsV1Update(
     requestParameters: TeamMembershipsV1UpdateRequest,
