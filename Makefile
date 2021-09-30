@@ -6,6 +6,7 @@ all: $(packages)
 # utiltiy for building packages by specifying the package folder only.
 $(patsubst packages/%, %, $(packages)): % : packages/%
 
+api types: packages/openapi
 packages/react: packages/sdk packages/proxy packages/openapi
 packages/sdk: packages/proxy packages/openapi
 packages/proxy: packages/openapi
