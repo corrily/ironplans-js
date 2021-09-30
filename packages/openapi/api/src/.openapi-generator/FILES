@@ -16,6 +16,8 @@ models/Account.ts
 models/AggregationEnum.ts
 models/BillingPeriodEnum.ts
 models/BulkCreateInviteRequest.ts
+models/CreateTeammate.ts
+models/CreateTeammateRequest.ts
 models/Customer.ts
 models/CustomerConfirmCardRequest.ts
 models/CustomerPaymentIntentRequest.ts

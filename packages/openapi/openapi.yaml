@@ -1631,6 +1631,9 @@ paths:
   /team_memberships/v1/:
     get:
       operationId: team_memberships_v1_list
+      description: |-
+        As a Customer, access memberships for all your teams.  As a Provider,
+        full admin access to teams.
       parameters:
         - name: limit
           required: false
@@ -1657,19 +1660,22 @@ paths:
           description: ''
     post:
       operationId: team_memberships_v1_create
+      description: |-
+        As a Customer, access memberships for all your teams.  As a Provider,
+        full admin access to teams.
       tags:
         - team_memberships
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TeammateRequest'
+              $ref: '#/components/schemas/CreateTeammateRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TeammateRequest'
+              $ref: '#/components/schemas/CreateTeammateRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TeammateRequest'
+              $ref: '#/components/schemas/CreateTeammateRequest'
         required: true
       security:
         - OAuth2: []
@@ -1678,11 +1684,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Teammate'
+                $ref: '#/components/schemas/CreateTeammate'
           description: ''
   /team_memberships/v1/{id}/:
     get:
       operationId: team_memberships_v1_retrieve
+      description: |-
+        As a Customer, access memberships for all your teams.  As a Provider,
+        full admin access to teams.
       parameters:
         - in: path
           name: id
@@ -1704,6 +1713,9 @@ paths:
           description: ''
     put:
       operationId: team_memberships_v1_update
+      description: |-
+        As a Customer, access memberships for all your teams.  As a Provider,
+        full admin access to teams.
       parameters:
         - in: path
           name: id
@@ -1737,6 +1749,9 @@ paths:
           description: ''
     patch:
       operationId: team_memberships_v1_partial_update
+      description: |-
+        As a Customer, access memberships for all your teams.  As a Provider,
+        full admin access to teams.
       parameters:
         - in: path
           name: id
@@ -1769,6 +1784,9 @@ paths:
           description: ''
     delete:
       operationId: team_memberships_v1_destroy
+      description: |-
+        As a Customer, access memberships for all your teams.  As a Provider,
+        full admin access to teams.
       parameters:
         - in: path
           name: id
@@ -2198,6 +2216,54 @@ components:
       required:
         - team_id
         - to_emails
+    CreateTeammate:
+      type: object
+      description: |-
+        Add a new membership to a Team. Role defaults to `member` if not specified.
+        Specify `email` and/or `source_id` to lookup the customer, create it if it
+        doesn't exist, and add it to the team.
+      properties:
+        role:
+          allOf:
+            - $ref: '#/components/schemas/RoleEnum'
+          default: member
+        team_id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        source_id:
+          type: string
+      required:
+        - team_id
+    CreateTeammateRequest:
+      type: object
+      description: |-
+        Add a new membership to a Team. Role defaults to `member` if not specified.
+        Specify `email` and/or `source_id` to lookup the customer, create it if it
+        doesn't exist, and add it to the team.
+      properties:
+        role:
+          allOf:
+            - $ref: '#/components/schemas/RoleEnum'
+          default: member
+        team_id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        source_id:
+          type: string
+      required:
+        - team_id
     Customer:
       type: object
       properties:
@@ -3452,6 +3518,10 @@ components:
           type: string
           format: uuid
           readOnly: true
+        team_id:
+          type: string
+          format: uuid
+          readOnly: true
         customer_id:
           type: string
           format: uuid
@@ -3466,6 +3536,7 @@ components:
         - email
         - id
         - role
+        - team_id
     TeammateRequest:
       type: object
       properties:

@@ -157,13 +157,37 @@ export interface paths {
     get: operations['subscriptions_v1_usage_list']
   }
   '/team_memberships/v1/': {
+    /**
+     * As a Customer, access memberships for all your teams.  As a Provider,
+     * full admin access to teams.
+     */
     get: operations['team_memberships_v1_list']
+    /**
+     * As a Customer, access memberships for all your teams.  As a Provider,
+     * full admin access to teams.
+     */
     post: operations['team_memberships_v1_create']
   }
   '/team_memberships/v1/{id}/': {
+    /**
+     * As a Customer, access memberships for all your teams.  As a Provider,
+     * full admin access to teams.
+     */
     get: operations['team_memberships_v1_retrieve']
+    /**
+     * As a Customer, access memberships for all your teams.  As a Provider,
+     * full admin access to teams.
+     */
     put: operations['team_memberships_v1_update']
+    /**
+     * As a Customer, access memberships for all your teams.  As a Provider,
+     * full admin access to teams.
+     */
     delete: operations['team_memberships_v1_destroy']
+    /**
+     * As a Customer, access memberships for all your teams.  As a Provider,
+     * full admin access to teams.
+     */
     patch: operations['team_memberships_v1_partial_update']
   }
   '/teams/v1/': {
@@ -214,6 +238,30 @@ export interface components {
       role?: components['schemas']['RoleEnum']
       team_id: string
       to_emails: string[]
+    }
+    /**
+     * Add a new membership to a Team. Role defaults to `member` if not specified.
+     * Specify `email` and/or `source_id` to lookup the customer, create it if it
+     * doesn't exist, and add it to the team.
+     */
+    CreateTeammate: {
+      role?: components['schemas']['RoleEnum']
+      team_id: string
+      customer_id?: string
+      email?: string
+      source_id?: string
+    }
+    /**
+     * Add a new membership to a Team. Role defaults to `member` if not specified.
+     * Specify `email` and/or `source_id` to lookup the customer, create it if it
+     * doesn't exist, and add it to the team.
+     */
+    CreateTeammateRequest: {
+      role?: components['schemas']['RoleEnum']
+      team_id: string
+      customer_id?: string
+      email?: string
+      source_id?: string
     }
     Customer: {
       id: string
@@ -599,6 +647,7 @@ export interface components {
     }
     Teammate: {
       id: string
+      team_id: string
       customer_id: string
       role: components['schemas']['RoleEnum']
       email: string
@@ -1738,6 +1787,10 @@ export interface operations {
       }
     }
   }
+  /**
+   * As a Customer, access memberships for all your teams.  As a Provider,
+   * full admin access to teams.
+   */
   team_memberships_v1_list: {
     parameters: {
       query: {
@@ -1755,22 +1808,30 @@ export interface operations {
       }
     }
   }
+  /**
+   * As a Customer, access memberships for all your teams.  As a Provider,
+   * full admin access to teams.
+   */
   team_memberships_v1_create: {
     responses: {
       201: {
         content: {
-          'application/json': components['schemas']['Teammate']
+          'application/json': components['schemas']['CreateTeammate']
         }
       }
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['TeammateRequest']
-        'application/x-www-form-urlencoded': components['schemas']['TeammateRequest']
-        'multipart/form-data': components['schemas']['TeammateRequest']
+        'application/json': components['schemas']['CreateTeammateRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CreateTeammateRequest']
+        'multipart/form-data': components['schemas']['CreateTeammateRequest']
       }
     }
   }
+  /**
+   * As a Customer, access memberships for all your teams.  As a Provider,
+   * full admin access to teams.
+   */
   team_memberships_v1_retrieve: {
     parameters: {
       path: {
@@ -1786,6 +1847,10 @@ export interface operations {
       }
     }
   }
+  /**
+   * As a Customer, access memberships for all your teams.  As a Provider,
+   * full admin access to teams.
+   */
   team_memberships_v1_update: {
     parameters: {
       path: {
@@ -1808,6 +1873,10 @@ export interface operations {
       }
     }
   }
+  /**
+   * As a Customer, access memberships for all your teams.  As a Provider,
+   * full admin access to teams.
+   */
   team_memberships_v1_destroy: {
     parameters: {
       path: {
@@ -1820,6 +1889,10 @@ export interface operations {
       204: never
     }
   }
+  /**
+   * As a Customer, access memberships for all your teams.  As a Provider,
+   * full admin access to teams.
+   */
   team_memberships_v1_partial_update: {
     parameters: {
       path: {

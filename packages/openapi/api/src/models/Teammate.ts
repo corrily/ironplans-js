@@ -37,6 +37,12 @@ export interface Teammate {
    * @type {string}
    * @memberof Teammate
    */
+  readonly teamId: string
+  /**
+   *
+   * @type {string}
+   * @memberof Teammate
+   */
   readonly customerId: string
   /**
    *
@@ -65,6 +71,7 @@ export function TeammateFromJSONTyped(
   }
   return {
     id: json['id'],
+    teamId: json['team_id'],
     customerId: json['customer_id'],
     role: RoleEnumFromJSON(json['role']),
     email: json['email'],
