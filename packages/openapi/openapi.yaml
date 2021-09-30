@@ -1684,7 +1684,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateTeammate'
+                $ref: '#/components/schemas/Teammate'
           description: ''
   /team_memberships/v1/{id}/:
     get:
@@ -2216,30 +2216,6 @@ components:
       required:
         - team_id
         - to_emails
-    CreateTeammate:
-      type: object
-      description: |-
-        Add a new membership to a Team. Role defaults to `member` if not specified.
-        Specify `email` and/or `source_id` to lookup the customer, create it if it
-        doesn't exist, and add it to the team.
-      properties:
-        role:
-          allOf:
-            - $ref: '#/components/schemas/RoleEnum'
-          default: member
-        team_id:
-          type: string
-          format: uuid
-        customer_id:
-          type: string
-          format: uuid
-        email:
-          type: string
-          format: email
-        source_id:
-          type: string
-      required:
-        - team_id
     CreateTeammateRequest:
       type: object
       description: |-

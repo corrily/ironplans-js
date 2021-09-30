@@ -244,18 +244,6 @@ export interface components {
      * Specify `email` and/or `source_id` to lookup the customer, create it if it
      * doesn't exist, and add it to the team.
      */
-    CreateTeammate: {
-      role?: components['schemas']['RoleEnum']
-      team_id: string
-      customer_id?: string
-      email?: string
-      source_id?: string
-    }
-    /**
-     * Add a new membership to a Team. Role defaults to `member` if not specified.
-     * Specify `email` and/or `source_id` to lookup the customer, create it if it
-     * doesn't exist, and add it to the team.
-     */
     CreateTeammateRequest: {
       role?: components['schemas']['RoleEnum']
       team_id: string
@@ -1816,7 +1804,7 @@ export interface operations {
     responses: {
       201: {
         content: {
-          'application/json': components['schemas']['CreateTeammate']
+          'application/json': components['schemas']['Teammate']
         }
       }
     }

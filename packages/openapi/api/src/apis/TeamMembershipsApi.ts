@@ -14,9 +14,6 @@
 
 import * as runtime from '../runtime'
 import {
-  CreateTeammate,
-  CreateTeammateFromJSON,
-  CreateTeammateToJSON,
   CreateTeammateRequest,
   CreateTeammateRequestFromJSON,
   CreateTeammateRequestToJSON,
@@ -71,7 +68,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   async teamMembershipsV1CreateRaw(
     requestParameters: TeamMembershipsV1CreateRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<CreateTeammate>> {
+  ): Promise<runtime.ApiResponse<Teammate>> {
     if (
       requestParameters.createTeammateRequest === null ||
       requestParameters.createTeammateRequest === undefined
@@ -110,7 +107,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      CreateTeammateFromJSON(jsonValue)
+      TeammateFromJSON(jsonValue)
     )
   }
 
@@ -120,7 +117,7 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
   async teamMembershipsV1Create(
     requestParameters: TeamMembershipsV1CreateRequest,
     initOverrides?: RequestInit
-  ): Promise<CreateTeammate> {
+  ): Promise<Teammate> {
     const response = await this.teamMembershipsV1CreateRaw(
       requestParameters,
       initOverrides
