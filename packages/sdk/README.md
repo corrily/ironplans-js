@@ -1,11 +1,10 @@
 # `@ironplans/sdk`
 
-> TODO: description
+https://docs.ironplans.com/usage/javascript
 
 ## Usage
 
 ```
-const sdk = require('@ironplans/sdk');
-
-// TODO: DEMONSTRATE API
+npm i @ironplans/sdk
+yarn add @ironplans/sdk
 ```
