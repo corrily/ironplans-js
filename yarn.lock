@@ -9622,12 +9622,7 @@ q@^1.5.1:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qs-lite@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/qs-lite/-/qs-lite-0.0.3.tgz#54a36dc10ea581247ee7557d748b4d0923a0d7c2"
-  integrity sha512-u8BCp4VR8/HIuuECEw77x7Jruc0DhoFZAtuXWsm/gNctzBMQaEOujdZYtJt0VJPzFEXfHH6REFVD36i0nh7H+g==
-
-qs@^6.9.4:
+qs@^6.10.1, qs@^6.9.4:
   version "6.10.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.1.tgz#4931482fa8d647a5aab799c5271d2133b981fb6a"
   integrity sha512-M528Hph6wsSVOBiYUnGf+K/7w0hNshs/duGsNXPUCLH5XAqjEtiPGwNONLV0tBH8NoGb0mvD5JubnUTrujKDTg==
