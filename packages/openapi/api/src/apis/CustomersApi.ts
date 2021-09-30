@@ -17,12 +17,18 @@ import {
   Customer,
   CustomerFromJSON,
   CustomerToJSON,
+  CustomerConfirmCardRequest,
+  CustomerConfirmCardRequestFromJSON,
+  CustomerConfirmCardRequestToJSON,
   CustomerPaymentIntentRequest,
   CustomerPaymentIntentRequestFromJSON,
   CustomerPaymentIntentRequestToJSON,
   CustomerRequest,
   CustomerRequestFromJSON,
   CustomerRequestToJSON,
+  CustomerSetupIntentRequest,
+  CustomerSetupIntentRequestFromJSON,
+  CustomerSetupIntentRequestToJSON,
   CustomerTokenResponse,
   CustomerTokenResponseFromJSON,
   CustomerTokenResponseToJSON,
@@ -41,7 +47,14 @@ import {
   PaymentIntentResponse,
   PaymentIntentResponseFromJSON,
   PaymentIntentResponseToJSON,
+  SetupIntentResponse,
+  SetupIntentResponseFromJSON,
+  SetupIntentResponseToJSON,
 } from '../models'
+
+export interface CustomersV1ConfirmCardCreateRequest {
+  customerConfirmCardRequest: CustomerConfirmCardRequest
+}
 
 export interface CustomersV1CreateRequest {
   customerRequest: CustomerRequest
@@ -73,6 +86,10 @@ export interface CustomersV1RetrieveRequest {
   id: string
 }
 
+export interface CustomersV1SetupIntentCreateRequest {
+  customerSetupIntentRequest: CustomerSetupIntentRequest
+}
+
 export interface CustomersV1TokenCreateRequest {
   issueCustomerTokenRequest?: IssueCustomerTokenRequest
 }
@@ -86,6 +103,63 @@ export interface CustomersV1UpdateRequest {
  *
  */
 export class CustomersApi extends runtime.BaseAPI {
+  /**
+   * Confirm card as a preferred payment method.
+   */
+  async customersV1ConfirmCardCreateRaw(
+    requestParameters: CustomersV1ConfirmCardCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<void>> {
+    if (
+      requestParameters.customerConfirmCardRequest === null ||
+      requestParameters.customerConfirmCardRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'customerConfirmCardRequest',
+        'Required parameter requestParameters.customerConfirmCardRequest was null or undefined when calling customersV1ConfirmCardCreate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'OAuth2',
+        []
+      )
+    }
+
+    const response = await this.request(
+      {
+        path: `/customers/v1/confirm_card/`,
+        method: 'POST',
+        headers: headerParameters,
+        query: queryParameters,
+        body: CustomerConfirmCardRequestToJSON(
+          requestParameters.customerConfirmCardRequest
+        ),
+      },
+      initOverrides
+    )
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   * Confirm card as a preferred payment method.
+   */
+  async customersV1ConfirmCardCreate(
+    requestParameters: CustomersV1ConfirmCardCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<void> {
+    await this.customersV1ConfirmCardCreateRaw(requestParameters, initOverrides)
+  }
+
   /**
    */
   async customersV1CreateRaw(
@@ -525,6 +599,69 @@ export class CustomersApi extends runtime.BaseAPI {
     initOverrides?: RequestInit
   ): Promise<Customer> {
     const response = await this.customersV1RetrieveRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   * Sets up future payments and passes back client secret to be used in card form. Similar to payment_intent endpoint except no charge is made.
+   */
+  async customersV1SetupIntentCreateRaw(
+    requestParameters: CustomersV1SetupIntentCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<SetupIntentResponse>> {
+    if (
+      requestParameters.customerSetupIntentRequest === null ||
+      requestParameters.customerSetupIntentRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'customerSetupIntentRequest',
+        'Required parameter requestParameters.customerSetupIntentRequest was null or undefined when calling customersV1SetupIntentCreate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'OAuth2',
+        []
+      )
+    }
+
+    const response = await this.request(
+      {
+        path: `/customers/v1/setup_intent/`,
+        method: 'POST',
+        headers: headerParameters,
+        query: queryParameters,
+        body: CustomerSetupIntentRequestToJSON(
+          requestParameters.customerSetupIntentRequest
+        ),
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      SetupIntentResponseFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   * Sets up future payments and passes back client secret to be used in card form. Similar to payment_intent endpoint except no charge is made.
+   */
+  async customersV1SetupIntentCreate(
+    requestParameters: CustomersV1SetupIntentCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<SetupIntentResponse> {
+    const response = await this.customersV1SetupIntentCreateRaw(
       requestParameters,
       initOverrides
     )

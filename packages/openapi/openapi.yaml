@@ -178,6 +178,29 @@ paths:
       responses:
         '204':
           description: No response body
+  /customers/v1/confirm_card/:
+    post:
+      operationId: customers_v1_confirm_card_create
+      description: Confirm card as a preferred payment method.
+      tags:
+        - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerConfirmCardRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerConfirmCardRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomerConfirmCardRequest'
+        required: true
+      security:
+        - OAuth2: []
+      responses:
+        '200':
+          description: No response body
   /customers/v1/oidc-exchange/:
     post:
       operationId: customers_v1_oidc_exchange_create
@@ -246,6 +269,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerTokenResponse'
+          description: ''
+  /customers/v1/setup_intent/:
+    post:
+      operationId: customers_v1_setup_intent_create
+      description: |-
+        Sets up future payments and passes back client secret to be used in card form. Similar to payment_intent
+        endpoint except no charge is made.
+      tags:
+        - customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSetupIntentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomerSetupIntentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomerSetupIntentRequest'
+        required: true
+      security:
+        - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetupIntentResponse'
           description: ''
   /customers/v1/token/:
     post:
@@ -2172,6 +2224,16 @@ components:
         - id
         - source_id
         - updated_at
+    CustomerConfirmCardRequest:
+      type: object
+      properties:
+        stripe_setup_id:
+          type: string
+        payment_method_id:
+          type: string
+      required:
+        - payment_method_id
+        - stripe_setup_id
     CustomerPaymentIntentRequest:
       type: object
       properties:
@@ -2191,6 +2253,18 @@ components:
           type: string
       required:
         - source_id
+    CustomerSetupIntentRequest:
+      type: object
+      properties:
+        plan_id:
+          type: string
+          format: uuid
+        team_id:
+          type: string
+          format: uuid
+      required:
+        - plan_id
+        - team_id
     CustomerTokenResponse:
       type: object
       properties:
@@ -3129,6 +3203,13 @@ components:
         - owner
         - member
       type: string
+    SetupIntentResponse:
+      type: object
+      properties:
+        client_secret:
+          type: string
+      required:
+        - client_secret
     Slug:
       type: object
       properties:

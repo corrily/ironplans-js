@@ -17,8 +17,10 @@ models/AggregationEnum.ts
 models/BillingPeriodEnum.ts
 models/BulkCreateInviteRequest.ts
 models/Customer.ts
+models/CustomerConfirmCardRequest.ts
 models/CustomerPaymentIntentRequest.ts
 models/CustomerRequest.ts
+models/CustomerSetupIntentRequest.ts
 models/CustomerTokenResponse.ts
 models/Feature.ts
 models/FeatureRequest.ts
@@ -63,6 +65,7 @@ models/PublicProfile.ts
 models/RecordPeriodEnum.ts
 models/ReportUsageRequest.ts
 models/RoleEnum.ts
+models/SetupIntentResponse.ts
 models/Slug.ts
 models/StateEnum.ts
 models/Subscription.ts

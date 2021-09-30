@@ -23,6 +23,10 @@ export interface paths {
     delete: operations['customers_v1_destroy']
     patch: operations['customers_v1_partial_update']
   }
+  '/customers/v1/confirm_card/': {
+    /** Confirm card as a preferred payment method. */
+    post: operations['customers_v1_confirm_card_create']
+  }
   '/customers/v1/oidc-exchange/': {
     post: operations['customers_v1_oidc_exchange_create']
   }
@@ -35,6 +39,13 @@ export interface paths {
   }
   '/customers/v1/renew_token/': {
     post: operations['customers_v1_renew_token_create']
+  }
+  '/customers/v1/setup_intent/': {
+    /**
+     * Sets up future payments and passes back client secret to be used in card form. Similar to payment_intent
+     * endpoint except no charge is made.
+     */
+    post: operations['customers_v1_setup_intent_create']
   }
   '/customers/v1/token/': {
     post: operations['customers_v1_token_create']
@@ -211,12 +222,20 @@ export interface components {
       created_at: string
       updated_at: string
     }
+    CustomerConfirmCardRequest: {
+      stripe_setup_id: string
+      payment_method_id: string
+    }
     CustomerPaymentIntentRequest: {
       plan_id: string
       team_id: string
     }
     CustomerRequest: {
       source_id: string
+    }
+    CustomerSetupIntentRequest: {
+      plan_id: string
+      team_id: string
     }
     CustomerTokenResponse: {
       token: string
@@ -512,6 +531,9 @@ export interface components {
       value?: number
     }
     RoleEnum: 'owner' | 'member'
+    SetupIntentResponse: {
+      client_secret: string
+    }
     Slug: {
       slug: string
     }
@@ -727,6 +749,20 @@ export interface operations {
       }
     }
   }
+  /** Confirm card as a preferred payment method. */
+  customers_v1_confirm_card_create: {
+    responses: {
+      /** No response body */
+      200: unknown
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CustomerConfirmCardRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CustomerConfirmCardRequest']
+        'multipart/form-data': components['schemas']['CustomerConfirmCardRequest']
+      }
+    }
+  }
   customers_v1_oidc_exchange_create: {
     responses: {
       200: {
@@ -769,6 +805,26 @@ export interface operations {
         content: {
           'application/json': components['schemas']['CustomerTokenResponse']
         }
+      }
+    }
+  }
+  /**
+   * Sets up future payments and passes back client secret to be used in card form. Similar to payment_intent
+   * endpoint except no charge is made.
+   */
+  customers_v1_setup_intent_create: {
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['SetupIntentResponse']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CustomerSetupIntentRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CustomerSetupIntentRequest']
+        'multipart/form-data': components['schemas']['CustomerSetupIntentRequest']
       }
     }
   }
