@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1-alpha.0](https://github.com/ironplans/js/compare/@ironplans/types@0.1.0...@ironplans/types@0.1.1-alpha.0) (2021-09-30)
+
+**Note:** Version bump only for package @ironplans/types
+
 # [0.1.0](https://github.com/ironplans/js/compare/@ironplans/types@0.1.0-alpha.4...@ironplans/types@0.1.0) (2021-09-30)
 
 **Note:** Version bump only for package @ironplans/types
