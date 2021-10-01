@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0-alpha.0](https://github.com/ironplans/js/compare/@ironplans/api@0.1.1-alpha.0...@ironplans/api@0.2.0-alpha.0) (2021-10-01)
+
+### Bug Fixes
+
+- revert local api schema ([ab1b7e7](https://github.com/ironplans/js/commit/ab1b7e714909060c0e8cf8c151419cf394671882))
+
+### Features
+
+- **api:** add test mode fields to Provider ([ebce25a](https://github.com/ironplans/js/commit/ebce25a115730637eaca7417c9e5d6c899732f8b))
+
 ## [0.1.1-alpha.0](https://github.com/ironplans/js/compare/@ironplans/api@0.1.0...@ironplans/api@0.1.1-alpha.0) (2021-09-30)
 
 **Note:** Version bump only for package @ironplans/api

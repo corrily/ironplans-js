@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1-alpha.2](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.1-alpha.1...@ironplans/sdk@0.1.1-alpha.2) (2021-10-01)
+
+### Bug Fixes
+
+- **sdk:** update membership request name ([3112b3a](https://github.com/ironplans/js/commit/3112b3ad1277cefb0392de7f525d11d4151bb3de))
+
 ## [0.1.1-alpha.1](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.1-alpha.0...@ironplans/sdk@0.1.1-alpha.1) (2021-09-30)
 
 **Note:** Version bump only for package @ironplans/sdk
