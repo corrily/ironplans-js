@@ -158,35 +158,35 @@ export interface paths {
   }
   '/team_memberships/v1/': {
     /**
-     * As a Customer, access memberships for all your teams.  As a Provider,
-     * full admin access to teams.
+     * As a Customer, access memberships for all your teams.
+     * As a Provider, full admin access to teams.
      */
     get: operations['team_memberships_v1_list']
     /**
-     * As a Customer, access memberships for all your teams.  As a Provider,
-     * full admin access to teams.
+     * As a Customer, access memberships for all your teams.
+     * As a Provider, full admin access to teams.
      */
     post: operations['team_memberships_v1_create']
   }
   '/team_memberships/v1/{id}/': {
     /**
-     * As a Customer, access memberships for all your teams.  As a Provider,
-     * full admin access to teams.
+     * As a Customer, access memberships for all your teams.
+     * As a Provider, full admin access to teams.
      */
     get: operations['team_memberships_v1_retrieve']
     /**
-     * As a Customer, access memberships for all your teams.  As a Provider,
-     * full admin access to teams.
+     * As a Customer, access memberships for all your teams.
+     * As a Provider, full admin access to teams.
      */
     put: operations['team_memberships_v1_update']
     /**
-     * As a Customer, access memberships for all your teams.  As a Provider,
-     * full admin access to teams.
+     * As a Customer, access memberships for all your teams.
+     * As a Provider, full admin access to teams.
      */
     delete: operations['team_memberships_v1_destroy']
     /**
-     * As a Customer, access memberships for all your teams.  As a Provider,
-     * full admin access to teams.
+     * As a Customer, access memberships for all your teams.
+     * As a Provider, full admin access to teams.
      */
     patch: operations['team_memberships_v1_partial_update']
   }
@@ -244,7 +244,7 @@ export interface components {
      * Specify `email` and/or `source_id` to lookup the customer, create it if it
      * doesn't exist, and add it to the team.
      */
-    CreateTeammateRequest: {
+    CreateMembershipRequest: {
       role?: components['schemas']['RoleEnum']
       team_id: string
       customer_id?: string
@@ -347,6 +347,16 @@ export interface components {
       customer_email?: string
       customer_source_id?: string
     }
+    Membership: {
+      id: string
+      team_id: string
+      customer_id: string
+      role: components['schemas']['RoleEnum']
+      email: string
+    }
+    MembershipRequest: {
+      role: components['schemas']['RoleEnum']
+    }
     OpEnum: 'inc' | 'dec' | 'set' | 'reset'
     PaginatedCustomerList: {
       count?: number
@@ -378,6 +388,12 @@ export interface components {
       previous?: string | null
       results?: components['schemas']['Invoice'][]
     }
+    PaginatedMembershipList: {
+      count?: number
+      next?: string | null
+      previous?: string | null
+      results?: components['schemas']['Membership'][]
+    }
     PaginatedPlanList: {
       count?: number
       next?: string | null
@@ -401,12 +417,6 @@ export interface components {
       next?: string | null
       previous?: string | null
       results?: components['schemas']['Team'][]
-    }
-    PaginatedTeammateList: {
-      count?: number
-      next?: string | null
-      previous?: string | null
-      results?: components['schemas']['Teammate'][]
     }
     PaginatedTokenList: {
       count?: number
@@ -438,6 +448,9 @@ export interface components {
       expires_at?: string
       role?: components['schemas']['RoleEnum']
       team_id?: string
+    }
+    PatchedMembershipRequest: {
+      role?: components['schemas']['RoleEnum']
     }
     PatchedPlanRequest: {
       provider_id?: string
@@ -475,9 +488,6 @@ export interface components {
     PatchedTeamDetailRequest: {
       provider_id?: string
       name?: string | null
-    }
-    PatchedTeammateRequest: {
-      role?: components['schemas']['RoleEnum']
     }
     PatchedTokenRequest: {
       provider_id?: string
@@ -622,7 +632,7 @@ export interface components {
       id: string
       provider_id?: string
       name: string | null
-      members: components['schemas']['Teammate'][]
+      members: components['schemas']['Membership'][]
       invites: components['schemas']['Invite'][]
       subscription: components['schemas']['SubscriptionDetail'] | null
       available_plans: components['schemas']['Plan'][]
@@ -632,16 +642,6 @@ export interface components {
     TeamDetailRequest: {
       provider_id?: string
       name: string | null
-    }
-    Teammate: {
-      id: string
-      team_id: string
-      customer_id: string
-      role: components['schemas']['RoleEnum']
-      email: string
-    }
-    TeammateRequest: {
-      role: components['schemas']['RoleEnum']
     }
     Token: {
       id: string
@@ -1776,8 +1776,8 @@ export interface operations {
     }
   }
   /**
-   * As a Customer, access memberships for all your teams.  As a Provider,
-   * full admin access to teams.
+   * As a Customer, access memberships for all your teams.
+   * As a Provider, full admin access to teams.
    */
   team_memberships_v1_list: {
     parameters: {
@@ -1791,34 +1791,34 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['PaginatedTeammateList']
+          'application/json': components['schemas']['PaginatedMembershipList']
         }
       }
     }
   }
   /**
-   * As a Customer, access memberships for all your teams.  As a Provider,
-   * full admin access to teams.
+   * As a Customer, access memberships for all your teams.
+   * As a Provider, full admin access to teams.
    */
   team_memberships_v1_create: {
     responses: {
       201: {
         content: {
-          'application/json': components['schemas']['Teammate']
+          'application/json': components['schemas']['Membership']
         }
       }
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['CreateTeammateRequest']
-        'application/x-www-form-urlencoded': components['schemas']['CreateTeammateRequest']
-        'multipart/form-data': components['schemas']['CreateTeammateRequest']
+        'application/json': components['schemas']['CreateMembershipRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CreateMembershipRequest']
+        'multipart/form-data': components['schemas']['CreateMembershipRequest']
       }
     }
   }
   /**
-   * As a Customer, access memberships for all your teams.  As a Provider,
-   * full admin access to teams.
+   * As a Customer, access memberships for all your teams.
+   * As a Provider, full admin access to teams.
    */
   team_memberships_v1_retrieve: {
     parameters: {
@@ -1830,14 +1830,14 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Teammate']
+          'application/json': components['schemas']['Membership']
         }
       }
     }
   }
   /**
-   * As a Customer, access memberships for all your teams.  As a Provider,
-   * full admin access to teams.
+   * As a Customer, access memberships for all your teams.
+   * As a Provider, full admin access to teams.
    */
   team_memberships_v1_update: {
     parameters: {
@@ -1849,21 +1849,21 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Teammate']
+          'application/json': components['schemas']['Membership']
         }
       }
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['TeammateRequest']
-        'application/x-www-form-urlencoded': components['schemas']['TeammateRequest']
-        'multipart/form-data': components['schemas']['TeammateRequest']
+        'application/json': components['schemas']['MembershipRequest']
+        'application/x-www-form-urlencoded': components['schemas']['MembershipRequest']
+        'multipart/form-data': components['schemas']['MembershipRequest']
       }
     }
   }
   /**
-   * As a Customer, access memberships for all your teams.  As a Provider,
-   * full admin access to teams.
+   * As a Customer, access memberships for all your teams.
+   * As a Provider, full admin access to teams.
    */
   team_memberships_v1_destroy: {
     parameters: {
@@ -1878,8 +1878,8 @@ export interface operations {
     }
   }
   /**
-   * As a Customer, access memberships for all your teams.  As a Provider,
-   * full admin access to teams.
+   * As a Customer, access memberships for all your teams.
+   * As a Provider, full admin access to teams.
    */
   team_memberships_v1_partial_update: {
     parameters: {
@@ -1891,15 +1891,15 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Teammate']
+          'application/json': components['schemas']['Membership']
         }
       }
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['PatchedTeammateRequest']
-        'application/x-www-form-urlencoded': components['schemas']['PatchedTeammateRequest']
-        'multipart/form-data': components['schemas']['PatchedTeammateRequest']
+        'application/json': components['schemas']['PatchedMembershipRequest']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedMembershipRequest']
+        'multipart/form-data': components['schemas']['PatchedMembershipRequest']
       }
     }
   }
@@ -2032,6 +2032,8 @@ export interface operations {
   tokens_v1_list: {
     parameters: {
       query: {
+        is_active?: boolean
+        is_public?: boolean
         /** Number of results to return per page. */
         limit?: number
         /** The initial index from which to return the results. */

@@ -23,49 +23,49 @@ import {
 /**
  *
  * @export
- * @interface Teammate
+ * @interface Membership
  */
-export interface Teammate {
+export interface Membership {
   /**
    *
    * @type {string}
-   * @memberof Teammate
+   * @memberof Membership
    */
   readonly id: string
   /**
    *
    * @type {string}
-   * @memberof Teammate
+   * @memberof Membership
    */
   readonly teamId: string
   /**
    *
    * @type {string}
-   * @memberof Teammate
+   * @memberof Membership
    */
   readonly customerId: string
   /**
    *
    * @type {RoleEnum}
-   * @memberof Teammate
+   * @memberof Membership
    */
   role: RoleEnum
   /**
    *
    * @type {string}
-   * @memberof Teammate
+   * @memberof Membership
    */
   readonly email: string
 }
 
-export function TeammateFromJSON(json: any): Teammate {
-  return TeammateFromJSONTyped(json, false)
+export function MembershipFromJSON(json: any): Membership {
+  return MembershipFromJSONTyped(json, false)
 }
 
-export function TeammateFromJSONTyped(
+export function MembershipFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): Teammate {
+): Membership {
   if (json === undefined || json === null) {
     return json
   }
@@ -78,7 +78,7 @@ export function TeammateFromJSONTyped(
   }
 }
 
-export function TeammateToJSON(value?: Teammate | null): any {
+export function MembershipToJSON(value?: Membership | null): any {
   if (value === undefined) {
     return undefined
   }

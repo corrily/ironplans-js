@@ -18,6 +18,10 @@ import {
   InviteFromJSON,
   InviteFromJSONTyped,
   InviteToJSON,
+  Membership,
+  MembershipFromJSON,
+  MembershipFromJSONTyped,
+  MembershipToJSON,
   Plan,
   PlanFromJSON,
   PlanFromJSONTyped,
@@ -26,10 +30,6 @@ import {
   SubscriptionDetailFromJSON,
   SubscriptionDetailFromJSONTyped,
   SubscriptionDetailToJSON,
-  Teammate,
-  TeammateFromJSON,
-  TeammateFromJSONTyped,
-  TeammateToJSON,
 } from './'
 
 /**
@@ -58,10 +58,10 @@ export interface TeamDetail {
   name: string | null
   /**
    *
-   * @type {Array<Teammate>}
+   * @type {Array<Membership>}
    * @memberof TeamDetail
    */
-  readonly members: Array<Teammate>
+  readonly members: Array<Membership>
   /**
    *
    * @type {Array<Invite>}
@@ -109,7 +109,7 @@ export function TeamDetailFromJSONTyped(
     id: json['id'],
     providerId: !exists(json, 'provider_id') ? undefined : json['provider_id'],
     name: json['name'],
-    members: (json['members'] as Array<any>).map(TeammateFromJSON),
+    members: (json['members'] as Array<any>).map(MembershipFromJSON),
     invites: (json['invites'] as Array<any>).map(InviteFromJSON),
     subscription: SubscriptionDetailFromJSON(json['subscription']),
     availablePlans: (json['available_plans'] as Array<any>).map(PlanFromJSON),

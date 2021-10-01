@@ -13,48 +13,55 @@
  */
 
 import { exists, mapValues } from '../runtime'
-import { Usage, UsageFromJSON, UsageFromJSONTyped, UsageToJSON } from './'
+import {
+  Membership,
+  MembershipFromJSON,
+  MembershipFromJSONTyped,
+  MembershipToJSON,
+} from './'
 
 /**
  *
  * @export
- * @interface PaginatedUsageList
+ * @interface PaginatedMembershipList
  */
-export interface PaginatedUsageList {
+export interface PaginatedMembershipList {
   /**
    *
    * @type {number}
-   * @memberof PaginatedUsageList
+   * @memberof PaginatedMembershipList
    */
   count?: number
   /**
    *
    * @type {string}
-   * @memberof PaginatedUsageList
+   * @memberof PaginatedMembershipList
    */
   next?: string | null
   /**
    *
    * @type {string}
-   * @memberof PaginatedUsageList
+   * @memberof PaginatedMembershipList
    */
   previous?: string | null
   /**
    *
-   * @type {Array<Usage>}
-   * @memberof PaginatedUsageList
+   * @type {Array<Membership>}
+   * @memberof PaginatedMembershipList
    */
-  results?: Array<Usage>
+  results?: Array<Membership>
 }
 
-export function PaginatedUsageListFromJSON(json: any): PaginatedUsageList {
-  return PaginatedUsageListFromJSONTyped(json, false)
+export function PaginatedMembershipListFromJSON(
+  json: any
+): PaginatedMembershipList {
+  return PaginatedMembershipListFromJSONTyped(json, false)
 }
 
-export function PaginatedUsageListFromJSONTyped(
+export function PaginatedMembershipListFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): PaginatedUsageList {
+): PaginatedMembershipList {
   if (json === undefined || json === null) {
     return json
   }
@@ -64,12 +71,12 @@ export function PaginatedUsageListFromJSONTyped(
     previous: !exists(json, 'previous') ? undefined : json['previous'],
     results: !exists(json, 'results')
       ? undefined
-      : (json['results'] as Array<any>).map(UsageFromJSON),
+      : (json['results'] as Array<any>).map(MembershipFromJSON),
   }
 }
 
-export function PaginatedUsageListToJSON(
-  value?: PaginatedUsageList | null
+export function PaginatedMembershipListToJSON(
+  value?: PaginatedMembershipList | null
 ): any {
   if (value === undefined) {
     return undefined
@@ -84,6 +91,6 @@ export function PaginatedUsageListToJSON(
     results:
       value.results === undefined
         ? undefined
-        : (value.results as Array<any>).map(UsageToJSON),
+        : (value.results as Array<any>).map(MembershipToJSON),
   }
 }

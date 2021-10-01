@@ -23,27 +23,27 @@ import {
 /**
  *
  * @export
- * @interface PatchedTeammateRequest
+ * @interface PatchedMembershipRequest
  */
-export interface PatchedTeammateRequest {
+export interface PatchedMembershipRequest {
   /**
    *
    * @type {RoleEnum}
-   * @memberof PatchedTeammateRequest
+   * @memberof PatchedMembershipRequest
    */
   role?: RoleEnum
 }
 
-export function PatchedTeammateRequestFromJSON(
+export function PatchedMembershipRequestFromJSON(
   json: any
-): PatchedTeammateRequest {
-  return PatchedTeammateRequestFromJSONTyped(json, false)
+): PatchedMembershipRequest {
+  return PatchedMembershipRequestFromJSONTyped(json, false)
 }
 
-export function PatchedTeammateRequestFromJSONTyped(
+export function PatchedMembershipRequestFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): PatchedTeammateRequest {
+): PatchedMembershipRequest {
   if (json === undefined || json === null) {
     return json
   }
@@ -52,8 +52,8 @@ export function PatchedTeammateRequestFromJSONTyped(
   }
 }
 
-export function PatchedTeammateRequestToJSON(
-  value?: PatchedTeammateRequest | null
+export function PatchedMembershipRequestToJSON(
+  value?: PatchedMembershipRequest | null
 ): any {
   if (value === undefined) {
     return undefined

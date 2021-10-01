@@ -23,25 +23,25 @@ import {
 /**
  *
  * @export
- * @interface TeammateRequest
+ * @interface MembershipRequest
  */
-export interface TeammateRequest {
+export interface MembershipRequest {
   /**
    *
    * @type {RoleEnum}
-   * @memberof TeammateRequest
+   * @memberof MembershipRequest
    */
   role: RoleEnum
 }
 
-export function TeammateRequestFromJSON(json: any): TeammateRequest {
-  return TeammateRequestFromJSONTyped(json, false)
+export function MembershipRequestFromJSON(json: any): MembershipRequest {
+  return MembershipRequestFromJSONTyped(json, false)
 }
 
-export function TeammateRequestFromJSONTyped(
+export function MembershipRequestFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): TeammateRequest {
+): MembershipRequest {
   if (json === undefined || json === null) {
     return json
   }
@@ -50,7 +50,7 @@ export function TeammateRequestFromJSONTyped(
   }
 }
 
-export function TeammateRequestToJSON(value?: TeammateRequest | null): any {
+export function MembershipRequestToJSON(value?: MembershipRequest | null): any {
   if (value === undefined) {
     return undefined
   }

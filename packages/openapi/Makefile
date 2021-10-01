@@ -19,6 +19,7 @@ endif
 all: schema $(packages)
 
 api: openapi.yaml $(call once,api)
+	rm -rf api/src/*
 	npx @openapitools/openapi-generator-cli generate \
 		-i $< -o api/src/ \
 		-t ./templates \
@@ -28,6 +29,7 @@ api: openapi.yaml $(call once,api)
 	npx prettier ./api/src/ --write
 
 types: openapi.yaml $(call once,types)
+	rm -rf types/src/*
 	npx openapi-typescript $< --output types/types.ts
 	npx prettier types/types.ts --write
 

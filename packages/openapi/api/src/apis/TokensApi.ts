@@ -37,6 +37,8 @@ export interface TokensV1DestroyRequest {
 }
 
 export interface TokensV1ListRequest {
+  isActive?: boolean
+  isPublic?: boolean
   limit?: number
   offset?: number
 }
@@ -170,6 +172,14 @@ export class TokensApi extends runtime.BaseAPI {
     initOverrides?: RequestInit
   ): Promise<runtime.ApiResponse<PaginatedTokenList>> {
     const queryParameters: any = {}
+
+    if (requestParameters.isActive !== undefined) {
+      queryParameters['is_active'] = requestParameters.isActive
+    }
+
+    if (requestParameters.isPublic !== undefined) {
+      queryParameters['is_public'] = requestParameters.isPublic
+    }
 
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit

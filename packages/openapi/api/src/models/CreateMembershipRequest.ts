@@ -25,51 +25,51 @@ import {
  * Specify `email` and/or `source_id` to lookup the customer, create it if it
  * doesn't exist, and add it to the team.
  * @export
- * @interface CreateTeammateRequest
+ * @interface CreateMembershipRequest
  */
-export interface CreateTeammateRequest {
+export interface CreateMembershipRequest {
   /**
    *
    * @type {RoleEnum}
-   * @memberof CreateTeammateRequest
+   * @memberof CreateMembershipRequest
    */
   role?: RoleEnum
   /**
    *
    * @type {string}
-   * @memberof CreateTeammateRequest
+   * @memberof CreateMembershipRequest
    */
   teamId: string
   /**
    *
    * @type {string}
-   * @memberof CreateTeammateRequest
+   * @memberof CreateMembershipRequest
    */
   customerId?: string
   /**
    *
    * @type {string}
-   * @memberof CreateTeammateRequest
+   * @memberof CreateMembershipRequest
    */
   email?: string
   /**
    *
    * @type {string}
-   * @memberof CreateTeammateRequest
+   * @memberof CreateMembershipRequest
    */
   sourceId?: string
 }
 
-export function CreateTeammateRequestFromJSON(
+export function CreateMembershipRequestFromJSON(
   json: any
-): CreateTeammateRequest {
-  return CreateTeammateRequestFromJSONTyped(json, false)
+): CreateMembershipRequest {
+  return CreateMembershipRequestFromJSONTyped(json, false)
 }
 
-export function CreateTeammateRequestFromJSONTyped(
+export function CreateMembershipRequestFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CreateTeammateRequest {
+): CreateMembershipRequest {
   if (json === undefined || json === null) {
     return json
   }
@@ -82,8 +82,8 @@ export function CreateTeammateRequestFromJSONTyped(
   }
 }
 
-export function CreateTeammateRequestToJSON(
-  value?: CreateTeammateRequest | null
+export function CreateMembershipRequestToJSON(
+  value?: CreateMembershipRequest | null
 ): any {
   if (value === undefined) {
     return undefined

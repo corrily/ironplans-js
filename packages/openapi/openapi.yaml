@@ -1632,8 +1632,8 @@ paths:
     get:
       operationId: team_memberships_v1_list
       description: |-
-        As a Customer, access memberships for all your teams.  As a Provider,
-        full admin access to teams.
+        As a Customer, access memberships for all your teams.
+        As a Provider, full admin access to teams.
       parameters:
         - name: limit
           required: false
@@ -1656,26 +1656,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedTeammateList'
+                $ref: '#/components/schemas/PaginatedMembershipList'
           description: ''
     post:
       operationId: team_memberships_v1_create
       description: |-
-        As a Customer, access memberships for all your teams.  As a Provider,
-        full admin access to teams.
+        As a Customer, access memberships for all your teams.
+        As a Provider, full admin access to teams.
       tags:
         - team_memberships
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateTeammateRequest'
+              $ref: '#/components/schemas/CreateMembershipRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/CreateTeammateRequest'
+              $ref: '#/components/schemas/CreateMembershipRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CreateTeammateRequest'
+              $ref: '#/components/schemas/CreateMembershipRequest'
         required: true
       security:
         - OAuth2: []
@@ -1684,14 +1684,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Teammate'
+                $ref: '#/components/schemas/Membership'
           description: ''
   /team_memberships/v1/{id}/:
     get:
       operationId: team_memberships_v1_retrieve
       description: |-
-        As a Customer, access memberships for all your teams.  As a Provider,
-        full admin access to teams.
+        As a Customer, access memberships for all your teams.
+        As a Provider, full admin access to teams.
       parameters:
         - in: path
           name: id
@@ -1709,13 +1709,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Teammate'
+                $ref: '#/components/schemas/Membership'
           description: ''
     put:
       operationId: team_memberships_v1_update
       description: |-
-        As a Customer, access memberships for all your teams.  As a Provider,
-        full admin access to teams.
+        As a Customer, access memberships for all your teams.
+        As a Provider, full admin access to teams.
       parameters:
         - in: path
           name: id
@@ -1730,13 +1730,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TeammateRequest'
+              $ref: '#/components/schemas/MembershipRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TeammateRequest'
+              $ref: '#/components/schemas/MembershipRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TeammateRequest'
+              $ref: '#/components/schemas/MembershipRequest'
         required: true
       security:
         - OAuth2: []
@@ -1745,13 +1745,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Teammate'
+                $ref: '#/components/schemas/Membership'
           description: ''
     patch:
       operationId: team_memberships_v1_partial_update
       description: |-
-        As a Customer, access memberships for all your teams.  As a Provider,
-        full admin access to teams.
+        As a Customer, access memberships for all your teams.
+        As a Provider, full admin access to teams.
       parameters:
         - in: path
           name: id
@@ -1766,13 +1766,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedTeammateRequest'
+              $ref: '#/components/schemas/PatchedMembershipRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedTeammateRequest'
+              $ref: '#/components/schemas/PatchedMembershipRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedTeammateRequest'
+              $ref: '#/components/schemas/PatchedMembershipRequest'
       security:
         - OAuth2: []
       responses:
@@ -1780,13 +1780,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Teammate'
+                $ref: '#/components/schemas/Membership'
           description: ''
     delete:
       operationId: team_memberships_v1_destroy
       description: |-
-        As a Customer, access memberships for all your teams.  As a Provider,
-        full admin access to teams.
+        As a Customer, access memberships for all your teams.
+        As a Provider, full admin access to teams.
       parameters:
         - in: path
           name: id
@@ -1997,6 +1997,14 @@ paths:
       operationId: tokens_v1_list
       description: Management of Provider Tokens.
       parameters:
+        - in: query
+          name: is_active
+          schema:
+            type: boolean
+        - in: query
+          name: is_public
+          schema:
+            type: boolean
         - name: limit
           required: false
           in: query
@@ -2216,7 +2224,7 @@ components:
       required:
         - team_id
         - to_emails
-    CreateTeammateRequest:
+    CreateMembershipRequest:
       type: object
       description: |-
         Add a new membership to a Team. Role defaults to `member` if not specified.
@@ -2542,6 +2550,39 @@ components:
           format: email
         customer_source_id:
           type: string
+    Membership:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        team_id:
+          type: string
+          format: uuid
+          readOnly: true
+        customer_id:
+          type: string
+          format: uuid
+          readOnly: true
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        email:
+          type: string
+          readOnly: true
+      required:
+        - customer_id
+        - email
+        - id
+        - role
+        - team_id
+    MembershipRequest:
+      type: object
+      properties:
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+      required:
+        - role
     OpEnum:
       enum:
         - inc
@@ -2649,6 +2690,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Invoice'
+    PaginatedMembershipList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Membership'
     PaginatedPlanList:
       type: object
       properties:
@@ -2729,26 +2790,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Team'
-    PaginatedTeammateList:
-      type: object
-      properties:
-        count:
-          type: integer
-          example: 123
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=400&limit=100
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=200&limit=100
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Teammate'
     PaginatedTokenList:
       type: object
       properties:
@@ -2835,6 +2876,11 @@ components:
         team_id:
           type: string
           format: uuid
+    PatchedMembershipRequest:
+      type: object
+      properties:
+        role:
+          $ref: '#/components/schemas/RoleEnum'
     PatchedPlanRequest:
       type: object
       properties:
@@ -2940,11 +2986,6 @@ components:
           type: string
           nullable: true
           maxLength: 128
-    PatchedTeammateRequest:
-      type: object
-      properties:
-        role:
-          $ref: '#/components/schemas/RoleEnum'
     PatchedTokenRequest:
       type: object
       properties:
@@ -3441,7 +3482,7 @@ components:
         members:
           type: array
           items:
-            $ref: '#/components/schemas/Teammate'
+            $ref: '#/components/schemas/Membership'
           readOnly: true
         invites:
           type: array
@@ -3487,39 +3528,6 @@ components:
           maxLength: 128
       required:
         - name
-    Teammate:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        team_id:
-          type: string
-          format: uuid
-          readOnly: true
-        customer_id:
-          type: string
-          format: uuid
-          readOnly: true
-        role:
-          $ref: '#/components/schemas/RoleEnum'
-        email:
-          type: string
-          readOnly: true
-      required:
-        - customer_id
-        - email
-        - id
-        - role
-        - team_id
-    TeammateRequest:
-      type: object
-      properties:
-        role:
-          $ref: '#/components/schemas/RoleEnum'
-      required:
-        - role
     Token:
       type: object
       properties:
