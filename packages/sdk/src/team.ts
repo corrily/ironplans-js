@@ -79,7 +79,7 @@ export default class Team extends Resource<TeamDetail> {
   async updateMemberRole(membershipId: string, role: RoleEnum) {
     return this.api.teamMemberships.teamMembershipsV1PartialUpdate({
       id: membershipId,
-      patchedTeammateRequest: {
+      patchedMembershipRequest: {
         role,
       },
     })
