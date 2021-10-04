@@ -554,8 +554,8 @@ export interface components {
       is_card_required?: boolean
       owner_id: string
       stripe_account_id: string
-      shadow_id: string
-      parent_id: string
+      shadow_id: string | null
+      parent_id: string | null
       is_shadow: boolean
     }
     ProviderRequest: {

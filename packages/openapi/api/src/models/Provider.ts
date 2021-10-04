@@ -96,13 +96,13 @@ export interface Provider {
    * @type {string}
    * @memberof Provider
    */
-  readonly shadowId: string
+  readonly shadowId: string | null
   /**
    *
    * @type {string}
    * @memberof Provider
    */
-  readonly parentId: string
+  readonly parentId: string | null
   /**
    *
    * @type {boolean}

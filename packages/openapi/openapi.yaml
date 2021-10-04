@@ -3215,10 +3215,12 @@ components:
           type: string
           format: uuid
           readOnly: true
+          nullable: true
         parent_id:
           type: string
           format: uuid
           readOnly: true
+          nullable: true
         is_shadow:
           type: boolean
           readOnly: true
