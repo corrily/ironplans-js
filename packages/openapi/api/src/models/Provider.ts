@@ -91,6 +91,24 @@ export interface Provider {
    * @memberof Provider
    */
   readonly stripeAccountId: string
+  /**
+   *
+   * @type {string}
+   * @memberof Provider
+   */
+  readonly shadowId: string
+  /**
+   *
+   * @type {string}
+   * @memberof Provider
+   */
+  readonly parentId: string
+  /**
+   *
+   * @type {boolean}
+   * @memberof Provider
+   */
+  readonly isShadow: boolean
 }
 
 export function ProviderFromJSON(json: any): Provider {
@@ -123,6 +141,9 @@ export function ProviderFromJSONTyped(
       : json['is_card_required'],
     ownerId: json['owner_id'],
     stripeAccountId: json['stripe_account_id'],
+    shadowId: json['shadow_id'],
+    parentId: json['parent_id'],
+    isShadow: json['is_shadow'],
   }
 }
 

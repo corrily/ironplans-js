@@ -51,6 +51,7 @@ export interface SubscriptionsV1DestroyRequest {
 export interface SubscriptionsV1ListRequest {
   limit?: number
   offset?: number
+  planId?: string
 }
 
 export interface SubscriptionsV1PartialUpdateRequest {
@@ -79,6 +80,7 @@ export interface SubscriptionsV1UpdateRequest {
 
 export interface SubscriptionsV1UsageListRequest {
   id: string
+  planId?: string
 }
 
 /**
@@ -208,6 +210,10 @@ export class SubscriptionsApi extends runtime.BaseAPI {
 
     if (requestParameters.offset !== undefined) {
       queryParameters['offset'] = requestParameters.offset
+    }
+
+    if (requestParameters.planId !== undefined) {
+      queryParameters['plan_id'] = requestParameters.planId
     }
 
     const headerParameters: runtime.HTTPHeaders = {}
@@ -580,6 +586,10 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     }
 
     const queryParameters: any = {}
+
+    if (requestParameters.planId !== undefined) {
+      queryParameters['plan_id'] = requestParameters.planId
+    }
 
     const headerParameters: runtime.HTTPHeaders = {}
 

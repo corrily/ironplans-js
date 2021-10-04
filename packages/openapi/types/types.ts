@@ -554,6 +554,9 @@ export interface components {
       is_card_required?: boolean
       owner_id: string
       stripe_account_id: string
+      shadow_id: string
+      parent_id: string
+      is_shadow: boolean
     }
     ProviderRequest: {
       name: string
@@ -1463,6 +1466,7 @@ export interface operations {
         limit?: number
         /** The initial index from which to return the results. */
         offset?: number
+        slug?: string
       }
     }
     responses: {
@@ -1618,6 +1622,7 @@ export interface operations {
         limit?: number
         /** The initial index from which to return the results. */
         offset?: number
+        plan_id?: string
       }
     }
     responses: {
@@ -1765,6 +1770,9 @@ export interface operations {
       path: {
         /** A UUID string identifying this subscription. */
         id: string
+      }
+      query: {
+        plan_id?: string
       }
     }
     responses: {

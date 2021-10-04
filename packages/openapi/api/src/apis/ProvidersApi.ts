@@ -42,6 +42,7 @@ export interface ProvidersV1DestroyRequest {
 export interface ProvidersV1ListRequest {
   limit?: number
   offset?: number
+  slug?: string
 }
 
 export interface ProvidersV1PartialUpdateRequest {
@@ -198,6 +199,10 @@ export class ProvidersApi extends runtime.BaseAPI {
 
     if (requestParameters.offset !== undefined) {
       queryParameters['offset'] = requestParameters.offset
+    }
+
+    if (requestParameters.slug !== undefined) {
+      queryParameters['slug'] = requestParameters.slug
     }
 
     const headerParameters: runtime.HTTPHeaders = {}

@@ -1166,6 +1166,10 @@ paths:
           description: The initial index from which to return the results.
           schema:
             type: integer
+        - in: query
+          name: slug
+          schema:
+            type: string
       tags:
         - providers
       security:
@@ -1396,6 +1400,11 @@ paths:
           description: The initial index from which to return the results.
           schema:
             type: integer
+        - in: query
+          name: plan_id
+          schema:
+            type: string
+            format: uuid
       tags:
         - subscriptions
       security:
@@ -1615,6 +1624,11 @@ paths:
             format: uuid
           description: A UUID string identifying this subscription.
           required: true
+        - in: query
+          name: plan_id
+          schema:
+            type: string
+            format: uuid
       tags:
         - subscriptions
       security:
@@ -3197,10 +3211,24 @@ components:
         stripe_account_id:
           type: string
           readOnly: true
+        shadow_id:
+          type: string
+          format: uuid
+          readOnly: true
+        parent_id:
+          type: string
+          format: uuid
+          readOnly: true
+        is_shadow:
+          type: boolean
+          readOnly: true
       required:
         - id
+        - is_shadow
         - name
         - owner_id
+        - parent_id
+        - shadow_id
         - slug
         - stripe_account_id
     ProviderRequest:
