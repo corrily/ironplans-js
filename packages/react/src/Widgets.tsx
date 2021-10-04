@@ -29,8 +29,11 @@ export const Widget: FC<Props> = ({ customer: c, theme, widget }) => {
   return <div ref={ref} style={{ width: '100%', height: '100%' }} />
 }
 
-const withWidget = (widget: WidgetType) => (props: Omit<Props, 'widget'>) =>
-  <Widget widget={widget} {...props} />
+const withWidget = (widget: WidgetType) => (props: Omit<Props, 'widget'>) => {
+  if (widget === 'pricing') {
+  }
+  return <Widget widget={widget} {...props} />
+}
 
 export const PlanSelect = withWidget('plans')
 export const ManageTeam = withWidget('team')

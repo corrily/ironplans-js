@@ -21,7 +21,11 @@ export interface IFrameOptions {
   url: string | URL
   theme?: IPublicTheme
   token?: string
+  publicToken?: string
   teamId?: string
+  planId?: string
+  highlightText?: string
+  redirectUrl?: string
 }
 
 type Paginated<T> = {
@@ -71,8 +75,9 @@ export function urlish(url: string | URL): URL {
 export function createIframeUrl(opts: IFrameOptions) {
   const url = urlish(opts.url)
 
-  const { token, teamId, theme } = opts
+  const { token, publicToken, teamId, theme } = opts
   url.searchParams.set('ct', token ?? '')
+  url.searchParams.set('pt', publicToken ?? '')
   url.searchParams.set('tid', teamId ?? '')
 
   return `${url}${theme ? `&${themeToQueryString(theme)}` : ''}`
@@ -214,3 +219,7 @@ export async function parseRequestError(e: unknown) {
   }
   return e
 }
+
+export type TeamWidgetType = 'plans' | 'team' | 'invoices'
+export type PublicWidgetType = 'pricing'
+export type WidgetType = TeamWidgetType | PublicWidgetType
