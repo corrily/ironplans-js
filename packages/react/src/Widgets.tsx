@@ -4,7 +4,6 @@ import {
   Theme,
   WidgetType,
   Pricing,
-  createAPI,
   IFrameOptions,
   TeamWidgetType,
   APIOptions,
@@ -58,14 +57,10 @@ export const PublicWidget: FC<PublicWidgetProps> = ({
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!ref.current) return () => {}
-    // TODO: consider moving this logic into Pricing class
-    const api = createAPI({
-      apiBaseUrl: 'https://api.ironplans.com/',
-      appBaseUrl: 'https://dash.ironplans.com/public/',
+    const pricing = new Pricing({
       publicToken,
       ...apiOpts,
     })
-    const pricing = new Pricing(api)
     pricing.showWidget(theme, ref.current, {
       redirectUrl,
       ...iframeOpts,

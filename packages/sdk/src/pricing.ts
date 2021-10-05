@@ -5,7 +5,11 @@ import {
   showWidgetAt,
   showWidgetModal,
 } from './utils'
-import { IPAPI } from './api'
+import { APIOptions, createAPI, IPAPI } from './api'
+
+interface PublicApiOptions extends Partial<APIOptions> {
+  publicToken: string
+}
 
 export default class Pricing {
   api: IPAPI
@@ -13,14 +17,28 @@ export default class Pricing {
   /**
    * Use this class to render a Pricing widget for use in public static pages for
    * unauthenticated users. Pricing widget shows all public plans available
-   * and redirects to specified redirectUrl.
+   * and redirects to specified redirectUrl. Instantiate using either apiOpts or api.
+   * Private token will be stripped from object to avoid including in any URL in either case.
    *
-   * @param api - publicToken required. Private token will be stripped from object
-   * to avoid including in any URL.
+   * @param apiOpts (APIOptions) - publicToken must be included.
+   * @param api (IPAPI) - publicToken must be included.
    */
-  constructor(api: IPAPI) {
-    if (!api.publicToken) throw Error('Public token required.')
-    this.api = api.token ? { ...api, token: undefined } : api
+  constructor(apiOpts?: PublicApiOptions, api?: IPAPI) {
+    if (!api?.publicToken && !api?.publicToken) {
+      throw Error('Public token required.')
+    }
+    if (api) {
+      this.api = api.token ? { ...api, token: undefined } : api
+    } else if (apiOpts) {
+      const opts = apiOpts.token ? { ...apiOpts, token: undefined } : apiOpts
+      this.api = createAPI({
+        apiBaseUrl: 'https://api.ironplans.com/',
+        appBaseUrl: 'https://dash.ironplans.com/public/',
+        ...opts,
+      })
+    } else {
+      throw Error('Either apiOpts or api required.')
+    }
   }
 
   /**
