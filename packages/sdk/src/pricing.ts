@@ -24,7 +24,7 @@ export default class Pricing {
    * @param api (IPAPI) - publicToken must be included.
    */
   constructor(apiOpts?: PublicApiOptions, api?: IPAPI) {
-    if (!api?.publicToken && !api?.publicToken) {
+    if (!apiOpts?.publicToken && !api?.publicToken) {
       throw Error('Public token required.')
     }
     if (api) {
