@@ -1,16 +1,11 @@
 import {
   createIframeUrl,
+  IFrameOptions,
   IPublicTheme,
   showWidgetAt,
   showWidgetModal,
 } from './utils'
 import { IPAPI } from './api'
-
-interface PricingIFrameOptions {
-  redirectUrl: string
-  highlightText?: string
-  planId?: string
-}
 
 export default class Pricing {
   api: IPAPI
@@ -37,7 +32,7 @@ export default class Pricing {
    * Optionally, pass in planId and highlightText in opts to highlight a plan
    * card that you want to highlight, e.g. to encourage customers to select.
    */
-  createWidgetUrl(theme?: IPublicTheme, opts?: PricingIFrameOptions) {
+  createWidgetUrl(theme?: IPublicTheme, opts?: Partial<IFrameOptions>) {
     if (!opts?.redirectUrl) throw Error('redirectUrl required')
 
     const url = new URL('pricing', this.api.appBaseUrl)
@@ -64,7 +59,7 @@ export default class Pricing {
   showWidget(
     theme?: IPublicTheme,
     elOrSelector?: string | Element,
-    opts?: PricingIFrameOptions
+    opts?: Partial<IFrameOptions>
   ) {
     const url = this.createWidgetUrl(theme, opts)
     if (elOrSelector) {

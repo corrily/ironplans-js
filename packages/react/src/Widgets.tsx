@@ -1,14 +1,33 @@
 import React, { FC, useRef, useEffect } from 'react'
-import { Customer, Theme, WidgetType } from '@ironplans/sdk'
+import {
+  Customer,
+  Theme,
+  WidgetType,
+  Pricing,
+  createAPI,
+  IFrameOptions,
+  TeamWidgetType,
+  APIOptions,
+} from '@ironplans/sdk'
 import { useCustomer } from './CustomerProvider'
 
 interface Props {
-  widget: WidgetType
-  customer?: Customer
   theme?: Theme
 }
 
-export const Widget: FC<Props> = ({ customer: c, theme, widget }) => {
+interface WidgetProps extends Props {
+  widget: TeamWidgetType
+  customer?: Customer
+}
+
+interface PublicWidgetProps extends Props {
+  publicToken: string
+  redirectUrl: string
+  apiOpts?: APIOptions
+  iframeOpts?: IFrameOptions
+}
+
+export const Widget: FC<WidgetProps> = ({ customer: c, theme, widget }) => {
   const { customer, error, isLoading } = useCustomer(c)
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -29,12 +48,45 @@ export const Widget: FC<Props> = ({ customer: c, theme, widget }) => {
   return <div ref={ref} style={{ width: '100%', height: '100%' }} />
 }
 
-const withWidget = (widget: WidgetType) => (props: Omit<Props, 'widget'>) => {
-  if (widget === 'pricing') {
+export const PublicWidget: FC<PublicWidgetProps> = ({
+  publicToken,
+  redirectUrl,
+  theme,
+  apiOpts,
+  iframeOpts,
+}) => {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!ref.current) return () => {}
+    // TODO: consider moving this logic into Pricing class
+    const api = createAPI({
+      apiBaseUrl: 'https://api.ironplans.com/',
+      appBaseUrl: 'https://dash.ironplans.com/public/',
+      publicToken,
+      ...apiOpts,
+    })
+    const pricing = new Pricing(api)
+    pricing.showWidget(theme, ref.current, {
+      redirectUrl,
+      ...iframeOpts,
+    })
+    return () => {}
+  }, [iframeOpts, publicToken, redirectUrl, theme, apiOpts])
+  return <div ref={ref} style={{ width: '100%', height: '100%' }} />
+}
+
+const withWidget =
+  (widget: TeamWidgetType) => (props: Omit<WidgetProps, 'widget'>) =>
+    <Widget widget={widget} {...props} />
+
+const withPublicWidget = (widget: WidgetType) => (props: PublicWidgetProps) => {
+  if (widget !== 'pricing') {
+    throw Error('Only pricing is currently a valid public widget type.')
   }
-  return <Widget widget={widget} {...props} />
+  return <PublicWidget {...props} />
 }
 
 export const PlanSelect = withWidget('plans')
 export const ManageTeam = withWidget('team')
 export const ViewInvoices = withWidget('invoices')
+export const PricingPlans = withPublicWidget('pricing')
