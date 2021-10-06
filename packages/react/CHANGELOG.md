@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0-alpha.0](https://github.com/ironplans/js/compare/@ironplans/react@0.2.1-alpha.1...@ironplans/react@0.3.0-alpha.0) (2021-10-06)
+
+### Features
+
+- first pass at react ([e83e56a](https://github.com/ironplans/js/commit/e83e56ae00aeee6e15398412d69ba5e669cc6688))
+- separate class for pricing widget ([238f5d3](https://github.com/ironplans/js/commit/238f5d31cbdd83b891d85214bca1c149384243dd))
+
+### Reverts
+
+- Revert "chore: pull out react changes (will throw into separate PR to avoid build issues)" ([de8940f](https://github.com/ironplans/js/commit/de8940f12893cfa6c99f66338531b9e4465bb620))
+
 ## [0.2.1-alpha.1](https://github.com/ironplans/js/compare/@ironplans/react@0.2.1-alpha.0...@ironplans/react@0.2.1-alpha.1) (2021-10-06)
 
 **Note:** Version bump only for package @ironplans/react
