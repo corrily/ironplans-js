@@ -37,6 +37,12 @@ export interface SubscriptionRequest {
    * @memberof SubscriptionRequest
    */
   isPaused?: boolean
+  /**
+   *
+   * @type {string}
+   * @memberof SubscriptionRequest
+   */
+  nextPlanId?: string
 }
 
 export function SubscriptionRequestFromJSON(json: any): SubscriptionRequest {
@@ -54,6 +60,9 @@ export function SubscriptionRequestFromJSONTyped(
     planId: json['plan_id'],
     teamId: json['team_id'],
     isPaused: !exists(json, 'is_paused') ? undefined : json['is_paused'],
+    nextPlanId: !exists(json, 'next_plan_id')
+      ? undefined
+      : json['next_plan_id'],
   }
 }
 
@@ -70,5 +79,6 @@ export function SubscriptionRequestToJSON(
     plan_id: value.planId,
     team_id: value.teamId,
     is_paused: value.isPaused,
+    next_plan_id: value.nextPlanId,
   }
 }

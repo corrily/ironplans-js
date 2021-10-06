@@ -30,7 +30,7 @@ export interface PatchedFeatureRequest {
    * @type {string}
    * @memberof PatchedFeatureRequest
    */
-  slug?: string
+  slug?: string | null
   /**
    *
    * @type {string}

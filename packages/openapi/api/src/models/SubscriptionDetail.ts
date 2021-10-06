@@ -92,6 +92,18 @@ export interface SubscriptionDetail {
   readonly billingPeriod: string
   /**
    *
+   * @type {string}
+   * @memberof SubscriptionDetail
+   */
+  readonly nextPlanId: string
+  /**
+   *
+   * @type {Plan}
+   * @memberof SubscriptionDetail
+   */
+  readonly nextPlan: Plan
+  /**
+   *
    * @type {Array<Usage>}
    * @memberof SubscriptionDetail
    */
@@ -120,6 +132,8 @@ export function SubscriptionDetailFromJSONTyped(
     daysUsed: json['days_used'],
     daysLeft: json['days_left'],
     billingPeriod: json['billing_period'],
+    nextPlanId: json['next_plan_id'],
+    nextPlan: PlanFromJSON(json['next_plan']),
     usages: (json['usages'] as Array<any>).map(UsageFromJSON),
   }
 }

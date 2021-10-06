@@ -280,14 +280,14 @@ export interface components {
     Feature: {
       id: string
       provider_id?: string
-      slug?: string
+      slug?: string | null
       display?: string | null
       tooltip?: string | null
       is_builtin: boolean
     }
     FeatureRequest: {
       provider_id?: string
-      slug?: string
+      slug?: string | null
       display?: string | null
       tooltip?: string | null
     }
@@ -429,7 +429,7 @@ export interface components {
     }
     PatchedFeatureRequest: {
       provider_id?: string
-      slug?: string
+      slug?: string | null
       display?: string | null
       tooltip?: string | null
     }
@@ -484,6 +484,7 @@ export interface components {
       plan_id?: string
       team_id?: string
       is_paused?: boolean
+      next_plan_id?: string
     }
     PatchedTeamDetailRequest: {
       provider_id?: string
@@ -595,6 +596,7 @@ export interface components {
       end_at: string
       is_paused?: boolean
       is_active: boolean
+      next_plan_id?: string
     }
     SubscriptionDetail: {
       id: string
@@ -607,12 +609,15 @@ export interface components {
       days_used: number
       days_left: number
       billing_period: string
+      next_plan_id: string
+      next_plan: components['schemas']['Plan']
       usages: components['schemas']['Usage'][]
     }
     SubscriptionRequest: {
       plan_id: string
       team_id: string
       is_paused?: boolean
+      next_plan_id?: string
     }
     Team: {
       id: string

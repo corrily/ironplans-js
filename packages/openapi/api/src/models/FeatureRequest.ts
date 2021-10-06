@@ -30,7 +30,7 @@ export interface FeatureRequest {
    * @type {string}
    * @memberof FeatureRequest
    */
-  slug?: string
+  slug?: string | null
   /**
    *
    * @type {string}
