@@ -48,7 +48,7 @@
   ],
   "devDependencies": {
     "@ironplans/proxy": "^0.2.0",
-    "@ironplans/types": "^0.0.30-alpha.0",
+    "@ironplans/types": "^0.2.0-alpha.2",
     "@size-limit/preset-small-lib": "^5.0.4"
   },
   "peerDependencies": {
