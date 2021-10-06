@@ -2982,6 +2982,11 @@ components:
           minimum: -2147483648
         is_card_required:
           type: boolean
+        support_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
     PatchedSubscriptionRequest:
       type: object
       properties:
@@ -3230,6 +3235,11 @@ components:
         is_shadow:
           type: boolean
           readOnly: true
+        support_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
       required:
         - id
         - is_shadow
@@ -3278,6 +3288,11 @@ components:
           minimum: -2147483648
         is_card_required:
           type: boolean
+        support_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
       required:
         - name
         - slug

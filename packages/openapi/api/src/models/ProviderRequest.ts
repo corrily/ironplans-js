@@ -73,6 +73,12 @@ export interface ProviderRequest {
    * @memberof ProviderRequest
    */
   isCardRequired?: boolean
+  /**
+   *
+   * @type {string}
+   * @memberof ProviderRequest
+   */
+  supportEmail?: string | null
 }
 
 export function ProviderRequestFromJSON(json: any): ProviderRequest {
@@ -102,6 +108,9 @@ export function ProviderRequestFromJSONTyped(
     isCardRequired: !exists(json, 'is_card_required')
       ? undefined
       : json['is_card_required'],
+    supportEmail: !exists(json, 'support_email')
+      ? undefined
+      : json['support_email'],
   }
 }
 
@@ -122,5 +131,6 @@ export function ProviderRequestToJSON(value?: ProviderRequest | null): any {
     default_plan: value.defaultPlan,
     trial_days: value.trialDays,
     is_card_required: value.isCardRequired,
+    support_email: value.supportEmail,
   }
 }

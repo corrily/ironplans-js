@@ -479,6 +479,7 @@ export interface components {
       default_plan?: string | null
       trial_days?: number
       is_card_required?: boolean
+      support_email?: string | null
     }
     PatchedSubscriptionRequest: {
       plan_id?: string
@@ -558,6 +559,7 @@ export interface components {
       shadow_id: string | null
       parent_id: string | null
       is_shadow: boolean
+      support_email?: string | null
     }
     ProviderRequest: {
       name: string
@@ -569,6 +571,7 @@ export interface components {
       default_plan?: string | null
       trial_days?: number
       is_card_required?: boolean
+      support_email?: string | null
     }
     PublicProfile: {
       id: string
