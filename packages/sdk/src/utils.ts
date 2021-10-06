@@ -8,15 +8,23 @@ export function clone<T extends Immutable<T2>, T2 = unknown>(
   return JSON.parse(JSON.stringify(obj))
 }
 
+export type ThemeState = 'primary' | 'secondary' | 'danger'
+
 export interface IPublicThemeFull {
   base: {
     customFont?: string
-    primaryColor: string
+    primaryColor: string // TODO: deprecate
     fontFamily: string
     darkMode: 'off' | 'on' | 'auto'
+    colors: Record<ThemeState, string>
   }
   card: CSSStyleDeclaration
-  button: CSSStyleDeclaration
+  button: {
+    base: CSSStyleDeclaration
+    primary: CSSStyleDeclaration
+    secondary: CSSStyleDeclaration
+    danger: CSSStyleDeclaration
+  }
 }
 export type IPublicTheme = Partial<IPublicThemeFull>
 export interface IFrameOptions {
