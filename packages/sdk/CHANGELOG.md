@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0-alpha.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.1-alpha.4...@ironplans/sdk@0.2.0-alpha.0) (2021-10-06)
+
+### Features
+
+- add ability to pass in full css style for button and card ([0e7fd29](https://github.com/ironplans/js/commit/0e7fd29dc909355799f19d74ee7f4c18302d907f))
+
 ## [0.1.1-alpha.4](https://github.com/ironplans/js/compare/@ironplans/sdk@0.1.1-alpha.3...@ironplans/sdk@0.1.1-alpha.4) (2021-10-06)
 
 **Note:** Version bump only for package @ironplans/sdk
