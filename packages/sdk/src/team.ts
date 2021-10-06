@@ -6,9 +6,8 @@ import {
   showWidgetAt,
   showWidgetModal,
   IPublicTheme,
+  TeamWidgetType,
 } from './utils'
-
-export type WidgetType = 'plans' | 'team' | 'invoices'
 
 export default class Team extends Resource<TeamDetail> {
   static async fromId(api: IPAPI, id: string) {
@@ -125,7 +124,7 @@ export default class Team extends Resource<TeamDetail> {
    *  * `team` - Shows a team management widget.
    *  * `invoices` - Shows a table of invoices.
    */
-  createWidgetUrl(widget: WidgetType, theme?: IPublicTheme) {
+  createWidgetUrl(widget: TeamWidgetType, theme?: IPublicTheme) {
     return createIframeUrl({
       theme,
       teamId: this.id,
@@ -147,7 +146,7 @@ export default class Team extends Resource<TeamDetail> {
    *  * `invoices` - Shows a table of invoices.
    */
   showWidget(
-    widget: WidgetType,
+    widget: TeamWidgetType,
     theme?: IPublicTheme,
     elOrSelector?: string | Element
   ) {

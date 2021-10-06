@@ -35,12 +35,14 @@ export function createConfiguration(
   })
 }
 
-export function createAPI(opts: {
+export interface APIOptions {
   apiBaseUrl: string
   appBaseUrl: string
   token?: string
   publicToken?: string
-}): IPAPI {
+}
+
+export function createAPI(opts: APIOptions): IPAPI {
   const { apiBaseUrl, appBaseUrl, token, publicToken } = opts
   const config = createConfiguration(apiBaseUrl, token ?? publicToken)
   return {
