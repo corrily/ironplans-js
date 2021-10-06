@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0-alpha.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.2.0...@ironplans/sdk@0.3.0-alpha.0) (2021-10-06)
+
+### Bug Fixes
+
+- fix types ([d4ae9e7](https://github.com/ironplans/js/commit/d4ae9e7adf75a2cbaf5fb6e97f6c330d4f4fa363))
+
+### Features
+
+- extended theme options for button states ([87deb31](https://github.com/ironplans/js/commit/87deb31a686b8b9e3a4bb9b2ff0185bf65da1778))
+
 # [0.2.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.2.0-alpha.0...@ironplans/sdk@0.2.0) (2021-10-06)
 
 **Note:** Version bump only for package @ironplans/sdk

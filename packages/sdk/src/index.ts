@@ -12,6 +12,7 @@ export { clone } from './utils'
 
 export type {
   IPublicTheme as Theme,
+  ThemeState,
   WidgetType,
   TeamWidgetType,
   IFrameOptions,
