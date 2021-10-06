@@ -109,6 +109,12 @@ export interface Provider {
    * @memberof Provider
    */
   readonly isShadow: boolean
+  /**
+   *
+   * @type {string}
+   * @memberof Provider
+   */
+  supportEmail?: string | null
 }
 
 export function ProviderFromJSON(json: any): Provider {
@@ -144,6 +150,9 @@ export function ProviderFromJSONTyped(
     shadowId: json['shadow_id'],
     parentId: json['parent_id'],
     isShadow: json['is_shadow'],
+    supportEmail: !exists(json, 'support_email')
+      ? undefined
+      : json['support_email'],
   }
 }
 
@@ -164,5 +173,6 @@ export function ProviderToJSON(value?: Provider | null): any {
     default_plan: value.defaultPlan,
     trial_days: value.trialDays,
     is_card_required: value.isCardRequired,
+    support_email: value.supportEmail,
   }
 }

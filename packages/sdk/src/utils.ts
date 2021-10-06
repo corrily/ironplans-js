@@ -15,6 +15,8 @@ export interface IPublicThemeFull {
     fontFamily: string
     darkMode: 'off' | 'on' | 'auto'
   }
+  card: CSSStyleDeclaration
+  button: CSSStyleDeclaration
 }
 export type IPublicTheme = Partial<IPublicThemeFull>
 export interface IFrameOptions {

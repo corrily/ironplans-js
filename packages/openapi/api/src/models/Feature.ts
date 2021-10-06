@@ -36,7 +36,7 @@ export interface Feature {
    * @type {string}
    * @memberof Feature
    */
-  slug?: string
+  slug?: string | null
   /**
    *
    * @type {string}

@@ -2351,6 +2351,7 @@ components:
           format: uuid
         slug:
           type: string
+          nullable: true
           pattern: ^[-a-zA-Z0-9_]+$
         display:
           type: string
@@ -2374,6 +2375,7 @@ components:
           format: uuid
         slug:
           type: string
+          nullable: true
           pattern: ^[-a-zA-Z0-9_]+$
         display:
           type: string
@@ -2837,6 +2839,7 @@ components:
           format: uuid
         slug:
           type: string
+          nullable: true
           pattern: ^[-a-zA-Z0-9_]+$
         display:
           type: string
@@ -2979,6 +2982,11 @@ components:
           minimum: -2147483648
         is_card_required:
           type: boolean
+        support_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
     PatchedSubscriptionRequest:
       type: object
       properties:
@@ -2990,6 +2998,9 @@ components:
           format: uuid
         is_paused:
           type: boolean
+        next_plan_id:
+          type: string
+          format: uuid
     PatchedTeamDetailRequest:
       type: object
       properties:
@@ -3224,6 +3235,11 @@ components:
         is_shadow:
           type: boolean
           readOnly: true
+        support_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
       required:
         - id
         - is_shadow
@@ -3272,6 +3288,11 @@ components:
           minimum: -2147483648
         is_card_required:
           type: boolean
+        support_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
       required:
         - name
         - slug
@@ -3365,6 +3386,9 @@ components:
         is_active:
           type: boolean
           readOnly: true
+        next_plan_id:
+          type: string
+          format: uuid
       required:
         - end_at
         - id
@@ -3411,6 +3435,14 @@ components:
         billing_period:
           type: string
           readOnly: true
+        next_plan_id:
+          type: string
+          format: uuid
+          readOnly: true
+        next_plan:
+          allOf:
+            - $ref: '#/components/schemas/Plan'
+          readOnly: true
         usages:
           type: array
           items:
@@ -3424,6 +3456,8 @@ components:
         - id
         - is_active
         - is_paused
+        - next_plan
+        - next_plan_id
         - plan
         - plan_id
         - start_at
@@ -3439,6 +3473,9 @@ components:
           format: uuid
         is_paused:
           type: boolean
+        next_plan_id:
+          type: string
+          format: uuid
       required:
         - plan_id
         - team_id

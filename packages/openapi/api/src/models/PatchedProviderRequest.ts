@@ -73,6 +73,12 @@ export interface PatchedProviderRequest {
    * @memberof PatchedProviderRequest
    */
   isCardRequired?: boolean
+  /**
+   *
+   * @type {string}
+   * @memberof PatchedProviderRequest
+   */
+  supportEmail?: string | null
 }
 
 export function PatchedProviderRequestFromJSON(
@@ -104,6 +110,9 @@ export function PatchedProviderRequestFromJSONTyped(
     isCardRequired: !exists(json, 'is_card_required')
       ? undefined
       : json['is_card_required'],
+    supportEmail: !exists(json, 'support_email')
+      ? undefined
+      : json['support_email'],
   }
 }
 
@@ -126,5 +135,6 @@ export function PatchedProviderRequestToJSON(
     default_plan: value.defaultPlan,
     trial_days: value.trialDays,
     is_card_required: value.isCardRequired,
+    support_email: value.supportEmail,
   }
 }

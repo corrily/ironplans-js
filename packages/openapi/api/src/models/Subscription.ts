@@ -61,6 +61,12 @@ export interface Subscription {
    * @memberof Subscription
    */
   readonly isActive: boolean
+  /**
+   *
+   * @type {string}
+   * @memberof Subscription
+   */
+  nextPlanId?: string
 }
 
 export function SubscriptionFromJSON(json: any): Subscription {
@@ -82,6 +88,9 @@ export function SubscriptionFromJSONTyped(
     endAt: new Date(json['end_at']),
     isPaused: !exists(json, 'is_paused') ? undefined : json['is_paused'],
     isActive: json['is_active'],
+    nextPlanId: !exists(json, 'next_plan_id')
+      ? undefined
+      : json['next_plan_id'],
   }
 }
 
@@ -96,5 +105,6 @@ export function SubscriptionToJSON(value?: Subscription | null): any {
     plan_id: value.planId,
     team_id: value.teamId,
     is_paused: value.isPaused,
+    next_plan_id: value.nextPlanId,
   }
 }
