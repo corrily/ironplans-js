@@ -8,5 +8,5 @@ export { default as Invite } from './invite'
 export { default as Subscription } from './subscription'
 export { clone } from './utils'
 
-export type { IPublicTheme as Theme } from './utils'
+export type { IPublicTheme as Theme, ThemeState } from './utils'
 export type { WidgetType } from './team'
