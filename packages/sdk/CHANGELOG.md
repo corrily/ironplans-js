@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1-alpha.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.4.0...@ironplans/sdk@0.4.1-alpha.0) (2021-10-07)
+
+### Bug Fixes
+
+- **sdk:** use non-deprecated slug fields ([b9853e8](https://github.com/ironplans/js/commit/b9853e876ccb2701b06ae852b487f45aae07e78f))
+
 # [0.4.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.3.0...@ironplans/sdk@0.4.0) (2021-10-06)
 
 **Note:** Version bump only for package @ironplans/sdk
