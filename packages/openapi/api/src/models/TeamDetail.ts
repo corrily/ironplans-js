@@ -82,6 +82,12 @@ export interface TeamDetail {
   readonly availablePlans: Array<Plan>
   /**
    *
+   * @type {boolean}
+   * @memberof TeamDetail
+   */
+  isFreeTrialUsed?: boolean
+  /**
+   *
    * @type {Date}
    * @memberof TeamDetail
    */
@@ -113,6 +119,9 @@ export function TeamDetailFromJSONTyped(
     invites: (json['invites'] as Array<any>).map(InviteFromJSON),
     subscription: SubscriptionDetailFromJSON(json['subscription']),
     availablePlans: (json['available_plans'] as Array<any>).map(PlanFromJSON),
+    isFreeTrialUsed: !exists(json, 'is_free_trial_used')
+      ? undefined
+      : json['is_free_trial_used'],
     createdAt: new Date(json['created_at']),
     updatedAt: new Date(json['updated_at']),
   }
@@ -128,5 +137,6 @@ export function TeamDetailToJSON(value?: TeamDetail | null): any {
   return {
     provider_id: value.providerId,
     name: value.name,
+    is_free_trial_used: value.isFreeTrialUsed,
   }
 }

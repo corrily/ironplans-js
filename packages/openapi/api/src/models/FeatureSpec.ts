@@ -59,13 +59,19 @@ export interface FeatureSpec {
    * @type {number}
    * @memberof FeatureSpec
    */
-  maxLimit?: number | null
+  maxLimit?: number
   /**
    * Amount in cents
    * @type {number}
    * @memberof FeatureSpec
    */
   unitPrice?: number | null
+  /**
+   *
+   * @type {number}
+   * @memberof FeatureSpec
+   */
+  unitsIncluded?: number | null
   /**
    *
    * @type {string}
@@ -96,6 +102,9 @@ export function FeatureSpecFromJSONTyped(
       : AggregationEnumFromJSON(json['aggregation']),
     maxLimit: !exists(json, 'max_limit') ? undefined : json['max_limit'],
     unitPrice: !exists(json, 'unit_price') ? undefined : json['unit_price'],
+    unitsIncluded: !exists(json, 'units_included')
+      ? undefined
+      : json['units_included'],
     providerId: !exists(json, 'provider_id') ? undefined : json['provider_id'],
   }
 }
@@ -113,6 +122,7 @@ export function FeatureSpecToJSON(value?: FeatureSpec | null): any {
     aggregation: AggregationEnumToJSON(value.aggregation),
     max_limit: value.maxLimit,
     unit_price: value.unitPrice,
+    units_included: value.unitsIncluded,
     provider_id: value.providerId,
   }
 }

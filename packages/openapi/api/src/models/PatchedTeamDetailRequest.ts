@@ -31,6 +31,12 @@ export interface PatchedTeamDetailRequest {
    * @memberof PatchedTeamDetailRequest
    */
   name?: string | null
+  /**
+   *
+   * @type {boolean}
+   * @memberof PatchedTeamDetailRequest
+   */
+  isFreeTrialUsed?: boolean
 }
 
 export function PatchedTeamDetailRequestFromJSON(
@@ -49,6 +55,9 @@ export function PatchedTeamDetailRequestFromJSONTyped(
   return {
     providerId: !exists(json, 'provider_id') ? undefined : json['provider_id'],
     name: !exists(json, 'name') ? undefined : json['name'],
+    isFreeTrialUsed: !exists(json, 'is_free_trial_used')
+      ? undefined
+      : json['is_free_trial_used'],
   }
 }
 
@@ -64,5 +73,6 @@ export function PatchedTeamDetailRequestToJSON(
   return {
     provider_id: value.providerId,
     name: value.name,
+    is_free_trial_used: value.isFreeTrialUsed,
   }
 }

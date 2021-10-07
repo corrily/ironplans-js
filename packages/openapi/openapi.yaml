@@ -2406,14 +2406,17 @@ components:
         max_limit:
           type: integer
           maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
+          minimum: 0
         unit_price:
           type: integer
           maximum: 2147483647
           nullable: true
           description: Amount in cents
           minimum: 0
+        units_included:
+          type: integer
+          nullable: true
+          default: 0
         provider_id:
           type: string
           format: uuid
@@ -2437,14 +2440,17 @@ components:
         max_limit:
           type: integer
           maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
+          minimum: 0
         unit_price:
           type: integer
           maximum: 2147483647
           nullable: true
           description: Amount in cents
           minimum: 0
+        units_included:
+          type: integer
+          nullable: true
+          default: 0
         provider_id:
           type: string
           format: uuid
@@ -2866,14 +2872,17 @@ components:
         max_limit:
           type: integer
           maximum: 2147483647
-          minimum: -2147483648
-          nullable: true
+          minimum: 0
         unit_price:
           type: integer
           maximum: 2147483647
           nullable: true
           description: Amount in cents
           minimum: 0
+        units_included:
+          type: integer
+          nullable: true
+          default: 0
         provider_id:
           type: string
           format: uuid
@@ -3011,6 +3020,8 @@ components:
           type: string
           nullable: true
           maxLength: 128
+        is_free_trial_used:
+          type: boolean
     PatchedTokenRequest:
       type: object
       properties:
@@ -3087,6 +3098,12 @@ components:
           format: uuid
         is_active:
           type: boolean
+        display:
+          type: string
+          nullable: true
+        sort:
+          type: integer
+          default: 0
         feature:
           allOf:
             - $ref: '#/components/schemas/Feature'
@@ -3095,20 +3112,8 @@ components:
           allOf:
             - $ref: '#/components/schemas/FeatureSpec'
           readOnly: true
-        display:
-          type: string
-          readOnly: true
-        slug:
-          type: string
-          readOnly: true
-        max_limit:
-          type: integer
-          readOnly: true
       required:
-        - display
         - feature
-        - max_limit
-        - slug
         - spec
     PlanFeatureRequest:
       type: object
@@ -3126,6 +3131,12 @@ components:
           writeOnly: true
         is_active:
           type: boolean
+        display:
+          type: string
+          nullable: true
+        sort:
+          type: integer
+          default: 0
     PlanRequest:
       type: object
       properties:
@@ -3566,6 +3577,8 @@ components:
           items:
             $ref: '#/components/schemas/Plan'
           readOnly: true
+        is_free_trial_used:
+          type: boolean
         created_at:
           type: string
           format: date-time
@@ -3593,6 +3606,8 @@ components:
           type: string
           nullable: true
           maxLength: 128
+        is_free_trial_used:
+          type: boolean
       required:
         - name
     Token:

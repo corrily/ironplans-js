@@ -43,6 +43,18 @@ export interface PlanFeatureRequest {
    * @memberof PlanFeatureRequest
    */
   isActive?: boolean
+  /**
+   *
+   * @type {string}
+   * @memberof PlanFeatureRequest
+   */
+  display?: string | null
+  /**
+   *
+   * @type {number}
+   * @memberof PlanFeatureRequest
+   */
+  sort?: number
 }
 
 export function PlanFeatureRequestFromJSON(json: any): PlanFeatureRequest {
@@ -61,6 +73,8 @@ export function PlanFeatureRequestFromJSONTyped(
     featureId: !exists(json, 'feature_id') ? undefined : json['feature_id'],
     specId: !exists(json, 'spec_id') ? undefined : json['spec_id'],
     isActive: !exists(json, 'is_active') ? undefined : json['is_active'],
+    display: !exists(json, 'display') ? undefined : json['display'],
+    sort: !exists(json, 'sort') ? undefined : json['sort'],
   }
 }
 
@@ -78,5 +92,7 @@ export function PlanFeatureRequestToJSON(
     feature_id: value.featureId,
     spec_id: value.specId,
     is_active: value.isActive,
+    display: value.display,
+    sort: value.sort,
   }
 }

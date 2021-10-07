@@ -44,6 +44,18 @@ export interface PlanFeature {
   isActive?: boolean
   /**
    *
+   * @type {string}
+   * @memberof PlanFeature
+   */
+  display?: string | null
+  /**
+   *
+   * @type {number}
+   * @memberof PlanFeature
+   */
+  sort?: number
+  /**
+   *
    * @type {Feature}
    * @memberof PlanFeature
    */
@@ -54,24 +66,6 @@ export interface PlanFeature {
    * @memberof PlanFeature
    */
   readonly spec: FeatureSpec
-  /**
-   *
-   * @type {string}
-   * @memberof PlanFeature
-   */
-  readonly display: string
-  /**
-   *
-   * @type {string}
-   * @memberof PlanFeature
-   */
-  readonly slug: string
-  /**
-   *
-   * @type {number}
-   * @memberof PlanFeature
-   */
-  readonly maxLimit: number
 }
 
 export function PlanFeatureFromJSON(json: any): PlanFeature {
@@ -88,11 +82,10 @@ export function PlanFeatureFromJSONTyped(
   return {
     id: !exists(json, 'id') ? undefined : json['id'],
     isActive: !exists(json, 'is_active') ? undefined : json['is_active'],
+    display: !exists(json, 'display') ? undefined : json['display'],
+    sort: !exists(json, 'sort') ? undefined : json['sort'],
     feature: FeatureFromJSON(json['feature']),
     spec: FeatureSpecFromJSON(json['spec']),
-    display: json['display'],
-    slug: json['slug'],
-    maxLimit: json['max_limit'],
   }
 }
 
@@ -106,5 +99,7 @@ export function PlanFeatureToJSON(value?: PlanFeature | null): any {
   return {
     id: value.id,
     is_active: value.isActive,
+    display: value.display,
+    sort: value.sort,
   }
 }

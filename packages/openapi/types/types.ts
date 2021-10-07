@@ -296,18 +296,20 @@ export interface components {
       name: string
       record_period?: components['schemas']['RecordPeriodEnum']
       aggregation?: components['schemas']['AggregationEnum']
-      max_limit?: number | null
+      max_limit?: number
       /** Amount in cents */
       unit_price?: number | null
+      units_included?: number | null
       provider_id?: string
     }
     FeatureSpecRequest: {
       name: string
       record_period?: components['schemas']['RecordPeriodEnum']
       aggregation?: components['schemas']['AggregationEnum']
-      max_limit?: number | null
+      max_limit?: number
       /** Amount in cents */
       unit_price?: number | null
+      units_included?: number | null
       provider_id?: string
     }
     IDTokenExchangeRequest: {
@@ -437,9 +439,10 @@ export interface components {
       name?: string
       record_period?: components['schemas']['RecordPeriodEnum']
       aggregation?: components['schemas']['AggregationEnum']
-      max_limit?: number | null
+      max_limit?: number
       /** Amount in cents */
       unit_price?: number | null
+      units_included?: number | null
       provider_id?: string
     }
     PatchedInviteRequest: {
@@ -490,6 +493,7 @@ export interface components {
     PatchedTeamDetailRequest: {
       provider_id?: string
       name?: string | null
+      is_free_trial_used?: boolean
     }
     PatchedTokenRequest: {
       provider_id?: string
@@ -517,17 +521,18 @@ export interface components {
     PlanFeature: {
       id?: string
       is_active?: boolean
+      display?: string | null
+      sort?: number
       feature: components['schemas']['Feature']
       spec: components['schemas']['FeatureSpec']
-      display: string
-      slug: string
-      max_limit: number
     }
     PlanFeatureRequest: {
       id?: string
       feature_id?: string
       spec_id?: string
       is_active?: boolean
+      display?: string | null
+      sort?: number
     }
     PlanRequest: {
       provider_id?: string
@@ -647,12 +652,14 @@ export interface components {
       invites: components['schemas']['Invite'][]
       subscription: components['schemas']['SubscriptionDetail'] | null
       available_plans: components['schemas']['Plan'][]
+      is_free_trial_used?: boolean
       created_at: string
       updated_at: string
     }
     TeamDetailRequest: {
       provider_id?: string
       name: string | null
+      is_free_trial_used?: boolean
     }
     Token: {
       id: string

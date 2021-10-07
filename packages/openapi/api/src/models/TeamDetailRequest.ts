@@ -31,6 +31,12 @@ export interface TeamDetailRequest {
    * @memberof TeamDetailRequest
    */
   name: string | null
+  /**
+   *
+   * @type {boolean}
+   * @memberof TeamDetailRequest
+   */
+  isFreeTrialUsed?: boolean
 }
 
 export function TeamDetailRequestFromJSON(json: any): TeamDetailRequest {
@@ -47,6 +53,9 @@ export function TeamDetailRequestFromJSONTyped(
   return {
     providerId: !exists(json, 'provider_id') ? undefined : json['provider_id'],
     name: json['name'],
+    isFreeTrialUsed: !exists(json, 'is_free_trial_used')
+      ? undefined
+      : json['is_free_trial_used'],
   }
 }
 
@@ -60,5 +69,6 @@ export function TeamDetailRequestToJSON(value?: TeamDetailRequest | null): any {
   return {
     provider_id: value.providerId,
     name: value.name,
+    is_free_trial_used: value.isFreeTrialUsed,
   }
 }
