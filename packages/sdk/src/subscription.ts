@@ -16,20 +16,24 @@ export default class Subscription extends Resource<SubscriptionDetail> {
   }
 
   allSlugs() {
-    return this.data.plan.features.filter((f) => !!f.slug).map((f) => f.slug)
+    return this.data.plan.features
+      .filter((f) => !!f.feature.slug)
+      .map((f) => f.feature.slug)
   }
 
   usage(slug: string): Usage {
     const usage = this.data.usages.find((u) => u.slug === slug)
     if (!usage) {
       // Check if its a plan feature
-      const feature = this.data.plan.features.find((f) => f.slug === slug)
+      const feature = this.data.plan.features.find(
+        (f) => f.feature.slug === slug
+      )
       if (!feature)
         throw new Error(
           `No usage found for ${slug}.  Slugs: ${this.allSlugs().join(', ')}`
         )
       return {
-        limit: feature.maxLimit,
+        limit: feature.spec.maxLimit ?? 0,
         value: 0,
         slug,
         perUnit: feature.spec.unitPrice ?? 0,
