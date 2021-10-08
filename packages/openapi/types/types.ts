@@ -479,7 +479,7 @@ export interface components {
       home_url?: string | null
       webhook_url?: string | null
       invoice_logo_url?: string | null
-      default_plan?: string | null
+      default_plan_id?: string | null
       trial_days?: number
       is_card_required?: boolean
       support_email?: string | null
@@ -511,6 +511,7 @@ export interface components {
       is_active: boolean
       is_public: boolean
       is_trial_allowed: boolean
+      is_default: boolean
       /** Amount in cents */
       per_year_price_cents?: number | null
       /** Amount in cents */
@@ -556,7 +557,7 @@ export interface components {
       home_url?: string | null
       webhook_url?: string | null
       invoice_logo_url?: string | null
-      default_plan?: string | null
+      default_plan: components['schemas']['Plan']
       trial_days?: number
       is_card_required?: boolean
       owner_id: string
@@ -573,7 +574,7 @@ export interface components {
       home_url?: string | null
       webhook_url?: string | null
       invoice_logo_url?: string | null
-      default_plan?: string | null
+      default_plan_id?: string | null
       trial_days?: number
       is_card_required?: boolean
       support_email?: string | null
@@ -1690,7 +1691,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Subscription']
+          'application/json': components['schemas']['SubscriptionDetail']
         }
       }
     }
@@ -1724,7 +1725,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Subscription']
+          'application/json': components['schemas']['SubscriptionDetail']
         }
       }
     }
@@ -1768,7 +1769,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Subscription']
+          'application/json': components['schemas']['SubscriptionDetail']
         }
       }
     }

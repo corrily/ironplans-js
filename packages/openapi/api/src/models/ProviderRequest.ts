@@ -60,7 +60,7 @@ export interface ProviderRequest {
    * @type {string}
    * @memberof ProviderRequest
    */
-  defaultPlan?: string | null
+  defaultPlanId?: string | null
   /**
    *
    * @type {number}
@@ -101,9 +101,9 @@ export function ProviderRequestFromJSONTyped(
     invoiceLogoUrl: !exists(json, 'invoice_logo_url')
       ? undefined
       : json['invoice_logo_url'],
-    defaultPlan: !exists(json, 'default_plan')
+    defaultPlanId: !exists(json, 'default_plan_id')
       ? undefined
-      : json['default_plan'],
+      : json['default_plan_id'],
     trialDays: !exists(json, 'trial_days') ? undefined : json['trial_days'],
     isCardRequired: !exists(json, 'is_card_required')
       ? undefined
@@ -128,7 +128,7 @@ export function ProviderRequestToJSON(value?: ProviderRequest | null): any {
     home_url: value.homeUrl,
     webhook_url: value.webhookUrl,
     invoice_logo_url: value.invoiceLogoUrl,
-    default_plan: value.defaultPlan,
+    default_plan_id: value.defaultPlanId,
     trial_days: value.trialDays,
     is_card_required: value.isCardRequired,
     support_email: value.supportEmail,

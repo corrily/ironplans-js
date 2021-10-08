@@ -259,7 +259,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1PartialUpdateRaw(
     requestParameters: SubscriptionsV1PartialUpdateRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<Subscription>> {
+  ): Promise<runtime.ApiResponse<SubscriptionDetail>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
@@ -298,7 +298,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      SubscriptionFromJSON(jsonValue)
+      SubscriptionDetailFromJSON(jsonValue)
     )
   }
 
@@ -307,7 +307,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1PartialUpdate(
     requestParameters: SubscriptionsV1PartialUpdateRequest,
     initOverrides?: RequestInit
-  ): Promise<Subscription> {
+  ): Promise<SubscriptionDetail> {
     const response = await this.subscriptionsV1PartialUpdateRaw(
       requestParameters,
       initOverrides
@@ -447,7 +447,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1SwitchPartialUpdateRaw(
     requestParameters: SubscriptionsV1SwitchPartialUpdateRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<Subscription>> {
+  ): Promise<runtime.ApiResponse<SubscriptionDetail>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
@@ -486,7 +486,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      SubscriptionFromJSON(jsonValue)
+      SubscriptionDetailFromJSON(jsonValue)
     )
   }
 
@@ -495,7 +495,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1SwitchPartialUpdate(
     requestParameters: SubscriptionsV1SwitchPartialUpdateRequest,
     initOverrides?: RequestInit
-  ): Promise<Subscription> {
+  ): Promise<SubscriptionDetail> {
     const response = await this.subscriptionsV1SwitchPartialUpdateRaw(
       requestParameters,
       initOverrides
@@ -508,7 +508,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1UpdateRaw(
     requestParameters: SubscriptionsV1UpdateRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<Subscription>> {
+  ): Promise<runtime.ApiResponse<SubscriptionDetail>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
@@ -555,7 +555,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      SubscriptionFromJSON(jsonValue)
+      SubscriptionDetailFromJSON(jsonValue)
     )
   }
 
@@ -564,7 +564,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1Update(
     requestParameters: SubscriptionsV1UpdateRequest,
     initOverrides?: RequestInit
-  ): Promise<Subscription> {
+  ): Promise<SubscriptionDetail> {
     const response = await this.subscriptionsV1UpdateRaw(
       requestParameters,
       initOverrides

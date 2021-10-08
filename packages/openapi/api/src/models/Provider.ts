@@ -13,6 +13,8 @@
  */
 
 import { exists, mapValues } from '../runtime'
+import { Plan, PlanFromJSON, PlanFromJSONTyped, PlanToJSON } from './'
+
 /**
  *
  * @export
@@ -63,10 +65,10 @@ export interface Provider {
   invoiceLogoUrl?: string | null
   /**
    *
-   * @type {string}
+   * @type {Plan}
    * @memberof Provider
    */
-  defaultPlan?: string | null
+  readonly defaultPlan: Plan
   /**
    *
    * @type {number}
@@ -138,9 +140,7 @@ export function ProviderFromJSONTyped(
     invoiceLogoUrl: !exists(json, 'invoice_logo_url')
       ? undefined
       : json['invoice_logo_url'],
-    defaultPlan: !exists(json, 'default_plan')
-      ? undefined
-      : json['default_plan'],
+    defaultPlan: PlanFromJSON(json['default_plan']),
     trialDays: !exists(json, 'trial_days') ? undefined : json['trial_days'],
     isCardRequired: !exists(json, 'is_card_required')
       ? undefined
@@ -170,7 +170,6 @@ export function ProviderToJSON(value?: Provider | null): any {
     home_url: value.homeUrl,
     webhook_url: value.webhookUrl,
     invoice_logo_url: value.invoiceLogoUrl,
-    default_plan: value.defaultPlan,
     trial_days: value.trialDays,
     is_card_required: value.isCardRequired,
     support_email: value.supportEmail,

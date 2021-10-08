@@ -73,6 +73,12 @@ export interface Plan {
    */
   isTrialAllowed: boolean
   /**
+   *
+   * @type {boolean}
+   * @memberof Plan
+   */
+  readonly isDefault: boolean
+  /**
    * Amount in cents
    * @type {number}
    * @memberof Plan
@@ -117,6 +123,7 @@ export function PlanFromJSONTyped(
     isActive: json['is_active'],
     isPublic: json['is_public'],
     isTrialAllowed: json['is_trial_allowed'],
+    isDefault: json['is_default'],
     perYearPriceCents: !exists(json, 'per_year_price_cents')
       ? undefined
       : json['per_year_price_cents'],

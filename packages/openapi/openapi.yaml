@@ -1495,7 +1495,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Subscription'
+                $ref: '#/components/schemas/SubscriptionDetail'
           description: ''
     patch:
       operationId: subscriptions_v1_partial_update
@@ -1527,7 +1527,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Subscription'
+                $ref: '#/components/schemas/SubscriptionDetail'
           description: ''
     delete:
       operationId: subscriptions_v1_destroy
@@ -1611,7 +1611,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Subscription'
+                $ref: '#/components/schemas/SubscriptionDetail'
           description: ''
   /subscriptions/v1/{id}/usage/:
     get:
@@ -2981,9 +2981,10 @@ components:
           format: uri
           nullable: true
           maxLength: 200
-        default_plan:
+        default_plan_id:
           type: string
           format: uuid
+          writeOnly: true
           nullable: true
         trial_days:
           type: integer
@@ -3062,6 +3063,9 @@ components:
           type: boolean
         is_trial_allowed:
           type: boolean
+        is_default:
+          type: boolean
+          readOnly: true
         per_year_price_cents:
           type: integer
           maximum: 2147483647
@@ -3086,6 +3090,7 @@ components:
         - features
         - id
         - is_active
+        - is_default
         - is_public
         - is_trial_allowed
         - name
@@ -3217,9 +3222,9 @@ components:
           nullable: true
           maxLength: 200
         default_plan:
-          type: string
-          format: uuid
-          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/Plan'
+          readOnly: true
         trial_days:
           type: integer
           maximum: 2147483647
@@ -3252,6 +3257,7 @@ components:
           nullable: true
           maxLength: 254
       required:
+        - default_plan
         - id
         - is_shadow
         - name
@@ -3289,9 +3295,10 @@ components:
           format: uri
           nullable: true
           maxLength: 200
-        default_plan:
+        default_plan_id:
           type: string
           format: uuid
+          writeOnly: true
           nullable: true
         trial_days:
           type: integer
