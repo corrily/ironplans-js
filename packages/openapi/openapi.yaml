@@ -3229,6 +3229,7 @@ components:
           allOf:
             - $ref: '#/components/schemas/Plan'
           readOnly: true
+          nullable: true
         trial_days:
           type: integer
           maximum: 2147483647

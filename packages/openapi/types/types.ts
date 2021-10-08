@@ -558,7 +558,7 @@ export interface components {
       home_url?: string | null
       webhook_url?: string | null
       invoice_logo_url?: string | null
-      default_plan: components['schemas']['Plan']
+      default_plan: components['schemas']['Plan'] | null
       trial_days?: number
       is_card_required?: boolean
       owner_id: string

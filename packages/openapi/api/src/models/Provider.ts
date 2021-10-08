@@ -68,7 +68,7 @@ export interface Provider {
    * @type {Plan}
    * @memberof Provider
    */
-  readonly defaultPlan: Plan
+  readonly defaultPlan: Plan | null
   /**
    *
    * @type {number}
