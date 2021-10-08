@@ -99,6 +99,7 @@ export class Server extends Koa {
           isShadow: false,
           parentId: null,
           shadowId: null,
+          defaultPlan: null,
         }),
       }),
     },

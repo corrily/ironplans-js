@@ -49,6 +49,12 @@ export interface Customer {
    * @memberof Customer
    */
   readonly updatedAt: Date
+  /**
+   *
+   * @type {boolean}
+   * @memberof Customer
+   */
+  readonly hasSavedPaymentMethod: boolean
 }
 
 export function CustomerFromJSON(json: any): Customer {
@@ -68,6 +74,7 @@ export function CustomerFromJSONTyped(
     sourceId: json['source_id'],
     createdAt: new Date(json['created_at']),
     updatedAt: new Date(json['updated_at']),
+    hasSavedPaymentMethod: json['has_saved_payment_method'],
   }
 }
 

@@ -257,6 +257,7 @@ export interface components {
       source_id: string
       created_at: string
       updated_at: string
+      has_saved_payment_method: boolean
     }
     CustomerConfirmCardRequest: {
       stripe_setup_id: string

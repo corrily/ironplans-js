@@ -2282,9 +2282,13 @@ components:
           type: string
           format: date-time
           readOnly: true
+        has_saved_payment_method:
+          type: boolean
+          readOnly: true
       required:
         - created_at
         - email
+        - has_saved_payment_method
         - id
         - source_id
         - updated_at
