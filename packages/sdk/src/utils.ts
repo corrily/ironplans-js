@@ -8,21 +8,18 @@ export function clone<T extends Immutable<T2>, T2 = unknown>(
   return JSON.parse(JSON.stringify(obj))
 }
 
-export type ThemeState = 'primary' | 'secondary' | 'danger' | 'success'
+export type ThemeState =
+  | 'primary'
+  | 'secondary'
+  | 'danger'
+  | 'success'
+  | 'disabled'
 
-interface ThemeColorVariants {
-  primary: string
-  secondary: string
-  danger: string
-  success: string
-}
-
-interface ThemeButtonVariants {
+export type ThemeColorVariants = { [key in ThemeState]: string }
+export type ThemeButtonVariants = {
+  [key in ThemeState]: Partial<CSSStyleDeclaration>
+} & {
   base: Partial<CSSStyleDeclaration>
-  primary: Partial<CSSStyleDeclaration>
-  secondary: Partial<CSSStyleDeclaration>
-  danger: Partial<CSSStyleDeclaration>
-  success: Partial<CSSStyleDeclaration>
 }
 
 interface BaseThemeOptions {
@@ -39,6 +36,7 @@ export interface IPublicThemeFull {
   button: Partial<ThemeButtonVariants>
 }
 export type IPublicTheme = Partial<IPublicThemeFull>
+
 export interface IFrameOptions {
   url: string | URL
   theme?: IPublicTheme
