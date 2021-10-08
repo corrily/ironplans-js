@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0-alpha.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.4.1...@ironplans/sdk@0.5.0-alpha.0) (2021-10-08)
+
+### Features
+
+- **sdk:** add disabled button theme option ([5a259db](https://github.com/ironplans/js/commit/5a259db59d702d98e8b2b959b1a32fcf35842691))
+
 ## [0.4.1](https://github.com/ironplans/js/compare/@ironplans/sdk@0.4.1-alpha.0...@ironplans/sdk@0.4.1) (2021-10-07)
 
 **Note:** Version bump only for package @ironplans/sdk
