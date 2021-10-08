@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@ironplans/api": "^0.4.2-alpha.0",
-    "@ironplans/types": "^0.0.30-alpha.0",
+    "@ironplans/types": "^0.4.2-alpha.0",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "micro-typed-events": "^1.0.2",
