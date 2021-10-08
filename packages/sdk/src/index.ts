@@ -15,6 +15,7 @@ export type {
   ThemeState,
   ThemeButtonVariants,
   ThemeColorVariants,
+  WidgetType,
   TeamWidgetType,
   PublicWidgetType,
   IFrameOptions,
