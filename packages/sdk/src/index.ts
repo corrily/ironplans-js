@@ -13,7 +13,10 @@ export { clone } from './utils'
 export type {
   IPublicTheme as Theme,
   ThemeState,
-  WidgetType,
+  ThemeButtonVariants,
+  ThemeColorVariants,
   TeamWidgetType,
+  PublicWidgetType,
   IFrameOptions,
+  IFrameOptions as FrameOptions,
 } from './utils'
