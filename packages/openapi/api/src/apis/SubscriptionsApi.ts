@@ -38,6 +38,9 @@ import {
   Usage,
   UsageFromJSON,
   UsageToJSON,
+  UsageExceeded,
+  UsageExceededFromJSON,
+  UsageExceededToJSON,
 } from '../models'
 
 export interface SubscriptionsV1CreateRequest {
@@ -55,6 +58,11 @@ export interface SubscriptionsV1ListRequest {
 }
 
 export interface SubscriptionsV1PartialUpdateRequest {
+  id: string
+  patchedSubscriptionRequest?: PatchedSubscriptionRequest
+}
+
+export interface SubscriptionsV1RenewPartialUpdateRequest {
   id: string
   patchedSubscriptionRequest?: PatchedSubscriptionRequest
 }
@@ -327,6 +335,67 @@ export class SubscriptionsApi extends runtime.BaseAPI {
 
   /**
    */
+  async subscriptionsV1RenewPartialUpdateRaw(
+    requestParameters: SubscriptionsV1RenewPartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<SubscriptionDetail>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1RenewPartialUpdate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'OAuth2',
+        []
+      )
+    }
+
+    const response = await this.request(
+      {
+        path: `/subscriptions/v1/{id}/renew/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'PATCH',
+        headers: headerParameters,
+        query: queryParameters,
+        body: PatchedSubscriptionRequestToJSON(
+          requestParameters.patchedSubscriptionRequest
+        ),
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      SubscriptionDetailFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async subscriptionsV1RenewPartialUpdate(
+    requestParameters: SubscriptionsV1RenewPartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<SubscriptionDetail> {
+    const response = await this.subscriptionsV1RenewPartialUpdateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
   async subscriptionsV1ReportCreateRaw(
     requestParameters: SubscriptionsV1ReportCreateRequest,
     initOverrides?: RequestInit
@@ -588,7 +657,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1UsageExceededRetrieveRaw(
     requestParameters: SubscriptionsV1UsageExceededRetrieveRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<Subscription>> {
+  ): Promise<runtime.ApiResponse<UsageExceeded>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
@@ -622,7 +691,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      SubscriptionFromJSON(jsonValue)
+      UsageExceededFromJSON(jsonValue)
     )
   }
 
@@ -632,7 +701,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1UsageExceededRetrieve(
     requestParameters: SubscriptionsV1UsageExceededRetrieveRequest,
     initOverrides?: RequestInit
-  ): Promise<Subscription> {
+  ): Promise<UsageExceeded> {
     const response = await this.subscriptionsV1UsageExceededRetrieveRaw(
       requestParameters,
       initOverrides

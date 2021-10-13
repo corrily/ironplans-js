@@ -151,6 +151,9 @@ export interface paths {
     delete: operations['subscriptions_v1_destroy']
     patch: operations['subscriptions_v1_partial_update']
   }
+  '/subscriptions/v1/{id}/renew/': {
+    patch: operations['subscriptions_v1_renew_partial_update']
+  }
   '/subscriptions/v1/{id}/report/': {
     post: operations['subscriptions_v1_report_create']
   }
@@ -542,7 +545,7 @@ export interface components {
     PlanFeatureRequest: {
       id?: string
       feature_id?: string
-      spec_id?: string
+      spec_id?: string | null
       is_active?: boolean
       display?: string | null
       sort?: number
@@ -696,6 +699,9 @@ export interface components {
       value: number
       limit: number
       per_unit: number
+    }
+    UsageExceeded: {
+      exceeded: boolean
     }
   }
 }
@@ -1759,6 +1765,28 @@ export interface operations {
       }
     }
   }
+  subscriptions_v1_renew_partial_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this subscription. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['SubscriptionDetail']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PatchedSubscriptionRequest']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedSubscriptionRequest']
+        'multipart/form-data': components['schemas']['PatchedSubscriptionRequest']
+      }
+    }
+  }
   subscriptions_v1_report_create: {
     parameters: {
       path: {
@@ -1832,7 +1860,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['Subscription']
+          'application/json': components['schemas']['UsageExceeded']
         }
       }
     }
