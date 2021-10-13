@@ -155,7 +155,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1DestroyRaw(
     requestParameters: SubscriptionsV1DestroyRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<void>> {
+  ): Promise<runtime.ApiResponse<SubscriptionDetail>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
@@ -188,7 +188,9 @@ export class SubscriptionsApi extends runtime.BaseAPI {
       initOverrides
     )
 
-    return new runtime.VoidApiResponse(response)
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      SubscriptionDetailFromJSON(jsonValue)
+    )
   }
 
   /**
@@ -196,8 +198,12 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1Destroy(
     requestParameters: SubscriptionsV1DestroyRequest,
     initOverrides?: RequestInit
-  ): Promise<void> {
-    await this.subscriptionsV1DestroyRaw(requestParameters, initOverrides)
+  ): Promise<SubscriptionDetail> {
+    const response = await this.subscriptionsV1DestroyRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
   }
 
   /**

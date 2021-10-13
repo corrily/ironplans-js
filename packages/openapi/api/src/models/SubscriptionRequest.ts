@@ -43,6 +43,12 @@ export interface SubscriptionRequest {
    * @memberof SubscriptionRequest
    */
   nextPlanId?: string
+  /**
+   *
+   * @type {Date}
+   * @memberof SubscriptionRequest
+   */
+  cancelOn?: Date | null
 }
 
 export function SubscriptionRequestFromJSON(json: any): SubscriptionRequest {
@@ -63,6 +69,11 @@ export function SubscriptionRequestFromJSONTyped(
     nextPlanId: !exists(json, 'next_plan_id')
       ? undefined
       : json['next_plan_id'],
+    cancelOn: !exists(json, 'cancel_on')
+      ? undefined
+      : json['cancel_on'] === null
+      ? null
+      : new Date(json['cancel_on']),
   }
 }
 
@@ -80,5 +91,11 @@ export function SubscriptionRequestToJSON(
     team_id: value.teamId,
     is_paused: value.isPaused,
     next_plan_id: value.nextPlanId,
+    cancel_on:
+      value.cancelOn === undefined
+        ? undefined
+        : value.cancelOn === null
+        ? null
+        : value.cancelOn.toISOString(),
   }
 }
