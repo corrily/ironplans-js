@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0-alpha.4](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.3...@ironplans/sdk@0.5.0-alpha.4) (2021-10-13)
+
+### Features
+
+- **sdk:** add Team.getRole helper method ([f28665e](https://github.com/ironplans/js/commit/f28665e9379a86cc2ddaf7e719adef9b5bf2108f))
+
 # [0.5.0-alpha.3](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.2...@ironplans/sdk@0.5.0-alpha.3) (2021-10-13)
 
 **Note:** Version bump only for package @ironplans/sdk
