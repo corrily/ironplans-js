@@ -1548,8 +1548,12 @@ paths:
       security:
         - OAuth2: []
       responses:
-        '204':
-          description: No response body
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
   /subscriptions/v1/{id}/report/:
     post:
       operationId: subscriptions_v1_report_create
@@ -3044,6 +3048,10 @@ components:
         next_plan_id:
           type: string
           format: uuid
+        cancel_on:
+          type: string
+          format: date-time
+          nullable: true
     PatchedTeamDetailRequest:
       type: object
       properties:
@@ -3446,6 +3454,10 @@ components:
         next_plan_id:
           type: string
           format: uuid
+        cancel_on:
+          type: string
+          format: date-time
+          nullable: true
       required:
         - end_at
         - id
@@ -3480,6 +3492,10 @@ components:
         is_paused:
           type: boolean
           readOnly: true
+        cancel_on:
+          type: string
+          format: date-time
+          readOnly: true
         is_active:
           type: boolean
           readOnly: true
@@ -3507,6 +3523,7 @@ components:
           readOnly: true
       required:
         - billing_period
+        - cancel_on
         - days_left
         - days_used
         - end_at
@@ -3533,6 +3550,10 @@ components:
         next_plan_id:
           type: string
           format: uuid
+        cancel_on:
+          type: string
+          format: date-time
+          nullable: true
       required:
         - plan_id
         - team_id

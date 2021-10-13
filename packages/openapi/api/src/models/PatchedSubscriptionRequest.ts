@@ -43,6 +43,12 @@ export interface PatchedSubscriptionRequest {
    * @memberof PatchedSubscriptionRequest
    */
   nextPlanId?: string
+  /**
+   *
+   * @type {Date}
+   * @memberof PatchedSubscriptionRequest
+   */
+  cancelOn?: Date | null
 }
 
 export function PatchedSubscriptionRequestFromJSON(
@@ -65,6 +71,11 @@ export function PatchedSubscriptionRequestFromJSONTyped(
     nextPlanId: !exists(json, 'next_plan_id')
       ? undefined
       : json['next_plan_id'],
+    cancelOn: !exists(json, 'cancel_on')
+      ? undefined
+      : json['cancel_on'] === null
+      ? null
+      : new Date(json['cancel_on']),
   }
 }
 
@@ -82,5 +93,11 @@ export function PatchedSubscriptionRequestToJSON(
     team_id: value.teamId,
     is_paused: value.isPaused,
     next_plan_id: value.nextPlanId,
+    cancel_on:
+      value.cancelOn === undefined
+        ? undefined
+        : value.cancelOn === null
+        ? null
+        : value.cancelOn.toISOString(),
   }
 }

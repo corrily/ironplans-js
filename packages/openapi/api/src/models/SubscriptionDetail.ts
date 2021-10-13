@@ -68,6 +68,12 @@ export interface SubscriptionDetail {
   readonly isPaused: boolean
   /**
    *
+   * @type {Date}
+   * @memberof SubscriptionDetail
+   */
+  readonly cancelOn: Date
+  /**
+   *
    * @type {boolean}
    * @memberof SubscriptionDetail
    */
@@ -128,6 +134,7 @@ export function SubscriptionDetailFromJSONTyped(
     startAt: new Date(json['start_at']),
     endAt: json['end_at'] === null ? null : new Date(json['end_at']),
     isPaused: json['is_paused'],
+    cancelOn: new Date(json['cancel_on']),
     isActive: json['is_active'],
     daysUsed: json['days_used'],
     daysLeft: json['days_left'],

@@ -499,6 +499,7 @@ export interface components {
       team_id?: string
       is_paused?: boolean
       next_plan_id?: string
+      cancel_on?: string | null
     }
     PatchedTeamDetailRequest: {
       provider_id?: string
@@ -617,6 +618,7 @@ export interface components {
       is_paused?: boolean
       is_active: boolean
       next_plan_id?: string
+      cancel_on?: string | null
     }
     SubscriptionDetail: {
       id: string
@@ -625,6 +627,7 @@ export interface components {
       start_at: string
       end_at: string | null
       is_paused: boolean
+      cancel_on: string
       is_active: boolean
       days_used: number
       days_left: number
@@ -638,6 +641,7 @@ export interface components {
       team_id: string
       is_paused?: boolean
       next_plan_id?: string
+      cancel_on?: string | null
     }
     Team: {
       id: string
@@ -1726,8 +1730,11 @@ export interface operations {
       }
     }
     responses: {
-      /** No response body */
-      204: never
+      200: {
+        content: {
+          'application/json': components['schemas']['SubscriptionDetail']
+        }
+      }
     }
   }
   subscriptions_v1_partial_update: {
