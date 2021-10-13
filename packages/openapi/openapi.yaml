@@ -1554,6 +1554,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/SubscriptionDetail'
           description: ''
+  /subscriptions/v1/{id}/renew/:
+    patch:
+      operationId: subscriptions_v1_renew_partial_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
+      tags:
+        - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSubscriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSubscriptionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSubscriptionRequest'
+      security:
+        - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
   /subscriptions/v1/{id}/report/:
     post:
       operationId: subscriptions_v1_report_create
@@ -1671,7 +1704,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Subscription'
+                $ref: '#/components/schemas/UsageExceeded'
           description: ''
   /team_memberships/v1/:
     get:
@@ -3180,6 +3213,7 @@ components:
           type: string
           format: uuid
           writeOnly: true
+          nullable: true
         is_active:
           type: boolean
         display:
@@ -3738,6 +3772,13 @@ components:
         - per_unit
         - slug
         - value
+    UsageExceeded:
+      type: object
+      properties:
+        exceeded:
+          type: boolean
+      required:
+        - exceeded
   securitySchemes:
     OAuth2:
       type: oauth2

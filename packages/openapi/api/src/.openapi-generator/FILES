@@ -83,5 +83,6 @@ models/TeamDetailRequest.ts
 models/Token.ts
 models/TokenRequest.ts
 models/Usage.ts
+models/UsageExceeded.ts
 models/index.ts
 runtime.ts

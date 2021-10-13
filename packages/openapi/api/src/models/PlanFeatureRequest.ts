@@ -36,7 +36,7 @@ export interface PlanFeatureRequest {
    * @type {string}
    * @memberof PlanFeatureRequest
    */
-  specId?: string
+  specId?: string | null
   /**
    *
    * @type {boolean}
