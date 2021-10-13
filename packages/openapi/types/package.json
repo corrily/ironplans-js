@@ -1,6 +1,6 @@
 {
   "name": "@ironplans/types",
-  "version": "0.4.2-alpha.2",
+  "version": "0.4.2-alpha.3",
   "license": "MIT",
   "typings": "types.ts",
   "files": [
