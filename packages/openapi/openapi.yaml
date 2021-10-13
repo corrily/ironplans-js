@@ -233,6 +233,10 @@ paths:
       description: |-
         Create a payment intent for a new plan. Validates server-side the right amount to charge client-side.
         Returns payment intent client secret to give client ability to collect new card details and charge it.
+
+        There are two cases where we would create payment intent for a new plan up front client-side:
+        1) Brand new Customer/Team during sign-up flow, no previous subscription or plan
+        2) Team switching from unmetered free plan to paid plan, with no payment method saved
       tags:
         - customers
       requestBody:
@@ -1642,6 +1646,29 @@ paths:
                 items:
                   $ref: '#/components/schemas/Usage'
           description: ''
+  /subscriptions/v1/{id}/usage_exceeded/:
+    get:
+      operationId: subscriptions_v1_usage_exceeded_retrieve
+      description: Convenience endpoint so providers don't need to loop through usages.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
+      tags:
+        - subscriptions
+      security:
+        - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: ''
   /team_memberships/v1/:
     get:
       operationId: team_memberships_v1_list
@@ -2956,6 +2983,8 @@ components:
         plan_id:
           type: string
           format: uuid
+        payment_state:
+          $ref: '#/components/schemas/PaymentStateEnum'
     PatchedProviderRequest:
       type: object
       properties:
@@ -3044,6 +3073,11 @@ components:
           type: string
       required:
         - client_secret
+    PaymentStateEnum:
+      enum:
+        - complete
+        - incomplete
+      type: string
     Plan:
       type: object
       properties:

@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime'
+import {
+  PaymentStateEnum,
+  PaymentStateEnumFromJSON,
+  PaymentStateEnumFromJSONTyped,
+  PaymentStateEnumToJSON,
+} from './'
+
 /**
  *
  * @export
@@ -25,6 +32,12 @@ export interface PatchedPlanSwitchRequest {
    * @memberof PatchedPlanSwitchRequest
    */
   planId?: string
+  /**
+   *
+   * @type {PaymentStateEnum}
+   * @memberof PatchedPlanSwitchRequest
+   */
+  paymentState?: PaymentStateEnum
 }
 
 export function PatchedPlanSwitchRequestFromJSON(
@@ -42,6 +55,9 @@ export function PatchedPlanSwitchRequestFromJSONTyped(
   }
   return {
     planId: !exists(json, 'plan_id') ? undefined : json['plan_id'],
+    paymentState: !exists(json, 'payment_state')
+      ? undefined
+      : PaymentStateEnumFromJSON(json['payment_state']),
   }
 }
 
@@ -56,5 +72,6 @@ export function PatchedPlanSwitchRequestToJSON(
   }
   return {
     plan_id: value.planId,
+    payment_state: PaymentStateEnumToJSON(value.paymentState),
   }
 }

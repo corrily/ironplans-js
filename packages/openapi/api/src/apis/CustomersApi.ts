@@ -446,7 +446,7 @@ export class CustomersApi extends runtime.BaseAPI {
   }
 
   /**
-   * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side. Returns payment intent client secret to give client ability to collect new card details and charge it.
+   * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side. Returns payment intent client secret to give client ability to collect new card details and charge it.  There are two cases where we would create payment intent for a new plan up front client-side: 1) Brand new Customer/Team during sign-up flow, no previous subscription or plan 2) Team switching from unmetered free plan to paid plan, with no payment method saved
    */
   async customersV1PaymentIntentCreateRaw(
     requestParameters: CustomersV1PaymentIntentCreateRequest,
@@ -495,7 +495,7 @@ export class CustomersApi extends runtime.BaseAPI {
   }
 
   /**
-   * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side. Returns payment intent client secret to give client ability to collect new card details and charge it.
+   * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side. Returns payment intent client secret to give client ability to collect new card details and charge it.  There are two cases where we would create payment intent for a new plan up front client-side: 1) Brand new Customer/Team during sign-up flow, no previous subscription or plan 2) Team switching from unmetered free plan to paid plan, with no payment method saved
    */
   async customersV1PaymentIntentCreate(
     requestParameters: CustomersV1PaymentIntentCreateRequest,

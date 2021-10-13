@@ -78,6 +78,10 @@ export interface SubscriptionsV1UpdateRequest {
   subscriptionRequest: SubscriptionRequest
 }
 
+export interface SubscriptionsV1UsageExceededRetrieveRequest {
+  id: string
+}
+
 export interface SubscriptionsV1UsageListRequest {
   id: string
   planId?: string
@@ -566,6 +570,64 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     initOverrides?: RequestInit
   ): Promise<SubscriptionDetail> {
     const response = await this.subscriptionsV1UpdateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   * Convenience endpoint so providers don\'t need to loop through usages.
+   */
+  async subscriptionsV1UsageExceededRetrieveRaw(
+    requestParameters: SubscriptionsV1UsageExceededRetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<Subscription>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1UsageExceededRetrieve.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'OAuth2',
+        []
+      )
+    }
+
+    const response = await this.request(
+      {
+        path: `/subscriptions/v1/{id}/usage_exceeded/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'GET',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      SubscriptionFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   * Convenience endpoint so providers don\'t need to loop through usages.
+   */
+  async subscriptionsV1UsageExceededRetrieve(
+    requestParameters: SubscriptionsV1UsageExceededRetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<Subscription> {
+    const response = await this.subscriptionsV1UsageExceededRetrieveRaw(
       requestParameters,
       initOverrides
     )
