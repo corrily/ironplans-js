@@ -34,6 +34,10 @@ export interface paths {
     /**
      * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side.
      * Returns payment intent client secret to give client ability to collect new card details and charge it.
+     *
+     * There are two cases where we would create payment intent for a new plan up front client-side:
+     * 1) Brand new Customer/Team during sign-up flow, no previous subscription or plan
+     * 2) Team switching from unmetered free plan to paid plan, with no payment method saved
      */
     post: operations['customers_v1_payment_intent_create']
   }
@@ -155,6 +159,10 @@ export interface paths {
   }
   '/subscriptions/v1/{id}/usage/': {
     get: operations['subscriptions_v1_usage_list']
+  }
+  '/subscriptions/v1/{id}/usage_exceeded/': {
+    /** Convenience endpoint so providers don't need to loop through usages. */
+    get: operations['subscriptions_v1_usage_exceeded_retrieve']
   }
   '/team_memberships/v1/': {
     /**
@@ -472,6 +480,7 @@ export interface components {
     }
     PatchedPlanSwitchRequest: {
       plan_id?: string
+      payment_state?: components['schemas']['PaymentStateEnum']
     }
     PatchedProviderRequest: {
       name?: string
@@ -504,6 +513,7 @@ export interface components {
     PaymentIntentResponse: {
       client_secret: string
     }
+    PaymentStateEnum: 'complete' | 'incomplete'
     Plan: {
       id: string
       provider_id?: string
@@ -839,6 +849,10 @@ export interface operations {
   /**
    * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side.
    * Returns payment intent client secret to give client ability to collect new card details and charge it.
+   *
+   * There are two cases where we would create payment intent for a new plan up front client-side:
+   * 1) Brand new Customer/Team during sign-up flow, no previous subscription or plan
+   * 2) Team switching from unmetered free plan to paid plan, with no payment method saved
    */
   customers_v1_payment_intent_create: {
     responses: {
@@ -1796,6 +1810,22 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['Usage'][]
+        }
+      }
+    }
+  }
+  /** Convenience endpoint so providers don't need to loop through usages. */
+  subscriptions_v1_usage_exceeded_retrieve: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this subscription. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['Subscription']
         }
       }
     }
