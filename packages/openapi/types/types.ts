@@ -630,7 +630,7 @@ export interface components {
       start_at: string
       end_at: string | null
       is_paused: boolean
-      cancel_on: string
+      cancel_on: string | null
       is_active: boolean
       days_used: number
       days_left: number
