@@ -20,9 +20,23 @@ export default class Team extends Resource<TeamDetail> {
     return this.data.id
   }
 
+  /** @deprecated Use `getSubscription` instead. */
   get subscription() {
+    return this.getSubscription()
+  }
+
+  getSubscription() {
     if (!this.data.subscription) return null
     return new Subscription(this.api, this.data.subscription)
+  }
+
+  getRole(customerOrId: string | { id: string }) {
+    const customerId =
+      typeof customerOrId === 'string' ? customerOrId : customerOrId.id
+    const membership = this.data.members.find(
+      (m) => m.customerId === customerId
+    )
+    return membership ? membership.role : null
   }
 
   /**
