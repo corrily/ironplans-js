@@ -60,6 +60,7 @@ models/PatchedTokenRequest.ts
 models/PaymentIntentResponse.ts
 models/PaymentStateEnum.ts
 models/Plan.ts
+models/PlanContactFormRequest.ts
 models/PlanFeature.ts
 models/PlanFeatureRequest.ts
 models/PlanRequest.ts

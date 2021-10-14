@@ -67,6 +67,24 @@ export interface PatchedPlanRequest {
    */
   isTrialAllowed?: boolean
   /**
+   *
+   * @type {string}
+   * @memberof PatchedPlanRequest
+   */
+  redirectUrl?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof PatchedPlanRequest
+   */
+  ctaText?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof PatchedPlanRequest
+   */
+  replacePlanId?: string | null
+  /**
    * Amount in cents
    * @type {number}
    * @memberof PatchedPlanRequest
@@ -112,6 +130,13 @@ export function PatchedPlanRequestFromJSONTyped(
     isTrialAllowed: !exists(json, 'is_trial_allowed')
       ? undefined
       : json['is_trial_allowed'],
+    redirectUrl: !exists(json, 'redirect_url')
+      ? undefined
+      : json['redirect_url'],
+    ctaText: !exists(json, 'cta_text') ? undefined : json['cta_text'],
+    replacePlanId: !exists(json, 'replace_plan_id')
+      ? undefined
+      : json['replace_plan_id'],
     perYearPriceCents: !exists(json, 'per_year_price_cents')
       ? undefined
       : json['per_year_price_cents'],
@@ -143,6 +168,9 @@ export function PatchedPlanRequestToJSON(
     is_active: value.isActive,
     is_public: value.isPublic,
     is_trial_allowed: value.isTrialAllowed,
+    redirect_url: value.redirectUrl,
+    cta_text: value.ctaText,
+    replace_plan_id: value.replacePlanId,
     per_year_price_cents: value.perYearPriceCents,
     per_month_price_cents: value.perMonthPriceCents,
     features:

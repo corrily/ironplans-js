@@ -23,10 +23,17 @@ import {
   Plan,
   PlanFromJSON,
   PlanToJSON,
+  PlanContactFormRequest,
+  PlanContactFormRequestFromJSON,
+  PlanContactFormRequestToJSON,
   PlanRequest,
   PlanRequestFromJSON,
   PlanRequestToJSON,
 } from '../models'
+
+export interface PlansV1ContactUsCreateRequest {
+  planContactFormRequest: PlanContactFormRequest
+}
 
 export interface PlansV1CreateRequest {
   planRequest: PlanRequest
@@ -62,6 +69,63 @@ export interface PlansV1UpdateRequest {
  *
  */
 export class PlansApi extends runtime.BaseAPI {
+  /**
+   * Handle contact us form data for Enterprise style plans.
+   */
+  async plansV1ContactUsCreateRaw(
+    requestParameters: PlansV1ContactUsCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<void>> {
+    if (
+      requestParameters.planContactFormRequest === null ||
+      requestParameters.planContactFormRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'planContactFormRequest',
+        'Required parameter requestParameters.planContactFormRequest was null or undefined when calling plansV1ContactUsCreate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'OAuth2',
+        []
+      )
+    }
+
+    const response = await this.request(
+      {
+        path: `/plans/v1/contact_us/`,
+        method: 'POST',
+        headers: headerParameters,
+        query: queryParameters,
+        body: PlanContactFormRequestToJSON(
+          requestParameters.planContactFormRequest
+        ),
+      },
+      initOverrides
+    )
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   * Handle contact us form data for Enterprise style plans.
+   */
+  async plansV1ContactUsCreate(
+    requestParameters: PlansV1ContactUsCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<void> {
+    await this.plansV1ContactUsCreateRaw(requestParameters, initOverrides)
+  }
+
   /**
    * Add a feature and optionally specification to a plan by specifying a `feature_id` and `spec_id` in the list of features.
    */

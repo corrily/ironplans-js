@@ -1154,6 +1154,29 @@ paths:
       responses:
         '204':
           description: No response body
+  /plans/v1/contact_us/:
+    post:
+      operationId: plans_v1_contact_us_create
+      description: Handle contact us form data for Enterprise style plans.
+      tags:
+        - plans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanContactFormRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PlanContactFormRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PlanContactFormRequest'
+        required: true
+      security:
+        - OAuth2: []
+      responses:
+        '200':
+          description: No response body
   /providers/v1/:
     get:
       operationId: providers_v1_list
@@ -2994,6 +3017,19 @@ components:
           type: boolean
         is_trial_allowed:
           type: boolean
+        redirect_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        cta_text:
+          type: string
+          nullable: true
+          maxLength: 128
+        replace_plan_id:
+          type: string
+          format: uuid
+          nullable: true
         per_year_price_cents:
           type: integer
           maximum: 2147483647
@@ -3145,6 +3181,19 @@ components:
         is_default:
           type: boolean
           readOnly: true
+        redirect_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        cta_text:
+          type: string
+          nullable: true
+          maxLength: 128
+        replace_plan_id:
+          type: string
+          format: uuid
+          nullable: true
         per_year_price_cents:
           type: integer
           maximum: 2147483647
@@ -3173,7 +3222,19 @@ components:
         - is_public
         - is_trial_allowed
         - name
+        - replace_plan_id
         - teams_access
+    PlanContactFormRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        company_name:
+          type: string
+      required:
+        - company_name
+        - email
     PlanFeature:
       type: object
       properties:
@@ -3241,6 +3302,19 @@ components:
           type: boolean
         is_trial_allowed:
           type: boolean
+        redirect_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        cta_text:
+          type: string
+          nullable: true
+          maxLength: 128
+        replace_plan_id:
+          type: string
+          format: uuid
+          nullable: true
         per_year_price_cents:
           type: integer
           maximum: 2147483647
@@ -3267,6 +3341,7 @@ components:
         - is_public
         - is_trial_allowed
         - name
+        - replace_plan_id
         - teams_access
     Provider:
       type: object

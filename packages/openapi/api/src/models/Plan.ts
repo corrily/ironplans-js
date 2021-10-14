@@ -79,6 +79,24 @@ export interface Plan {
    */
   readonly isDefault: boolean
   /**
+   *
+   * @type {string}
+   * @memberof Plan
+   */
+  redirectUrl?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof Plan
+   */
+  ctaText?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof Plan
+   */
+  replacePlanId: string | null
+  /**
    * Amount in cents
    * @type {number}
    * @memberof Plan
@@ -124,6 +142,11 @@ export function PlanFromJSONTyped(
     isPublic: json['is_public'],
     isTrialAllowed: json['is_trial_allowed'],
     isDefault: json['is_default'],
+    redirectUrl: !exists(json, 'redirect_url')
+      ? undefined
+      : json['redirect_url'],
+    ctaText: !exists(json, 'cta_text') ? undefined : json['cta_text'],
+    replacePlanId: json['replace_plan_id'],
     perYearPriceCents: !exists(json, 'per_year_price_cents')
       ? undefined
       : json['per_year_price_cents'],
@@ -149,6 +172,9 @@ export function PlanToJSON(value?: Plan | null): any {
     is_active: value.isActive,
     is_public: value.isPublic,
     is_trial_allowed: value.isTrialAllowed,
+    redirect_url: value.redirectUrl,
+    cta_text: value.ctaText,
+    replace_plan_id: value.replacePlanId,
     per_year_price_cents: value.perYearPriceCents,
     per_month_price_cents: value.perMonthPriceCents,
     features: (value.features as Array<any>).map(PlanFeatureToJSON),

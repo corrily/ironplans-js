@@ -123,6 +123,10 @@ export interface paths {
     delete: operations['plans_v1_destroy']
     patch: operations['plans_v1_partial_update']
   }
+  '/plans/v1/contact_us/': {
+    /** Handle contact us form data for Enterprise style plans. */
+    post: operations['plans_v1_contact_us_create']
+  }
   '/providers/v1/': {
     get: operations['providers_v1_list']
     post: operations['providers_v1_create']
@@ -474,6 +478,9 @@ export interface components {
       is_active?: boolean
       is_public?: boolean
       is_trial_allowed?: boolean
+      redirect_url?: string | null
+      cta_text?: string | null
+      replace_plan_id?: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null
       /** Amount in cents */
@@ -527,12 +534,19 @@ export interface components {
       is_public: boolean
       is_trial_allowed: boolean
       is_default: boolean
+      redirect_url?: string | null
+      cta_text?: string | null
+      replace_plan_id: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null
       /** Amount in cents */
       per_month_price_cents?: number | null
       features: components['schemas']['PlanFeature'][]
       teams_access: components['schemas']['TeamAccess'][]
+    }
+    PlanContactFormRequest: {
+      email: string
+      company_name: string
     }
     PlanFeature: {
       id?: string
@@ -557,6 +571,9 @@ export interface components {
       is_active: boolean
       is_public: boolean
       is_trial_allowed: boolean
+      redirect_url?: string | null
+      cta_text?: string | null
+      replace_plan_id: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null
       /** Amount in cents */
@@ -1497,6 +1514,20 @@ export interface operations {
         'application/json': components['schemas']['PatchedPlanRequest']
         'application/x-www-form-urlencoded': components['schemas']['PatchedPlanRequest']
         'multipart/form-data': components['schemas']['PatchedPlanRequest']
+      }
+    }
+  }
+  /** Handle contact us form data for Enterprise style plans. */
+  plans_v1_contact_us_create: {
+    responses: {
+      /** No response body */
+      200: unknown
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PlanContactFormRequest']
+        'application/x-www-form-urlencoded': components['schemas']['PlanContactFormRequest']
+        'multipart/form-data': components['schemas']['PlanContactFormRequest']
       }
     }
   }
