@@ -80,6 +80,12 @@ export interface Plan {
   readonly isDefault: boolean
   /**
    *
+   * @type {boolean}
+   * @memberof Plan
+   */
+  isSelfServe?: boolean
+  /**
+   *
    * @type {string}
    * @memberof Plan
    */
@@ -142,6 +148,9 @@ export function PlanFromJSONTyped(
     isPublic: json['is_public'],
     isTrialAllowed: json['is_trial_allowed'],
     isDefault: json['is_default'],
+    isSelfServe: !exists(json, 'is_self_serve')
+      ? undefined
+      : json['is_self_serve'],
     redirectUrl: !exists(json, 'redirect_url')
       ? undefined
       : json['redirect_url'],
@@ -172,6 +181,7 @@ export function PlanToJSON(value?: Plan | null): any {
     is_active: value.isActive,
     is_public: value.isPublic,
     is_trial_allowed: value.isTrialAllowed,
+    is_self_serve: value.isSelfServe,
     redirect_url: value.redirectUrl,
     cta_text: value.ctaText,
     replace_plan_id: value.replacePlanId,

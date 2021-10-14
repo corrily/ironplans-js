@@ -24,13 +24,13 @@ export interface PlanContactFormRequest {
    * @type {string}
    * @memberof PlanContactFormRequest
    */
-  email: string
+  email?: string
   /**
    *
    * @type {string}
    * @memberof PlanContactFormRequest
    */
-  companyName: string
+  companyName?: string
 }
 
 export function PlanContactFormRequestFromJSON(
@@ -47,8 +47,10 @@ export function PlanContactFormRequestFromJSONTyped(
     return json
   }
   return {
-    email: json['email'],
-    companyName: json['company_name'],
+    email: !exists(json, 'email') ? undefined : json['email'],
+    companyName: !exists(json, 'company_name')
+      ? undefined
+      : json['company_name'],
   }
 }
 

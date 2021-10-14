@@ -68,6 +68,12 @@ export interface PlanRequest {
   isTrialAllowed: boolean
   /**
    *
+   * @type {boolean}
+   * @memberof PlanRequest
+   */
+  isSelfServe?: boolean
+  /**
+   *
    * @type {string}
    * @memberof PlanRequest
    */
@@ -128,6 +134,9 @@ export function PlanRequestFromJSONTyped(
     isActive: json['is_active'],
     isPublic: json['is_public'],
     isTrialAllowed: json['is_trial_allowed'],
+    isSelfServe: !exists(json, 'is_self_serve')
+      ? undefined
+      : json['is_self_serve'],
     redirectUrl: !exists(json, 'redirect_url')
       ? undefined
       : json['redirect_url'],
@@ -160,6 +169,7 @@ export function PlanRequestToJSON(value?: PlanRequest | null): any {
     is_active: value.isActive,
     is_public: value.isPublic,
     is_trial_allowed: value.isTrialAllowed,
+    is_self_serve: value.isSelfServe,
     redirect_url: value.redirectUrl,
     cta_text: value.ctaText,
     replace_plan_id: value.replacePlanId,

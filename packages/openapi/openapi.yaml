@@ -1171,7 +1171,6 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/PlanContactFormRequest'
-        required: true
       security:
         - OAuth2: []
       responses:
@@ -3017,6 +3016,8 @@ components:
           type: boolean
         is_trial_allowed:
           type: boolean
+        is_self_serve:
+          type: boolean
         redirect_url:
           type: string
           format: uri
@@ -3181,6 +3182,8 @@ components:
         is_default:
           type: boolean
           readOnly: true
+        is_self_serve:
+          type: boolean
         redirect_url:
           type: string
           format: uri
@@ -3232,9 +3235,6 @@ components:
           format: email
         company_name:
           type: string
-      required:
-        - company_name
-        - email
     PlanFeature:
       type: object
       properties:
@@ -3301,6 +3301,8 @@ components:
         is_public:
           type: boolean
         is_trial_allowed:
+          type: boolean
+        is_self_serve:
           type: boolean
         redirect_url:
           type: string

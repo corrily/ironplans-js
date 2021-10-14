@@ -32,7 +32,7 @@ import {
 } from '../models'
 
 export interface PlansV1ContactUsCreateRequest {
-  planContactFormRequest: PlanContactFormRequest
+  planContactFormRequest?: PlanContactFormRequest
 }
 
 export interface PlansV1CreateRequest {
@@ -76,16 +76,6 @@ export class PlansApi extends runtime.BaseAPI {
     requestParameters: PlansV1ContactUsCreateRequest,
     initOverrides?: RequestInit
   ): Promise<runtime.ApiResponse<void>> {
-    if (
-      requestParameters.planContactFormRequest === null ||
-      requestParameters.planContactFormRequest === undefined
-    ) {
-      throw new runtime.RequiredError(
-        'planContactFormRequest',
-        'Required parameter requestParameters.planContactFormRequest was null or undefined when calling plansV1ContactUsCreate.'
-      )
-    }
-
     const queryParameters: any = {}
 
     const headerParameters: runtime.HTTPHeaders = {}

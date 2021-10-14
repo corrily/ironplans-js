@@ -68,6 +68,12 @@ export interface PatchedPlanRequest {
   isTrialAllowed?: boolean
   /**
    *
+   * @type {boolean}
+   * @memberof PatchedPlanRequest
+   */
+  isSelfServe?: boolean
+  /**
+   *
    * @type {string}
    * @memberof PatchedPlanRequest
    */
@@ -130,6 +136,9 @@ export function PatchedPlanRequestFromJSONTyped(
     isTrialAllowed: !exists(json, 'is_trial_allowed')
       ? undefined
       : json['is_trial_allowed'],
+    isSelfServe: !exists(json, 'is_self_serve')
+      ? undefined
+      : json['is_self_serve'],
     redirectUrl: !exists(json, 'redirect_url')
       ? undefined
       : json['redirect_url'],
@@ -168,6 +177,7 @@ export function PatchedPlanRequestToJSON(
     is_active: value.isActive,
     is_public: value.isPublic,
     is_trial_allowed: value.isTrialAllowed,
+    is_self_serve: value.isSelfServe,
     redirect_url: value.redirectUrl,
     cta_text: value.ctaText,
     replace_plan_id: value.replacePlanId,

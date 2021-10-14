@@ -478,6 +478,7 @@ export interface components {
       is_active?: boolean
       is_public?: boolean
       is_trial_allowed?: boolean
+      is_self_serve?: boolean
       redirect_url?: string | null
       cta_text?: string | null
       replace_plan_id?: string | null
@@ -534,6 +535,7 @@ export interface components {
       is_public: boolean
       is_trial_allowed: boolean
       is_default: boolean
+      is_self_serve?: boolean
       redirect_url?: string | null
       cta_text?: string | null
       replace_plan_id: string | null
@@ -545,8 +547,8 @@ export interface components {
       teams_access: components['schemas']['TeamAccess'][]
     }
     PlanContactFormRequest: {
-      email: string
-      company_name: string
+      email?: string
+      company_name?: string
     }
     PlanFeature: {
       id?: string
@@ -571,6 +573,7 @@ export interface components {
       is_active: boolean
       is_public: boolean
       is_trial_allowed: boolean
+      is_self_serve?: boolean
       redirect_url?: string | null
       cta_text?: string | null
       replace_plan_id: string | null
