@@ -45,7 +45,8 @@ export default class Pricing {
    * Generate a widget URL that you can insert into an iframe's src
    * attribute to show a Pricing widget that displays public plans on a static page.
    *
-   * redirectUrl required in opts.
+   * * `redirectUrl` required in `opts`. _The redirect URL is the URL that the user
+   * will be redirected to after selecting a plan._
    *
    * Optionally, pass in planId and highlightText in opts to highlight a plan
    * card that you want to highlight, e.g. to encourage customers to select.
