@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2-alpha.8](https://github.com/ironplans/js/compare/@ironplans/api@0.4.2-alpha.7...@ironplans/api@0.4.2-alpha.8) (2021-10-20)
+
+**Note:** Version bump only for package @ironplans/api
+
 ## [0.4.2-alpha.7](https://github.com/ironplans/js/compare/@ironplans/api@0.4.2-alpha.6...@ironplans/api@0.4.2-alpha.7) (2021-10-14)
 
 **Note:** Version bump only for package @ironplans/api
