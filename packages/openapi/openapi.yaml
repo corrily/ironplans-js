@@ -26,6 +26,11 @@ paths:
     get:
       operationId: customers_v1_list
       parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+            format: uuid
         - name: limit
           required: false
           in: query
@@ -38,6 +43,10 @@ paths:
           description: The initial index from which to return the results.
           schema:
             type: integer
+        - in: query
+          name: source_id
+          schema:
+            type: string
       tags:
         - customers
       security:
@@ -57,22 +66,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomerRequest'
+              $ref: '#/components/schemas/CreateCustomerRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/CustomerRequest'
+              $ref: '#/components/schemas/CreateCustomerRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CustomerRequest'
+              $ref: '#/components/schemas/CreateCustomerRequest'
         required: true
       security:
         - OAuth2: []
       responses:
-        '201':
+        '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Customer'
+                $ref: '#/components/schemas/CreateCustomer'
           description: ''
   /customers/v1/{id}/:
     get:
@@ -119,7 +128,6 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/CustomerRequest'
-        required: true
       security:
         - OAuth2: []
       responses:
@@ -1735,6 +1743,11 @@ paths:
         As a Customer, access memberships for all your teams.
         As a Provider, full admin access to teams.
       parameters:
+        - in: query
+          name: customer_id
+          schema:
+            type: string
+            format: uuid
         - name: limit
           required: false
           in: query
@@ -2092,6 +2105,138 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedInvoiceList'
           description: ''
+  /teams/v1/{id}/metadata/:
+    get:
+      operationId: teams_v1_metadata_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team.
+          required: true
+      tags:
+        - teams
+      security:
+        - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description:
+                  String to string mapping.  Keys may be up to 128 bytes
+                  and values may be up to 512 bytes.
+                additionalProperties:
+                  type: string
+          description: ''
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                description:
+                  String to string mapping.  Keys may be up to 128 bytes
+                  and values may be up to 512 bytes.
+                additionalProperties:
+                  type: string
+          description: ''
+    post:
+      operationId: teams_v1_metadata_create
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team.
+          required: true
+      tags:
+        - teams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description:
+                String to string mapping.  Keys may be up to 128 bytes
+                and values may be up to 512 bytes.
+              additionalProperties:
+                type: string
+      security:
+        - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description:
+                  String to string mapping.  Keys may be up to 128 bytes
+                  and values may be up to 512 bytes.
+                additionalProperties:
+                  type: string
+          description: ''
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                description:
+                  String to string mapping.  Keys may be up to 128 bytes
+                  and values may be up to 512 bytes.
+                additionalProperties:
+                  type: string
+          description: ''
+    patch:
+      operationId: teams_v1_metadata_partial_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this team.
+          required: true
+      tags:
+        - teams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description:
+                String to string mapping.  Keys may be up to 128 bytes
+                and values may be up to 512 bytes.
+              additionalProperties:
+                type: string
+      security:
+        - OAuth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description:
+                  String to string mapping.  Keys may be up to 128 bytes
+                  and values may be up to 512 bytes.
+                additionalProperties:
+                  type: string
+          description: ''
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                description:
+                  String to string mapping.  Keys may be up to 128 bytes
+                  and values may be up to 512 bytes.
+                additionalProperties:
+                  type: string
+          description: ''
   /tokens/v1/:
     get:
       operationId: tokens_v1_list
@@ -2324,6 +2469,45 @@ components:
       required:
         - team_id
         - to_emails
+    CreateCustomer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        identity:
+          $ref: '#/components/schemas/Identity'
+        source_id:
+          type: string
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamViaMembership'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - created_at
+        - id
+        - identity
+        - teams
+        - updated_at
+    CreateCustomerRequest:
+      type: object
+      properties:
+        identity:
+          $ref: '#/components/schemas/IdentityRequest'
+        source_id:
+          type: string
+      required:
+        - identity
     CreateMembershipRequest:
       type: object
       description: |-
@@ -2376,7 +2560,6 @@ components:
         - email
         - has_saved_payment_method
         - id
-        - source_id
         - updated_at
     CustomerConfirmCardRequest:
       type: object
@@ -2405,8 +2588,6 @@ components:
       properties:
         source_id:
           type: string
-      required:
-        - source_id
     CustomerSetupIntentRequest:
       type: object
       properties:
@@ -2553,6 +2734,22 @@ components:
           type: string
       required:
         - id_token
+    Identity:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+        - email
+    IdentityRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+        - email
     Invite:
       type: object
       properties:
@@ -3688,9 +3885,15 @@ components:
           type: string
           format: date-time
           readOnly: true
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMetadata'
+          readOnly: true
       required:
         - created_at
         - id
+        - metadata
         - updated_at
     TeamAccess:
       type: object
@@ -3766,12 +3969,18 @@ components:
           type: string
           format: date-time
           readOnly: true
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamMetadata'
+          readOnly: true
       required:
         - available_plans
         - created_at
         - id
         - invites
         - members
+        - metadata
         - name
         - subscription
         - updated_at
@@ -3788,6 +3997,43 @@ components:
         is_free_trial_used:
           type: boolean
       required:
+        - name
+    TeamMetadata:
+      type: object
+      properties:
+        key:
+          type: string
+          maxLength: 128
+        value:
+          type: string
+          maxLength: 512
+      required:
+        - key
+        - value
+    TeamMetadataRequest:
+      type: object
+      properties:
+        key:
+          type: string
+          maxLength: 128
+        value:
+          type: string
+          maxLength: 512
+      required:
+        - key
+        - value
+    TeamViaMembership:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+      required:
+        - id
         - name
     Token:
       type: object

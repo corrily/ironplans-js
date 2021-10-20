@@ -16,34 +16,34 @@ import { exists, mapValues } from '../runtime'
 /**
  *
  * @export
- * @interface CustomerRequest
+ * @interface Identity
  */
-export interface CustomerRequest {
+export interface Identity {
   /**
    *
    * @type {string}
-   * @memberof CustomerRequest
+   * @memberof Identity
    */
-  sourceId?: string
+  email: string
 }
 
-export function CustomerRequestFromJSON(json: any): CustomerRequest {
-  return CustomerRequestFromJSONTyped(json, false)
+export function IdentityFromJSON(json: any): Identity {
+  return IdentityFromJSONTyped(json, false)
 }
 
-export function CustomerRequestFromJSONTyped(
+export function IdentityFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CustomerRequest {
+): Identity {
   if (json === undefined || json === null) {
     return json
   }
   return {
-    sourceId: !exists(json, 'source_id') ? undefined : json['source_id'],
+    email: json['email'],
   }
 }
 
-export function CustomerRequestToJSON(value?: CustomerRequest | null): any {
+export function IdentityToJSON(value?: Identity | null): any {
   if (value === undefined) {
     return undefined
   }
@@ -51,6 +51,6 @@ export function CustomerRequestToJSON(value?: CustomerRequest | null): any {
     return null
   }
   return {
-    source_id: value.sourceId,
+    email: value.email,
   }
 }

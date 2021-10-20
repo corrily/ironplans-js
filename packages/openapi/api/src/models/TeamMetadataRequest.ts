@@ -16,34 +16,43 @@ import { exists, mapValues } from '../runtime'
 /**
  *
  * @export
- * @interface CustomerRequest
+ * @interface TeamMetadataRequest
  */
-export interface CustomerRequest {
+export interface TeamMetadataRequest {
   /**
    *
    * @type {string}
-   * @memberof CustomerRequest
+   * @memberof TeamMetadataRequest
    */
-  sourceId?: string
+  key: string
+  /**
+   *
+   * @type {string}
+   * @memberof TeamMetadataRequest
+   */
+  value: string
 }
 
-export function CustomerRequestFromJSON(json: any): CustomerRequest {
-  return CustomerRequestFromJSONTyped(json, false)
+export function TeamMetadataRequestFromJSON(json: any): TeamMetadataRequest {
+  return TeamMetadataRequestFromJSONTyped(json, false)
 }
 
-export function CustomerRequestFromJSONTyped(
+export function TeamMetadataRequestFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CustomerRequest {
+): TeamMetadataRequest {
   if (json === undefined || json === null) {
     return json
   }
   return {
-    sourceId: !exists(json, 'source_id') ? undefined : json['source_id'],
+    key: json['key'],
+    value: json['value'],
   }
 }
 
-export function CustomerRequestToJSON(value?: CustomerRequest | null): any {
+export function TeamMetadataRequestToJSON(
+  value?: TeamMetadataRequest | null
+): any {
   if (value === undefined) {
     return undefined
   }
@@ -51,6 +60,7 @@ export function CustomerRequestToJSON(value?: CustomerRequest | null): any {
     return null
   }
   return {
-    source_id: value.sourceId,
+    key: value.key,
+    value: value.value,
   }
 }

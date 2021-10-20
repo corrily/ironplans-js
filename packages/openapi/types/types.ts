@@ -218,6 +218,11 @@ export interface paths {
   '/teams/v1/{id}/invoices/': {
     get: operations['teams_v1_invoices_list']
   }
+  '/teams/v1/{id}/metadata/': {
+    get: operations['teams_v1_metadata_retrieve']
+    post: operations['teams_v1_metadata_create']
+    patch: operations['teams_v1_metadata_partial_update']
+  }
   '/tokens/v1/': {
     /** Management of Provider Tokens. */
     get: operations['tokens_v1_list']
@@ -254,6 +259,18 @@ export interface components {
       team_id: string
       to_emails: string[]
     }
+    CreateCustomer: {
+      id: string
+      identity: components['schemas']['Identity']
+      source_id?: string
+      teams: components['schemas']['TeamViaMembership'][]
+      created_at: string
+      updated_at: string
+    }
+    CreateCustomerRequest: {
+      identity: components['schemas']['IdentityRequest']
+      source_id?: string
+    }
     /**
      * Add a new membership to a Team. Role defaults to `member` if not specified.
      * Specify `email` and/or `source_id` to lookup the customer, create it if it
@@ -269,7 +286,7 @@ export interface components {
     Customer: {
       id: string
       email: string
-      source_id: string
+      source_id?: string
       created_at: string
       updated_at: string
       has_saved_payment_method: boolean
@@ -283,7 +300,7 @@ export interface components {
       team_id: string
     }
     CustomerRequest: {
-      source_id: string
+      source_id?: string
     }
     CustomerSetupIntentRequest: {
       plan_id: string
@@ -330,6 +347,12 @@ export interface components {
     }
     IDTokenExchangeRequest: {
       id_token: string
+    }
+    Identity: {
+      email: string
+    }
+    IdentityRequest: {
+      email: string
     }
     Invite: {
       id: string
@@ -671,6 +694,7 @@ export interface components {
       name?: string | null
       created_at: string
       updated_at: string
+      metadata: components['schemas']['TeamMetadata'][]
     }
     TeamAccess: {
       id?: string
@@ -694,11 +718,24 @@ export interface components {
       is_free_trial_used?: boolean
       created_at: string
       updated_at: string
+      metadata: components['schemas']['TeamMetadata'][]
     }
     TeamDetailRequest: {
       provider_id?: string
       name: string | null
       is_free_trial_used?: boolean
+    }
+    TeamMetadata: {
+      key: string
+      value: string
+    }
+    TeamMetadataRequest: {
+      key: string
+      value: string
+    }
+    TeamViaMembership: {
+      id: string
+      name: string
     }
     Token: {
       id: string
@@ -745,10 +782,12 @@ export interface operations {
   customers_v1_list: {
     parameters: {
       query: {
+        id?: string
         /** Number of results to return per page. */
         limit?: number
         /** The initial index from which to return the results. */
         offset?: number
+        source_id?: string
       }
     }
     responses: {
@@ -761,17 +800,17 @@ export interface operations {
   }
   customers_v1_create: {
     responses: {
-      201: {
+      200: {
         content: {
-          'application/json': components['schemas']['Customer']
+          'application/json': components['schemas']['CreateCustomer']
         }
       }
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['CustomerRequest']
-        'application/x-www-form-urlencoded': components['schemas']['CustomerRequest']
-        'multipart/form-data': components['schemas']['CustomerRequest']
+        'application/json': components['schemas']['CreateCustomerRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CreateCustomerRequest']
+        'multipart/form-data': components['schemas']['CreateCustomerRequest']
       }
     }
   }
@@ -1906,6 +1945,7 @@ export interface operations {
   team_memberships_v1_list: {
     parameters: {
       query: {
+        customer_id?: string
         /** Number of results to return per page. */
         limit?: number
         /** The initial index from which to return the results. */
@@ -2149,6 +2189,76 @@ export interface operations {
         content: {
           'application/json': components['schemas']['PaginatedInvoiceList']
         }
+      }
+    }
+  }
+  teams_v1_metadata_retrieve: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this team. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': { [key: string]: string }
+        }
+      }
+      201: {
+        content: {
+          'application/json': { [key: string]: string }
+        }
+      }
+    }
+  }
+  teams_v1_metadata_create: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this team. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': { [key: string]: string }
+        }
+      }
+      201: {
+        content: {
+          'application/json': { [key: string]: string }
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': { [key: string]: string }
+      }
+    }
+  }
+  teams_v1_metadata_partial_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this team. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': { [key: string]: string }
+        }
+      }
+      201: {
+        content: {
+          'application/json': { [key: string]: string }
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': { [key: string]: string }
       }
     }
   }

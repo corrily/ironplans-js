@@ -14,6 +14,12 @@
 
 import * as runtime from '../runtime'
 import {
+  CreateCustomer,
+  CreateCustomerFromJSON,
+  CreateCustomerToJSON,
+  CreateCustomerRequest,
+  CreateCustomerRequestFromJSON,
+  CreateCustomerRequestToJSON,
   Customer,
   CustomerFromJSON,
   CustomerToJSON,
@@ -57,7 +63,7 @@ export interface CustomersV1ConfirmCardCreateRequest {
 }
 
 export interface CustomersV1CreateRequest {
-  customerRequest: CustomerRequest
+  createCustomerRequest: CreateCustomerRequest
 }
 
 export interface CustomersV1DestroyRequest {
@@ -65,8 +71,10 @@ export interface CustomersV1DestroyRequest {
 }
 
 export interface CustomersV1ListRequest {
+  id?: string
   limit?: number
   offset?: number
+  sourceId?: string
 }
 
 export interface CustomersV1OidcExchangeCreateRequest {
@@ -96,7 +104,7 @@ export interface CustomersV1TokenCreateRequest {
 
 export interface CustomersV1UpdateRequest {
   id: string
-  customerRequest: CustomerRequest
+  customerRequest?: CustomerRequest
 }
 
 /**
@@ -165,14 +173,14 @@ export class CustomersApi extends runtime.BaseAPI {
   async customersV1CreateRaw(
     requestParameters: CustomersV1CreateRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<Customer>> {
+  ): Promise<runtime.ApiResponse<CreateCustomer>> {
     if (
-      requestParameters.customerRequest === null ||
-      requestParameters.customerRequest === undefined
+      requestParameters.createCustomerRequest === null ||
+      requestParameters.createCustomerRequest === undefined
     ) {
       throw new runtime.RequiredError(
-        'customerRequest',
-        'Required parameter requestParameters.customerRequest was null or undefined when calling customersV1Create.'
+        'createCustomerRequest',
+        'Required parameter requestParameters.createCustomerRequest was null or undefined when calling customersV1Create.'
       )
     }
 
@@ -196,13 +204,15 @@ export class CustomersApi extends runtime.BaseAPI {
         method: 'POST',
         headers: headerParameters,
         query: queryParameters,
-        body: CustomerRequestToJSON(requestParameters.customerRequest),
+        body: CreateCustomerRequestToJSON(
+          requestParameters.createCustomerRequest
+        ),
       },
       initOverrides
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      CustomerFromJSON(jsonValue)
+      CreateCustomerFromJSON(jsonValue)
     )
   }
 
@@ -211,7 +221,7 @@ export class CustomersApi extends runtime.BaseAPI {
   async customersV1Create(
     requestParameters: CustomersV1CreateRequest,
     initOverrides?: RequestInit
-  ): Promise<Customer> {
+  ): Promise<CreateCustomer> {
     const response = await this.customersV1CreateRaw(
       requestParameters,
       initOverrides
@@ -277,12 +287,20 @@ export class CustomersApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<PaginatedCustomerList>> {
     const queryParameters: any = {}
 
+    if (requestParameters.id !== undefined) {
+      queryParameters['id'] = requestParameters.id
+    }
+
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit
     }
 
     if (requestParameters.offset !== undefined) {
       queryParameters['offset'] = requestParameters.offset
+    }
+
+    if (requestParameters.sourceId !== undefined) {
+      queryParameters['source_id'] = requestParameters.sourceId
     }
 
     const headerParameters: runtime.HTTPHeaders = {}
@@ -729,16 +747,6 @@ export class CustomersApi extends runtime.BaseAPI {
       throw new runtime.RequiredError(
         'id',
         'Required parameter requestParameters.id was null or undefined when calling customersV1Update.'
-      )
-    }
-
-    if (
-      requestParameters.customerRequest === null ||
-      requestParameters.customerRequest === undefined
-    ) {
-      throw new runtime.RequiredError(
-        'customerRequest',
-        'Required parameter requestParameters.customerRequest was null or undefined when calling customersV1Update.'
       )
     }
 

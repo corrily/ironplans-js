@@ -13,37 +13,55 @@
  */
 
 import { exists, mapValues } from '../runtime'
+import {
+  IdentityRequest,
+  IdentityRequestFromJSON,
+  IdentityRequestFromJSONTyped,
+  IdentityRequestToJSON,
+} from './'
+
 /**
  *
  * @export
- * @interface CustomerRequest
+ * @interface CreateCustomerRequest
  */
-export interface CustomerRequest {
+export interface CreateCustomerRequest {
+  /**
+   *
+   * @type {IdentityRequest}
+   * @memberof CreateCustomerRequest
+   */
+  identity: IdentityRequest
   /**
    *
    * @type {string}
-   * @memberof CustomerRequest
+   * @memberof CreateCustomerRequest
    */
   sourceId?: string
 }
 
-export function CustomerRequestFromJSON(json: any): CustomerRequest {
-  return CustomerRequestFromJSONTyped(json, false)
+export function CreateCustomerRequestFromJSON(
+  json: any
+): CreateCustomerRequest {
+  return CreateCustomerRequestFromJSONTyped(json, false)
 }
 
-export function CustomerRequestFromJSONTyped(
+export function CreateCustomerRequestFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CustomerRequest {
+): CreateCustomerRequest {
   if (json === undefined || json === null) {
     return json
   }
   return {
+    identity: IdentityRequestFromJSON(json['identity']),
     sourceId: !exists(json, 'source_id') ? undefined : json['source_id'],
   }
 }
 
-export function CustomerRequestToJSON(value?: CustomerRequest | null): any {
+export function CreateCustomerRequestToJSON(
+  value?: CreateCustomerRequest | null
+): any {
   if (value === undefined) {
     return undefined
   }
@@ -51,6 +69,7 @@ export function CustomerRequestToJSON(value?: CustomerRequest | null): any {
     return null
   }
   return {
+    identity: IdentityRequestToJSON(value.identity),
     source_id: value.sourceId,
   }
 }

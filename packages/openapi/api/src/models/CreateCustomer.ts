@@ -13,72 +13,83 @@
  */
 
 import { exists, mapValues } from '../runtime'
+import {
+  Identity,
+  IdentityFromJSON,
+  IdentityFromJSONTyped,
+  IdentityToJSON,
+  TeamViaMembership,
+  TeamViaMembershipFromJSON,
+  TeamViaMembershipFromJSONTyped,
+  TeamViaMembershipToJSON,
+} from './'
+
 /**
  *
  * @export
- * @interface Customer
+ * @interface CreateCustomer
  */
-export interface Customer {
+export interface CreateCustomer {
   /**
    *
    * @type {string}
-   * @memberof Customer
+   * @memberof CreateCustomer
    */
   readonly id: string
   /**
    *
-   * @type {string}
-   * @memberof Customer
+   * @type {Identity}
+   * @memberof CreateCustomer
    */
-  readonly email: string
+  identity: Identity
   /**
    *
    * @type {string}
-   * @memberof Customer
+   * @memberof CreateCustomer
    */
   sourceId?: string
   /**
    *
+   * @type {Array<TeamViaMembership>}
+   * @memberof CreateCustomer
+   */
+  readonly teams: Array<TeamViaMembership>
+  /**
+   *
    * @type {Date}
-   * @memberof Customer
+   * @memberof CreateCustomer
    */
   readonly createdAt: Date
   /**
    *
    * @type {Date}
-   * @memberof Customer
+   * @memberof CreateCustomer
    */
   readonly updatedAt: Date
-  /**
-   *
-   * @type {boolean}
-   * @memberof Customer
-   */
-  readonly hasSavedPaymentMethod: boolean
 }
 
-export function CustomerFromJSON(json: any): Customer {
-  return CustomerFromJSONTyped(json, false)
+export function CreateCustomerFromJSON(json: any): CreateCustomer {
+  return CreateCustomerFromJSONTyped(json, false)
 }
 
-export function CustomerFromJSONTyped(
+export function CreateCustomerFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): Customer {
+): CreateCustomer {
   if (json === undefined || json === null) {
     return json
   }
   return {
     id: json['id'],
-    email: json['email'],
+    identity: IdentityFromJSON(json['identity']),
     sourceId: !exists(json, 'source_id') ? undefined : json['source_id'],
+    teams: (json['teams'] as Array<any>).map(TeamViaMembershipFromJSON),
     createdAt: new Date(json['created_at']),
     updatedAt: new Date(json['updated_at']),
-    hasSavedPaymentMethod: json['has_saved_payment_method'],
   }
 }
 
-export function CustomerToJSON(value?: Customer | null): any {
+export function CreateCustomerToJSON(value?: CreateCustomer | null): any {
   if (value === undefined) {
     return undefined
   }
@@ -86,6 +97,7 @@ export function CustomerToJSON(value?: Customer | null): any {
     return null
   }
   return {
+    identity: IdentityToJSON(value.identity),
     source_id: value.sourceId,
   }
 }

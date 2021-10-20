@@ -30,6 +30,10 @@ import {
   SubscriptionDetailFromJSON,
   SubscriptionDetailFromJSONTyped,
   SubscriptionDetailToJSON,
+  TeamMetadata,
+  TeamMetadataFromJSON,
+  TeamMetadataFromJSONTyped,
+  TeamMetadataToJSON,
 } from './'
 
 /**
@@ -98,6 +102,12 @@ export interface TeamDetail {
    * @memberof TeamDetail
    */
   readonly updatedAt: Date
+  /**
+   *
+   * @type {Array<TeamMetadata>}
+   * @memberof TeamDetail
+   */
+  readonly metadata: Array<TeamMetadata>
 }
 
 export function TeamDetailFromJSON(json: any): TeamDetail {
@@ -124,6 +134,7 @@ export function TeamDetailFromJSONTyped(
       : json['is_free_trial_used'],
     createdAt: new Date(json['created_at']),
     updatedAt: new Date(json['updated_at']),
+    metadata: (json['metadata'] as Array<any>).map(TeamMetadataFromJSON),
   }
 }
 

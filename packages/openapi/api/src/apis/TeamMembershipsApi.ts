@@ -40,6 +40,7 @@ export interface TeamMembershipsV1DestroyRequest {
 }
 
 export interface TeamMembershipsV1ListRequest {
+  customerId?: string
   limit?: number
   offset?: number
 }
@@ -185,6 +186,10 @@ export class TeamMembershipsApi extends runtime.BaseAPI {
     initOverrides?: RequestInit
   ): Promise<runtime.ApiResponse<PaginatedMembershipList>> {
     const queryParameters: any = {}
+
+    if (requestParameters.customerId !== undefined) {
+      queryParameters['customer_id'] = requestParameters.customerId
+    }
 
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit

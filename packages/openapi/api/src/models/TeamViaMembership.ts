@@ -16,41 +16,46 @@ import { exists, mapValues } from '../runtime'
 /**
  *
  * @export
- * @interface CustomerRequest
+ * @interface TeamViaMembership
  */
-export interface CustomerRequest {
+export interface TeamViaMembership {
   /**
    *
    * @type {string}
-   * @memberof CustomerRequest
+   * @memberof TeamViaMembership
    */
-  sourceId?: string
+  readonly id: string
+  /**
+   *
+   * @type {string}
+   * @memberof TeamViaMembership
+   */
+  readonly name: string
 }
 
-export function CustomerRequestFromJSON(json: any): CustomerRequest {
-  return CustomerRequestFromJSONTyped(json, false)
+export function TeamViaMembershipFromJSON(json: any): TeamViaMembership {
+  return TeamViaMembershipFromJSONTyped(json, false)
 }
 
-export function CustomerRequestFromJSONTyped(
+export function TeamViaMembershipFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CustomerRequest {
+): TeamViaMembership {
   if (json === undefined || json === null) {
     return json
   }
   return {
-    sourceId: !exists(json, 'source_id') ? undefined : json['source_id'],
+    id: json['id'],
+    name: json['name'],
   }
 }
 
-export function CustomerRequestToJSON(value?: CustomerRequest | null): any {
+export function TeamViaMembershipToJSON(value?: TeamViaMembership | null): any {
   if (value === undefined) {
     return undefined
   }
   if (value === null) {
     return null
   }
-  return {
-    source_id: value.sourceId,
-  }
+  return {}
 }

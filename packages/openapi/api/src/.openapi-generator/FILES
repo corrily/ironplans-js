@@ -16,6 +16,8 @@ models/Account.ts
 models/AggregationEnum.ts
 models/BillingPeriodEnum.ts
 models/BulkCreateInviteRequest.ts
+models/CreateCustomer.ts
+models/CreateCustomerRequest.ts
 models/CreateMembershipRequest.ts
 models/Customer.ts
 models/CustomerConfirmCardRequest.ts
@@ -28,6 +30,8 @@ models/FeatureRequest.ts
 models/FeatureSpec.ts
 models/FeatureSpecRequest.ts
 models/IDTokenExchangeRequest.ts
+models/Identity.ts
+models/IdentityRequest.ts
 models/Invite.ts
 models/InviteRequest.ts
 models/Invoice.ts
@@ -81,6 +85,9 @@ models/TeamAccess.ts
 models/TeamAccessRequest.ts
 models/TeamDetail.ts
 models/TeamDetailRequest.ts
+models/TeamMetadata.ts
+models/TeamMetadataRequest.ts
+models/TeamViaMembership.ts
 models/Token.ts
 models/TokenRequest.ts
 models/Usage.ts

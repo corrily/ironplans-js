@@ -50,6 +50,20 @@ export interface TeamsV1ListRequest {
   offset?: number
 }
 
+export interface TeamsV1MetadataCreateRequest {
+  id: string
+  requestBody?: { [key: string]: string }
+}
+
+export interface TeamsV1MetadataPartialUpdateRequest {
+  id: string
+  requestBody?: { [key: string]: string }
+}
+
+export interface TeamsV1MetadataRetrieveRequest {
+  id: string
+}
+
 export interface TeamsV1PartialUpdateRequest {
   id: string
   patchedTeamDetailRequest?: PatchedTeamDetailRequest
@@ -289,6 +303,174 @@ export class TeamsApi extends runtime.BaseAPI {
     initOverrides?: RequestInit
   ): Promise<PaginatedTeamList> {
     const response = await this.teamsV1ListRaw(requestParameters, initOverrides)
+    return await response.value()
+  }
+
+  /**
+   */
+  async teamsV1MetadataCreateRaw(
+    requestParameters: TeamsV1MetadataCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<{ [key: string]: string }>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling teamsV1MetadataCreate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'OAuth2',
+        []
+      )
+    }
+
+    const response = await this.request(
+      {
+        path: `/teams/v1/{id}/metadata/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'POST',
+        headers: headerParameters,
+        query: queryParameters,
+        body: requestParameters.requestBody,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse<any>(response)
+  }
+
+  /**
+   */
+  async teamsV1MetadataCreate(
+    requestParameters: TeamsV1MetadataCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<{ [key: string]: string }> {
+    const response = await this.teamsV1MetadataCreateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async teamsV1MetadataPartialUpdateRaw(
+    requestParameters: TeamsV1MetadataPartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<{ [key: string]: string }>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling teamsV1MetadataPartialUpdate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'OAuth2',
+        []
+      )
+    }
+
+    const response = await this.request(
+      {
+        path: `/teams/v1/{id}/metadata/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'PATCH',
+        headers: headerParameters,
+        query: queryParameters,
+        body: requestParameters.requestBody,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse<any>(response)
+  }
+
+  /**
+   */
+  async teamsV1MetadataPartialUpdate(
+    requestParameters: TeamsV1MetadataPartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<{ [key: string]: string }> {
+    const response = await this.teamsV1MetadataPartialUpdateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async teamsV1MetadataRetrieveRaw(
+    requestParameters: TeamsV1MetadataRetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<{ [key: string]: string }>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling teamsV1MetadataRetrieve.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'OAuth2',
+        []
+      )
+    }
+
+    const response = await this.request(
+      {
+        path: `/teams/v1/{id}/metadata/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'GET',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse<any>(response)
+  }
+
+  /**
+   */
+  async teamsV1MetadataRetrieve(
+    requestParameters: TeamsV1MetadataRetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<{ [key: string]: string }> {
+    const response = await this.teamsV1MetadataRetrieveRaw(
+      requestParameters,
+      initOverrides
+    )
     return await response.value()
   }
 
