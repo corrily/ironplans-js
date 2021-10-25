@@ -9,6 +9,7 @@ import {
   Configuration,
 } from '@ironplans/api'
 import { Immutable } from './types'
+import pkg from '../package.json'
 
 export interface IPAPI {
   token?: string
@@ -32,6 +33,9 @@ export function createConfiguration(
   return new Configuration({
     basePath: baseUrl?.replace(/\/$/, ''),
     accessToken: `Bearer ${at}`,
+    headers: {
+      'X-SDK-Version': pkg.version,
+    },
   })
 }
 
