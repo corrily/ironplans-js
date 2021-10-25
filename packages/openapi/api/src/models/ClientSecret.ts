@@ -16,27 +16,25 @@ import { exists, mapValues } from '../runtime'
 /**
  *
  * @export
- * @interface PaymentIntentResponse
+ * @interface ClientSecret
  */
-export interface PaymentIntentResponse {
+export interface ClientSecret {
   /**
    *
    * @type {string}
-   * @memberof PaymentIntentResponse
+   * @memberof ClientSecret
    */
   clientSecret: string
 }
 
-export function PaymentIntentResponseFromJSON(
-  json: any
-): PaymentIntentResponse {
-  return PaymentIntentResponseFromJSONTyped(json, false)
+export function ClientSecretFromJSON(json: any): ClientSecret {
+  return ClientSecretFromJSONTyped(json, false)
 }
 
-export function PaymentIntentResponseFromJSONTyped(
+export function ClientSecretFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): PaymentIntentResponse {
+): ClientSecret {
   if (json === undefined || json === null) {
     return json
   }
@@ -45,9 +43,7 @@ export function PaymentIntentResponseFromJSONTyped(
   }
 }
 
-export function PaymentIntentResponseToJSON(
-  value?: PaymentIntentResponse | null
-): any {
+export function ClientSecretToJSON(value?: ClientSecret | null): any {
   if (value === undefined) {
     return undefined
   }

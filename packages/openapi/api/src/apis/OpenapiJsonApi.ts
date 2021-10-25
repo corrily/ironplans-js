@@ -14,19 +14,19 @@
 
 import * as runtime from '../runtime'
 
-export interface OpenapiYamlRetrieveRequest {
-  lang?: OpenapiYamlRetrieveLangEnum
+export interface OpenapiJsonRetrieveRequest {
+  lang?: OpenapiJsonRetrieveLangEnum
 }
 
 /**
  *
  */
-export class OpenapiYamlApi extends runtime.BaseAPI {
+export class OpenapiJsonApi extends runtime.BaseAPI {
   /**
    * OpenApi3 schema for this API. Format can be selected via content negotiation.  - YAML: application/vnd.oai.openapi - JSON: application/vnd.oai.openapi+json
    */
-  async openapiYamlRetrieveRaw(
-    requestParameters: OpenapiYamlRetrieveRequest,
+  async openapiJsonRetrieveRaw(
+    requestParameters: OpenapiJsonRetrieveRequest,
     initOverrides?: RequestInit
   ): Promise<runtime.ApiResponse<{ [key: string]: any }>> {
     const queryParameters: any = {}
@@ -47,7 +47,7 @@ export class OpenapiYamlApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/openapi.yaml`,
+        path: `/openapi.json`,
         method: 'GET',
         headers: headerParameters,
         query: queryParameters,
@@ -61,11 +61,11 @@ export class OpenapiYamlApi extends runtime.BaseAPI {
   /**
    * OpenApi3 schema for this API. Format can be selected via content negotiation.  - YAML: application/vnd.oai.openapi - JSON: application/vnd.oai.openapi+json
    */
-  async openapiYamlRetrieve(
-    requestParameters: OpenapiYamlRetrieveRequest,
+  async openapiJsonRetrieve(
+    requestParameters: OpenapiJsonRetrieveRequest,
     initOverrides?: RequestInit
   ): Promise<{ [key: string]: any }> {
-    const response = await this.openapiYamlRetrieveRaw(
+    const response = await this.openapiJsonRetrieveRaw(
       requestParameters,
       initOverrides
     )
@@ -77,7 +77,7 @@ export class OpenapiYamlApi extends runtime.BaseAPI {
  * @export
  * @enum {string}
  */
-export enum OpenapiYamlRetrieveLangEnum {
+export enum OpenapiJsonRetrieveLangEnum {
   Af = 'af',
   Ar = 'ar',
   ArDz = 'ar-dz',

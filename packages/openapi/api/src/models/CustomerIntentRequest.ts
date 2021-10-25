@@ -16,35 +16,44 @@ import { exists, mapValues } from '../runtime'
 /**
  *
  * @export
- * @interface SetupIntentResponse
+ * @interface CustomerIntentRequest
  */
-export interface SetupIntentResponse {
+export interface CustomerIntentRequest {
   /**
    *
    * @type {string}
-   * @memberof SetupIntentResponse
+   * @memberof CustomerIntentRequest
    */
-  clientSecret: string
+  planId: string
+  /**
+   *
+   * @type {string}
+   * @memberof CustomerIntentRequest
+   */
+  teamId: string
 }
 
-export function SetupIntentResponseFromJSON(json: any): SetupIntentResponse {
-  return SetupIntentResponseFromJSONTyped(json, false)
+export function CustomerIntentRequestFromJSON(
+  json: any
+): CustomerIntentRequest {
+  return CustomerIntentRequestFromJSONTyped(json, false)
 }
 
-export function SetupIntentResponseFromJSONTyped(
+export function CustomerIntentRequestFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): SetupIntentResponse {
+): CustomerIntentRequest {
   if (json === undefined || json === null) {
     return json
   }
   return {
-    clientSecret: json['client_secret'],
+    planId: json['plan_id'],
+    teamId: json['team_id'],
   }
 }
 
-export function SetupIntentResponseToJSON(
-  value?: SetupIntentResponse | null
+export function CustomerIntentRequestToJSON(
+  value?: CustomerIntentRequest | null
 ): any {
   if (value === undefined) {
     return undefined
@@ -53,6 +62,7 @@ export function SetupIntentResponseToJSON(
     return null
   }
   return {
-    client_secret: value.clientSecret,
+    plan_id: value.planId,
+    team_id: value.teamId,
   }
 }

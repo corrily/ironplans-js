@@ -16,45 +16,41 @@ import { exists, mapValues } from '../runtime'
 /**
  *
  * @export
- * @interface CustomerSetupIntentRequest
+ * @interface InnerError
  */
-export interface CustomerSetupIntentRequest {
+export interface InnerError {
   /**
    *
-   * @type {string}
-   * @memberof CustomerSetupIntentRequest
+   * @type {Array<{ [key: string]: any; }>}
+   * @memberof InnerError
    */
-  planId: string
+  nonFieldErrors: Array<{ [key: string]: any }>
   /**
    *
-   * @type {string}
-   * @memberof CustomerSetupIntentRequest
+   * @type {Array<{ [key: string]: any; }>}
+   * @memberof InnerError
    */
-  teamId: string
+  fieldErrors: Array<{ [key: string]: any }>
 }
 
-export function CustomerSetupIntentRequestFromJSON(
-  json: any
-): CustomerSetupIntentRequest {
-  return CustomerSetupIntentRequestFromJSONTyped(json, false)
+export function InnerErrorFromJSON(json: any): InnerError {
+  return InnerErrorFromJSONTyped(json, false)
 }
 
-export function CustomerSetupIntentRequestFromJSONTyped(
+export function InnerErrorFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CustomerSetupIntentRequest {
+): InnerError {
   if (json === undefined || json === null) {
     return json
   }
   return {
-    planId: json['plan_id'],
-    teamId: json['team_id'],
+    nonFieldErrors: json['non_field_errors'],
+    fieldErrors: json['field_errors'],
   }
 }
 
-export function CustomerSetupIntentRequestToJSON(
-  value?: CustomerSetupIntentRequest | null
-): any {
+export function InnerErrorToJSON(value?: InnerError | null): any {
   if (value === undefined) {
     return undefined
   }
@@ -62,7 +58,7 @@ export function CustomerSetupIntentRequestToJSON(
     return null
   }
   return {
-    plan_id: value.planId,
-    team_id: value.teamId,
+    non_field_errors: value.nonFieldErrors,
+    field_errors: value.fieldErrors,
   }
 }

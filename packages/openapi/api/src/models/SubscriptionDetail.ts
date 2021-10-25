@@ -83,12 +83,6 @@ export interface SubscriptionDetail {
    * @type {number}
    * @memberof SubscriptionDetail
    */
-  readonly daysUsed: number
-  /**
-   *
-   * @type {number}
-   * @memberof SubscriptionDetail
-   */
   readonly daysLeft: number
   /**
    *
@@ -136,7 +130,6 @@ export function SubscriptionDetailFromJSONTyped(
     isPaused: json['is_paused'],
     cancelOn: json['cancel_on'] === null ? null : new Date(json['cancel_on']),
     isActive: json['is_active'],
-    daysUsed: json['days_used'],
     daysLeft: json['days_left'],
     billingPeriod: json['billing_period'],
     nextPlanId: json['next_plan_id'],
