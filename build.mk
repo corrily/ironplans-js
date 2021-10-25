@@ -143,10 +143,10 @@ dist/$(name).cjs.js dist/$(name).cjs: $(entry) $(src) $(project_deps)
 types: dist/index.d.ts
 dist/index.d.ts: $(entry) $(src) $(project_deps)
 	@echo "Building types"
-	@npx tsc -p $(tsconfig) \
+	npx tsc -p $(tsconfig) \
 		--declaration --declarationMap \
 		--emitDeclarationOnly \
-		--outDir $(@D) || (rm -f dist/*.d.ts* && exit 1)
+		--outFile $@
 	@echo "Types done!"
 
 # depend on build/%
