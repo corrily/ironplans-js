@@ -3,6 +3,7 @@ apis/CustomersApi.ts
 apis/FeaturesApi.ts
 apis/FeaturespecsApi.ts
 apis/InvitesApi.ts
+apis/OpenapiJsonApi.ts
 apis/OpenapiYamlApi.ts
 apis/PlansApi.ts
 apis/ProvidersApi.ts
@@ -16,14 +17,14 @@ models/Account.ts
 models/AggregationEnum.ts
 models/BillingPeriodEnum.ts
 models/BulkCreateInviteRequest.ts
+models/ClientSecret.ts
 models/CreateCustomer.ts
 models/CreateCustomerRequest.ts
 models/CreateMembershipRequest.ts
 models/Customer.ts
 models/CustomerConfirmCardRequest.ts
-models/CustomerPaymentIntentRequest.ts
+models/CustomerIntentRequest.ts
 models/CustomerRequest.ts
-models/CustomerSetupIntentRequest.ts
 models/CustomerTokenResponse.ts
 models/Feature.ts
 models/FeatureRequest.ts
@@ -32,12 +33,14 @@ models/FeatureSpecRequest.ts
 models/IDTokenExchangeRequest.ts
 models/Identity.ts
 models/IdentityRequest.ts
+models/InnerError.ts
 models/Invite.ts
 models/InviteRequest.ts
 models/Invoice.ts
 models/IssueCustomerTokenRequest.ts
 models/Membership.ts
 models/MembershipRequest.ts
+models/ModelError.ts
 models/OpEnum.ts
 models/PaginatedCustomerList.ts
 models/PaginatedFeatureList.ts
@@ -61,7 +64,6 @@ models/PatchedProviderRequest.ts
 models/PatchedSubscriptionRequest.ts
 models/PatchedTeamDetailRequest.ts
 models/PatchedTokenRequest.ts
-models/PaymentIntentResponse.ts
 models/PaymentStateEnum.ts
 models/Plan.ts
 models/PlanContactFormRequest.ts
@@ -74,7 +76,6 @@ models/PublicProfile.ts
 models/RecordPeriodEnum.ts
 models/ReportUsageRequest.ts
 models/RoleEnum.ts
-models/SetupIntentResponse.ts
 models/Slug.ts
 models/StateEnum.ts
 models/Subscription.ts

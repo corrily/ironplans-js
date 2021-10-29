@@ -13,48 +13,51 @@
  */
 
 import { exists, mapValues } from '../runtime'
+import {
+  InnerError,
+  InnerErrorFromJSON,
+  InnerErrorFromJSONTyped,
+  InnerErrorToJSON,
+} from './'
+
 /**
  *
  * @export
- * @interface CustomerPaymentIntentRequest
+ * @interface ModelError
  */
-export interface CustomerPaymentIntentRequest {
+export interface ModelError {
+  /**
+   *
+   * @type {InnerError}
+   * @memberof ModelError
+   */
+  detail: InnerError
   /**
    *
    * @type {string}
-   * @memberof CustomerPaymentIntentRequest
+   * @memberof ModelError
    */
-  planId: string
-  /**
-   *
-   * @type {string}
-   * @memberof CustomerPaymentIntentRequest
-   */
-  teamId: string
+  message: string
 }
 
-export function CustomerPaymentIntentRequestFromJSON(
-  json: any
-): CustomerPaymentIntentRequest {
-  return CustomerPaymentIntentRequestFromJSONTyped(json, false)
+export function ModelErrorFromJSON(json: any): ModelError {
+  return ModelErrorFromJSONTyped(json, false)
 }
 
-export function CustomerPaymentIntentRequestFromJSONTyped(
+export function ModelErrorFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CustomerPaymentIntentRequest {
+): ModelError {
   if (json === undefined || json === null) {
     return json
   }
   return {
-    planId: json['plan_id'],
-    teamId: json['team_id'],
+    detail: InnerErrorFromJSON(json['detail']),
+    message: json['message'],
   }
 }
 
-export function CustomerPaymentIntentRequestToJSON(
-  value?: CustomerPaymentIntentRequest | null
-): any {
+export function ModelErrorToJSON(value?: ModelError | null): any {
   if (value === undefined) {
     return undefined
   }
@@ -62,7 +65,7 @@ export function CustomerPaymentIntentRequestToJSON(
     return null
   }
   return {
-    plan_id: value.planId,
-    team_id: value.teamId,
+    detail: InnerErrorToJSON(value.detail),
+    message: value.message,
   }
 }

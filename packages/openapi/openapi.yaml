@@ -14,7 +14,7 @@ paths:
       tags:
         - accounts
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -25,12 +25,8 @@ paths:
   /customers/v1/:
     get:
       operationId: customers_v1_list
+      description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       parameters:
-        - in: query
-          name: id
-          schema:
-            type: string
-            format: uuid
         - name: limit
           required: false
           in: query
@@ -50,7 +46,9 @@ paths:
       tags:
         - customers
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           content:
@@ -58,8 +56,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedCustomerList'
           description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
     post:
       operationId: customers_v1_create
+      description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       tags:
         - customers
       requestBody:
@@ -75,17 +86,32 @@ paths:
               $ref: '#/components/schemas/CreateCustomerRequest'
         required: true
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
-        '200':
+        '201':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateCustomer'
           description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /customers/v1/{id}/:
     get:
       operationId: customers_v1_retrieve
+      description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       parameters:
         - in: path
           name: id
@@ -97,16 +123,31 @@ paths:
       tags:
         - customers
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     put:
       operationId: customers_v1_update
+      description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       parameters:
         - in: path
           name: id
@@ -129,16 +170,31 @@ paths:
             schema:
               $ref: '#/components/schemas/CustomerRequest'
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     patch:
       operationId: customers_v1_partial_update
+      description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       parameters:
         - in: path
           name: id
@@ -161,7 +217,9 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedCustomerRequest'
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           content:
@@ -169,8 +227,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Customer'
           description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
     delete:
       operationId: customers_v1_destroy
+      description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       parameters:
         - in: path
           name: id
@@ -182,10 +253,28 @@ paths:
       tags:
         - customers
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '204':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /customers/v1/confirm_card/:
     post:
       operationId: customers_v1_confirm_card_create
@@ -205,13 +294,28 @@ paths:
               $ref: '#/components/schemas/CustomerConfirmCardRequest'
         required: true
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           description: No response body
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /customers/v1/oidc-exchange/:
     post:
       operationId: customers_v1_oidc_exchange_create
+      description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       tags:
         - customers
       requestBody:
@@ -227,93 +331,157 @@ paths:
               $ref: '#/components/schemas/IDTokenExchangeRequest'
         required: true
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerTokenResponse'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /customers/v1/payment_intent/:
     post:
       operationId: customers_v1_payment_intent_create
       description: |-
-        Create a payment intent for a new plan. Validates server-side the right amount to charge client-side.
-        Returns payment intent client secret to give client ability to collect new card details and charge it.
+        Create a payment intent for a new plan. Validates server-side the right
+        amount to charge client-side.  Returns payment intent client secret to
+        give client ability to collect new card details and charge it.
 
-        There are two cases where we would create payment intent for a new plan up front client-side:
-        1) Brand new Customer/Team during sign-up flow, no previous subscription or plan
-        2) Team switching from unmetered free plan to paid plan, with no payment method saved
+        There are two cases where we would create payment intent for a new plan
+        up front client-side:
+
+        1. Brand new Customer/Team during sign-up flow, no previous subscription
+        or plan
+
+        1. Team switching from unmetered free plan to paid plan, with no payment
+        method saved
       tags:
         - customers
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomerPaymentIntentRequest'
+              $ref: '#/components/schemas/CustomerIntentRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/CustomerPaymentIntentRequest'
+              $ref: '#/components/schemas/CustomerIntentRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CustomerPaymentIntentRequest'
+              $ref: '#/components/schemas/CustomerIntentRequest'
         required: true
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaymentIntentResponse'
+                $ref: '#/components/schemas/ClientSecret'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /customers/v1/renew_token/:
     post:
       operationId: customers_v1_renew_token_create
+      description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       tags:
         - customers
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerTokenResponse'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /customers/v1/setup_intent/:
     post:
       operationId: customers_v1_setup_intent_create
       description: |-
-        Sets up future payments and passes back client secret to be used in card form. Similar to payment_intent
-        endpoint except no charge is made.
+        Sets up future payments and passes back client secret to be used in
+        card form. Similar to payment_intent endpoint except no charge is made.
       tags:
         - customers
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomerSetupIntentRequest'
+              $ref: '#/components/schemas/CustomerIntentRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/CustomerSetupIntentRequest'
+              $ref: '#/components/schemas/CustomerIntentRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CustomerSetupIntentRequest'
+              $ref: '#/components/schemas/CustomerIntentRequest'
         required: true
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SetupIntentResponse'
+                $ref: '#/components/schemas/ClientSecret'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /customers/v1/token/:
     post:
       operationId: customers_v1_token_create
+      description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       tags:
         - customers
       requestBody:
@@ -328,13 +496,27 @@ paths:
             schema:
               $ref: '#/components/schemas/IssueCustomerTokenRequest'
       security:
-        - OAuth2: []
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerTokenResponse'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /features/v1/:
     get:
@@ -359,7 +541,7 @@ paths:
       tags:
         - features
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -383,7 +565,7 @@ paths:
             schema:
               $ref: '#/components/schemas/FeatureRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           content:
@@ -405,7 +587,7 @@ paths:
       tags:
         - features
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -437,7 +619,7 @@ paths:
             schema:
               $ref: '#/components/schemas/FeatureRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -469,7 +651,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedFeatureRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -490,7 +672,7 @@ paths:
       tags:
         - features
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '204':
           description: No response body
@@ -513,7 +695,7 @@ paths:
       tags:
         - featurespecs
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -538,7 +720,7 @@ paths:
               $ref: '#/components/schemas/FeatureSpecRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           content:
@@ -560,7 +742,7 @@ paths:
       tags:
         - featurespecs
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -593,7 +775,7 @@ paths:
               $ref: '#/components/schemas/FeatureSpecRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -625,7 +807,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedFeatureSpecRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -646,7 +828,7 @@ paths:
       tags:
         - featurespecs
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '204':
           description: No response body
@@ -669,7 +851,7 @@ paths:
       tags:
         - invites
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -695,7 +877,7 @@ paths:
               $ref: '#/components/schemas/InviteRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           description: No response body
@@ -713,7 +895,7 @@ paths:
       tags:
         - invites
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -746,7 +928,7 @@ paths:
               $ref: '#/components/schemas/InviteRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -778,7 +960,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedInviteRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -799,7 +981,7 @@ paths:
       tags:
         - invites
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '204':
           description: No response body
@@ -822,7 +1004,7 @@ paths:
               $ref: '#/components/schemas/BulkCreateInviteRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           description: No response body
@@ -839,10 +1021,137 @@ paths:
       tags:
         - invites
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '302':
           description: No response body
+  /openapi.json:
+    get:
+      operationId: openapi.json_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+        - in: query
+          name: lang
+          schema:
+            type: string
+            enum:
+              - af
+              - ar
+              - ar-dz
+              - ast
+              - az
+              - be
+              - bg
+              - bn
+              - br
+              - bs
+              - ca
+              - cs
+              - cy
+              - da
+              - de
+              - dsb
+              - el
+              - en
+              - en-au
+              - en-gb
+              - eo
+              - es
+              - es-ar
+              - es-co
+              - es-mx
+              - es-ni
+              - es-ve
+              - et
+              - eu
+              - fa
+              - fi
+              - fr
+              - fy
+              - ga
+              - gd
+              - gl
+              - he
+              - hi
+              - hr
+              - hsb
+              - hu
+              - hy
+              - ia
+              - id
+              - ig
+              - io
+              - is
+              - it
+              - ja
+              - ka
+              - kab
+              - kk
+              - km
+              - kn
+              - ko
+              - ky
+              - lb
+              - lt
+              - lv
+              - mk
+              - ml
+              - mn
+              - mr
+              - my
+              - nb
+              - ne
+              - nl
+              - nn
+              - os
+              - pa
+              - pl
+              - pt
+              - pt-br
+              - ro
+              - ru
+              - sk
+              - sl
+              - sq
+              - sr
+              - sr-latn
+              - sv
+              - sw
+              - ta
+              - te
+              - tg
+              - th
+              - tk
+              - tr
+              - tt
+              - udm
+              - uk
+              - ur
+              - uz
+              - vi
+              - zh-hans
+              - zh-hant
+      tags:
+        - openapi.json
+      security:
+        - oauth2-deprecated: []
+        - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
   /openapi.yaml:
     get:
       operationId: openapi.yaml_retrieve
@@ -852,13 +1161,6 @@ paths:
         - YAML: application/vnd.oai.openapi
         - JSON: application/vnd.oai.openapi+json
       parameters:
-        - in: query
-          name: format
-          schema:
-            type: string
-            enum:
-              - json
-              - yaml
         - in: query
           name: lang
           schema:
@@ -963,7 +1265,7 @@ paths:
       tags:
         - openapi.yaml
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
         - {}
       responses:
         '200':
@@ -973,14 +1275,6 @@ paths:
                 type: object
                 additionalProperties: {}
             application/yaml:
-              schema:
-                type: object
-                additionalProperties: {}
-            application/vnd.oai.openapi+json:
-              schema:
-                type: object
-                additionalProperties: {}
-            application/json:
               schema:
                 type: object
                 additionalProperties: {}
@@ -1016,7 +1310,7 @@ paths:
       tags:
         - plans
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1044,7 +1338,7 @@ paths:
               $ref: '#/components/schemas/PlanRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           content:
@@ -1066,7 +1360,7 @@ paths:
       tags:
         - plans
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1105,7 +1399,7 @@ paths:
               $ref: '#/components/schemas/PlanRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1137,7 +1431,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedPlanRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1158,7 +1452,7 @@ paths:
       tags:
         - plans
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '204':
           description: No response body
@@ -1180,7 +1474,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PlanContactFormRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           description: No response body
@@ -1207,7 +1501,7 @@ paths:
       tags:
         - providers
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1232,7 +1526,7 @@ paths:
               $ref: '#/components/schemas/ProviderRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           content:
@@ -1254,7 +1548,7 @@ paths:
       tags:
         - providers
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1287,7 +1581,7 @@ paths:
               $ref: '#/components/schemas/ProviderRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1319,7 +1613,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedProviderRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1340,7 +1634,7 @@ paths:
       tags:
         - providers
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '204':
           description: No response body
@@ -1358,7 +1652,7 @@ paths:
       tags:
         - providers
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1391,7 +1685,7 @@ paths:
               $ref: '#/components/schemas/ProviderRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1410,7 +1704,7 @@ paths:
       tags:
         - providers
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1442,7 +1736,7 @@ paths:
       tags:
         - subscriptions
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1467,7 +1761,7 @@ paths:
               $ref: '#/components/schemas/SubscriptionRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           content:
@@ -1490,7 +1784,7 @@ paths:
       tags:
         - subscriptions
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1523,7 +1817,7 @@ paths:
               $ref: '#/components/schemas/SubscriptionRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1555,7 +1849,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedSubscriptionRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1576,7 +1870,7 @@ paths:
       tags:
         - subscriptions
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1609,7 +1903,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedSubscriptionRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1643,7 +1937,7 @@ paths:
               $ref: '#/components/schemas/ReportUsageRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1676,7 +1970,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedPlanSwitchRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1703,7 +1997,7 @@ paths:
       tags:
         - subscriptions
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1728,7 +2022,7 @@ paths:
       tags:
         - subscriptions
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1763,7 +2057,7 @@ paths:
       tags:
         - team_memberships
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1791,7 +2085,7 @@ paths:
               $ref: '#/components/schemas/CreateMembershipRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           content:
@@ -1816,7 +2110,7 @@ paths:
       tags:
         - team_memberships
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1852,7 +2146,7 @@ paths:
               $ref: '#/components/schemas/MembershipRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1887,7 +2181,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedMembershipRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1911,7 +2205,7 @@ paths:
       tags:
         - team_memberships
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '204':
           description: No response body
@@ -1934,7 +2228,7 @@ paths:
       tags:
         - teams
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -1959,7 +2253,7 @@ paths:
               $ref: '#/components/schemas/TeamDetailRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           content:
@@ -1981,7 +2275,7 @@ paths:
       tags:
         - teams
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2014,7 +2308,7 @@ paths:
               $ref: '#/components/schemas/TeamDetailRequest'
         required: true
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2046,7 +2340,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedTeamDetailRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2067,7 +2361,7 @@ paths:
       tags:
         - teams
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '204':
           description: No response body
@@ -2097,7 +2391,7 @@ paths:
       tags:
         - teams
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2119,7 +2413,7 @@ paths:
       tags:
         - teams
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2166,7 +2460,7 @@ paths:
               additionalProperties:
                 type: string
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2213,7 +2507,7 @@ paths:
               additionalProperties:
                 type: string
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2265,7 +2559,7 @@ paths:
       tags:
         - tokens
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2290,7 +2584,7 @@ paths:
             schema:
               $ref: '#/components/schemas/TokenRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '201':
           content:
@@ -2313,7 +2607,7 @@ paths:
       tags:
         - tokens
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2346,7 +2640,7 @@ paths:
             schema:
               $ref: '#/components/schemas/TokenRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2379,7 +2673,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedTokenRequest'
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '200':
           content:
@@ -2401,7 +2695,7 @@ paths:
       tags:
         - tokens
       security:
-        - OAuth2: []
+        - oauth2-deprecated: []
       responses:
         '204':
           description: No response body
@@ -2469,6 +2763,13 @@ components:
       required:
         - team_id
         - to_emails
+    ClientSecret:
+      type: object
+      properties:
+        client_secret:
+          type: string
+      required:
+        - client_secret
     CreateCustomer:
       type: object
       properties:
@@ -2571,7 +2872,7 @@ components:
       required:
         - payment_method_id
         - stripe_setup_id
-    CustomerPaymentIntentRequest:
+    CustomerIntentRequest:
       type: object
       properties:
         plan_id:
@@ -2588,18 +2889,6 @@ components:
       properties:
         source_id:
           type: string
-    CustomerSetupIntentRequest:
-      type: object
-      properties:
-        plan_id:
-          type: string
-          format: uuid
-        team_id:
-          type: string
-          format: uuid
-      required:
-        - plan_id
-        - team_id
     CustomerTokenResponse:
       type: object
       properties:
@@ -2610,6 +2899,16 @@ components:
       required:
         - is_new
         - token
+    Error:
+      type: object
+      properties:
+        detail:
+          $ref: '#/components/schemas/InnerError'
+        message:
+          type: string
+      required:
+        - detail
+        - message
     Feature:
       type: object
       properties:
@@ -2681,9 +2980,9 @@ components:
         unit_price:
           type: integer
           maximum: 2147483647
+          minimum: 0
           nullable: true
           description: Amount in cents
-          minimum: 0
         units_included:
           type: integer
           nullable: true
@@ -2715,9 +3014,9 @@ components:
         unit_price:
           type: integer
           maximum: 2147483647
+          minimum: 0
           nullable: true
           description: Amount in cents
-          minimum: 0
         units_included:
           type: integer
           nullable: true
@@ -2750,6 +3049,22 @@ components:
           format: email
       required:
         - email
+    InnerError:
+      type: object
+      properties:
+        non_field_errors:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        field_errors:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+      required:
+        - field_errors
+        - non_field_errors
     Invite:
       type: object
       properties:
@@ -3163,9 +3478,9 @@ components:
         unit_price:
           type: integer
           maximum: 2147483647
+          minimum: 0
           nullable: true
           description: Amount in cents
-          minimum: 0
         units_included:
           type: integer
           nullable: true
@@ -3231,15 +3546,15 @@ components:
         per_year_price_cents:
           type: integer
           maximum: 2147483647
+          minimum: 0
           nullable: true
           description: Amount in cents
-          minimum: 0
         per_month_price_cents:
           type: integer
           maximum: 2147483647
+          minimum: 0
           nullable: true
           description: Amount in cents
-          minimum: 0
         features:
           type: array
           items:
@@ -3341,13 +3656,6 @@ components:
           type: boolean
         is_public:
           type: boolean
-    PaymentIntentResponse:
-      type: object
-      properties:
-        client_secret:
-          type: string
-      required:
-        - client_secret
     PaymentStateEnum:
       enum:
         - complete
@@ -3397,15 +3705,15 @@ components:
         per_year_price_cents:
           type: integer
           maximum: 2147483647
+          minimum: 0
           nullable: true
           description: Amount in cents
-          minimum: 0
         per_month_price_cents:
           type: integer
           maximum: 2147483647
+          minimum: 0
           nullable: true
           description: Amount in cents
-          minimum: 0
         features:
           type: array
           items:
@@ -3517,15 +3825,15 @@ components:
         per_year_price_cents:
           type: integer
           maximum: 2147483647
+          minimum: 0
           nullable: true
           description: Amount in cents
-          minimum: 0
         per_month_price_cents:
           type: integer
           maximum: 2147483647
+          minimum: 0
           nullable: true
           description: Amount in cents
-          minimum: 0
         features:
           type: array
           items:
@@ -3710,13 +4018,6 @@ components:
         - owner
         - member
       type: string
-    SetupIntentResponse:
-      type: object
-      properties:
-        client_secret:
-          type: string
-      required:
-        - client_secret
     Slug:
       type: object
       properties:
@@ -3808,9 +4109,6 @@ components:
         is_active:
           type: boolean
           readOnly: true
-        days_used:
-          type: integer
-          readOnly: true
         days_left:
           type: integer
           readOnly: true
@@ -3825,6 +4123,9 @@ components:
           allOf:
             - $ref: '#/components/schemas/Plan'
           readOnly: true
+        is_free_trial_eligible:
+          type: boolean
+          readOnly: true
         usages:
           type: array
           items:
@@ -3834,10 +4135,10 @@ components:
         - billing_period
         - cancel_on
         - days_left
-        - days_used
         - end_at
         - id
         - is_active
+        - is_free_trial_eligible
         - is_paused
         - next_plan
         - next_plan_id
@@ -3974,6 +4275,9 @@ components:
           items:
             $ref: '#/components/schemas/TeamMetadata'
           readOnly: true
+        total_credits:
+          type: integer
+          readOnly: true
       required:
         - available_plans
         - created_at
@@ -3983,6 +4287,7 @@ components:
         - metadata
         - name
         - subscription
+        - total_credits
         - updated_at
     TeamDetailRequest:
       type: object
@@ -4104,7 +4409,10 @@ components:
       required:
         - exceeded
   securitySchemes:
-    OAuth2:
+    jwt-token:
+      type: http
+      scheme: bearer
+    oauth2-deprecated:
       type: oauth2
       flows:
         authorizationCode:
@@ -4114,3 +4422,6 @@ components:
             openid: OIDC
             profile: Profile
             email: Email
+    private-provider-token:
+      type: http
+      scheme: bearer

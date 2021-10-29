@@ -85,7 +85,7 @@ export class PlansApi extends runtime.BaseAPI {
     if (this.configuration && this.configuration.accessToken) {
       // oauth required
       headerParameters['Authorization'] = await this.configuration.accessToken(
-        'OAuth2',
+        'oauth2-deprecated',
         []
       )
     }
@@ -142,7 +142,7 @@ export class PlansApi extends runtime.BaseAPI {
     if (this.configuration && this.configuration.accessToken) {
       // oauth required
       headerParameters['Authorization'] = await this.configuration.accessToken(
-        'OAuth2',
+        'oauth2-deprecated',
         []
       )
     }
@@ -197,7 +197,7 @@ export class PlansApi extends runtime.BaseAPI {
     if (this.configuration && this.configuration.accessToken) {
       // oauth required
       headerParameters['Authorization'] = await this.configuration.accessToken(
-        'OAuth2',
+        'oauth2-deprecated',
         []
       )
     }
@@ -260,7 +260,7 @@ export class PlansApi extends runtime.BaseAPI {
     if (this.configuration && this.configuration.accessToken) {
       // oauth required
       headerParameters['Authorization'] = await this.configuration.accessToken(
-        'OAuth2',
+        'oauth2-deprecated',
         []
       )
     }
@@ -312,7 +312,7 @@ export class PlansApi extends runtime.BaseAPI {
     if (this.configuration && this.configuration.accessToken) {
       // oauth required
       headerParameters['Authorization'] = await this.configuration.accessToken(
-        'OAuth2',
+        'oauth2-deprecated',
         []
       )
     }
@@ -369,7 +369,7 @@ export class PlansApi extends runtime.BaseAPI {
     if (this.configuration && this.configuration.accessToken) {
       // oauth required
       headerParameters['Authorization'] = await this.configuration.accessToken(
-        'OAuth2',
+        'oauth2-deprecated',
         []
       )
     }
@@ -438,7 +438,7 @@ export class PlansApi extends runtime.BaseAPI {
     if (this.configuration && this.configuration.accessToken) {
       // oauth required
       headerParameters['Authorization'] = await this.configuration.accessToken(
-        'OAuth2',
+        'oauth2-deprecated',
         []
       )
     }

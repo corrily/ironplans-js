@@ -108,6 +108,12 @@ export interface TeamDetail {
    * @memberof TeamDetail
    */
   readonly metadata: Array<TeamMetadata>
+  /**
+   *
+   * @type {number}
+   * @memberof TeamDetail
+   */
+  readonly totalCredits: number
 }
 
 export function TeamDetailFromJSON(json: any): TeamDetail {
@@ -135,6 +141,7 @@ export function TeamDetailFromJSONTyped(
     createdAt: new Date(json['created_at']),
     updatedAt: new Date(json['updated_at']),
     metadata: (json['metadata'] as Array<any>).map(TeamMetadataFromJSON),
+    totalCredits: json['total_credits'],
   }
 }
 

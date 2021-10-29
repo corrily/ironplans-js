@@ -14,13 +14,19 @@ export interface paths {
     get: operations['accounts_v1_me_retrieve']
   }
   '/customers/v1/': {
+    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     get: operations['customers_v1_list']
+    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     post: operations['customers_v1_create']
   }
   '/customers/v1/{id}/': {
+    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     get: operations['customers_v1_retrieve']
+    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     put: operations['customers_v1_update']
+    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     delete: operations['customers_v1_destroy']
+    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     patch: operations['customers_v1_partial_update']
   }
   '/customers/v1/confirm_card/': {
@@ -28,30 +34,39 @@ export interface paths {
     post: operations['customers_v1_confirm_card_create']
   }
   '/customers/v1/oidc-exchange/': {
+    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     post: operations['customers_v1_oidc_exchange_create']
   }
   '/customers/v1/payment_intent/': {
     /**
-     * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side.
-     * Returns payment intent client secret to give client ability to collect new card details and charge it.
+     * Create a payment intent for a new plan. Validates server-side the right
+     * amount to charge client-side.  Returns payment intent client secret to
+     * give client ability to collect new card details and charge it.
      *
-     * There are two cases where we would create payment intent for a new plan up front client-side:
-     * 1) Brand new Customer/Team during sign-up flow, no previous subscription or plan
-     * 2) Team switching from unmetered free plan to paid plan, with no payment method saved
+     * There are two cases where we would create payment intent for a new plan
+     * up front client-side:
+     *
+     * 1. Brand new Customer/Team during sign-up flow, no previous subscription
+     * or plan
+     *
+     * 1. Team switching from unmetered free plan to paid plan, with no payment
+     * method saved
      */
     post: operations['customers_v1_payment_intent_create']
   }
   '/customers/v1/renew_token/': {
+    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     post: operations['customers_v1_renew_token_create']
   }
   '/customers/v1/setup_intent/': {
     /**
-     * Sets up future payments and passes back client secret to be used in card form. Similar to payment_intent
-     * endpoint except no charge is made.
+     * Sets up future payments and passes back client secret to be used in
+     * card form. Similar to payment_intent endpoint except no charge is made.
      */
     post: operations['customers_v1_setup_intent_create']
   }
   '/customers/v1/token/': {
+    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     post: operations['customers_v1_token_create']
   }
   '/features/v1/': {
@@ -92,6 +107,15 @@ export interface paths {
   '/invites/v1/claim/': {
     /** Claim an invite and be redirected to provider's auth url. */
     get: operations['invites_v1_claim_retrieve']
+  }
+  '/openapi.json': {
+    /**
+     * OpenApi3 schema for this API. Format can be selected via content negotiation.
+     *
+     * - YAML: application/vnd.oai.openapi
+     * - JSON: application/vnd.oai.openapi+json
+     */
+    get: operations['openapi.json_retrieve']
   }
   '/openapi.yaml': {
     /**
@@ -259,6 +283,9 @@ export interface components {
       team_id: string
       to_emails: string[]
     }
+    ClientSecret: {
+      client_secret: string
+    }
     CreateCustomer: {
       id: string
       identity: components['schemas']['Identity']
@@ -295,20 +322,20 @@ export interface components {
       stripe_setup_id: string
       payment_method_id: string
     }
-    CustomerPaymentIntentRequest: {
+    CustomerIntentRequest: {
       plan_id: string
       team_id: string
     }
     CustomerRequest: {
       source_id?: string
     }
-    CustomerSetupIntentRequest: {
-      plan_id: string
-      team_id: string
-    }
     CustomerTokenResponse: {
       token: string
       is_new: boolean
+    }
+    Error: {
+      detail: components['schemas']['InnerError']
+      message: string
     }
     Feature: {
       id: string
@@ -353,6 +380,10 @@ export interface components {
     }
     IdentityRequest: {
       email: string
+    }
+    InnerError: {
+      non_field_errors: { [key: string]: any }[]
+      field_errors: { [key: string]: any }[]
     }
     Invite: {
       id: string
@@ -545,9 +576,6 @@ export interface components {
       is_active?: boolean
       is_public?: boolean
     }
-    PaymentIntentResponse: {
-      client_secret: string
-    }
     PaymentStateEnum: 'complete' | 'incomplete'
     Plan: {
       id: string
@@ -648,9 +676,6 @@ export interface components {
       value?: number
     }
     RoleEnum: 'owner' | 'member'
-    SetupIntentResponse: {
-      client_secret: string
-    }
     Slug: {
       slug: string
     }
@@ -675,11 +700,11 @@ export interface components {
       is_paused: boolean
       cancel_on: string | null
       is_active: boolean
-      days_used: number
       days_left: number
       billing_period: string
       next_plan_id: string
       next_plan: components['schemas']['Plan']
+      is_free_trial_eligible: boolean
       usages: components['schemas']['Usage'][]
     }
     SubscriptionRequest: {
@@ -719,6 +744,7 @@ export interface components {
       created_at: string
       updated_at: string
       metadata: components['schemas']['TeamMetadata'][]
+      total_credits: number
     }
     TeamDetailRequest: {
       provider_id?: string
@@ -779,10 +805,10 @@ export interface operations {
       }
     }
   }
+  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
   customers_v1_list: {
     parameters: {
       query: {
-        id?: string
         /** Number of results to return per page. */
         limit?: number
         /** The initial index from which to return the results. */
@@ -796,13 +822,34 @@ export interface operations {
           'application/json': components['schemas']['PaginatedCustomerList']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
+  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
   customers_v1_create: {
     responses: {
-      200: {
+      201: {
         content: {
           'application/json': components['schemas']['CreateCustomer']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -814,6 +861,7 @@ export interface operations {
       }
     }
   }
+  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
   customers_v1_retrieve: {
     parameters: {
       path: {
@@ -827,8 +875,19 @@ export interface operations {
           'application/json': components['schemas']['Customer']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
+  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
   customers_v1_update: {
     parameters: {
       path: {
@@ -842,6 +901,16 @@ export interface operations {
           'application/json': components['schemas']['Customer']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
     requestBody: {
       content: {
@@ -851,6 +920,7 @@ export interface operations {
       }
     }
   }
+  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
   customers_v1_destroy: {
     parameters: {
       path: {
@@ -859,10 +929,24 @@ export interface operations {
       }
     }
     responses: {
-      /** No response body */
-      204: never
+      204: {
+        content: {
+          'application/json': components['schemas']['Customer']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
+  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
   customers_v1_partial_update: {
     parameters: {
       path: {
@@ -874,6 +958,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['Customer']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -890,6 +984,16 @@ export interface operations {
     responses: {
       /** No response body */
       200: unknown
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
     requestBody: {
       content: {
@@ -899,11 +1003,22 @@ export interface operations {
       }
     }
   }
+  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
   customers_v1_oidc_exchange_create: {
     responses: {
       200: {
         content: {
           'application/json': components['schemas']['CustomerTokenResponse']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -916,29 +1031,46 @@ export interface operations {
     }
   }
   /**
-   * Create a payment intent for a new plan. Validates server-side the right amount to charge client-side.
-   * Returns payment intent client secret to give client ability to collect new card details and charge it.
+   * Create a payment intent for a new plan. Validates server-side the right
+   * amount to charge client-side.  Returns payment intent client secret to
+   * give client ability to collect new card details and charge it.
    *
-   * There are two cases where we would create payment intent for a new plan up front client-side:
-   * 1) Brand new Customer/Team during sign-up flow, no previous subscription or plan
-   * 2) Team switching from unmetered free plan to paid plan, with no payment method saved
+   * There are two cases where we would create payment intent for a new plan
+   * up front client-side:
+   *
+   * 1. Brand new Customer/Team during sign-up flow, no previous subscription
+   * or plan
+   *
+   * 1. Team switching from unmetered free plan to paid plan, with no payment
+   * method saved
    */
   customers_v1_payment_intent_create: {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['PaymentIntentResponse']
+          'application/json': components['schemas']['ClientSecret']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['CustomerPaymentIntentRequest']
-        'application/x-www-form-urlencoded': components['schemas']['CustomerPaymentIntentRequest']
-        'multipart/form-data': components['schemas']['CustomerPaymentIntentRequest']
+        'application/json': components['schemas']['CustomerIntentRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CustomerIntentRequest']
+        'multipart/form-data': components['schemas']['CustomerIntentRequest']
       }
     }
   }
+  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
   customers_v1_renew_token_create: {
     responses: {
       200: {
@@ -946,33 +1078,64 @@ export interface operations {
           'application/json': components['schemas']['CustomerTokenResponse']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
   /**
-   * Sets up future payments and passes back client secret to be used in card form. Similar to payment_intent
-   * endpoint except no charge is made.
+   * Sets up future payments and passes back client secret to be used in
+   * card form. Similar to payment_intent endpoint except no charge is made.
    */
   customers_v1_setup_intent_create: {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['SetupIntentResponse']
+          'application/json': components['schemas']['ClientSecret']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['CustomerSetupIntentRequest']
-        'application/x-www-form-urlencoded': components['schemas']['CustomerSetupIntentRequest']
-        'multipart/form-data': components['schemas']['CustomerSetupIntentRequest']
+        'application/json': components['schemas']['CustomerIntentRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CustomerIntentRequest']
+        'multipart/form-data': components['schemas']['CustomerIntentRequest']
       }
     }
   }
+  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
   customers_v1_token_create: {
     responses: {
       200: {
         content: {
           'application/json': components['schemas']['CustomerTokenResponse']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -1327,10 +1490,126 @@ export interface operations {
    * - YAML: application/vnd.oai.openapi
    * - JSON: application/vnd.oai.openapi+json
    */
+  'openapi.json_retrieve': {
+    parameters: {
+      query: {
+        lang?:
+          | 'af'
+          | 'ar'
+          | 'ar-dz'
+          | 'ast'
+          | 'az'
+          | 'be'
+          | 'bg'
+          | 'bn'
+          | 'br'
+          | 'bs'
+          | 'ca'
+          | 'cs'
+          | 'cy'
+          | 'da'
+          | 'de'
+          | 'dsb'
+          | 'el'
+          | 'en'
+          | 'en-au'
+          | 'en-gb'
+          | 'eo'
+          | 'es'
+          | 'es-ar'
+          | 'es-co'
+          | 'es-mx'
+          | 'es-ni'
+          | 'es-ve'
+          | 'et'
+          | 'eu'
+          | 'fa'
+          | 'fi'
+          | 'fr'
+          | 'fy'
+          | 'ga'
+          | 'gd'
+          | 'gl'
+          | 'he'
+          | 'hi'
+          | 'hr'
+          | 'hsb'
+          | 'hu'
+          | 'hy'
+          | 'ia'
+          | 'id'
+          | 'ig'
+          | 'io'
+          | 'is'
+          | 'it'
+          | 'ja'
+          | 'ka'
+          | 'kab'
+          | 'kk'
+          | 'km'
+          | 'kn'
+          | 'ko'
+          | 'ky'
+          | 'lb'
+          | 'lt'
+          | 'lv'
+          | 'mk'
+          | 'ml'
+          | 'mn'
+          | 'mr'
+          | 'my'
+          | 'nb'
+          | 'ne'
+          | 'nl'
+          | 'nn'
+          | 'os'
+          | 'pa'
+          | 'pl'
+          | 'pt'
+          | 'pt-br'
+          | 'ro'
+          | 'ru'
+          | 'sk'
+          | 'sl'
+          | 'sq'
+          | 'sr'
+          | 'sr-latn'
+          | 'sv'
+          | 'sw'
+          | 'ta'
+          | 'te'
+          | 'tg'
+          | 'th'
+          | 'tk'
+          | 'tr'
+          | 'tt'
+          | 'udm'
+          | 'uk'
+          | 'ur'
+          | 'uz'
+          | 'vi'
+          | 'zh-hans'
+          | 'zh-hant'
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/vnd.oai.openapi+json': { [key: string]: any }
+          'application/json': { [key: string]: any }
+        }
+      }
+    }
+  }
+  /**
+   * OpenApi3 schema for this API. Format can be selected via content negotiation.
+   *
+   * - YAML: application/vnd.oai.openapi
+   * - JSON: application/vnd.oai.openapi+json
+   */
   'openapi.yaml_retrieve': {
     parameters: {
       query: {
-        format?: 'json' | 'yaml'
         lang?:
           | 'af'
           | 'ar'
@@ -1435,8 +1714,6 @@ export interface operations {
         content: {
           'application/vnd.oai.openapi': { [key: string]: any }
           'application/yaml': { [key: string]: any }
-          'application/vnd.oai.openapi+json': { [key: string]: any }
-          'application/json': { [key: string]: any }
         }
       }
     }
