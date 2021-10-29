@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2-alpha.10](https://github.com/ironplans/js/compare/@ironplans/react@0.4.2-alpha.9...@ironplans/react@0.4.2-alpha.10) (2021-10-29)
+
+**Note:** Version bump only for package @ironplans/react
+
 ## [0.4.2-alpha.9](https://github.com/ironplans/js/compare/@ironplans/react@0.4.2-alpha.8...@ironplans/react@0.4.2-alpha.9) (2021-10-20)
 
 **Note:** Version bump only for package @ironplans/react
