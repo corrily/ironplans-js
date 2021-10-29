@@ -4275,6 +4275,7 @@ components:
           items:
             $ref: '#/components/schemas/TeamMetadata'
           readOnly: true
+          nullable: true
         total_credits:
           type: integer
           readOnly: true

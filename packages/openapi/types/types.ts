@@ -743,7 +743,7 @@ export interface components {
       is_free_trial_used?: boolean
       created_at: string
       updated_at: string
-      metadata: components['schemas']['TeamMetadata'][]
+      metadata: components['schemas']['TeamMetadata'][] | null
       total_credits: number
     }
     TeamDetailRequest: {
