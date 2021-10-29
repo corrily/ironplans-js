@@ -146,7 +146,7 @@ dist/index.d.ts: $(entry) $(src) $(project_deps)
 	npx tsc -p $(tsconfig) \
 		--declaration --declarationMap \
 		--emitDeclarationOnly \
-		--outFile $@
+		--outDir $(@D)
 	@echo "Types done!"
 
 # depend on build/%

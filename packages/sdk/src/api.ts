@@ -9,7 +9,8 @@ import {
   Configuration,
 } from '@ironplans/api'
 import { Immutable } from './types'
-import pkg from '../package.json'
+
+const pkg = require('../package.json')
 
 export interface IPAPI {
   token?: string
