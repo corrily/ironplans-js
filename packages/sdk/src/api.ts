@@ -31,7 +31,7 @@ export function createConfiguration(
 ): Configuration {
   return new Configuration({
     basePath: baseUrl?.replace(/\/$/, ''),
-    accessToken: `Bearer ${at}`,
+    accessToken: `${at}`,
   })
 }
 
