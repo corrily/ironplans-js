@@ -13,13 +13,6 @@
  */
 
 import { exists, mapValues } from '../runtime'
-import {
-  TeamMetadata,
-  TeamMetadataFromJSON,
-  TeamMetadataFromJSONTyped,
-  TeamMetadataToJSON,
-} from './'
-
 /**
  *
  * @export
@@ -52,10 +45,10 @@ export interface Team {
   readonly updatedAt: Date
   /**
    *
-   * @type {Array<TeamMetadata>}
+   * @type {{ [key: string]: any; }}
    * @memberof Team
    */
-  readonly metadata: Array<TeamMetadata>
+  readonly metadata: { [key: string]: any }
 }
 
 export function TeamFromJSON(json: any): Team {
@@ -74,7 +67,7 @@ export function TeamFromJSONTyped(
     name: !exists(json, 'name') ? undefined : json['name'],
     createdAt: new Date(json['created_at']),
     updatedAt: new Date(json['updated_at']),
-    metadata: (json['metadata'] as Array<any>).map(TeamMetadataFromJSON),
+    metadata: json['metadata'],
   }
 }
 

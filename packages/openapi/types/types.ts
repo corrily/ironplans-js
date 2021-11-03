@@ -179,6 +179,9 @@ export interface paths {
     delete: operations['subscriptions_v1_destroy']
     patch: operations['subscriptions_v1_partial_update']
   }
+  '/subscriptions/v1/{id}/purge/': {
+    delete: operations['subscriptions_v1_purge_destroy']
+  }
   '/subscriptions/v1/{id}/renew/': {
     patch: operations['subscriptions_v1_renew_partial_update']
   }
@@ -719,7 +722,7 @@ export interface components {
       name?: string | null
       created_at: string
       updated_at: string
-      metadata: components['schemas']['TeamMetadata'][]
+      metadata: { [key: string]: any }
     }
     TeamAccess: {
       id?: string
@@ -743,21 +746,13 @@ export interface components {
       is_free_trial_used?: boolean
       created_at: string
       updated_at: string
-      metadata: components['schemas']['TeamMetadata'][] | null
+      metadata: { [key: string]: any } | null
       total_credits: number
     }
     TeamDetailRequest: {
       provider_id?: string
       name: string | null
       is_free_trial_used?: boolean
-    }
-    TeamMetadata: {
-      key: string
-      value: string
-    }
-    TeamMetadataRequest: {
-      key: string
-      value: string
     }
     TeamViaMembership: {
       id: string
@@ -2112,6 +2107,21 @@ export interface operations {
         'application/json': components['schemas']['PatchedSubscriptionRequest']
         'application/x-www-form-urlencoded': components['schemas']['PatchedSubscriptionRequest']
         'multipart/form-data': components['schemas']['PatchedSubscriptionRequest']
+      }
+    }
+  }
+  subscriptions_v1_purge_destroy: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this subscription. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['SubscriptionDetail']
+        }
       }
     }
   }

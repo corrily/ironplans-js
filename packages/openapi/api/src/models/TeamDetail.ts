@@ -30,10 +30,6 @@ import {
   SubscriptionDetailFromJSON,
   SubscriptionDetailFromJSONTyped,
   SubscriptionDetailToJSON,
-  TeamMetadata,
-  TeamMetadataFromJSON,
-  TeamMetadataFromJSONTyped,
-  TeamMetadataToJSON,
 } from './'
 
 /**
@@ -104,10 +100,10 @@ export interface TeamDetail {
   readonly updatedAt: Date
   /**
    *
-   * @type {Array<TeamMetadata>}
+   * @type {{ [key: string]: any; }}
    * @memberof TeamDetail
    */
-  readonly metadata: Array<TeamMetadata> | null
+  readonly metadata: { [key: string]: any } | null
   /**
    *
    * @type {number}
@@ -140,10 +136,7 @@ export function TeamDetailFromJSONTyped(
       : json['is_free_trial_used'],
     createdAt: new Date(json['created_at']),
     updatedAt: new Date(json['updated_at']),
-    metadata:
-      json['metadata'] === null
-        ? null
-        : (json['metadata'] as Array<any>).map(TeamMetadataFromJSON),
+    metadata: json['metadata'],
     totalCredits: json['total_credits'],
   }
 }

@@ -62,6 +62,10 @@ export interface SubscriptionsV1PartialUpdateRequest {
   patchedSubscriptionRequest?: PatchedSubscriptionRequest
 }
 
+export interface SubscriptionsV1PurgeDestroyRequest {
+  id: string
+}
+
 export interface SubscriptionsV1RenewPartialUpdateRequest {
   id: string
   patchedSubscriptionRequest?: PatchedSubscriptionRequest
@@ -327,6 +331,62 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     initOverrides?: RequestInit
   ): Promise<SubscriptionDetail> {
     const response = await this.subscriptionsV1PartialUpdateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async subscriptionsV1PurgeDestroyRaw(
+    requestParameters: SubscriptionsV1PurgeDestroyRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<SubscriptionDetail>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1PurgeDestroy.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'oauth2-deprecated',
+        []
+      )
+    }
+
+    const response = await this.request(
+      {
+        path: `/subscriptions/v1/{id}/purge/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'DELETE',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      SubscriptionDetailFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async subscriptionsV1PurgeDestroy(
+    requestParameters: SubscriptionsV1PurgeDestroyRequest,
+    initOverrides?: RequestInit
+  ): Promise<SubscriptionDetail> {
+    const response = await this.subscriptionsV1PurgeDestroyRaw(
       requestParameters,
       initOverrides
     )
