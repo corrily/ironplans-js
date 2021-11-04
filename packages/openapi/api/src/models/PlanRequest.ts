@@ -89,6 +89,12 @@ export interface PlanRequest {
    * @type {string}
    * @memberof PlanRequest
    */
+  publicCtaText?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof PlanRequest
+   */
   replacePlanId: string | null
   /**
    * Amount in cents
@@ -141,6 +147,9 @@ export function PlanRequestFromJSONTyped(
       ? undefined
       : json['redirect_url'],
     ctaText: !exists(json, 'cta_text') ? undefined : json['cta_text'],
+    publicCtaText: !exists(json, 'public_cta_text')
+      ? undefined
+      : json['public_cta_text'],
     replacePlanId: json['replace_plan_id'],
     perYearPriceCents: !exists(json, 'per_year_price_cents')
       ? undefined
@@ -172,6 +181,7 @@ export function PlanRequestToJSON(value?: PlanRequest | null): any {
     is_self_serve: value.isSelfServe,
     redirect_url: value.redirectUrl,
     cta_text: value.ctaText,
+    public_cta_text: value.publicCtaText,
     replace_plan_id: value.replacePlanId,
     per_year_price_cents: value.perYearPriceCents,
     per_month_price_cents: value.perMonthPriceCents,

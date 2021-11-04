@@ -538,6 +538,7 @@ export interface components {
       is_self_serve?: boolean
       redirect_url?: string | null
       cta_text?: string | null
+      public_cta_text?: string | null
       replace_plan_id?: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null
@@ -592,6 +593,7 @@ export interface components {
       is_self_serve?: boolean
       redirect_url?: string | null
       cta_text?: string | null
+      public_cta_text?: string | null
       replace_plan_id: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null
@@ -630,6 +632,7 @@ export interface components {
       is_self_serve?: boolean
       redirect_url?: string | null
       cta_text?: string | null
+      public_cta_text?: string | null
       replace_plan_id: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null

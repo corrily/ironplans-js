@@ -3561,6 +3561,10 @@ components:
           type: string
           nullable: true
           maxLength: 128
+        public_cta_text:
+          type: string
+          nullable: true
+          maxLength: 128
         replace_plan_id:
           type: string
           format: uuid
@@ -3720,6 +3724,10 @@ components:
           type: string
           nullable: true
           maxLength: 128
+        public_cta_text:
+          type: string
+          nullable: true
+          maxLength: 128
         replace_plan_id:
           type: string
           format: uuid
@@ -3837,6 +3845,10 @@ components:
           nullable: true
           maxLength: 200
         cta_text:
+          type: string
+          nullable: true
+          maxLength: 128
+        public_cta_text:
           type: string
           nullable: true
           maxLength: 128

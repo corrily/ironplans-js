@@ -89,6 +89,12 @@ export interface PatchedPlanRequest {
    * @type {string}
    * @memberof PatchedPlanRequest
    */
+  publicCtaText?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof PatchedPlanRequest
+   */
   replacePlanId?: string | null
   /**
    * Amount in cents
@@ -143,6 +149,9 @@ export function PatchedPlanRequestFromJSONTyped(
       ? undefined
       : json['redirect_url'],
     ctaText: !exists(json, 'cta_text') ? undefined : json['cta_text'],
+    publicCtaText: !exists(json, 'public_cta_text')
+      ? undefined
+      : json['public_cta_text'],
     replacePlanId: !exists(json, 'replace_plan_id')
       ? undefined
       : json['replace_plan_id'],
@@ -180,6 +189,7 @@ export function PatchedPlanRequestToJSON(
     is_self_serve: value.isSelfServe,
     redirect_url: value.redirectUrl,
     cta_text: value.ctaText,
+    public_cta_text: value.publicCtaText,
     replace_plan_id: value.replacePlanId,
     per_year_price_cents: value.perYearPriceCents,
     per_month_price_cents: value.perMonthPriceCents,
