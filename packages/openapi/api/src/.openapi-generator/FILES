@@ -86,8 +86,6 @@ models/TeamAccess.ts
 models/TeamAccessRequest.ts
 models/TeamDetail.ts
 models/TeamDetailRequest.ts
-models/TeamMetadata.ts
-models/TeamMetadataRequest.ts
 models/TeamViaMembership.ts
 models/Token.ts
 models/TokenRequest.ts

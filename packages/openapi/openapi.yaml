@@ -1878,6 +1878,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/SubscriptionDetail'
           description: ''
+  /subscriptions/v1/{id}/purge/:
+    delete:
+      operationId: subscriptions_v1_purge_destroy
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscription.
+          required: true
+      tags:
+        - subscriptions
+      security:
+        - oauth2-deprecated: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
   /subscriptions/v1/{id}/renew/:
     patch:
       operationId: subscriptions_v1_renew_partial_update
@@ -4187,9 +4209,8 @@ components:
           format: date-time
           readOnly: true
         metadata:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamMetadata'
+          type: object
+          additionalProperties: {}
           readOnly: true
       required:
         - created_at
@@ -4271,9 +4292,8 @@ components:
           format: date-time
           readOnly: true
         metadata:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamMetadata'
+          type: object
+          additionalProperties: {}
           readOnly: true
           nullable: true
         total_credits:
@@ -4304,30 +4324,6 @@ components:
           type: boolean
       required:
         - name
-    TeamMetadata:
-      type: object
-      properties:
-        key:
-          type: string
-          maxLength: 128
-        value:
-          type: string
-          maxLength: 512
-      required:
-        - key
-        - value
-    TeamMetadataRequest:
-      type: object
-      properties:
-        key:
-          type: string
-          maxLength: 128
-        value:
-          type: string
-          maxLength: 512
-      required:
-        - key
-        - value
     TeamViaMembership:
       type: object
       properties:
