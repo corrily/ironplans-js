@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0-alpha.13](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.12...@ironplans/sdk@0.5.0-alpha.13) (2021-11-04)
+
+### Bug Fixes
+
+- avoid adding Bearer to new migrated api view ([395d371](https://github.com/ironplans/js/commit/395d371f27a9f499c4115bb5fb748bbfd74e5a1e))
+- remove extra bearer ([c310805](https://github.com/ironplans/js/commit/c310805c04b22d2a643bf1b7bdb12595bf3915e4))
+- test ([c47e8f5](https://github.com/ironplans/js/commit/c47e8f532b1884c36077d1a4f08f36a50085521f))
+
 # [0.5.0-alpha.12](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.11...@ironplans/sdk@0.5.0-alpha.12) (2021-11-04)
 
 **Note:** Version bump only for package @ironplans/sdk
