@@ -1,6 +1,8 @@
 import * as IP from '@ironplans/proxy'
 import 'jest-fetch-mock'
 import { Customer } from '../src'
+import { Team } from '@ironplans/sdk'
+import { TeamDetail } from '@ironplans/api'
 
 const app = new IP.Server()
 app.addTeam(
@@ -59,7 +61,10 @@ describe('validate options', () => {
   test('customer team change emits event', (done) => {
     dummy.fetchTeams().then(async (teams) => {
       const currentTeam = dummy.getTeam().data
-      const otherTeam = teams.find((t) => t.id !== currentTeam.id)
+      const t = teams as (Team | TeamDetail)[]
+      const otherTeam = t.find(
+        (team: Team | TeamDetail) => team.id !== currentTeam.id
+      )
       console.debug('want', otherTeam!.id)
 
       expect(otherTeam).toBeDefined()
