@@ -27,11 +27,14 @@ export interface IPAPI {
 
 export function createConfiguration(
   baseUrl?: string,
-  at?: string
+  at?: string,
+  useLegacy?: boolean
 ): Configuration {
+  // new config with base view adds 'Bearer ' to authentication header.
+  // set useLegacy to true to avoid adding Bearer for endpoints/views that haven't been migrated yet.
   return new Configuration({
     basePath: baseUrl?.replace(/\/$/, ''),
-    accessToken: `${at}`,
+    accessToken: `${useLegacy ? 'Bearer ' : ''}${at}`,
   })
 }
 
@@ -45,18 +48,23 @@ export interface APIOptions {
 export function createAPI(opts: APIOptions): IPAPI {
   const { apiBaseUrl, appBaseUrl, token, publicToken } = opts
   const config = createConfiguration(apiBaseUrl, token ?? publicToken)
+  const legacyConfig = createConfiguration(
+    apiBaseUrl,
+    token ?? publicToken,
+    true
+  )
   return {
     token,
     publicToken,
     appBaseUrl,
     apiBaseUrl,
     customers: new CustomersApi(config),
-    teams: new TeamsApi(config),
-    plans: new PlansApi(config),
-    invites: new InvitesApi(config),
-    providers: new ProvidersApi(config),
-    subscriptions: new SubscriptionsApi(config),
-    teamMemberships: new TeamMembershipsApi(config),
+    teams: new TeamsApi(legacyConfig),
+    plans: new PlansApi(legacyConfig),
+    invites: new InvitesApi(legacyConfig),
+    providers: new ProvidersApi(legacyConfig),
+    subscriptions: new SubscriptionsApi(legacyConfig),
+    teamMemberships: new TeamMembershipsApi(legacyConfig),
   }
 }
 
