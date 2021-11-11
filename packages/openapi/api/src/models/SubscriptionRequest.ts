@@ -33,6 +33,12 @@ export interface SubscriptionRequest {
   teamId: string
   /**
    *
+   * @type {Date}
+   * @memberof SubscriptionRequest
+   */
+  freeTrialEndAt?: Date | null
+  /**
+   *
    * @type {boolean}
    * @memberof SubscriptionRequest
    */
@@ -65,6 +71,11 @@ export function SubscriptionRequestFromJSONTyped(
   return {
     planId: json['plan_id'],
     teamId: json['team_id'],
+    freeTrialEndAt: !exists(json, 'free_trial_end_at')
+      ? undefined
+      : json['free_trial_end_at'] === null
+      ? null
+      : new Date(json['free_trial_end_at']),
     isPaused: !exists(json, 'is_paused') ? undefined : json['is_paused'],
     nextPlanId: !exists(json, 'next_plan_id')
       ? undefined
@@ -89,6 +100,12 @@ export function SubscriptionRequestToJSON(
   return {
     plan_id: value.planId,
     team_id: value.teamId,
+    free_trial_end_at:
+      value.freeTrialEndAt === undefined
+        ? undefined
+        : value.freeTrialEndAt === null
+        ? null
+        : value.freeTrialEndAt.toISOString(),
     is_paused: value.isPaused,
     next_plan_id: value.nextPlanId,
     cancel_on:

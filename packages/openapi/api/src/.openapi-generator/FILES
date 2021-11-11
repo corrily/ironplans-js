@@ -5,6 +5,7 @@ apis/FeaturespecsApi.ts
 apis/InvitesApi.ts
 apis/OpenapiJsonApi.ts
 apis/OpenapiYamlApi.ts
+apis/PaymentMethodsApi.ts
 apis/PlansApi.ts
 apis/ProvidersApi.ts
 apis/SubscriptionsApi.ts
@@ -50,6 +51,7 @@ models/PaginatedInvoiceList.ts
 models/PaginatedMembershipList.ts
 models/PaginatedPlanList.ts
 models/PaginatedProviderList.ts
+models/PaginatedStripeCardPaymentMethodList.ts
 models/PaginatedSubscriptionList.ts
 models/PaginatedTeamList.ts
 models/PaginatedTokenList.ts
@@ -64,6 +66,7 @@ models/PatchedProviderRequest.ts
 models/PatchedSubscriptionRequest.ts
 models/PatchedTeamDetailRequest.ts
 models/PatchedTokenRequest.ts
+models/PatchedUpdatePaymentMethodRequest.ts
 models/PaymentStateEnum.ts
 models/Plan.ts
 models/PlanContactFormRequest.ts
@@ -76,8 +79,11 @@ models/PublicProfile.ts
 models/RecordPeriodEnum.ts
 models/ReportUsageRequest.ts
 models/RoleEnum.ts
+models/SetupIntentConfirmRequest.ts
 models/Slug.ts
 models/StateEnum.ts
+models/StripeCard.ts
+models/StripeCardPaymentMethod.ts
 models/Subscription.ts
 models/SubscriptionDetail.ts
 models/SubscriptionRequest.ts
@@ -89,6 +95,7 @@ models/TeamDetailRequest.ts
 models/TeamViaMembership.ts
 models/Token.ts
 models/TokenRequest.ts
+models/UpdatePaymentMethodRequest.ts
 models/Usage.ts
 models/UsageExceeded.ts
 models/index.ts

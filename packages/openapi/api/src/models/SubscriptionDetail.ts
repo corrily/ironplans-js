@@ -62,6 +62,12 @@ export interface SubscriptionDetail {
   readonly endAt: Date | null
   /**
    *
+   * @type {Date}
+   * @memberof SubscriptionDetail
+   */
+  readonly freeTrialEndAt: Date | null
+  /**
+   *
    * @type {boolean}
    * @memberof SubscriptionDetail
    */
@@ -133,6 +139,10 @@ export function SubscriptionDetailFromJSONTyped(
     planId: json['plan_id'],
     startAt: new Date(json['start_at']),
     endAt: json['end_at'] === null ? null : new Date(json['end_at']),
+    freeTrialEndAt:
+      json['free_trial_end_at'] === null
+        ? null
+        : new Date(json['free_trial_end_at']),
     isPaused: json['is_paused'],
     cancelOn: json['cancel_on'] === null ? null : new Date(json['cancel_on']),
     isActive: json['is_active'],

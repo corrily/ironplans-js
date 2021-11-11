@@ -33,6 +33,12 @@ export interface PatchedSubscriptionRequest {
   teamId?: string
   /**
    *
+   * @type {Date}
+   * @memberof PatchedSubscriptionRequest
+   */
+  freeTrialEndAt?: Date | null
+  /**
+   *
    * @type {boolean}
    * @memberof PatchedSubscriptionRequest
    */
@@ -67,6 +73,11 @@ export function PatchedSubscriptionRequestFromJSONTyped(
   return {
     planId: !exists(json, 'plan_id') ? undefined : json['plan_id'],
     teamId: !exists(json, 'team_id') ? undefined : json['team_id'],
+    freeTrialEndAt: !exists(json, 'free_trial_end_at')
+      ? undefined
+      : json['free_trial_end_at'] === null
+      ? null
+      : new Date(json['free_trial_end_at']),
     isPaused: !exists(json, 'is_paused') ? undefined : json['is_paused'],
     nextPlanId: !exists(json, 'next_plan_id')
       ? undefined
@@ -91,6 +102,12 @@ export function PatchedSubscriptionRequestToJSON(
   return {
     plan_id: value.planId,
     team_id: value.teamId,
+    free_trial_end_at:
+      value.freeTrialEndAt === undefined
+        ? undefined
+        : value.freeTrialEndAt === null
+        ? null
+        : value.freeTrialEndAt.toISOString(),
     is_paused: value.isPaused,
     next_plan_id: value.nextPlanId,
     cancel_on:

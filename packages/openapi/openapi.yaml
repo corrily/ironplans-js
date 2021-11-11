@@ -1279,6 +1279,275 @@ paths:
                 type: object
                 additionalProperties: {}
           description: ''
+  /payment_methods/v1/:
+    get:
+      operationId: payment_methods_v1_list
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+      tags:
+        - payment_methods
+      security:
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStripeCardPaymentMethodList'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    post:
+      operationId: payment_methods_v1_create
+      description:
+        Creates a setup intent that will eventually be confirmed client-side
+        to create a payment method
+      tags:
+        - payment_methods
+      security:
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientSecret'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /payment_methods/v1/{id}/:
+    get:
+      operationId: payment_methods_v1_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+        - payment_methods
+      security:
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeCardPaymentMethod'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    put:
+      operationId: payment_methods_v1_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+        - payment_methods
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentMethodRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentMethodRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentMethodRequest'
+      security:
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeCardPaymentMethod'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    patch:
+      operationId: payment_methods_v1_partial_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+        - payment_methods
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdatePaymentMethodRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdatePaymentMethodRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdatePaymentMethodRequest'
+      security:
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeCardPaymentMethod'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    delete:
+      operationId: payment_methods_v1_destroy
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+        - payment_methods
+      security:
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeCardPaymentMethod'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /payment_methods/v1/{id}/confirm/:
+    post:
+      operationId: payment_methods_v1_confirm_create
+      description: Confirm card for a payment method and set as default if none exist.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      tags:
+        - payment_methods
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetupIntentConfirmRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SetupIntentConfirmRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SetupIntentConfirmRequest'
+        required: true
+      security:
+        - private-provider-token: []
+        - jwt-token: []
+        - jwt-token: []
+      responses:
+        '200':
+          description: No response body
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /plans/v1/:
     get:
       operationId: plans_v1_list
@@ -3396,6 +3665,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Provider'
+    PaginatedStripeCardPaymentMethodList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/StripeCardPaymentMethod'
     PaginatedSubscriptionList:
       type: object
       properties:
@@ -3651,6 +3940,10 @@ components:
         team_id:
           type: string
           format: uuid
+        free_trial_end_at:
+          type: string
+          format: date-time
+          nullable: true
         is_paused:
           type: boolean
         next_plan_id:
@@ -3682,6 +3975,12 @@ components:
           type: boolean
         is_public:
           type: boolean
+    PatchedUpdatePaymentMethodRequest:
+      type: object
+      properties:
+        is_default:
+          type: boolean
+          nullable: true
     PaymentStateEnum:
       enum:
         - complete
@@ -4052,6 +4351,13 @@ components:
         - owner
         - member
       type: string
+    SetupIntentConfirmRequest:
+      type: object
+      properties:
+        stripe_setup_id:
+          type: string
+      required:
+        - stripe_setup_id
     Slug:
       type: object
       properties:
@@ -4068,6 +4374,37 @@ components:
         - canceled
         - void
       type: string
+    StripeCard:
+      type: object
+      properties:
+        brand:
+          type: string
+          readOnly: true
+        last4:
+          type: string
+          readOnly: true
+        exp_month:
+          type: integer
+          readOnly: true
+        exp_year:
+          type: integer
+          readOnly: true
+      required:
+        - brand
+        - exp_month
+        - exp_year
+        - last4
+    StripeCardPaymentMethod:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        card:
+          $ref: '#/components/schemas/StripeCard'
+      required:
+        - card
+        - id
     Subscription:
       type: object
       properties:
@@ -4089,6 +4426,10 @@ components:
           type: string
           format: date-time
           readOnly: true
+        free_trial_end_at:
+          type: string
+          format: date-time
+          nullable: true
         is_paused:
           type: boolean
         is_active:
@@ -4132,6 +4473,11 @@ components:
           format: date-time
           readOnly: true
           nullable: true
+        free_trial_end_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
         is_paused:
           type: boolean
           readOnly: true
@@ -4170,6 +4516,7 @@ components:
         - cancel_on
         - days_left
         - end_at
+        - free_trial_end_at
         - id
         - is_active
         - is_free_trial_eligible
@@ -4189,6 +4536,10 @@ components:
         team_id:
           type: string
           format: uuid
+        free_trial_end_at:
+          type: string
+          format: date-time
+          nullable: true
         is_paused:
           type: boolean
         next_plan_id:
@@ -4389,6 +4740,12 @@ components:
           type: boolean
         is_public:
           type: boolean
+    UpdatePaymentMethodRequest:
+      type: object
+      properties:
+        is_default:
+          type: boolean
+          nullable: true
     Usage:
       type: object
       properties:

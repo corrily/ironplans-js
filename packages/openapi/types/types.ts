@@ -126,6 +126,21 @@ export interface paths {
      */
     get: operations['openapi.yaml_retrieve']
   }
+  '/payment_methods/v1/': {
+    get: operations['payment_methods_v1_list']
+    /** Creates a setup intent that will eventually be confirmed client-side to create a payment method */
+    post: operations['payment_methods_v1_create']
+  }
+  '/payment_methods/v1/{id}/': {
+    get: operations['payment_methods_v1_retrieve']
+    put: operations['payment_methods_v1_update']
+    delete: operations['payment_methods_v1_destroy']
+    patch: operations['payment_methods_v1_partial_update']
+  }
+  '/payment_methods/v1/{id}/confirm/': {
+    /** Confirm card for a payment method and set as default if none exist. */
+    post: operations['payment_methods_v1_confirm_create']
+  }
   '/plans/v1/': {
     get: operations['plans_v1_list']
     /**
@@ -481,6 +496,12 @@ export interface components {
       previous?: string | null
       results?: components['schemas']['Provider'][]
     }
+    PaginatedStripeCardPaymentMethodList: {
+      count?: number
+      next?: string | null
+      previous?: string | null
+      results?: components['schemas']['StripeCardPaymentMethod'][]
+    }
     PaginatedSubscriptionList: {
       count?: number
       next?: string | null
@@ -566,6 +587,7 @@ export interface components {
     PatchedSubscriptionRequest: {
       plan_id?: string
       team_id?: string
+      free_trial_end_at?: string | null
       is_paused?: boolean
       next_plan_id?: string
       cancel_on?: string | null
@@ -579,6 +601,9 @@ export interface components {
       provider_id?: string
       is_active?: boolean
       is_public?: boolean
+    }
+    PatchedUpdatePaymentMethodRequest: {
+      is_default?: boolean | null
     }
     PaymentStateEnum: 'complete' | 'incomplete'
     Plan: {
@@ -682,16 +707,30 @@ export interface components {
       value?: number
     }
     RoleEnum: 'owner' | 'member'
+    SetupIntentConfirmRequest: {
+      stripe_setup_id: string
+    }
     Slug: {
       slug: string
     }
     StateEnum: 'draft' | 'open' | 'paid' | 'canceled' | 'void'
+    StripeCard: {
+      brand: string
+      last4: string
+      exp_month: number
+      exp_year: number
+    }
+    StripeCardPaymentMethod: {
+      id: string
+      card: components['schemas']['StripeCard']
+    }
     Subscription: {
       id: string
       plan_id: string
       team_id: string
       start_at: string
       end_at: string
+      free_trial_end_at?: string | null
       is_paused?: boolean
       is_active: boolean
       next_plan_id?: string
@@ -703,6 +742,7 @@ export interface components {
       plan_id: string
       start_at: string
       end_at: string | null
+      free_trial_end_at: string | null
       is_paused: boolean
       cancel_on: string | null
       is_active: boolean
@@ -716,6 +756,7 @@ export interface components {
     SubscriptionRequest: {
       plan_id: string
       team_id: string
+      free_trial_end_at?: string | null
       is_paused?: boolean
       next_plan_id?: string
       cancel_on?: string | null
@@ -774,6 +815,9 @@ export interface components {
       provider_id?: string
       is_active?: boolean
       is_public?: boolean
+    }
+    UpdatePaymentMethodRequest: {
+      is_default?: boolean | null
     }
     Usage: {
       slug: string
@@ -1713,6 +1757,192 @@ export interface operations {
           'application/vnd.oai.openapi': { [key: string]: any }
           'application/yaml': { [key: string]: any }
         }
+      }
+    }
+  }
+  payment_methods_v1_list: {
+    parameters: {
+      query: {
+        /** Number of results to return per page. */
+        limit?: number
+        /** The initial index from which to return the results. */
+        offset?: number
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['PaginatedStripeCardPaymentMethodList']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  /** Creates a setup intent that will eventually be confirmed client-side to create a payment method */
+  payment_methods_v1_create: {
+    responses: {
+      201: {
+        content: {
+          'application/json': components['schemas']['ClientSecret']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  payment_methods_v1_retrieve: {
+    parameters: {
+      path: {
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['StripeCardPaymentMethod']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  payment_methods_v1_update: {
+    parameters: {
+      path: {
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['StripeCardPaymentMethod']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdatePaymentMethodRequest']
+        'application/x-www-form-urlencoded': components['schemas']['UpdatePaymentMethodRequest']
+        'multipart/form-data': components['schemas']['UpdatePaymentMethodRequest']
+      }
+    }
+  }
+  payment_methods_v1_destroy: {
+    parameters: {
+      path: {
+        id: string
+      }
+    }
+    responses: {
+      204: {
+        content: {
+          'application/json': components['schemas']['StripeCardPaymentMethod']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  payment_methods_v1_partial_update: {
+    parameters: {
+      path: {
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['StripeCardPaymentMethod']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PatchedUpdatePaymentMethodRequest']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedUpdatePaymentMethodRequest']
+        'multipart/form-data': components['schemas']['PatchedUpdatePaymentMethodRequest']
+      }
+    }
+  }
+  /** Confirm card for a payment method and set as default if none exist. */
+  payment_methods_v1_confirm_create: {
+    parameters: {
+      path: {
+        id: string
+      }
+    }
+    responses: {
+      /** No response body */
+      200: unknown
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SetupIntentConfirmRequest']
+        'application/x-www-form-urlencoded': components['schemas']['SetupIntentConfirmRequest']
+        'multipart/form-data': components['schemas']['SetupIntentConfirmRequest']
       }
     }
   }

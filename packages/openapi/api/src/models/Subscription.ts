@@ -51,6 +51,12 @@ export interface Subscription {
   readonly endAt: Date
   /**
    *
+   * @type {Date}
+   * @memberof Subscription
+   */
+  freeTrialEndAt?: Date | null
+  /**
+   *
    * @type {boolean}
    * @memberof Subscription
    */
@@ -92,6 +98,11 @@ export function SubscriptionFromJSONTyped(
     teamId: json['team_id'],
     startAt: new Date(json['start_at']),
     endAt: new Date(json['end_at']),
+    freeTrialEndAt: !exists(json, 'free_trial_end_at')
+      ? undefined
+      : json['free_trial_end_at'] === null
+      ? null
+      : new Date(json['free_trial_end_at']),
     isPaused: !exists(json, 'is_paused') ? undefined : json['is_paused'],
     isActive: json['is_active'],
     nextPlanId: !exists(json, 'next_plan_id')
@@ -115,6 +126,12 @@ export function SubscriptionToJSON(value?: Subscription | null): any {
   return {
     plan_id: value.planId,
     team_id: value.teamId,
+    free_trial_end_at:
+      value.freeTrialEndAt === undefined
+        ? undefined
+        : value.freeTrialEndAt === null
+        ? null
+        : value.freeTrialEndAt.toISOString(),
     is_paused: value.isPaused,
     next_plan_id: value.nextPlanId,
     cancel_on:
