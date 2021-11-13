@@ -3,6 +3,7 @@ import {
   TeamsApi,
   TeamMembershipsApi,
   InvitesApi,
+  PaymentMethodsApi,
   PlansApi,
   ProvidersApi,
   SubscriptionsApi,
@@ -18,6 +19,7 @@ export interface IPAPI {
 
   customers: CustomersApi
   teams: TeamsApi
+  paymentMethods: PaymentMethodsApi
   teamMemberships: TeamMembershipsApi
   invites: InvitesApi
   plans: PlansApi
@@ -59,6 +61,7 @@ export function createAPI(opts: APIOptions): IPAPI {
     appBaseUrl,
     apiBaseUrl,
     customers: new CustomersApi(config),
+    paymentMethods: new PaymentMethodsApi(config),
     teams: new TeamsApi(legacyConfig),
     plans: new PlansApi(legacyConfig),
     invites: new InvitesApi(legacyConfig),
