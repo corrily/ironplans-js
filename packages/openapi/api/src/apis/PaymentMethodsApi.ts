@@ -72,7 +72,7 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
   async paymentMethodsV1ConfirmCreateRaw(
     requestParameters: PaymentMethodsV1ConfirmCreateRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<void>> {
+  ): Promise<runtime.ApiResponse<StripeCardPaymentMethod>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
@@ -128,7 +128,9 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
       initOverrides
     )
 
-    return new runtime.VoidApiResponse(response)
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      StripeCardPaymentMethodFromJSON(jsonValue)
+    )
   }
 
   /**
@@ -137,11 +139,12 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
   async paymentMethodsV1ConfirmCreate(
     requestParameters: PaymentMethodsV1ConfirmCreateRequest,
     initOverrides?: RequestInit
-  ): Promise<void> {
-    await this.paymentMethodsV1ConfirmCreateRaw(
+  ): Promise<StripeCardPaymentMethod> {
+    const response = await this.paymentMethodsV1ConfirmCreateRaw(
       requestParameters,
       initOverrides
     )
+    return await response.value()
   }
 
   /**

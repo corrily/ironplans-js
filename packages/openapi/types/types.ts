@@ -1925,8 +1925,11 @@ export interface operations {
       }
     }
     responses: {
-      /** No response body */
-      200: unknown
+      200: {
+        content: {
+          'application/json': components['schemas']['StripeCardPaymentMethod']
+        }
+      }
       '4XX': {
         content: {
           'application/json': components['schemas']['Error']
