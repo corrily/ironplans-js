@@ -143,12 +143,21 @@ export interface paths {
   }
   '/plans/v1/': {
     get: operations['plans_v1_list']
-    /** Add a feature and optionally specification to a plan by specifying a `feature_id` and `spec_id` in the list of features. */
+    /**
+     * Add a feature and optionally specification to a plan by specifying a
+     * `feature_id` and `spec_id` in the list of features.
+     */
     post: operations['plans_v1_create']
   }
   '/plans/v1/{id}/': {
     get: operations['plans_v1_retrieve']
-    /** Remove a feature and spec from a plan by specifying `id` and `is_active: false` in the plan feature list in an update operation.  An empty list for PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec once created. A deactivated PlanFeature can be reactivated by setting `is_active: true`. */
+    /**
+     * Remove a feature and spec from a plan by specifying `id` and
+     * `is_active: false` in the plan feature list in an update operation.  An
+     * empty list for PUT or PATCH does nothing.  A PlanFeature cannot change
+     * which feature or spec once created. A deactivated PlanFeature can be
+     * reactivated by setting `is_active: true`
+     */
     put: operations['plans_v1_update']
     delete: operations['plans_v1_destroy']
     patch: operations['plans_v1_partial_update']
@@ -249,13 +258,20 @@ export interface paths {
     delete: operations['teams_v1_destroy']
     patch: operations['teams_v1_partial_update']
   }
-  '/teams/v1/{id}/invoices/': {
-    get: operations['teams_v1_invoices_list']
-  }
   '/teams/v1/{id}/metadata/': {
     get: operations['teams_v1_metadata_retrieve']
     post: operations['teams_v1_metadata_create']
     patch: operations['teams_v1_metadata_partial_update']
+  }
+  '/teams/v1/{team_pk}/invoices/': {
+    get: operations['teams_v1_invoices_list']
+    post: operations['teams_v1_invoices_create']
+  }
+  '/teams/v1/{team_pk}/invoices/{id}/': {
+    get: operations['teams_v1_invoices_retrieve']
+    put: operations['teams_v1_invoices_update']
+    delete: operations['teams_v1_invoices_destroy']
+    patch: operations['teams_v1_invoices_partial_update']
   }
   '/tokens/v1/': {
     /** Management of Provider Tokens. */
@@ -284,7 +300,6 @@ export interface components {
       teams: components['schemas']['Team'][] | null
     }
     AggregationEnum: 'sum' | 'last'
-    BillPeriodEnum: 'month' | 'year'
     BillingPeriodEnum: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'annually'
     BulkCreateInviteRequest: {
       sent_to_email?: string
@@ -294,30 +309,8 @@ export interface components {
       team_id: string
       to_emails: string[]
     }
-    ButtonField: {
-      text: string
-    }
-    ButtonFieldRequest: {
-      text: string
-    }
-    /** Base serializer for all actions. */
-    CancelAction: {
-      subscription_id?: string
-    }
-    /** Base serializer for all actions. */
-    CancelActionRequest: {
-      subscription_id?: string
-    }
     ClientSecret: {
       client_secret: string
-    }
-    /** Base serializer for all actions. */
-    ContactAction: {
-      url: string
-    }
-    /** Base serializer for all actions. */
-    ContactActionRequest: {
-      url: string
     }
     CreateCustomer: {
       id: string
@@ -447,6 +440,12 @@ export interface components {
       stripe_payment_id?: string | null
       total: number
     }
+    InvoiceRequest: {
+      billing_period?: components['schemas']['BillingPeriodEnum']
+      plan_name?: string
+      state: components['schemas']['StateEnum']
+      stripe_payment_id?: string | null
+    }
     IssueCustomerTokenRequest: {
       customer_id?: string
       customer_email?: string
@@ -565,6 +564,12 @@ export interface components {
       role?: components['schemas']['RoleEnum']
       team_id?: string
     }
+    PatchedInvoiceRequest: {
+      billing_period?: components['schemas']['BillingPeriodEnum']
+      plan_name?: string
+      state?: components['schemas']['StateEnum']
+      stripe_payment_id?: string | null
+    }
     PatchedMembershipRequest: {
       role?: components['schemas']['RoleEnum']
     }
@@ -639,27 +644,13 @@ export interface components {
       redirect_url?: string | null
       cta_text?: string | null
       public_cta_text?: string | null
-      replace_plan_id?: string | null
+      replace_plan_id: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null
       /** Amount in cents */
       per_month_price_cents?: number | null
       features: components['schemas']['PlanFeature'][]
       teams_access: components['schemas']['TeamAccess'][]
-      options: components['schemas']['PlanOption'][] | null
-      state: components['schemas']['PlanState'] | null
-    }
-    /** Serializer for plan actions.  Requires customer context. */
-    PlanActions: {
-      subscribe: components['schemas']['SubscribeAction']
-      contact: components['schemas']['ContactAction']
-      cancel: components['schemas']['CancelAction']
-    }
-    /** Serializer for plan actions.  Requires customer context. */
-    PlanActionsRequest: {
-      subscribe: components['schemas']['SubscribeActionRequest']
-      contact: components['schemas']['ContactActionRequest']
-      cancel: components['schemas']['CancelActionRequest']
     }
     PlanContactFormRequest: {
       email?: string
@@ -681,18 +672,6 @@ export interface components {
       display?: string | null
       sort?: number
     }
-    PlanOption: {
-      id: string
-      plan_id: string
-      bill_period: components['schemas']['BillPeriodEnum']
-      price_cents: number
-    }
-    PlanOptionRequest: {
-      id: string
-      plan_id: string
-      bill_period: components['schemas']['BillPeriodEnum']
-      price_cents: number
-    }
     PlanRequest: {
       provider_id?: string
       name: string
@@ -704,30 +683,13 @@ export interface components {
       redirect_url?: string | null
       cta_text?: string | null
       public_cta_text?: string | null
-      replace_plan_id?: string | null
+      replace_plan_id: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null
       /** Amount in cents */
       per_month_price_cents?: number | null
       features: components['schemas']['PlanFeatureRequest'][]
       teams_access: components['schemas']['TeamAccessRequest'][]
-    }
-    /**
-     * State of a plan, including possible actions and other caller context.
-     * Currently, only available to authenticated customers, support for public
-     * plans is...planned >_>
-     */
-    PlanState: {
-      actions: components['schemas']['PlanActions']
-      trial_days: number
-    }
-    /**
-     * State of a plan, including possible actions and other caller context.
-     * Currently, only available to authenticated customers, support for public
-     * plans is...planned >_>
-     */
-    PlanStateRequest: {
-      actions: components['schemas']['PlanActionsRequest']
     }
     Provider: {
       id: string
@@ -769,8 +731,6 @@ export interface components {
       op: components['schemas']['OpEnum']
       value?: number
     }
-    RequirementsEnum: 'payment_method_saved'
-    RequirementsMetEnum: 'payment_method_saved'
     RoleEnum: 'owner' | 'member'
     SetupIntentConfirmRequest: {
       stripe_setup_id: string
@@ -790,18 +750,6 @@ export interface components {
       created: number
       is_default: boolean | null
       card: components['schemas']['StripeCard']
-    }
-    /** Base serializer for all actions. */
-    SubscribeAction: {
-      requirements: components['schemas']['RequirementsEnum'][]
-      requirements_met: components['schemas']['RequirementsMetEnum'][]
-      button: components['schemas']['ButtonField']
-    }
-    /** Base serializer for all actions. */
-    SubscribeActionRequest: {
-      requirements: components['schemas']['RequirementsEnum'][]
-      requirements_met: components['schemas']['RequirementsMetEnum'][]
-      button: components['schemas']['ButtonFieldRequest']
     }
     Subscription: {
       id: string
@@ -2044,7 +1992,10 @@ export interface operations {
       }
     }
   }
-  /** Add a feature and optionally specification to a plan by specifying a `feature_id` and `spec_id` in the list of features. */
+  /**
+   * Add a feature and optionally specification to a plan by specifying a
+   * `feature_id` and `spec_id` in the list of features.
+   */
   plans_v1_create: {
     responses: {
       201: {
@@ -2076,7 +2027,13 @@ export interface operations {
       }
     }
   }
-  /** Remove a feature and spec from a plan by specifying `id` and `is_active: false` in the plan feature list in an update operation.  An empty list for PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec once created. A deactivated PlanFeature can be reactivated by setting `is_active: true`. */
+  /**
+   * Remove a feature and spec from a plan by specifying `id` and
+   * `is_active: false` in the plan feature list in an update operation.  An
+   * empty list for PUT or PATCH does nothing.  A PlanFeature cannot change
+   * which feature or spec once created. A deactivated PlanFeature can be
+   * reactivated by setting `is_active: true`
+   */
   plans_v1_update: {
     parameters: {
       path: {
@@ -2825,41 +2782,6 @@ export interface operations {
       }
     }
   }
-  teams_v1_invoices_list: {
-    parameters: {
-      path: {
-        /** A UUID string identifying this team. */
-        id: string
-      }
-      query: {
-        /** Include teams that have this key in their metadata.  Can be paired with `value`. */
-        key?: string
-        /** Number of results to return per page. */
-        limit?: number
-        /** The initial index from which to return the results. */
-        offset?: number
-        /** Include teams that have this value in their metadata.  Can be paired with `key`. */
-        value?: string
-      }
-    }
-    responses: {
-      200: {
-        content: {
-          'application/json': components['schemas']['PaginatedInvoiceList']
-        }
-      }
-      '4XX': {
-        content: {
-          'application/json': components['schemas']['Error']
-        }
-      }
-      '5XX': {
-        content: {
-          'application/json': components['schemas']['Error']
-        }
-      }
-    }
-  }
   teams_v1_metadata_retrieve: {
     parameters: {
       path: {
@@ -2952,6 +2874,182 @@ export interface operations {
         'application/json': components['schemas']['PatchedMetadataRequest']
         'application/x-www-form-urlencoded': components['schemas']['PatchedMetadataRequest']
         'multipart/form-data': components['schemas']['PatchedMetadataRequest']
+      }
+    }
+  }
+  teams_v1_invoices_list: {
+    parameters: {
+      query: {
+        /** Number of results to return per page. */
+        limit?: number
+        /** The initial index from which to return the results. */
+        offset?: number
+      }
+      path: {
+        team_pk: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['PaginatedInvoiceList']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  teams_v1_invoices_create: {
+    parameters: {
+      path: {
+        team_pk: string
+      }
+    }
+    responses: {
+      201: {
+        content: {
+          'application/json': components['schemas']['Invoice']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InvoiceRequest']
+        'application/x-www-form-urlencoded': components['schemas']['InvoiceRequest']
+        'multipart/form-data': components['schemas']['InvoiceRequest']
+      }
+    }
+  }
+  teams_v1_invoices_retrieve: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this invoice. */
+        id: string
+        team_pk: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['Invoice']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  teams_v1_invoices_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this invoice. */
+        id: string
+        team_pk: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['Invoice']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['InvoiceRequest']
+        'application/x-www-form-urlencoded': components['schemas']['InvoiceRequest']
+        'multipart/form-data': components['schemas']['InvoiceRequest']
+      }
+    }
+  }
+  teams_v1_invoices_destroy: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this invoice. */
+        id: string
+        team_pk: string
+      }
+    }
+    responses: {
+      /** No response body */
+      204: never
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  teams_v1_invoices_partial_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this invoice. */
+        id: string
+        team_pk: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['Invoice']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PatchedInvoiceRequest']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedInvoiceRequest']
+        'multipart/form-data': components['schemas']['PatchedInvoiceRequest']
       }
     }
   }

@@ -406,7 +406,7 @@ export class PlansApi extends runtime.BaseAPI {
   }
 
   /**
-   * Remove a feature and spec from a plan by specifying `id` and `is_active: false` in the plan feature list in an update operation.  An empty list for PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec once created. A deactivated PlanFeature can be reactivated by setting `is_active: true`.
+   * Remove a feature and spec from a plan by specifying `id` and `is_active: false` in the plan feature list in an update operation.  An empty list for PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec once created. A deactivated PlanFeature can be reactivated by setting `is_active: true`
    */
   async plansV1UpdateRaw(
     requestParameters: PlansV1UpdateRequest,
@@ -463,7 +463,7 @@ export class PlansApi extends runtime.BaseAPI {
   }
 
   /**
-   * Remove a feature and spec from a plan by specifying `id` and `is_active: false` in the plan feature list in an update operation.  An empty list for PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec once created. A deactivated PlanFeature can be reactivated by setting `is_active: true`.
+   * Remove a feature and spec from a plan by specifying `id` and `is_active: false` in the plan feature list in an update operation.  An empty list for PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec once created. A deactivated PlanFeature can be reactivated by setting `is_active: true`
    */
   async plansV1Update(
     requestParameters: PlansV1UpdateRequest,

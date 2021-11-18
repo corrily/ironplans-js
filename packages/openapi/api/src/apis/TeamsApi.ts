@@ -14,12 +14,21 @@
 
 import * as runtime from '../runtime'
 import {
+  Invoice,
+  InvoiceFromJSON,
+  InvoiceToJSON,
+  InvoiceRequest,
+  InvoiceRequestFromJSON,
+  InvoiceRequestToJSON,
   PaginatedInvoiceList,
   PaginatedInvoiceListFromJSON,
   PaginatedInvoiceListToJSON,
   PaginatedTeamList,
   PaginatedTeamListFromJSON,
   PaginatedTeamListToJSON,
+  PatchedInvoiceRequest,
+  PatchedInvoiceRequestFromJSON,
+  PatchedInvoiceRequestToJSON,
   PatchedTeamDetailRequest,
   PatchedTeamDetailRequestFromJSON,
   PatchedTeamDetailRequestToJSON,
@@ -39,12 +48,37 @@ export interface TeamsV1DestroyRequest {
   id: string
 }
 
-export interface TeamsV1InvoicesListRequest {
+export interface TeamsV1InvoicesCreateRequest {
+  teamPk: string
+  invoiceRequest: InvoiceRequest
+}
+
+export interface TeamsV1InvoicesDestroyRequest {
   id: string
-  key?: string
+  teamPk: string
+}
+
+export interface TeamsV1InvoicesListRequest {
+  teamPk: string
   limit?: number
   offset?: number
-  value?: string
+}
+
+export interface TeamsV1InvoicesPartialUpdateRequest {
+  id: string
+  teamPk: string
+  patchedInvoiceRequest?: PatchedInvoiceRequest
+}
+
+export interface TeamsV1InvoicesRetrieveRequest {
+  id: string
+  teamPk: string
+}
+
+export interface TeamsV1InvoicesUpdateRequest {
+  id: string
+  teamPk: string
+  invoiceRequest: InvoiceRequest
 }
 
 export interface TeamsV1ListRequest {
@@ -231,22 +265,190 @@ export class TeamsApi extends runtime.BaseAPI {
 
   /**
    */
-  async teamsV1InvoicesListRaw(
-    requestParameters: TeamsV1InvoicesListRequest,
+  async teamsV1InvoicesCreateRaw(
+    requestParameters: TeamsV1InvoicesCreateRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<PaginatedInvoiceList>> {
-    if (requestParameters.id === null || requestParameters.id === undefined) {
+  ): Promise<runtime.ApiResponse<Invoice>> {
+    if (
+      requestParameters.teamPk === null ||
+      requestParameters.teamPk === undefined
+    ) {
       throw new runtime.RequiredError(
-        'id',
-        'Required parameter requestParameters.id was null or undefined when calling teamsV1InvoicesList.'
+        'teamPk',
+        'Required parameter requestParameters.teamPk was null or undefined when calling teamsV1InvoicesCreate.'
+      )
+    }
+
+    if (
+      requestParameters.invoiceRequest === null ||
+      requestParameters.invoiceRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'invoiceRequest',
+        'Required parameter requestParameters.invoiceRequest was null or undefined when calling teamsV1InvoicesCreate.'
       )
     }
 
     const queryParameters: any = {}
 
-    if (requestParameters.key !== undefined) {
-      queryParameters['key'] = requestParameters.key
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
     }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/teams/v1/{team_pk}/invoices/`.replace(
+          `{${'team_pk'}}`,
+          encodeURIComponent(String(requestParameters.teamPk))
+        ),
+        method: 'POST',
+        headers: headerParameters,
+        query: queryParameters,
+        body: InvoiceRequestToJSON(requestParameters.invoiceRequest),
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      InvoiceFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async teamsV1InvoicesCreate(
+    requestParameters: TeamsV1InvoicesCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<Invoice> {
+    const response = await this.teamsV1InvoicesCreateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async teamsV1InvoicesDestroyRaw(
+    requestParameters: TeamsV1InvoicesDestroyRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling teamsV1InvoicesDestroy.'
+      )
+    }
+
+    if (
+      requestParameters.teamPk === null ||
+      requestParameters.teamPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'teamPk',
+        'Required parameter requestParameters.teamPk was null or undefined when calling teamsV1InvoicesDestroy.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/teams/v1/{team_pk}/invoices/{id}/`
+          .replace(
+            `{${'id'}}`,
+            encodeURIComponent(String(requestParameters.id))
+          )
+          .replace(
+            `{${'team_pk'}}`,
+            encodeURIComponent(String(requestParameters.teamPk))
+          ),
+        method: 'DELETE',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   */
+  async teamsV1InvoicesDestroy(
+    requestParameters: TeamsV1InvoicesDestroyRequest,
+    initOverrides?: RequestInit
+  ): Promise<void> {
+    await this.teamsV1InvoicesDestroyRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   */
+  async teamsV1InvoicesListRaw(
+    requestParameters: TeamsV1InvoicesListRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<PaginatedInvoiceList>> {
+    if (
+      requestParameters.teamPk === null ||
+      requestParameters.teamPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'teamPk',
+        'Required parameter requestParameters.teamPk was null or undefined when calling teamsV1InvoicesList.'
+      )
+    }
+
+    const queryParameters: any = {}
 
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit
@@ -254,10 +456,6 @@ export class TeamsApi extends runtime.BaseAPI {
 
     if (requestParameters.offset !== undefined) {
       queryParameters['offset'] = requestParameters.offset
-    }
-
-    if (requestParameters.value !== undefined) {
-      queryParameters['value'] = requestParameters.value
     }
 
     const headerParameters: runtime.HTTPHeaders = {}
@@ -288,9 +486,9 @@ export class TeamsApi extends runtime.BaseAPI {
     }
     const response = await this.request(
       {
-        path: `/teams/v1/{id}/invoices/`.replace(
-          `{${'id'}}`,
-          encodeURIComponent(String(requestParameters.id))
+        path: `/teams/v1/{team_pk}/invoices/`.replace(
+          `{${'team_pk'}}`,
+          encodeURIComponent(String(requestParameters.teamPk))
         ),
         method: 'GET',
         headers: headerParameters,
@@ -311,6 +509,285 @@ export class TeamsApi extends runtime.BaseAPI {
     initOverrides?: RequestInit
   ): Promise<PaginatedInvoiceList> {
     const response = await this.teamsV1InvoicesListRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async teamsV1InvoicesPartialUpdateRaw(
+    requestParameters: TeamsV1InvoicesPartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<Invoice>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling teamsV1InvoicesPartialUpdate.'
+      )
+    }
+
+    if (
+      requestParameters.teamPk === null ||
+      requestParameters.teamPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'teamPk',
+        'Required parameter requestParameters.teamPk was null or undefined when calling teamsV1InvoicesPartialUpdate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/teams/v1/{team_pk}/invoices/{id}/`
+          .replace(
+            `{${'id'}}`,
+            encodeURIComponent(String(requestParameters.id))
+          )
+          .replace(
+            `{${'team_pk'}}`,
+            encodeURIComponent(String(requestParameters.teamPk))
+          ),
+        method: 'PATCH',
+        headers: headerParameters,
+        query: queryParameters,
+        body: PatchedInvoiceRequestToJSON(
+          requestParameters.patchedInvoiceRequest
+        ),
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      InvoiceFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async teamsV1InvoicesPartialUpdate(
+    requestParameters: TeamsV1InvoicesPartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<Invoice> {
+    const response = await this.teamsV1InvoicesPartialUpdateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async teamsV1InvoicesRetrieveRaw(
+    requestParameters: TeamsV1InvoicesRetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<Invoice>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling teamsV1InvoicesRetrieve.'
+      )
+    }
+
+    if (
+      requestParameters.teamPk === null ||
+      requestParameters.teamPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'teamPk',
+        'Required parameter requestParameters.teamPk was null or undefined when calling teamsV1InvoicesRetrieve.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/teams/v1/{team_pk}/invoices/{id}/`
+          .replace(
+            `{${'id'}}`,
+            encodeURIComponent(String(requestParameters.id))
+          )
+          .replace(
+            `{${'team_pk'}}`,
+            encodeURIComponent(String(requestParameters.teamPk))
+          ),
+        method: 'GET',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      InvoiceFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async teamsV1InvoicesRetrieve(
+    requestParameters: TeamsV1InvoicesRetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<Invoice> {
+    const response = await this.teamsV1InvoicesRetrieveRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async teamsV1InvoicesUpdateRaw(
+    requestParameters: TeamsV1InvoicesUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<Invoice>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling teamsV1InvoicesUpdate.'
+      )
+    }
+
+    if (
+      requestParameters.teamPk === null ||
+      requestParameters.teamPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'teamPk',
+        'Required parameter requestParameters.teamPk was null or undefined when calling teamsV1InvoicesUpdate.'
+      )
+    }
+
+    if (
+      requestParameters.invoiceRequest === null ||
+      requestParameters.invoiceRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'invoiceRequest',
+        'Required parameter requestParameters.invoiceRequest was null or undefined when calling teamsV1InvoicesUpdate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/teams/v1/{team_pk}/invoices/{id}/`
+          .replace(
+            `{${'id'}}`,
+            encodeURIComponent(String(requestParameters.id))
+          )
+          .replace(
+            `{${'team_pk'}}`,
+            encodeURIComponent(String(requestParameters.teamPk))
+          ),
+        method: 'PUT',
+        headers: headerParameters,
+        query: queryParameters,
+        body: InvoiceRequestToJSON(requestParameters.invoiceRequest),
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      InvoiceFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async teamsV1InvoicesUpdate(
+    requestParameters: TeamsV1InvoicesUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<Invoice> {
+    const response = await this.teamsV1InvoicesUpdateRaw(
       requestParameters,
       initOverrides
     )
