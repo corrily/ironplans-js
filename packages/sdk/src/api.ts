@@ -62,7 +62,7 @@ export function createAPI(opts: APIOptions): IPAPI {
     apiBaseUrl,
     customers: new CustomersApi(config),
     paymentMethods: new PaymentMethodsApi(config),
-    teams: new TeamsApi(legacyConfig),
+    teams: new TeamsApi(config),
     plans: new PlansApi(legacyConfig),
     invites: new InvitesApi(legacyConfig),
     providers: new ProvidersApi(legacyConfig),
