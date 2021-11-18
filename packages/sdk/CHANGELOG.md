@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0-alpha.18](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.17...@ironplans/sdk@0.5.0-alpha.18) (2021-11-18)
+
+### Bug Fixes
+
+- update teams API in sdk to use non legacy config ([d2b4f14](https://github.com/ironplans/js/commit/d2b4f1463a319a799063a01a2c0976e39cb8a342))
+
 # [0.5.0-alpha.17](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.16...@ironplans/sdk@0.5.0-alpha.17) (2021-11-18)
 
 **Note:** Version bump only for package @ironplans/sdk
