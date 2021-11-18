@@ -14,45 +14,38 @@
 
 import { exists, mapValues } from '../runtime'
 /**
- *
+ * Base serializer for all actions.
  * @export
- * @interface TeamDetailRequest
+ * @interface CancelAction
  */
-export interface TeamDetailRequest {
+export interface CancelAction {
   /**
    *
    * @type {string}
-   * @memberof TeamDetailRequest
+   * @memberof CancelAction
    */
-  name: string
-  /**
-   *
-   * @type {boolean}
-   * @memberof TeamDetailRequest
-   */
-  isFreeTrialUsed?: boolean
+  subscriptionId?: string
 }
 
-export function TeamDetailRequestFromJSON(json: any): TeamDetailRequest {
-  return TeamDetailRequestFromJSONTyped(json, false)
+export function CancelActionFromJSON(json: any): CancelAction {
+  return CancelActionFromJSONTyped(json, false)
 }
 
-export function TeamDetailRequestFromJSONTyped(
+export function CancelActionFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): TeamDetailRequest {
+): CancelAction {
   if (json === undefined || json === null) {
     return json
   }
   return {
-    name: json['name'],
-    isFreeTrialUsed: !exists(json, 'is_free_trial_used')
+    subscriptionId: !exists(json, 'subscription_id')
       ? undefined
-      : json['is_free_trial_used'],
+      : json['subscription_id'],
   }
 }
 
-export function TeamDetailRequestToJSON(value?: TeamDetailRequest | null): any {
+export function CancelActionToJSON(value?: CancelAction | null): any {
   if (value === undefined) {
     return undefined
   }
@@ -60,7 +53,6 @@ export function TeamDetailRequestToJSON(value?: TeamDetailRequest | null): any {
     return null
   }
   return {
-    name: value.name,
-    is_free_trial_used: value.isFreeTrialUsed,
+    subscription_id: value.subscriptionId,
   }
 }

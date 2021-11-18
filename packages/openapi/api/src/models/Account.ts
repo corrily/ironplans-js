@@ -29,12 +29,6 @@ export interface Account {
   readonly id: string
   /**
    *
-   * @type {Array<Team>}
-   * @memberof Account
-   */
-  readonly teams: Array<Team>
-  /**
-   *
    * @type {string}
    * @memberof Account
    */
@@ -45,6 +39,12 @@ export interface Account {
    * @memberof Account
    */
   readonly isVerified: boolean
+  /**
+   *
+   * @type {Array<Team>}
+   * @memberof Account
+   */
+  readonly teams: Array<Team> | null
 }
 
 export function AccountFromJSON(json: any): Account {
@@ -60,9 +60,12 @@ export function AccountFromJSONTyped(
   }
   return {
     id: json['id'],
-    teams: (json['teams'] as Array<any>).map(TeamFromJSON),
     email: json['email'],
     isVerified: json['is_verified'],
+    teams:
+      json['teams'] === null
+        ? null
+        : (json['teams'] as Array<any>).map(TeamFromJSON),
   }
 }
 

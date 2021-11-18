@@ -41,13 +41,17 @@ export interface TeamsV1DestroyRequest {
 
 export interface TeamsV1InvoicesListRequest {
   id: string
+  key?: string
   limit?: number
   offset?: number
+  value?: string
 }
 
 export interface TeamsV1ListRequest {
+  key?: string
   limit?: number
   offset?: number
+  value?: string
 }
 
 export interface TeamsV1MetadataCreateRequest {
@@ -62,6 +66,8 @@ export interface TeamsV1MetadataPartialUpdateRequest {
 
 export interface TeamsV1MetadataRetrieveRequest {
   id: string
+  key?: string
+  value?: string
 }
 
 export interface TeamsV1PartialUpdateRequest {
@@ -105,13 +111,29 @@ export class TeamsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/`,
@@ -159,13 +181,29 @@ export class TeamsApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/{id}/`.replace(
@@ -206,6 +244,10 @@ export class TeamsApi extends runtime.BaseAPI {
 
     const queryParameters: any = {}
 
+    if (requestParameters.key !== undefined) {
+      queryParameters['key'] = requestParameters.key
+    }
+
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit
     }
@@ -214,16 +256,36 @@ export class TeamsApi extends runtime.BaseAPI {
       queryParameters['offset'] = requestParameters.offset
     }
 
+    if (requestParameters.value !== undefined) {
+      queryParameters['value'] = requestParameters.value
+    }
+
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/{id}/invoices/`.replace(
@@ -256,12 +318,17 @@ export class TeamsApi extends runtime.BaseAPI {
   }
 
   /**
+   * Teams can be filtered by metadata using query parameters.  Teams match if they have all of the key value pairs specified.
    */
   async teamsV1ListRaw(
     requestParameters: TeamsV1ListRequest,
     initOverrides?: RequestInit
   ): Promise<runtime.ApiResponse<PaginatedTeamList>> {
     const queryParameters: any = {}
+
+    if (requestParameters.key !== undefined) {
+      queryParameters['key'] = requestParameters.key
+    }
 
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit
@@ -271,16 +338,36 @@ export class TeamsApi extends runtime.BaseAPI {
       queryParameters['offset'] = requestParameters.offset
     }
 
+    if (requestParameters.value !== undefined) {
+      queryParameters['value'] = requestParameters.value
+    }
+
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/`,
@@ -297,6 +384,7 @@ export class TeamsApi extends runtime.BaseAPI {
   }
 
   /**
+   * Teams can be filtered by metadata using query parameters.  Teams match if they have all of the key value pairs specified.
    */
   async teamsV1List(
     requestParameters: TeamsV1ListRequest,
@@ -326,13 +414,29 @@ export class TeamsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/{id}/metadata/`.replace(
@@ -383,13 +487,29 @@ export class TeamsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/{id}/metadata/`.replace(
@@ -435,16 +555,40 @@ export class TeamsApi extends runtime.BaseAPI {
 
     const queryParameters: any = {}
 
+    if (requestParameters.key !== undefined) {
+      queryParameters['key'] = requestParameters.key
+    }
+
+    if (requestParameters.value !== undefined) {
+      queryParameters['value'] = requestParameters.value
+    }
+
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/{id}/metadata/`.replace(
@@ -494,13 +638,29 @@ export class TeamsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/{id}/`.replace(
@@ -553,13 +713,29 @@ export class TeamsApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/{id}/`.replace(
@@ -621,13 +797,29 @@ export class TeamsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/teams/v1/{id}/`.replace(

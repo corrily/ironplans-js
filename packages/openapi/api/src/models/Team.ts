@@ -45,10 +45,10 @@ export interface Team {
   readonly updatedAt: Date
   /**
    *
-   * @type {{ [key: string]: any; }}
+   * @type {any}
    * @memberof Team
    */
-  readonly metadata: { [key: string]: any }
+  readonly metadata: any
 }
 
 export function TeamFromJSON(json: any): Team {

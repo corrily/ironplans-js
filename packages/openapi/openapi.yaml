@@ -47,8 +47,8 @@ paths:
         - customers
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -87,8 +87,8 @@ paths:
         required: true
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '201':
           content:
@@ -124,8 +124,8 @@ paths:
         - customers
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -171,8 +171,8 @@ paths:
               $ref: '#/components/schemas/CustomerRequest'
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -218,8 +218,8 @@ paths:
               $ref: '#/components/schemas/PatchedCustomerRequest'
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -254,15 +254,11 @@ paths:
         - customers
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '204':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Customer'
-          description: ''
+          description: No response body
         4XX:
           content:
             application/json:
@@ -295,8 +291,8 @@ paths:
         required: true
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           description: No response body
@@ -332,8 +328,8 @@ paths:
         required: true
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -385,8 +381,8 @@ paths:
         required: true
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -414,8 +410,8 @@ paths:
         - customers
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -457,8 +453,8 @@ paths:
         required: true
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -497,8 +493,8 @@ paths:
               $ref: '#/components/schemas/IssueCustomerTokenRequest'
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -1299,8 +1295,8 @@ paths:
         - payment_methods
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -1329,8 +1325,8 @@ paths:
         - payment_methods
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '201':
           content:
@@ -1363,8 +1359,8 @@ paths:
         - payment_methods
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -1407,8 +1403,8 @@ paths:
               $ref: '#/components/schemas/UpdatePaymentMethodRequest'
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -1451,8 +1447,8 @@ paths:
               $ref: '#/components/schemas/PatchedUpdatePaymentMethodRequest'
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -1484,8 +1480,8 @@ paths:
         - payment_methods
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '204':
           content:
@@ -1531,8 +1527,8 @@ paths:
         required: true
       security:
         - private-provider-token: []
-        - jwt-token: []
-        - jwt-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -1593,9 +1589,9 @@ paths:
           description: ''
     post:
       operationId: plans_v1_create
-      description: |-
-        Add a feature and optionally specification to a plan by specifying a
-        `feature_id` and `spec_id` in the list of features.
+      description:
+        Add a feature and optionally specification to a plan by specifying
+        a `feature_id` and `spec_id` in the list of features.
       tags:
         - plans
       requestBody:
@@ -1643,12 +1639,12 @@ paths:
           description: ''
     put:
       operationId: plans_v1_update
-      description: |-
-        Remove a feature and spec from a plan by specifying `id` and
-        `is_active: false` in the plan feature list in an update operation.  An
-        empty list for PUT or PATCH does nothing.  A PlanFeature cannot change
-        which feature or spec once created. A deactivated PlanFeature can be
-        reactivated by setting `is_active: true`
+      description:
+        'Remove a feature and spec from a plan by specifying `id` and `is_active:
+        false` in the plan feature list in an update operation.  An empty list for
+        PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec
+        once created. A deactivated PlanFeature can be reactivated by setting `is_active:
+        true`.'
       parameters:
         - in: path
           name: id
@@ -2507,7 +2503,17 @@ paths:
   /teams/v1/:
     get:
       operationId: teams_v1_list
+      description:
+        Teams can be filtered by metadata using query parameters.  Teams
+        match if they have all of the key value pairs specified.
       parameters:
+        - in: query
+          name: key
+          schema:
+            type: string
+          description:
+            Include teams that have this key in their metadata.  Can be paired
+            with `value`.
         - name: limit
           required: false
           in: query
@@ -2520,16 +2526,37 @@ paths:
           description: The initial index from which to return the results.
           schema:
             type: integer
+        - in: query
+          name: value
+          schema:
+            type: string
+          description:
+            Include teams that have this value in their metadata.  Can be
+            paired with `key`.
       tags:
         - teams
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedTeamList'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     post:
       operationId: teams_v1_create
@@ -2548,13 +2575,27 @@ paths:
               $ref: '#/components/schemas/TeamDetailRequest'
         required: true
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '201':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TeamDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /teams/v1/{id}/:
     get:
@@ -2570,13 +2611,27 @@ paths:
       tags:
         - teams
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TeamDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     put:
       operationId: teams_v1_update
@@ -2603,13 +2658,27 @@ paths:
               $ref: '#/components/schemas/TeamDetailRequest'
         required: true
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TeamDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     patch:
       operationId: teams_v1_partial_update
@@ -2635,13 +2704,27 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedTeamDetailRequest'
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TeamDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     delete:
       operationId: teams_v1_destroy
@@ -2656,10 +2739,24 @@ paths:
       tags:
         - teams
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '204':
           description: No response body
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /teams/v1/{id}/invoices/:
     get:
       operationId: teams_v1_invoices_list
@@ -2671,6 +2768,13 @@ paths:
             format: uuid
           description: A UUID string identifying this team.
           required: true
+        - in: query
+          name: key
+          schema:
+            type: string
+          description:
+            Include teams that have this key in their metadata.  Can be paired
+            with `value`.
         - name: limit
           required: false
           in: query
@@ -2683,16 +2787,37 @@ paths:
           description: The initial index from which to return the results.
           schema:
             type: integer
+        - in: query
+          name: value
+          schema:
+            type: string
+          description:
+            Include teams that have this value in their metadata.  Can be
+            paired with `key`.
       tags:
         - teams
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedInvoiceList'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /teams/v1/{id}/metadata/:
     get:
@@ -2705,32 +2830,42 @@ paths:
             format: uuid
           description: A UUID string identifying this team.
           required: true
+        - in: query
+          name: key
+          schema:
+            type: string
+          description: Include only metadata with these keys.
+          explode: true
+        - in: query
+          name: value
+          schema:
+            type: string
+          description: Include only metadata with these values.
+          explode: true
       tags:
         - teams
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                type: object
-                description:
-                  String to string mapping.  Keys may be up to 128 bytes
-                  and values may be up to 512 bytes.
-                additionalProperties:
-                  type: string
+                $ref: '#/components/schemas/Metadata'
           description: ''
-        '201':
+        4XX:
           content:
             application/json:
               schema:
-                type: object
-                description:
-                  String to string mapping.  Keys may be up to 128 bytes
-                  and values may be up to 512 bytes.
-                additionalProperties:
-                  type: string
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     post:
       operationId: teams_v1_metadata_create
@@ -2748,36 +2883,35 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              description:
-                String to string mapping.  Keys may be up to 128 bytes
-                and values may be up to 512 bytes.
-              additionalProperties:
-                type: string
+              $ref: '#/components/schemas/MetadataRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MetadataRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MetadataRequest'
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                type: object
-                description:
-                  String to string mapping.  Keys may be up to 128 bytes
-                  and values may be up to 512 bytes.
-                additionalProperties:
-                  type: string
+                $ref: '#/components/schemas/Metadata'
           description: ''
-        '201':
+        4XX:
           content:
             application/json:
               schema:
-                type: object
-                description:
-                  String to string mapping.  Keys may be up to 128 bytes
-                  and values may be up to 512 bytes.
-                additionalProperties:
-                  type: string
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     patch:
       operationId: teams_v1_metadata_partial_update
@@ -2795,36 +2929,35 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              description:
-                String to string mapping.  Keys may be up to 128 bytes
-                and values may be up to 512 bytes.
-              additionalProperties:
-                type: string
+              $ref: '#/components/schemas/PatchedMetadataRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMetadataRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMetadataRequest'
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                type: object
-                description:
-                  String to string mapping.  Keys may be up to 128 bytes
-                  and values may be up to 512 bytes.
-                additionalProperties:
-                  type: string
+                $ref: '#/components/schemas/Metadata'
           description: ''
-        '201':
+        4XX:
           content:
             application/json:
               schema:
-                type: object
-                description:
-                  String to string mapping.  Keys may be up to 128 bytes
-                  and values may be up to 512 bytes.
-                additionalProperties:
-                  type: string
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /tokens/v1/:
     get:
@@ -3003,12 +3136,6 @@ components:
           type: string
           format: uuid
           readOnly: true
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-          readOnly: true
-          default: []
         email:
           type: string
           format: email
@@ -3016,6 +3143,12 @@ components:
         is_verified:
           type: boolean
           readOnly: true
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+          readOnly: true
+          nullable: true
       required:
         - email
         - id
@@ -3025,6 +3158,11 @@ components:
       enum:
         - sum
         - last
+      type: string
+    BillPeriodEnum:
+      enum:
+        - month
+        - year
       type: string
     BillingPeriodEnum:
       enum:
@@ -3040,6 +3178,7 @@ components:
         sent_to_email:
           type: string
           format: email
+          minLength: 1
         is_claimed:
           type: boolean
         expires_at:
@@ -3055,9 +3194,39 @@ components:
           items:
             type: string
             format: email
+            minLength: 1
       required:
         - team_id
         - to_emails
+    ButtonField:
+      type: object
+      properties:
+        text:
+          type: string
+      required:
+        - text
+    ButtonFieldRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+      required:
+        - text
+    CancelAction:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        subscription_id:
+          type: string
+          format: uuid
+    CancelActionRequest:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        subscription_id:
+          type: string
+          format: uuid
     ClientSecret:
       type: object
       properties:
@@ -3065,6 +3234,25 @@ components:
           type: string
       required:
         - client_secret
+    ContactAction:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        url:
+          type: string
+          format: uri
+      required:
+        - url
+    ContactActionRequest:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        url:
+          type: string
+          format: uri
+          minLength: 1
+      required:
+        - url
     CreateCustomer:
       type: object
       properties:
@@ -3102,6 +3290,7 @@ components:
           $ref: '#/components/schemas/IdentityRequest'
         source_id:
           type: string
+          minLength: 1
       required:
         - identity
     CreateMembershipRequest:
@@ -3124,8 +3313,10 @@ components:
         email:
           type: string
           format: email
+          minLength: 1
         source_id:
           type: string
+          minLength: 1
       required:
         - team_id
     Customer:
@@ -3162,8 +3353,10 @@ components:
       properties:
         stripe_setup_id:
           type: string
+          minLength: 1
         payment_method_id:
           type: string
+          minLength: 1
       required:
         - payment_method_id
         - stripe_setup_id
@@ -3184,6 +3377,7 @@ components:
       properties:
         source_id:
           type: string
+          minLength: 1
     CustomerTokenResponse:
       type: object
       properties:
@@ -3293,6 +3487,7 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
           maxLength: 128
         record_period:
           allOf:
@@ -3326,6 +3521,7 @@ components:
       properties:
         id_token:
           type: string
+          minLength: 1
       required:
         - id_token
     Identity:
@@ -3342,6 +3538,7 @@ components:
         email:
           type: string
           format: email
+          minLength: 1
       required:
         - email
     InnerError:
@@ -3399,6 +3596,7 @@ components:
       properties:
         sent_to_email:
           type: string
+          minLength: 1
           maxLength: 128
         is_claimed:
           type: boolean
@@ -3467,8 +3665,10 @@ components:
         customer_email:
           type: string
           format: email
+          minLength: 1
         customer_source_id:
           type: string
+          minLength: 1
     Membership:
       type: object
       properties:
@@ -3502,6 +3702,22 @@ components:
           $ref: '#/components/schemas/RoleEnum'
       required:
         - role
+    Metadata:
+      type: object
+      description:
+        String to string mapping.  Keys may be up to 128 bytes and values
+        may be up to 512 bytes.
+      additionalProperties:
+        type: string
+        pattern: ^[a-zA-Z0-9_\-]{1,512}$
+    MetadataRequest:
+      type: object
+      description:
+        String to string mapping.  Keys may be up to 128 bytes and values
+        may be up to 512 bytes.
+      additionalProperties:
+        type: string
+        pattern: ^[a-zA-Z0-9_\-]{1,512}$
     OpEnum:
       enum:
         - inc
@@ -3754,6 +3970,7 @@ components:
       properties:
         source_id:
           type: string
+          minLength: 1
     PatchedFeatureRequest:
       type: object
       properties:
@@ -3777,6 +3994,7 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
           maxLength: 128
         record_period:
           allOf:
@@ -3808,6 +4026,7 @@ components:
       properties:
         sent_to_email:
           type: string
+          minLength: 1
           maxLength: 128
         is_claimed:
           type: boolean
@@ -3824,6 +4043,14 @@ components:
       properties:
         role:
           $ref: '#/components/schemas/RoleEnum'
+    PatchedMetadataRequest:
+      type: object
+      description:
+        String to string mapping.  Keys may be up to 128 bytes and values
+        may be up to 512 bytes.
+      additionalProperties:
+        type: string
+        pattern: ^[a-zA-Z0-9_\-]{1,512}$
     PatchedPlanRequest:
       type: object
       properties:
@@ -3832,6 +4059,7 @@ components:
           format: uuid
         name:
           type: string
+          minLength: 1
           maxLength: 32
         tier:
           type: integer
@@ -3895,9 +4123,11 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
           maxLength: 64
         slug:
           type: string
+          minLength: 1
           pattern: ^[a-z]+[0-9]*(?:-[a-z0-9]+)*$
         auth_url:
           type: string
@@ -3960,13 +4190,9 @@ components:
     PatchedTeamDetailRequest:
       type: object
       properties:
-        provider_id:
-          type: string
-          format: uuid
         name:
           type: string
-          nullable: true
-          maxLength: 128
+          minLength: 1
         is_free_trial_used:
           type: boolean
     PatchedTokenRequest:
@@ -4055,6 +4281,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TeamAccess'
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanOption'
+          readOnly: true
+          nullable: true
+        state:
+          allOf:
+            - $ref: '#/components/schemas/PlanState'
+          readOnly: true
+          nullable: true
       required:
         - features
         - id
@@ -4063,8 +4300,37 @@ components:
         - is_public
         - is_trial_allowed
         - name
-        - replace_plan_id
+        - options
+        - state
         - teams_access
+    PlanActions:
+      type: object
+      description: Serializer for plan actions.  Requires customer context.
+      properties:
+        subscribe:
+          $ref: '#/components/schemas/SubscribeAction'
+        contact:
+          $ref: '#/components/schemas/ContactAction'
+        cancel:
+          $ref: '#/components/schemas/CancelAction'
+      required:
+        - cancel
+        - contact
+        - subscribe
+    PlanActionsRequest:
+      type: object
+      description: Serializer for plan actions.  Requires customer context.
+      properties:
+        subscribe:
+          $ref: '#/components/schemas/SubscribeActionRequest'
+        contact:
+          $ref: '#/components/schemas/ContactActionRequest'
+        cancel:
+          $ref: '#/components/schemas/CancelActionRequest'
+      required:
+        - cancel
+        - contact
+        - subscribe
     PlanContactFormRequest:
       type: object
       properties:
@@ -4121,6 +4387,44 @@ components:
         sort:
           type: integer
           default: 0
+    PlanOption:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        plan_id:
+          type: string
+          format: uuid
+        bill_period:
+          $ref: '#/components/schemas/BillPeriodEnum'
+        price_cents:
+          type: integer
+          minimum: 0
+      required:
+        - bill_period
+        - id
+        - plan_id
+        - price_cents
+    PlanOptionRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        plan_id:
+          type: string
+          format: uuid
+        bill_period:
+          $ref: '#/components/schemas/BillPeriodEnum'
+        price_cents:
+          type: integer
+          minimum: 0
+      required:
+        - bill_period
+        - id
+        - plan_id
+        - price_cents
     PlanRequest:
       type: object
       properties:
@@ -4129,6 +4433,7 @@ components:
           format: uuid
         name:
           type: string
+          minLength: 1
           maxLength: 32
         tier:
           type: integer
@@ -4185,8 +4490,33 @@ components:
         - is_public
         - is_trial_allowed
         - name
-        - replace_plan_id
         - teams_access
+    PlanState:
+      type: object
+      description: |-
+        State of a plan, including possible actions and other caller context.
+        Currently, only available to authenticated customers, support for public
+        plans is...planned >_>
+      properties:
+        actions:
+          $ref: '#/components/schemas/PlanActions'
+        trial_days:
+          type: integer
+          readOnly: true
+      required:
+        - actions
+        - trial_days
+    PlanStateRequest:
+      type: object
+      description: |-
+        State of a plan, including possible actions and other caller context.
+        Currently, only available to authenticated customers, support for public
+        plans is...planned >_>
+      properties:
+        actions:
+          $ref: '#/components/schemas/PlanActionsRequest'
+      required:
+        - actions
     Provider:
       type: object
       properties:
@@ -4271,9 +4601,11 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
           maxLength: 64
         slug:
           type: string
+          minLength: 1
           pattern: ^[a-z]+[0-9]*(?:-[a-z0-9]+)*$
         auth_url:
           type: string
@@ -4341,6 +4673,7 @@ components:
       properties:
         slug:
           type: string
+          minLength: 1
           pattern: ^[-a-zA-Z0-9_]+$
         op:
           $ref: '#/components/schemas/OpEnum'
@@ -4350,6 +4683,14 @@ components:
       required:
         - op
         - slug
+    RequirementsEnum:
+      enum:
+        - payment_method_saved
+      type: string
+    RequirementsMetEnum:
+      enum:
+        - payment_method_saved
+      type: string
     RoleEnum:
       enum:
         - owner
@@ -4360,6 +4701,7 @@ components:
       properties:
         stripe_setup_id:
           type: string
+          minLength: 1
       required:
         - stripe_setup_id
     Slug:
@@ -4404,11 +4746,56 @@ components:
         id:
           type: string
           readOnly: true
+        created:
+          type: integer
+          readOnly: true
+        is_default:
+          type: boolean
+          readOnly: true
+          nullable: true
         card:
           $ref: '#/components/schemas/StripeCard'
       required:
         - card
+        - created
         - id
+        - is_default
+    SubscribeAction:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        requirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequirementsEnum'
+        requirements_met:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequirementsMetEnum'
+        button:
+          $ref: '#/components/schemas/ButtonField'
+      required:
+        - button
+        - requirements
+        - requirements_met
+    SubscribeActionRequest:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        requirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequirementsEnum'
+        requirements_met:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequirementsMetEnum'
+        button:
+          $ref: '#/components/schemas/ButtonFieldRequest'
+      required:
+        - button
+        - requirements
+        - requirements_met
     Subscription:
       type: object
       properties:
@@ -4576,8 +4963,8 @@ components:
           format: date-time
           readOnly: true
         metadata:
-          type: object
-          additionalProperties: {}
+          allOf:
+            - $ref: '#/components/schemas/Metadata'
           readOnly: true
       required:
         - created_at
@@ -4608,6 +4995,7 @@ components:
           format: uuid
         name:
           type: string
+          minLength: 1
         revoke:
           type: boolean
           writeOnly: true
@@ -4621,13 +5009,18 @@ components:
           type: string
           format: uuid
           readOnly: true
-        provider_id:
+        created_at:
           type: string
-          format: uuid
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
         name:
           type: string
-          nullable: true
-          maxLength: 128
+        is_free_trial_used:
+          type: boolean
         members:
           type: array
           items:
@@ -4648,23 +5041,17 @@ components:
           items:
             $ref: '#/components/schemas/Plan'
           readOnly: true
-        is_free_trial_used:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
         metadata:
-          type: object
-          additionalProperties: {}
+          allOf:
+            - $ref: '#/components/schemas/Metadata'
           readOnly: true
           nullable: true
         total_credits:
           type: integer
+          readOnly: true
+        provider_id:
+          type: string
+          format: uuid
           readOnly: true
       required:
         - available_plans
@@ -4674,19 +5061,16 @@ components:
         - members
         - metadata
         - name
+        - provider_id
         - subscription
         - total_credits
         - updated_at
     TeamDetailRequest:
       type: object
       properties:
-        provider_id:
-          type: string
-          format: uuid
         name:
           type: string
-          nullable: true
-          maxLength: 128
+          minLength: 1
         is_free_trial_used:
           type: boolean
       required:
@@ -4779,7 +5163,10 @@ components:
       required:
         - exceeded
   securitySchemes:
-    jwt-token:
+    auth0-token:
+      type: http
+      scheme: bearer
+    customer-token:
       type: http
       scheme: bearer
     oauth2-deprecated:

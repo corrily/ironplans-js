@@ -129,7 +129,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -194,7 +202,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -246,7 +262,7 @@ export class CustomersApi extends runtime.BaseAPI {
   async customersV1DestroyRaw(
     requestParameters: CustomersV1DestroyRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<Customer>> {
+  ): Promise<runtime.ApiResponse<void>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
@@ -260,7 +276,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -287,9 +311,7 @@ export class CustomersApi extends runtime.BaseAPI {
       initOverrides
     )
 
-    return new runtime.JSONApiResponse(response, (jsonValue) =>
-      CustomerFromJSON(jsonValue)
-    )
+    return new runtime.VoidApiResponse(response)
   }
 
   /**
@@ -298,12 +320,8 @@ export class CustomersApi extends runtime.BaseAPI {
   async customersV1Destroy(
     requestParameters: CustomersV1DestroyRequest,
     initOverrides?: RequestInit
-  ): Promise<Customer> {
-    const response = await this.customersV1DestroyRaw(
-      requestParameters,
-      initOverrides
-    )
-    return await response.value()
+  ): Promise<void> {
+    await this.customersV1DestroyRaw(requestParameters, initOverrides)
   }
 
   /**
@@ -331,7 +349,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -399,7 +425,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -467,7 +501,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -541,7 +583,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -599,7 +649,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -658,7 +716,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -729,7 +795,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -790,7 +864,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -858,7 +940,15 @@ export class CustomersApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`

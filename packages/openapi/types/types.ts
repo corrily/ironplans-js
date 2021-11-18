@@ -143,21 +143,12 @@ export interface paths {
   }
   '/plans/v1/': {
     get: operations['plans_v1_list']
-    /**
-     * Add a feature and optionally specification to a plan by specifying a
-     * `feature_id` and `spec_id` in the list of features.
-     */
+    /** Add a feature and optionally specification to a plan by specifying a `feature_id` and `spec_id` in the list of features. */
     post: operations['plans_v1_create']
   }
   '/plans/v1/{id}/': {
     get: operations['plans_v1_retrieve']
-    /**
-     * Remove a feature and spec from a plan by specifying `id` and
-     * `is_active: false` in the plan feature list in an update operation.  An
-     * empty list for PUT or PATCH does nothing.  A PlanFeature cannot change
-     * which feature or spec once created. A deactivated PlanFeature can be
-     * reactivated by setting `is_active: true`
-     */
+    /** Remove a feature and spec from a plan by specifying `id` and `is_active: false` in the plan feature list in an update operation.  An empty list for PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec once created. A deactivated PlanFeature can be reactivated by setting `is_active: true`. */
     put: operations['plans_v1_update']
     delete: operations['plans_v1_destroy']
     patch: operations['plans_v1_partial_update']
@@ -248,6 +239,7 @@ export interface paths {
     patch: operations['team_memberships_v1_partial_update']
   }
   '/teams/v1/': {
+    /** Teams can be filtered by metadata using query parameters.  Teams match if they have all of the key value pairs specified. */
     get: operations['teams_v1_list']
     post: operations['teams_v1_create']
   }
@@ -287,11 +279,12 @@ export interface components {
   schemas: {
     Account: {
       id: string
-      teams: components['schemas']['Team'][]
       email: string
       is_verified: boolean
+      teams: components['schemas']['Team'][] | null
     }
     AggregationEnum: 'sum' | 'last'
+    BillPeriodEnum: 'month' | 'year'
     BillingPeriodEnum: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'annually'
     BulkCreateInviteRequest: {
       sent_to_email?: string
@@ -301,8 +294,30 @@ export interface components {
       team_id: string
       to_emails: string[]
     }
+    ButtonField: {
+      text: string
+    }
+    ButtonFieldRequest: {
+      text: string
+    }
+    /** Base serializer for all actions. */
+    CancelAction: {
+      subscription_id?: string
+    }
+    /** Base serializer for all actions. */
+    CancelActionRequest: {
+      subscription_id?: string
+    }
     ClientSecret: {
       client_secret: string
+    }
+    /** Base serializer for all actions. */
+    ContactAction: {
+      url: string
+    }
+    /** Base serializer for all actions. */
+    ContactActionRequest: {
+      url: string
     }
     CreateCustomer: {
       id: string
@@ -447,6 +462,10 @@ export interface components {
     MembershipRequest: {
       role: components['schemas']['RoleEnum']
     }
+    /** String to string mapping.  Keys may be up to 128 bytes and values may be up to 512 bytes. */
+    Metadata: { [key: string]: string }
+    /** String to string mapping.  Keys may be up to 128 bytes and values may be up to 512 bytes. */
+    MetadataRequest: { [key: string]: string }
     OpEnum: 'inc' | 'dec' | 'set' | 'reset'
     PaginatedCustomerList: {
       count?: number
@@ -549,6 +568,8 @@ export interface components {
     PatchedMembershipRequest: {
       role?: components['schemas']['RoleEnum']
     }
+    /** String to string mapping.  Keys may be up to 128 bytes and values may be up to 512 bytes. */
+    PatchedMetadataRequest: { [key: string]: string }
     PatchedPlanRequest: {
       provider_id?: string
       name?: string
@@ -593,8 +614,7 @@ export interface components {
       cancel_on?: string | null
     }
     PatchedTeamDetailRequest: {
-      provider_id?: string
-      name?: string | null
+      name?: string
       is_free_trial_used?: boolean
     }
     PatchedTokenRequest: {
@@ -619,13 +639,27 @@ export interface components {
       redirect_url?: string | null
       cta_text?: string | null
       public_cta_text?: string | null
-      replace_plan_id: string | null
+      replace_plan_id?: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null
       /** Amount in cents */
       per_month_price_cents?: number | null
       features: components['schemas']['PlanFeature'][]
       teams_access: components['schemas']['TeamAccess'][]
+      options: components['schemas']['PlanOption'][] | null
+      state: components['schemas']['PlanState'] | null
+    }
+    /** Serializer for plan actions.  Requires customer context. */
+    PlanActions: {
+      subscribe: components['schemas']['SubscribeAction']
+      contact: components['schemas']['ContactAction']
+      cancel: components['schemas']['CancelAction']
+    }
+    /** Serializer for plan actions.  Requires customer context. */
+    PlanActionsRequest: {
+      subscribe: components['schemas']['SubscribeActionRequest']
+      contact: components['schemas']['ContactActionRequest']
+      cancel: components['schemas']['CancelActionRequest']
     }
     PlanContactFormRequest: {
       email?: string
@@ -647,6 +681,18 @@ export interface components {
       display?: string | null
       sort?: number
     }
+    PlanOption: {
+      id: string
+      plan_id: string
+      bill_period: components['schemas']['BillPeriodEnum']
+      price_cents: number
+    }
+    PlanOptionRequest: {
+      id: string
+      plan_id: string
+      bill_period: components['schemas']['BillPeriodEnum']
+      price_cents: number
+    }
     PlanRequest: {
       provider_id?: string
       name: string
@@ -658,13 +704,30 @@ export interface components {
       redirect_url?: string | null
       cta_text?: string | null
       public_cta_text?: string | null
-      replace_plan_id: string | null
+      replace_plan_id?: string | null
       /** Amount in cents */
       per_year_price_cents?: number | null
       /** Amount in cents */
       per_month_price_cents?: number | null
       features: components['schemas']['PlanFeatureRequest'][]
       teams_access: components['schemas']['TeamAccessRequest'][]
+    }
+    /**
+     * State of a plan, including possible actions and other caller context.
+     * Currently, only available to authenticated customers, support for public
+     * plans is...planned >_>
+     */
+    PlanState: {
+      actions: components['schemas']['PlanActions']
+      trial_days: number
+    }
+    /**
+     * State of a plan, including possible actions and other caller context.
+     * Currently, only available to authenticated customers, support for public
+     * plans is...planned >_>
+     */
+    PlanStateRequest: {
+      actions: components['schemas']['PlanActionsRequest']
     }
     Provider: {
       id: string
@@ -706,6 +769,8 @@ export interface components {
       op: components['schemas']['OpEnum']
       value?: number
     }
+    RequirementsEnum: 'payment_method_saved'
+    RequirementsMetEnum: 'payment_method_saved'
     RoleEnum: 'owner' | 'member'
     SetupIntentConfirmRequest: {
       stripe_setup_id: string
@@ -722,7 +787,21 @@ export interface components {
     }
     StripeCardPaymentMethod: {
       id: string
+      created: number
+      is_default: boolean | null
       card: components['schemas']['StripeCard']
+    }
+    /** Base serializer for all actions. */
+    SubscribeAction: {
+      requirements: components['schemas']['RequirementsEnum'][]
+      requirements_met: components['schemas']['RequirementsMetEnum'][]
+      button: components['schemas']['ButtonField']
+    }
+    /** Base serializer for all actions. */
+    SubscribeActionRequest: {
+      requirements: components['schemas']['RequirementsEnum'][]
+      requirements_met: components['schemas']['RequirementsMetEnum'][]
+      button: components['schemas']['ButtonFieldRequest']
     }
     Subscription: {
       id: string
@@ -766,7 +845,7 @@ export interface components {
       name?: string | null
       created_at: string
       updated_at: string
-      metadata: { [key: string]: any }
+      metadata: components['schemas']['Metadata']
     }
     TeamAccess: {
       id?: string
@@ -781,21 +860,20 @@ export interface components {
     }
     TeamDetail: {
       id: string
-      provider_id?: string
-      name: string | null
+      created_at: string
+      updated_at: string
+      name: string
+      is_free_trial_used?: boolean
       members: components['schemas']['Membership'][]
       invites: components['schemas']['Invite'][]
       subscription: components['schemas']['SubscriptionDetail'] | null
       available_plans: components['schemas']['Plan'][]
-      is_free_trial_used?: boolean
-      created_at: string
-      updated_at: string
-      metadata: { [key: string]: any } | null
+      metadata: components['schemas']['Metadata'] | null
       total_credits: number
+      provider_id: string
     }
     TeamDetailRequest: {
-      provider_id?: string
-      name: string | null
+      name: string
       is_free_trial_used?: boolean
     }
     TeamViaMembership: {
@@ -971,11 +1049,8 @@ export interface operations {
       }
     }
     responses: {
-      204: {
-        content: {
-          'application/json': components['schemas']['Customer']
-        }
-      }
+      /** No response body */
+      204: never
       '4XX': {
         content: {
           'application/json': components['schemas']['Error']
@@ -1969,10 +2044,7 @@ export interface operations {
       }
     }
   }
-  /**
-   * Add a feature and optionally specification to a plan by specifying a
-   * `feature_id` and `spec_id` in the list of features.
-   */
+  /** Add a feature and optionally specification to a plan by specifying a `feature_id` and `spec_id` in the list of features. */
   plans_v1_create: {
     responses: {
       201: {
@@ -2004,13 +2076,7 @@ export interface operations {
       }
     }
   }
-  /**
-   * Remove a feature and spec from a plan by specifying `id` and
-   * `is_active: false` in the plan feature list in an update operation.  An
-   * empty list for PUT or PATCH does nothing.  A PlanFeature cannot change
-   * which feature or spec once created. A deactivated PlanFeature can be
-   * reactivated by setting `is_active: true`
-   */
+  /** Remove a feature and spec from a plan by specifying `id` and `is_active: false` in the plan feature list in an update operation.  An empty list for PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec once created. A deactivated PlanFeature can be reactivated by setting `is_active: true`. */
   plans_v1_update: {
     parameters: {
       path: {
@@ -2590,19 +2656,34 @@ export interface operations {
       }
     }
   }
+  /** Teams can be filtered by metadata using query parameters.  Teams match if they have all of the key value pairs specified. */
   teams_v1_list: {
     parameters: {
       query: {
+        /** Include teams that have this key in their metadata.  Can be paired with `value`. */
+        key?: string
         /** Number of results to return per page. */
         limit?: number
         /** The initial index from which to return the results. */
         offset?: number
+        /** Include teams that have this value in their metadata.  Can be paired with `key`. */
+        value?: string
       }
     }
     responses: {
       200: {
         content: {
           'application/json': components['schemas']['PaginatedTeamList']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -2612,6 +2693,16 @@ export interface operations {
       201: {
         content: {
           'application/json': components['schemas']['TeamDetail']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -2636,6 +2727,16 @@ export interface operations {
           'application/json': components['schemas']['TeamDetail']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
   teams_v1_update: {
@@ -2649,6 +2750,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['TeamDetail']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -2670,6 +2781,16 @@ export interface operations {
     responses: {
       /** No response body */
       204: never
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
   teams_v1_partial_update: {
@@ -2683,6 +2804,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['TeamDetail']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -2701,16 +2832,30 @@ export interface operations {
         id: string
       }
       query: {
+        /** Include teams that have this key in their metadata.  Can be paired with `value`. */
+        key?: string
         /** Number of results to return per page. */
         limit?: number
         /** The initial index from which to return the results. */
         offset?: number
+        /** Include teams that have this value in their metadata.  Can be paired with `key`. */
+        value?: string
       }
     }
     responses: {
       200: {
         content: {
           'application/json': components['schemas']['PaginatedInvoiceList']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -2721,16 +2866,27 @@ export interface operations {
         /** A UUID string identifying this team. */
         id: string
       }
+      query: {
+        /** Include only metadata with these keys. */
+        key?: string
+        /** Include only metadata with these values. */
+        value?: string
+      }
     }
     responses: {
       200: {
         content: {
-          'application/json': { [key: string]: string }
+          'application/json': components['schemas']['Metadata']
         }
       }
-      201: {
+      '4XX': {
         content: {
-          'application/json': { [key: string]: string }
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -2745,18 +2901,25 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': { [key: string]: string }
+          'application/json': components['schemas']['Metadata']
         }
       }
-      201: {
+      '4XX': {
         content: {
-          'application/json': { [key: string]: string }
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
     requestBody: {
       content: {
-        'application/json': { [key: string]: string }
+        'application/json': components['schemas']['MetadataRequest']
+        'application/x-www-form-urlencoded': components['schemas']['MetadataRequest']
+        'multipart/form-data': components['schemas']['MetadataRequest']
       }
     }
   }
@@ -2770,18 +2933,25 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': { [key: string]: string }
+          'application/json': components['schemas']['Metadata']
         }
       }
-      201: {
+      '4XX': {
         content: {
-          'application/json': { [key: string]: string }
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
     requestBody: {
       content: {
-        'application/json': { [key: string]: string }
+        'application/json': components['schemas']['PatchedMetadataRequest']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedMetadataRequest']
+        'multipart/form-data': components['schemas']['PatchedMetadataRequest']
       }
     }
   }

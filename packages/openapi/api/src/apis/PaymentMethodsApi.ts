@@ -98,7 +98,15 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -159,7 +167,15 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -217,7 +233,15 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -282,7 +306,15 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -345,7 +377,15 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -412,7 +452,15 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`
@@ -478,7 +526,15 @@ export class PaymentMethodsApi extends runtime.BaseAPI {
 
     if (this.configuration && this.configuration.accessToken) {
       const token = this.configuration.accessToken
-      const tokenString = await token('jwt-token', [])
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
 
       if (tokenString) {
         headerParameters['Authorization'] = `Bearer ${tokenString}`

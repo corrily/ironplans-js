@@ -95,7 +95,7 @@ export interface PlanRequest {
    * @type {string}
    * @memberof PlanRequest
    */
-  replacePlanId: string | null
+  replacePlanId?: string | null
   /**
    * Amount in cents
    * @type {number}
@@ -150,7 +150,9 @@ export function PlanRequestFromJSONTyped(
     publicCtaText: !exists(json, 'public_cta_text')
       ? undefined
       : json['public_cta_text'],
-    replacePlanId: json['replace_plan_id'],
+    replacePlanId: !exists(json, 'replace_plan_id')
+      ? undefined
+      : json['replace_plan_id'],
     perYearPriceCents: !exists(json, 'per_year_price_cents')
       ? undefined
       : json['per_year_price_cents'],

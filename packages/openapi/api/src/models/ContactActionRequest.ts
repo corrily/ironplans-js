@@ -14,45 +14,38 @@
 
 import { exists, mapValues } from '../runtime'
 /**
- *
+ * Base serializer for all actions.
  * @export
- * @interface TeamDetailRequest
+ * @interface ContactActionRequest
  */
-export interface TeamDetailRequest {
+export interface ContactActionRequest {
   /**
    *
    * @type {string}
-   * @memberof TeamDetailRequest
+   * @memberof ContactActionRequest
    */
-  name: string
-  /**
-   *
-   * @type {boolean}
-   * @memberof TeamDetailRequest
-   */
-  isFreeTrialUsed?: boolean
+  url: string
 }
 
-export function TeamDetailRequestFromJSON(json: any): TeamDetailRequest {
-  return TeamDetailRequestFromJSONTyped(json, false)
+export function ContactActionRequestFromJSON(json: any): ContactActionRequest {
+  return ContactActionRequestFromJSONTyped(json, false)
 }
 
-export function TeamDetailRequestFromJSONTyped(
+export function ContactActionRequestFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): TeamDetailRequest {
+): ContactActionRequest {
   if (json === undefined || json === null) {
     return json
   }
   return {
-    name: json['name'],
-    isFreeTrialUsed: !exists(json, 'is_free_trial_used')
-      ? undefined
-      : json['is_free_trial_used'],
+    url: json['url'],
   }
 }
 
-export function TeamDetailRequestToJSON(value?: TeamDetailRequest | null): any {
+export function ContactActionRequestToJSON(
+  value?: ContactActionRequest | null
+): any {
   if (value === undefined) {
     return undefined
   }
@@ -60,7 +53,6 @@ export function TeamDetailRequestToJSON(value?: TeamDetailRequest | null): any {
     return null
   }
   return {
-    name: value.name,
-    is_free_trial_used: value.isFreeTrialUsed,
+    url: value.url,
   }
 }

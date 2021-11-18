@@ -16,43 +16,36 @@ import { exists, mapValues } from '../runtime'
 /**
  *
  * @export
- * @interface TeamDetailRequest
+ * @interface ButtonFieldRequest
  */
-export interface TeamDetailRequest {
+export interface ButtonFieldRequest {
   /**
    *
    * @type {string}
-   * @memberof TeamDetailRequest
+   * @memberof ButtonFieldRequest
    */
-  name: string
-  /**
-   *
-   * @type {boolean}
-   * @memberof TeamDetailRequest
-   */
-  isFreeTrialUsed?: boolean
+  text: string
 }
 
-export function TeamDetailRequestFromJSON(json: any): TeamDetailRequest {
-  return TeamDetailRequestFromJSONTyped(json, false)
+export function ButtonFieldRequestFromJSON(json: any): ButtonFieldRequest {
+  return ButtonFieldRequestFromJSONTyped(json, false)
 }
 
-export function TeamDetailRequestFromJSONTyped(
+export function ButtonFieldRequestFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): TeamDetailRequest {
+): ButtonFieldRequest {
   if (json === undefined || json === null) {
     return json
   }
   return {
-    name: json['name'],
-    isFreeTrialUsed: !exists(json, 'is_free_trial_used')
-      ? undefined
-      : json['is_free_trial_used'],
+    text: json['text'],
   }
 }
 
-export function TeamDetailRequestToJSON(value?: TeamDetailRequest | null): any {
+export function ButtonFieldRequestToJSON(
+  value?: ButtonFieldRequest | null
+): any {
   if (value === undefined) {
     return undefined
   }
@@ -60,7 +53,6 @@ export function TeamDetailRequestToJSON(value?: TeamDetailRequest | null): any {
     return null
   }
   return {
-    name: value.name,
-    is_free_trial_used: value.isFreeTrialUsed,
+    text: value.text,
   }
 }

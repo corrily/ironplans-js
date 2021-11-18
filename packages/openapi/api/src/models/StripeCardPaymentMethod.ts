@@ -34,6 +34,18 @@ export interface StripeCardPaymentMethod {
   readonly id: string
   /**
    *
+   * @type {number}
+   * @memberof StripeCardPaymentMethod
+   */
+  readonly created: number
+  /**
+   *
+   * @type {boolean}
+   * @memberof StripeCardPaymentMethod
+   */
+  readonly isDefault: boolean | null
+  /**
+   *
    * @type {StripeCard}
    * @memberof StripeCardPaymentMethod
    */
@@ -55,6 +67,8 @@ export function StripeCardPaymentMethodFromJSONTyped(
   }
   return {
     id: json['id'],
+    created: json['created'],
+    isDefault: json['is_default'],
     card: StripeCardFromJSON(json['card']),
   }
 }
