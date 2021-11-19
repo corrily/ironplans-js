@@ -1,6 +1,6 @@
 {
   "name": "@ironplans/react",
-  "version": "0.4.2-alpha.19",
+  "version": "0.4.2-alpha.20",
   "description": "> TODO: description",
   "author": "team@ironplans.com",
   "homepage": "https://github.com/ironplans/js#readme",
@@ -47,8 +47,8 @@
     }
   ],
   "devDependencies": {
-    "@ironplans/proxy": "^0.4.2-alpha.16",
-    "@ironplans/types": "^0.4.2-alpha.15",
+    "@ironplans/proxy": "^0.4.2-alpha.17",
+    "@ironplans/types": "^0.4.2-alpha.16",
     "@size-limit/preset-small-lib": "^5.0.4"
   },
   "peerDependencies": {
@@ -56,6 +56,6 @@
     "react-dom": "^16 || ^17"
   },
   "dependencies": {
-    "@ironplans/sdk": "^0.5.0-alpha.19"
+    "@ironplans/sdk": "^0.5.0-alpha.20"
   }
 }
