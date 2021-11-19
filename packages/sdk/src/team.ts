@@ -116,7 +116,7 @@ export default class Team extends Resource<TeamDetail> {
    */
   async getInvoices() {
     return this.api.teams.teamsV1InvoicesList({
-      id: this.id,
+      teamPk: this.id,
     })
   }
 
