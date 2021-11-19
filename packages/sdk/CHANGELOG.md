@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0-alpha.19](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.18...@ironplans/sdk@0.5.0-alpha.19) (2021-11-19)
+
+### Bug Fixes
+
+- **sdk:** invoices ID -> teamPk in request ([3bae28f](https://github.com/ironplans/js/commit/3bae28fd6e689cadb4230cd4e36f8f69278d8e65))
+
 # [0.5.0-alpha.18](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.17...@ironplans/sdk@0.5.0-alpha.18) (2021-11-18)
 
 ### Bug Fixes
