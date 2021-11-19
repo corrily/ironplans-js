@@ -25,6 +25,12 @@ export interface SetupIntentConfirmRequest {
    * @memberof SetupIntentConfirmRequest
    */
   stripeSetupId: string
+  /**
+   *
+   * @type {boolean}
+   * @memberof SetupIntentConfirmRequest
+   */
+  isDefault?: boolean | null
 }
 
 export function SetupIntentConfirmRequestFromJSON(
@@ -42,6 +48,7 @@ export function SetupIntentConfirmRequestFromJSONTyped(
   }
   return {
     stripeSetupId: json['stripe_setup_id'],
+    isDefault: !exists(json, 'is_default') ? undefined : json['is_default'],
   }
 }
 
@@ -56,5 +63,6 @@ export function SetupIntentConfirmRequestToJSON(
   }
   return {
     stripe_setup_id: value.stripeSetupId,
+    is_default: value.isDefault,
   }
 }

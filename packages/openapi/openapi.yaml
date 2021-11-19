@@ -4783,6 +4783,9 @@ components:
         stripe_setup_id:
           type: string
           minLength: 1
+        is_default:
+          type: boolean
+          nullable: true
       required:
         - stripe_setup_id
     Slug:

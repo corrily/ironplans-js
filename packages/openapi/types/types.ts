@@ -734,6 +734,7 @@ export interface components {
     RoleEnum: 'owner' | 'member'
     SetupIntentConfirmRequest: {
       stripe_setup_id: string
+      is_default?: boolean | null
     }
     Slug: {
       slug: string
