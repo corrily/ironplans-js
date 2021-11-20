@@ -137,6 +137,7 @@ export default class Team extends Resource<TeamDetail> {
    *  * `plans` - Shows a customer's available plans.
    *  * `team` - Shows a team management widget.
    *  * `invoices` - Shows a table of invoices.
+   *  * `payment_methods` - Shows a customer's payment methods.
    */
   createWidgetUrl(widget: TeamWidgetType, theme?: IPublicTheme) {
     return createIframeUrl({
@@ -158,6 +159,7 @@ export default class Team extends Resource<TeamDetail> {
    *  * `plans` - Shows a customer's available plans.
    *  * `team` - Shows a team management widget.
    *  * `invoices` - Shows a table of invoices.
+   *  * `payment_methods` - Shows a customer's payment methods.
    */
   showWidget(
     widget: TeamWidgetType,
