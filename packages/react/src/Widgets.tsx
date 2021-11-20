@@ -84,4 +84,5 @@ const withPublicWidget = (widget: WidgetType) => (props: PublicWidgetProps) => {
 export const PlanSelect = withWidget('plans')
 export const ManageTeam = withWidget('team')
 export const ViewInvoices = withWidget('invoices')
+export const PaymentMethods = withWidget('payment_methods')
 export const PricingPlans = withPublicWidget('pricing')
