@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0-alpha.22](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.21...@ironplans/sdk@0.5.0-alpha.22) (2021-11-30)
+
+**Note:** Version bump only for package @ironplans/sdk
+
 # [0.5.0-alpha.21](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.0-alpha.20...@ironplans/sdk@0.5.0-alpha.21) (2021-11-20)
 
 **Note:** Version bump only for package @ironplans/sdk

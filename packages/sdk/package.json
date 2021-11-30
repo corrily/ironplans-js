@@ -1,6 +1,6 @@
 {
   "name": "@ironplans/sdk",
-  "version": "0.5.0-alpha.21",
+  "version": "0.5.0-alpha.22",
   "description": "> TODO: description",
   "author": "team@ironplans.com",
   "homepage": "https://github.com/ironplans/js#readme",
@@ -43,14 +43,14 @@
     }
   ],
   "devDependencies": {
-    "@ironplans/proxy": "^0.4.2-alpha.17",
+    "@ironplans/proxy": "^0.4.2-alpha.18",
     "@size-limit/preset-small-lib": "^5.0.4",
     "@types/js-cookie": "^2.2.7",
     "jest-fetch-mock": "^3.0.3"
   },
   "dependencies": {
-    "@ironplans/api": "^0.4.2-alpha.17",
-    "@ironplans/types": "^0.4.2-alpha.16",
+    "@ironplans/api": "^0.4.2-alpha.18",
+    "@ironplans/types": "^0.4.2-alpha.17",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "micro-typed-events": "^1.0.2",
