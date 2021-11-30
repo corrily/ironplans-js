@@ -27,6 +27,10 @@ paths:
       operationId: customers_v1_list
       description: Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
       parameters:
+        - in: query
+          name: email
+          schema:
+            type: string
         - name: limit
           required: false
           in: query
@@ -1589,9 +1593,9 @@ paths:
           description: ''
     post:
       operationId: plans_v1_create
-      description: |-
-        Add a feature and optionally specification to a plan by specifying a
-        `feature_id` and `spec_id` in the list of features.
+      description:
+        Add a feature and optionally specification to a plan by specifying
+        a `feature_id` and `spec_id` in the list of features.
       tags:
         - plans
       requestBody:
@@ -1639,12 +1643,12 @@ paths:
           description: ''
     put:
       operationId: plans_v1_update
-      description: |-
-        Remove a feature and spec from a plan by specifying `id` and
-        `is_active: false` in the plan feature list in an update operation.  An
-        empty list for PUT or PATCH does nothing.  A PlanFeature cannot change
-        which feature or spec once created. A deactivated PlanFeature can be
-        reactivated by setting `is_active: true`
+      description:
+        'Remove a feature and spec from a plan by specifying `id` and `is_active:
+        false` in the plan feature list in an update operation.  An empty list for
+        PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec
+        once created. A deactivated PlanFeature can be reactivated by setting `is_active:
+        true`.'
       parameters:
         - in: path
           name: id
@@ -2533,6 +2537,16 @@ paths:
           description:
             Include teams that have this value in their metadata.  Can be
             paired with `key`.
+        - in: query
+          name: with_member_email
+          schema:
+            type: string
+          description: Search for teams by member email.
+        - in: query
+          name: with_name
+          schema:
+            type: string
+          description: Search for teams by name.
       tags:
         - teams
       security:
@@ -3374,6 +3388,11 @@ components:
         - sum
         - last
       type: string
+    BillPeriodEnum:
+      enum:
+        - month
+        - year
+      type: string
     BillingPeriodEnum:
       enum:
         - hourly
@@ -3408,6 +3427,35 @@ components:
       required:
         - team_id
         - to_emails
+    ButtonField:
+      type: object
+      properties:
+        text:
+          type: string
+      required:
+        - text
+    ButtonFieldRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+      required:
+        - text
+    CancelAction:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        subscription_id:
+          type: string
+          format: uuid
+    CancelActionRequest:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        subscription_id:
+          type: string
+          format: uuid
     ClientSecret:
       type: object
       properties:
@@ -3415,6 +3463,25 @@ components:
           type: string
       required:
         - client_secret
+    ContactAction:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        url:
+          type: string
+          format: uri
+      required:
+        - url
+    ContactActionRequest:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        url:
+          type: string
+          format: uri
+          minLength: 1
+      required:
+        - url
     CreateCustomer:
       type: object
       properties:
@@ -4473,6 +4540,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TeamAccess'
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanOption'
+          readOnly: true
+          nullable: true
+        state:
+          allOf:
+            - $ref: '#/components/schemas/PlanState'
+          readOnly: true
+          nullable: true
       required:
         - features
         - id
@@ -4481,8 +4559,37 @@ components:
         - is_public
         - is_trial_allowed
         - name
-        - replace_plan_id
+        - options
+        - state
         - teams_access
+    PlanActions:
+      type: object
+      description: Serializer for plan actions.  Requires customer context.
+      properties:
+        subscribe:
+          $ref: '#/components/schemas/SubscribeAction'
+        contact:
+          $ref: '#/components/schemas/ContactAction'
+        cancel:
+          $ref: '#/components/schemas/CancelAction'
+      required:
+        - cancel
+        - contact
+        - subscribe
+    PlanActionsRequest:
+      type: object
+      description: Serializer for plan actions.  Requires customer context.
+      properties:
+        subscribe:
+          $ref: '#/components/schemas/SubscribeActionRequest'
+        contact:
+          $ref: '#/components/schemas/ContactActionRequest'
+        cancel:
+          $ref: '#/components/schemas/CancelActionRequest'
+      required:
+        - cancel
+        - contact
+        - subscribe
     PlanContactFormRequest:
       type: object
       properties:
@@ -4539,6 +4646,44 @@ components:
         sort:
           type: integer
           default: 0
+    PlanOption:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        plan_id:
+          type: string
+          format: uuid
+        bill_period:
+          $ref: '#/components/schemas/BillPeriodEnum'
+        price_cents:
+          type: integer
+          minimum: 0
+      required:
+        - bill_period
+        - id
+        - plan_id
+        - price_cents
+    PlanOptionRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        plan_id:
+          type: string
+          format: uuid
+        bill_period:
+          $ref: '#/components/schemas/BillPeriodEnum'
+        price_cents:
+          type: integer
+          minimum: 0
+      required:
+        - bill_period
+        - id
+        - plan_id
+        - price_cents
     PlanRequest:
       type: object
       properties:
@@ -4604,8 +4749,33 @@ components:
         - is_public
         - is_trial_allowed
         - name
-        - replace_plan_id
         - teams_access
+    PlanState:
+      type: object
+      description: |-
+        State of a plan, including possible actions and other caller context.
+        Currently, only available to authenticated customers, support for public
+        plans is...planned >_>
+      properties:
+        actions:
+          $ref: '#/components/schemas/PlanActions'
+        trial_days:
+          type: integer
+          readOnly: true
+      required:
+        - actions
+        - trial_days
+    PlanStateRequest:
+      type: object
+      description: |-
+        State of a plan, including possible actions and other caller context.
+        Currently, only available to authenticated customers, support for public
+        plans is...planned >_>
+      properties:
+        actions:
+          $ref: '#/components/schemas/PlanActionsRequest'
+      required:
+        - actions
     Provider:
       type: object
       properties:
@@ -4772,6 +4942,14 @@ components:
       required:
         - op
         - slug
+    RequirementsEnum:
+      enum:
+        - payment_method_saved
+      type: string
+    RequirementsMetEnum:
+      enum:
+        - payment_method_saved
+      type: string
     RoleEnum:
       enum:
         - owner
@@ -4844,6 +5022,42 @@ components:
         - created
         - id
         - is_default
+    SubscribeAction:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        requirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequirementsEnum'
+        requirements_met:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequirementsMetEnum'
+        button:
+          $ref: '#/components/schemas/ButtonField'
+      required:
+        - button
+        - requirements
+        - requirements_met
+    SubscribeActionRequest:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        requirements:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequirementsEnum'
+        requirements_met:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequirementsMetEnum'
+        button:
+          $ref: '#/components/schemas/ButtonFieldRequest'
+      required:
+        - button
+        - requirements
+        - requirements_met
     Subscription:
       type: object
       properties:

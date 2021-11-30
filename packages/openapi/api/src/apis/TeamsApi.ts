@@ -86,6 +86,8 @@ export interface TeamsV1ListRequest {
   limit?: number
   offset?: number
   value?: string
+  withMemberEmail?: string
+  withName?: string
 }
 
 export interface TeamsV1MetadataCreateRequest {
@@ -817,6 +819,14 @@ export class TeamsApi extends runtime.BaseAPI {
 
     if (requestParameters.value !== undefined) {
       queryParameters['value'] = requestParameters.value
+    }
+
+    if (requestParameters.withMemberEmail !== undefined) {
+      queryParameters['with_member_email'] = requestParameters.withMemberEmail
+    }
+
+    if (requestParameters.withName !== undefined) {
+      queryParameters['with_name'] = requestParameters.withName
     }
 
     const headerParameters: runtime.HTTPHeaders = {}

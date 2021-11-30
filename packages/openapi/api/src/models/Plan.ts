@@ -18,6 +18,14 @@ import {
   PlanFeatureFromJSON,
   PlanFeatureFromJSONTyped,
   PlanFeatureToJSON,
+  PlanOption,
+  PlanOptionFromJSON,
+  PlanOptionFromJSONTyped,
+  PlanOptionToJSON,
+  PlanState,
+  PlanStateFromJSON,
+  PlanStateFromJSONTyped,
+  PlanStateToJSON,
   TeamAccess,
   TeamAccessFromJSON,
   TeamAccessFromJSONTyped,
@@ -107,7 +115,7 @@ export interface Plan {
    * @type {string}
    * @memberof Plan
    */
-  replacePlanId: string | null
+  replacePlanId?: string | null
   /**
    * Amount in cents
    * @type {number}
@@ -132,6 +140,18 @@ export interface Plan {
    * @memberof Plan
    */
   teamsAccess: Array<TeamAccess>
+  /**
+   *
+   * @type {Array<PlanOption>}
+   * @memberof Plan
+   */
+  readonly options: Array<PlanOption> | null
+  /**
+   *
+   * @type {PlanState}
+   * @memberof Plan
+   */
+  readonly state: PlanState | null
 }
 
 export function PlanFromJSON(json: any): Plan {
@@ -164,7 +184,9 @@ export function PlanFromJSONTyped(
     publicCtaText: !exists(json, 'public_cta_text')
       ? undefined
       : json['public_cta_text'],
-    replacePlanId: json['replace_plan_id'],
+    replacePlanId: !exists(json, 'replace_plan_id')
+      ? undefined
+      : json['replace_plan_id'],
     perYearPriceCents: !exists(json, 'per_year_price_cents')
       ? undefined
       : json['per_year_price_cents'],
@@ -173,6 +195,11 @@ export function PlanFromJSONTyped(
       : json['per_month_price_cents'],
     features: (json['features'] as Array<any>).map(PlanFeatureFromJSON),
     teamsAccess: (json['teams_access'] as Array<any>).map(TeamAccessFromJSON),
+    options:
+      json['options'] === null
+        ? null
+        : (json['options'] as Array<any>).map(PlanOptionFromJSON),
+    state: PlanStateFromJSON(json['state']),
   }
 }
 

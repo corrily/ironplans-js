@@ -65,6 +65,7 @@ export interface CustomersV1DestroyRequest {
 }
 
 export interface CustomersV1ListRequest {
+  email?: string
   limit?: number
   offset?: number
   sourceId?: string
@@ -332,6 +333,10 @@ export class CustomersApi extends runtime.BaseAPI {
     initOverrides?: RequestInit
   ): Promise<runtime.ApiResponse<PaginatedCustomerList>> {
     const queryParameters: any = {}
+
+    if (requestParameters.email !== undefined) {
+      queryParameters['email'] = requestParameters.email
+    }
 
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit
