@@ -13,7 +13,20 @@
  */
 
 import { exists, mapValues } from '../runtime'
-import { Plan, PlanFromJSON, PlanFromJSONTyped, PlanToJSON } from './'
+import {
+  AuthIssuerEnum,
+  AuthIssuerEnumFromJSON,
+  AuthIssuerEnumFromJSONTyped,
+  AuthIssuerEnumToJSON,
+  CognitoAuthConfig,
+  CognitoAuthConfigFromJSON,
+  CognitoAuthConfigFromJSONTyped,
+  CognitoAuthConfigToJSON,
+  Plan,
+  PlanFromJSON,
+  PlanFromJSONTyped,
+  PlanToJSON,
+} from './'
 
 /**
  *
@@ -117,6 +130,18 @@ export interface Provider {
    * @memberof Provider
    */
   supportEmail?: string | null
+  /**
+   *
+   * @type {AuthIssuerEnum}
+   * @memberof Provider
+   */
+  authIssuer?: AuthIssuerEnum
+  /**
+   *
+   * @type {CognitoAuthConfig}
+   * @memberof Provider
+   */
+  readonly cognitoAuthConfig: CognitoAuthConfig | null
 }
 
 export function ProviderFromJSON(json: any): Provider {
@@ -153,6 +178,10 @@ export function ProviderFromJSONTyped(
     supportEmail: !exists(json, 'support_email')
       ? undefined
       : json['support_email'],
+    authIssuer: !exists(json, 'auth_issuer')
+      ? undefined
+      : AuthIssuerEnumFromJSON(json['auth_issuer']),
+    cognitoAuthConfig: CognitoAuthConfigFromJSON(json['cognito_auth_config']),
   }
 }
 
@@ -173,5 +202,6 @@ export function ProviderToJSON(value?: Provider | null): any {
     trial_days: value.trialDays,
     is_card_required: value.isCardRequired,
     support_email: value.supportEmail,
+    auth_issuer: AuthIssuerEnumToJSON(value.authIssuer),
   }
 }

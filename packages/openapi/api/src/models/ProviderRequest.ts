@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime'
+import {
+  AuthIssuerEnum,
+  AuthIssuerEnumFromJSON,
+  AuthIssuerEnumFromJSONTyped,
+  AuthIssuerEnumToJSON,
+} from './'
+
 /**
  *
  * @export
@@ -79,6 +86,12 @@ export interface ProviderRequest {
    * @memberof ProviderRequest
    */
   supportEmail?: string | null
+  /**
+   *
+   * @type {AuthIssuerEnum}
+   * @memberof ProviderRequest
+   */
+  authIssuer?: AuthIssuerEnum
 }
 
 export function ProviderRequestFromJSON(json: any): ProviderRequest {
@@ -111,6 +124,9 @@ export function ProviderRequestFromJSONTyped(
     supportEmail: !exists(json, 'support_email')
       ? undefined
       : json['support_email'],
+    authIssuer: !exists(json, 'auth_issuer')
+      ? undefined
+      : AuthIssuerEnumFromJSON(json['auth_issuer']),
   }
 }
 
@@ -132,5 +148,6 @@ export function ProviderRequestToJSON(value?: ProviderRequest | null): any {
     trial_days: value.trialDays,
     is_card_required: value.isCardRequired,
     support_email: value.supportEmail,
+    auth_issuer: AuthIssuerEnumToJSON(value.authIssuer),
   }
 }

@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './AccountsApi'
+export * from './AuthConfigsApi'
 export * from './CustomersApi'
 export * from './FeaturesApi'
 export * from './FeaturespecsApi'

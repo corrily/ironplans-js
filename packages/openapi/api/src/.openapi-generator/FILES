@@ -1,4 +1,5 @@
 apis/AccountsApi.ts
+apis/AuthConfigsApi.ts
 apis/CustomersApi.ts
 apis/FeaturesApi.ts
 apis/FeaturespecsApi.ts
@@ -16,6 +17,7 @@ apis/index.ts
 index.ts
 models/Account.ts
 models/AggregationEnum.ts
+models/AuthIssuerEnum.ts
 models/BillPeriodEnum.ts
 models/BillingPeriodEnum.ts
 models/BulkCreateInviteRequest.ts
@@ -24,6 +26,8 @@ models/ButtonFieldRequest.ts
 models/CancelAction.ts
 models/CancelActionRequest.ts
 models/ClientSecret.ts
+models/CognitoAuthConfig.ts
+models/CognitoAuthConfigRequest.ts
 models/ContactAction.ts
 models/ContactActionRequest.ts
 models/CreateCustomer.ts
@@ -51,6 +55,7 @@ models/Membership.ts
 models/MembershipRequest.ts
 models/ModelError.ts
 models/OpEnum.ts
+models/PaginatedCognitoAuthConfigList.ts
 models/PaginatedCustomerList.ts
 models/PaginatedFeatureList.ts
 models/PaginatedFeatureSpecList.ts
@@ -63,6 +68,7 @@ models/PaginatedStripeCardPaymentMethodList.ts
 models/PaginatedSubscriptionList.ts
 models/PaginatedTeamList.ts
 models/PaginatedTokenList.ts
+models/PatchedCognitoAuthConfigRequest.ts
 models/PatchedCustomerRequest.ts
 models/PatchedFeatureRequest.ts
 models/PatchedFeatureSpecRequest.ts

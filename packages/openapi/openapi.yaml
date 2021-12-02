@@ -22,6 +22,246 @@ paths:
               schema:
                 $ref: '#/components/schemas/Account'
           description: ''
+  /auth_configs/cognito/v1/:
+    get:
+      operationId: auth_configs_cognito_v1_list
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+      tags:
+        - auth_configs
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCognitoAuthConfigList'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    post:
+      operationId: auth_configs_cognito_v1_create
+      tags:
+        - auth_configs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CognitoAuthConfigRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CognitoAuthConfigRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CognitoAuthConfigRequest'
+        required: true
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CognitoAuthConfig'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /auth_configs/cognito/v1/{id}/:
+    get:
+      operationId: auth_configs_cognito_v1_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this cognito auth config.
+          required: true
+      tags:
+        - auth_configs
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CognitoAuthConfig'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    put:
+      operationId: auth_configs_cognito_v1_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this cognito auth config.
+          required: true
+      tags:
+        - auth_configs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CognitoAuthConfigRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CognitoAuthConfigRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CognitoAuthConfigRequest'
+        required: true
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CognitoAuthConfig'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    patch:
+      operationId: auth_configs_cognito_v1_partial_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this cognito auth config.
+          required: true
+      tags:
+        - auth_configs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCognitoAuthConfigRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCognitoAuthConfigRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCognitoAuthConfigRequest'
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CognitoAuthConfig'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    delete:
+      operationId: auth_configs_cognito_v1_destroy
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this cognito auth config.
+          required: true
+      tags:
+        - auth_configs
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '204':
+          description: No response body
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /customers/v1/:
     get:
       operationId: customers_v1_list
@@ -3388,6 +3628,11 @@ components:
         - sum
         - last
       type: string
+    AuthIssuerEnum:
+      enum:
+        - firebase
+        - cognito
+      type: string
     BillPeriodEnum:
       enum:
         - month
@@ -3463,6 +3708,42 @@ components:
           type: string
       required:
         - client_secret
+    CognitoAuthConfig:
+      type: object
+      properties:
+        provider_id:
+          type: string
+        region:
+          type: string
+        user_pool_id:
+          type: string
+        app_client_id:
+          type: string
+      required:
+        - app_client_id
+        - provider_id
+        - region
+        - user_pool_id
+    CognitoAuthConfigRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          minLength: 1
+        region:
+          type: string
+          minLength: 1
+        user_pool_id:
+          type: string
+          minLength: 1
+        app_client_id:
+          type: string
+          minLength: 1
+      required:
+        - app_client_id
+        - provider_id
+        - region
+        - user_pool_id
     ContactAction:
       type: object
       description: Base serializer for all actions.
@@ -3970,6 +4251,26 @@ components:
         - set
         - reset
       type: string
+    PaginatedCognitoAuthConfigList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/CognitoAuthConfig'
     PaginatedCustomerList:
       type: object
       properties:
@@ -4210,6 +4511,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Token'
+    PatchedCognitoAuthConfigRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          minLength: 1
+        region:
+          type: string
+          minLength: 1
+        user_pool_id:
+          type: string
+          minLength: 1
+        app_client_id:
+          type: string
+          minLength: 1
     PatchedCustomerRequest:
       type: object
       properties:
@@ -4424,6 +4740,8 @@ components:
           format: email
           nullable: true
           maxLength: 254
+        auth_issuer:
+          $ref: '#/components/schemas/AuthIssuerEnum'
     PatchedSubscriptionRequest:
       type: object
       properties:
@@ -4845,7 +5163,15 @@ components:
           format: email
           nullable: true
           maxLength: 254
+        auth_issuer:
+          $ref: '#/components/schemas/AuthIssuerEnum'
+        cognito_auth_config:
+          allOf:
+            - $ref: '#/components/schemas/CognitoAuthConfig'
+          readOnly: true
+          nullable: true
       required:
+        - cognito_auth_config
         - default_plan
         - id
         - is_shadow
@@ -4902,6 +5228,8 @@ components:
           format: email
           nullable: true
           maxLength: 254
+        auth_issuer:
+          $ref: '#/components/schemas/AuthIssuerEnum'
       required:
         - name
         - slug

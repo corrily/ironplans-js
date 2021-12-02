@@ -13,6 +13,16 @@ export interface paths {
      */
     get: operations['accounts_v1_me_retrieve']
   }
+  '/auth_configs/cognito/v1/': {
+    get: operations['auth_configs_cognito_v1_list']
+    post: operations['auth_configs_cognito_v1_create']
+  }
+  '/auth_configs/cognito/v1/{id}/': {
+    get: operations['auth_configs_cognito_v1_retrieve']
+    put: operations['auth_configs_cognito_v1_update']
+    delete: operations['auth_configs_cognito_v1_destroy']
+    patch: operations['auth_configs_cognito_v1_partial_update']
+  }
   '/customers/v1/': {
     /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     get: operations['customers_v1_list']
@@ -291,6 +301,7 @@ export interface components {
       teams: components['schemas']['Team'][] | null
     }
     AggregationEnum: 'sum' | 'last'
+    AuthIssuerEnum: 'firebase' | 'cognito'
     BillPeriodEnum: 'month' | 'year'
     BillingPeriodEnum: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'annually'
     BulkCreateInviteRequest: {
@@ -317,6 +328,18 @@ export interface components {
     }
     ClientSecret: {
       client_secret: string
+    }
+    CognitoAuthConfig: {
+      provider_id: string
+      region: string
+      user_pool_id: string
+      app_client_id: string
+    }
+    CognitoAuthConfigRequest: {
+      provider_id: string
+      region: string
+      user_pool_id: string
+      app_client_id: string
     }
     /** Base serializer for all actions. */
     ContactAction: {
@@ -422,8 +445,8 @@ export interface components {
       email: string
     }
     InnerError: {
-      non_field_errors: { [key: string]: unknown }[]
-      field_errors: { [key: string]: unknown }[]
+      non_field_errors: { [key: string]: any }[]
+      field_errors: { [key: string]: any }[]
     }
     Invite: {
       id: string
@@ -480,6 +503,12 @@ export interface components {
     /** String to string mapping.  Keys may be up to 128 bytes and values may be up to 512 bytes. */
     MetadataRequest: { [key: string]: string }
     OpEnum: 'inc' | 'dec' | 'set' | 'reset'
+    PaginatedCognitoAuthConfigList: {
+      count?: number
+      next?: string | null
+      previous?: string | null
+      results?: components['schemas']['CognitoAuthConfig'][]
+    }
     PaginatedCustomerList: {
       count?: number
       next?: string | null
@@ -552,6 +581,12 @@ export interface components {
       previous?: string | null
       results?: components['schemas']['Token'][]
     }
+    PatchedCognitoAuthConfigRequest: {
+      provider_id?: string
+      region?: string
+      user_pool_id?: string
+      app_client_id?: string
+    }
     PatchedCustomerRequest: {
       source_id?: string
     }
@@ -623,6 +658,7 @@ export interface components {
       trial_days?: number
       is_card_required?: boolean
       support_email?: string | null
+      auth_issuer?: components['schemas']['AuthIssuerEnum']
     }
     PatchedSubscriptionRequest: {
       plan_id?: string
@@ -765,6 +801,8 @@ export interface components {
       parent_id: string | null
       is_shadow: boolean
       support_email?: string | null
+      auth_issuer?: components['schemas']['AuthIssuerEnum']
+      cognito_auth_config: components['schemas']['CognitoAuthConfig'] | null
     }
     ProviderRequest: {
       name: string
@@ -777,6 +815,7 @@ export interface components {
       trial_days?: number
       is_card_required?: boolean
       support_email?: string | null
+      auth_issuer?: components['schemas']['AuthIssuerEnum']
     }
     PublicProfile: {
       id: string
@@ -942,6 +981,170 @@ export interface operations {
         content: {
           'application/json': components['schemas']['Account']
         }
+      }
+    }
+  }
+  auth_configs_cognito_v1_list: {
+    parameters: {
+      query: {
+        /** Number of results to return per page. */
+        limit?: number
+        /** The initial index from which to return the results. */
+        offset?: number
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['PaginatedCognitoAuthConfigList']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  auth_configs_cognito_v1_create: {
+    responses: {
+      201: {
+        content: {
+          'application/json': components['schemas']['CognitoAuthConfig']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CognitoAuthConfigRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CognitoAuthConfigRequest']
+        'multipart/form-data': components['schemas']['CognitoAuthConfigRequest']
+      }
+    }
+  }
+  auth_configs_cognito_v1_retrieve: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this cognito auth config. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['CognitoAuthConfig']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  auth_configs_cognito_v1_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this cognito auth config. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['CognitoAuthConfig']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CognitoAuthConfigRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CognitoAuthConfigRequest']
+        'multipart/form-data': components['schemas']['CognitoAuthConfigRequest']
+      }
+    }
+  }
+  auth_configs_cognito_v1_destroy: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this cognito auth config. */
+        id: string
+      }
+    }
+    responses: {
+      /** No response body */
+      204: never
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  auth_configs_cognito_v1_partial_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this cognito auth config. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['CognitoAuthConfig']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PatchedCognitoAuthConfigRequest']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedCognitoAuthConfigRequest']
+        'multipart/form-data': components['schemas']['PatchedCognitoAuthConfigRequest']
       }
     }
   }
@@ -1733,8 +1936,8 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/vnd.oai.openapi+json': { [key: string]: unknown }
-          'application/json': { [key: string]: unknown }
+          'application/vnd.oai.openapi+json': { [key: string]: any }
+          'application/json': { [key: string]: any }
         }
       }
     }
@@ -1850,8 +2053,8 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/vnd.oai.openapi': { [key: string]: unknown }
-          'application/yaml': { [key: string]: unknown }
+          'application/vnd.oai.openapi': { [key: string]: any }
+          'application/yaml': { [key: string]: any }
         }
       }
     }
