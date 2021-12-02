@@ -3992,6 +3992,10 @@ components:
     CognitoAuthConfig:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
         provider_id:
           type: string
         region:
@@ -4002,6 +4006,7 @@ components:
           type: string
       required:
         - app_client_id
+        - id
         - provider_id
         - region
         - user_pool_id

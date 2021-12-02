@@ -349,6 +349,7 @@ export interface components {
       client_secret: string
     }
     CognitoAuthConfig: {
+      id: string
       provider_id: string
       region: string
       user_pool_id: string

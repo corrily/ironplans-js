@@ -24,6 +24,12 @@ export interface CognitoAuthConfig {
    * @type {string}
    * @memberof CognitoAuthConfig
    */
+  readonly id: string
+  /**
+   *
+   * @type {string}
+   * @memberof CognitoAuthConfig
+   */
   providerId: string
   /**
    *
@@ -57,6 +63,7 @@ export function CognitoAuthConfigFromJSONTyped(
     return json
   }
   return {
+    id: json['id'],
     providerId: json['provider_id'],
     region: json['region'],
     userPoolId: json['user_pool_id'],
