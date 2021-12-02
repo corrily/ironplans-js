@@ -184,6 +184,25 @@ export interface paths {
   '/providers/v1/slug/': {
     get: operations['providers_v1_slug_retrieve']
   }
+  '/subscribe_intents/v1/': {
+    get: operations['subscribe_intents_v1_list']
+    post: operations['subscribe_intents_v1_create']
+  }
+  '/subscribe_intents/v1/{id}/': {
+    get: operations['subscribe_intents_v1_retrieve']
+    put: operations['subscribe_intents_v1_update']
+    delete: operations['subscribe_intents_v1_destroy']
+    patch: operations['subscribe_intents_v1_partial_update']
+  }
+  '/subscribe_intents/v1/{id}/confirm/': {
+    /**
+     * Confirm a subscription intent.
+     *
+     * If the intent is still valid, charge the payment method associated with
+     * the intent and create or update a team's subscription.
+     */
+    post: operations['subscribe_intents_v1_confirm_create']
+  }
   '/subscriptions/v1/': {
     get: operations['subscriptions_v1_list']
     post: operations['subscriptions_v1_create']
@@ -373,6 +392,11 @@ export interface components {
       email?: string
       source_id?: string
     }
+    CreateSubscribeIntentRequest: {
+      team_id: string
+      plan_option_id: string
+      payment_method_id?: string
+    }
     Customer: {
       id: string
       email: string
@@ -502,6 +526,7 @@ export interface components {
     Metadata: { [key: string]: string }
     /** String to string mapping.  Keys may be up to 128 bytes and values may be up to 512 bytes. */
     MetadataRequest: { [key: string]: string }
+    OnSubscriptionEndEnum: 'expire' | 'renew'
     OpEnum: 'inc' | 'dec' | 'set' | 'reset'
     PaginatedCognitoAuthConfigList: {
       count?: number
@@ -562,6 +587,12 @@ export interface components {
       next?: string | null
       previous?: string | null
       results?: components['schemas']['StripeCardPaymentMethod'][]
+    }
+    PaginatedSubscribeIntentList: {
+      count?: number
+      next?: string | null
+      previous?: string | null
+      results?: components['schemas']['SubscribeIntent'][]
     }
     PaginatedSubscriptionList: {
       count?: number
@@ -659,6 +690,16 @@ export interface components {
       is_card_required?: boolean
       support_email?: string | null
       auth_issuer?: components['schemas']['AuthIssuerEnum']
+    }
+    PatchedSubscribeIntentRequest: {
+      id?: string
+      plan_option_id?: string
+      invoice?: components['schemas']['SIInvoiceRequest']
+      credit_cents?: number
+      on_subscription_end?: components['schemas']['OnSubscriptionEndEnum']
+      next_upfront_bill_in_days?: number
+      next_meter_bill_in_days?: number
+      trial_end_in_days?: number
     }
     PatchedSubscriptionRequest: {
       plan_id?: string
@@ -830,6 +871,28 @@ export interface components {
     RequirementsEnum: 'payment_method_saved'
     RequirementsMetEnum: 'payment_method_saved'
     RoleEnum: 'owner' | 'member'
+    SIInvoice: {
+      id: string
+      state: components['schemas']['StateEnum']
+      cents: number
+      line_items: components['schemas']['SILineItem'][]
+    }
+    SIInvoiceRequest: {
+      id: string
+      state: components['schemas']['StateEnum']
+      cents: number
+      line_items: components['schemas']['SILineItemRequest'][]
+    }
+    SILineItem: {
+      title: string
+      detail: string
+      cents: number
+    }
+    SILineItemRequest: {
+      title: string
+      detail: string
+      cents: number
+    }
     SetupIntentConfirmRequest: {
       stripe_setup_id: string
       is_default?: boolean | null
@@ -861,6 +924,26 @@ export interface components {
       requirements: components['schemas']['RequirementsEnum'][]
       requirements_met: components['schemas']['RequirementsMetEnum'][]
       button: components['schemas']['ButtonFieldRequest']
+    }
+    SubscribeIntent: {
+      id: string
+      plan_option_id: string
+      invoice: components['schemas']['SIInvoice']
+      credit_cents: number
+      on_subscription_end: components['schemas']['OnSubscriptionEndEnum']
+      next_upfront_bill_in_days: number
+      next_meter_bill_in_days: number
+      trial_end_in_days: number
+    }
+    SubscribeIntentRequest: {
+      id: string
+      plan_option_id: string
+      invoice: components['schemas']['SIInvoiceRequest']
+      credit_cents: number
+      on_subscription_end: components['schemas']['OnSubscriptionEndEnum']
+      next_upfront_bill_in_days: number
+      next_meter_bill_in_days: number
+      trial_end_in_days: number
     }
     Subscription: {
       id: string
@@ -2523,6 +2606,201 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['Slug']
+        }
+      }
+    }
+  }
+  subscribe_intents_v1_list: {
+    parameters: {
+      query: {
+        /** Number of results to return per page. */
+        limit?: number
+        /** The initial index from which to return the results. */
+        offset?: number
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['PaginatedSubscribeIntentList']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  subscribe_intents_v1_create: {
+    responses: {
+      201: {
+        content: {
+          'application/json': components['schemas']['SubscribeIntent']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateSubscribeIntentRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CreateSubscribeIntentRequest']
+        'multipart/form-data': components['schemas']['CreateSubscribeIntentRequest']
+      }
+    }
+  }
+  subscribe_intents_v1_retrieve: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this subscribe intent. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['SubscribeIntent']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  subscribe_intents_v1_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this subscribe intent. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['SubscribeIntent']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SubscribeIntentRequest']
+        'application/x-www-form-urlencoded': components['schemas']['SubscribeIntentRequest']
+        'multipart/form-data': components['schemas']['SubscribeIntentRequest']
+      }
+    }
+  }
+  subscribe_intents_v1_destroy: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this subscribe intent. */
+        id: string
+      }
+    }
+    responses: {
+      /** No response body */
+      204: never
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  subscribe_intents_v1_partial_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this subscribe intent. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['SubscribeIntent']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PatchedSubscribeIntentRequest']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedSubscribeIntentRequest']
+        'multipart/form-data': components['schemas']['PatchedSubscribeIntentRequest']
+      }
+    }
+  }
+  /**
+   * Confirm a subscription intent.
+   *
+   * If the intent is still valid, charge the payment method associated with
+   * the intent and create or update a team's subscription.
+   */
+  subscribe_intents_v1_confirm_create: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this subscribe intent. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['SubscriptionDetail']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }

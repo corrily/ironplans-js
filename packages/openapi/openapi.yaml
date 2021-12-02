@@ -2225,6 +2225,287 @@ paths:
               schema:
                 $ref: '#/components/schemas/Slug'
           description: ''
+  /subscribe_intents/v1/:
+    get:
+      operationId: subscribe_intents_v1_list
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+      tags:
+        - subscribe_intents
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSubscribeIntentList'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    post:
+      operationId: subscribe_intents_v1_create
+      tags:
+        - subscribe_intents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubscribeIntentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateSubscribeIntentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateSubscribeIntentRequest'
+        required: true
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribeIntent'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /subscribe_intents/v1/{id}/:
+    get:
+      operationId: subscribe_intents_v1_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscribe intent.
+          required: true
+      tags:
+        - subscribe_intents
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribeIntent'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    put:
+      operationId: subscribe_intents_v1_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscribe intent.
+          required: true
+      tags:
+        - subscribe_intents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscribeIntentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubscribeIntentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubscribeIntentRequest'
+        required: true
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribeIntent'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    patch:
+      operationId: subscribe_intents_v1_partial_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscribe intent.
+          required: true
+      tags:
+        - subscribe_intents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSubscribeIntentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSubscribeIntentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSubscribeIntentRequest'
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribeIntent'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    delete:
+      operationId: subscribe_intents_v1_destroy
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscribe intent.
+          required: true
+      tags:
+        - subscribe_intents
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '204':
+          description: No response body
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /subscribe_intents/v1/{id}/confirm/:
+    post:
+      operationId: subscribe_intents_v1_confirm_create
+      description: |-
+        Confirm a subscription intent.
+
+        If the intent is still valid, charge the payment method associated with
+        the intent and create or update a team's subscription.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this subscribe intent.
+          required: true
+      tags:
+        - subscribe_intents
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /subscriptions/v1/:
     get:
       operationId: subscriptions_v1_list
@@ -3829,6 +4110,21 @@ components:
           minLength: 1
       required:
         - team_id
+    CreateSubscribeIntentRequest:
+      type: object
+      properties:
+        team_id:
+          type: string
+          format: uuid
+        plan_option_id:
+          type: string
+          format: uuid
+        payment_method_id:
+          type: string
+          minLength: 1
+      required:
+        - plan_option_id
+        - team_id
     Customer:
       type: object
       properties:
@@ -4244,6 +4540,11 @@ components:
       additionalProperties:
         type: string
         pattern: ^[a-zA-Z0-9_\-]{1,512}$
+    OnSubscriptionEndEnum:
+      enum:
+        - expire
+        - renew
+      type: string
     OpEnum:
       enum:
         - inc
@@ -4451,6 +4752,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StripeCardPaymentMethod'
+    PaginatedSubscribeIntentList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscribeIntent'
     PaginatedSubscriptionList:
       type: object
       properties:
@@ -4742,6 +5063,27 @@ components:
           maxLength: 254
         auth_issuer:
           $ref: '#/components/schemas/AuthIssuerEnum'
+    PatchedSubscribeIntentRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        plan_option_id:
+          type: string
+          format: uuid
+        invoice:
+          $ref: '#/components/schemas/SIInvoiceRequest'
+        credit_cents:
+          type: integer
+        on_subscription_end:
+          $ref: '#/components/schemas/OnSubscriptionEndEnum'
+        next_upfront_bill_in_days:
+          type: integer
+        next_meter_bill_in_days:
+          type: integer
+        trial_end_in_days:
+          type: integer
     PatchedSubscriptionRequest:
       type: object
       properties:
@@ -5283,6 +5625,72 @@ components:
         - owner
         - member
       type: string
+    SIInvoice:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        state:
+          $ref: '#/components/schemas/StateEnum'
+        cents:
+          type: integer
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SILineItem'
+      required:
+        - cents
+        - id
+        - line_items
+        - state
+    SIInvoiceRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        state:
+          $ref: '#/components/schemas/StateEnum'
+        cents:
+          type: integer
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SILineItemRequest'
+      required:
+        - cents
+        - id
+        - line_items
+        - state
+    SILineItem:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+        cents:
+          type: integer
+      required:
+        - cents
+        - detail
+        - title
+    SILineItemRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+        detail:
+          type: string
+          minLength: 1
+        cents:
+          type: integer
+      required:
+        - cents
+        - detail
+        - title
     SetupIntentConfirmRequest:
       type: object
       properties:
@@ -5386,6 +5794,66 @@ components:
         - button
         - requirements
         - requirements_met
+    SubscribeIntent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        plan_option_id:
+          type: string
+          format: uuid
+        invoice:
+          $ref: '#/components/schemas/SIInvoice'
+        credit_cents:
+          type: integer
+        on_subscription_end:
+          $ref: '#/components/schemas/OnSubscriptionEndEnum'
+        next_upfront_bill_in_days:
+          type: integer
+        next_meter_bill_in_days:
+          type: integer
+        trial_end_in_days:
+          type: integer
+      required:
+        - credit_cents
+        - id
+        - invoice
+        - next_meter_bill_in_days
+        - next_upfront_bill_in_days
+        - on_subscription_end
+        - plan_option_id
+        - trial_end_in_days
+    SubscribeIntentRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        plan_option_id:
+          type: string
+          format: uuid
+        invoice:
+          $ref: '#/components/schemas/SIInvoiceRequest'
+        credit_cents:
+          type: integer
+        on_subscription_end:
+          $ref: '#/components/schemas/OnSubscriptionEndEnum'
+        next_upfront_bill_in_days:
+          type: integer
+        next_meter_bill_in_days:
+          type: integer
+        trial_end_in_days:
+          type: integer
+      required:
+        - credit_cents
+        - id
+        - invoice
+        - next_meter_bill_in_days
+        - next_upfront_bill_in_days
+        - on_subscription_end
+        - plan_option_id
+        - trial_end_in_days
     Subscription:
       type: object
       properties:

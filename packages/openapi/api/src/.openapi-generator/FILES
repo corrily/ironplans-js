@@ -9,6 +9,7 @@ apis/OpenapiYamlApi.ts
 apis/PaymentMethodsApi.ts
 apis/PlansApi.ts
 apis/ProvidersApi.ts
+apis/SubscribeIntentsApi.ts
 apis/SubscriptionsApi.ts
 apis/TeamMembershipsApi.ts
 apis/TeamsApi.ts
@@ -33,6 +34,7 @@ models/ContactActionRequest.ts
 models/CreateCustomer.ts
 models/CreateCustomerRequest.ts
 models/CreateMembershipRequest.ts
+models/CreateSubscribeIntentRequest.ts
 models/Customer.ts
 models/CustomerConfirmCardRequest.ts
 models/CustomerIntentRequest.ts
@@ -54,6 +56,7 @@ models/IssueCustomerTokenRequest.ts
 models/Membership.ts
 models/MembershipRequest.ts
 models/ModelError.ts
+models/OnSubscriptionEndEnum.ts
 models/OpEnum.ts
 models/PaginatedCognitoAuthConfigList.ts
 models/PaginatedCustomerList.ts
@@ -65,6 +68,7 @@ models/PaginatedMembershipList.ts
 models/PaginatedPlanList.ts
 models/PaginatedProviderList.ts
 models/PaginatedStripeCardPaymentMethodList.ts
+models/PaginatedSubscribeIntentList.ts
 models/PaginatedSubscriptionList.ts
 models/PaginatedTeamList.ts
 models/PaginatedTokenList.ts
@@ -78,6 +82,7 @@ models/PatchedMembershipRequest.ts
 models/PatchedPlanRequest.ts
 models/PatchedPlanSwitchRequest.ts
 models/PatchedProviderRequest.ts
+models/PatchedSubscribeIntentRequest.ts
 models/PatchedSubscriptionRequest.ts
 models/PatchedTeamDetailRequest.ts
 models/PatchedTokenRequest.ts
@@ -102,6 +107,10 @@ models/ReportUsageRequest.ts
 models/RequirementsEnum.ts
 models/RequirementsMetEnum.ts
 models/RoleEnum.ts
+models/SIInvoice.ts
+models/SIInvoiceRequest.ts
+models/SILineItem.ts
+models/SILineItemRequest.ts
 models/SetupIntentConfirmRequest.ts
 models/Slug.ts
 models/StateEnum.ts
@@ -109,6 +118,8 @@ models/StripeCard.ts
 models/StripeCardPaymentMethod.ts
 models/SubscribeAction.ts
 models/SubscribeActionRequest.ts
+models/SubscribeIntent.ts
+models/SubscribeIntentRequest.ts
 models/Subscription.ts
 models/SubscriptionDetail.ts
 models/SubscriptionRequest.ts
