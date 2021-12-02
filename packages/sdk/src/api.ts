@@ -8,6 +8,7 @@ import {
   ProvidersApi,
   SubscriptionsApi,
   Configuration,
+  AuthConfigsApi,
 } from '@ironplans/api'
 import { Immutable } from './types'
 
@@ -25,6 +26,7 @@ export interface IPAPI {
   plans: PlansApi
   providers: ProvidersApi
   subscriptions: SubscriptionsApi
+  authConfigs: AuthConfigsApi
 }
 
 export function createConfiguration(
@@ -63,6 +65,7 @@ export function createAPI(opts: APIOptions): IPAPI {
     customers: new CustomersApi(config),
     paymentMethods: new PaymentMethodsApi(config),
     teams: new TeamsApi(config),
+    authConfigs: new AuthConfigsApi(config),
     plans: new PlansApi(legacyConfig),
     invites: new InvitesApi(legacyConfig),
     providers: new ProvidersApi(legacyConfig),
