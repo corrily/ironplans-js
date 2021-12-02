@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1-alpha.1](https://github.com/ironplans/js/compare/@ironplans/proxy@0.5.1-alpha.0...@ironplans/proxy@0.5.1-alpha.1) (2021-12-02)
+
+### Bug Fixes
+
+- **proxy:** cognito auth set in server.ts ([5b4ad46](https://github.com/ironplans/js/commit/5b4ad46b8adcfeedcac82c64c99a3d44ad6ff208))
+
 ## [0.5.1-alpha.0](https://github.com/ironplans/js/compare/@ironplans/proxy@0.5.0...@ironplans/proxy@0.5.1-alpha.0) (2021-11-30)
 
 **Note:** Version bump only for package @ironplans/proxy
