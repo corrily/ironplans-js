@@ -33,3 +33,9 @@ Come talk to the authors, founders, and happy users:
 [proxy]: https://www.npmjs.com/package/@ironplans/proxy
 [api]: https://www.npmjs.com/package/@ironplans/api
 [types]: https://www.npmjs.com/package/@ironplans/types
+
+## Releasing (for Iron Plans Developers)
+
+Graduate all packages from next to latest:
+
+`lerna version --conventional-graduate --conventional-prerelease=0`
