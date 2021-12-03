@@ -38,4 +38,12 @@ Come talk to the authors, founders, and happy users:
 
 Graduate all packages from next to latest:
 
-`lerna version --conventional-graduate --conventional-prerelease=0`
+```
+lerna version --conventional-graduate --conventional-prerelease=0
+```
+
+Then publish the packages to NPM:
+
+```
+lerna publish from-git
+```
