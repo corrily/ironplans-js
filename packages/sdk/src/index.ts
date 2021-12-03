@@ -8,7 +8,7 @@ export { default as Invite } from './invite'
 export { default as Subscription } from './subscription'
 export { default as Pricing } from './pricing'
 export { APIOptions, createAPI } from './api'
-export { clone } from './utils'
+export { clone, themeToQueryString } from './utils'
 
 export type {
   IPublicTheme as Theme,
