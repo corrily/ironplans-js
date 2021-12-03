@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0-alpha.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.1-alpha.3...@ironplans/sdk@0.6.0-alpha.0) (2021-12-03)
+
+### Features
+
+- allow plan price / billing period customizability ([#32](https://github.com/ironplans/js/issues/32)) ([5cdcdf2](https://github.com/ironplans/js/commit/5cdcdf269bd63871c602368f2496927ad0cb1859))
+
 ## [0.5.1-alpha.3](https://github.com/ironplans/js/compare/@ironplans/sdk@0.5.1-alpha.2...@ironplans/sdk@0.5.1-alpha.3) (2021-12-02)
 
 **Note:** Version bump only for package @ironplans/sdk
