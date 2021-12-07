@@ -36,6 +36,10 @@ export interface IPublicThemeFull {
   button: Partial<ThemeButtonVariants>
   planPrice: Partial<CSSStyleDeclaration>
   planBillingPeriod: Partial<CSSStyleDeclaration>
+  cardModal: Partial<CSSStyleDeclaration>
+  cardModalHeader: Partial<CSSStyleDeclaration>
+  cardModalBody: Partial<CSSStyleDeclaration>
+  cardModalButton: Partial<CSSStyleDeclaration>
 }
 export type IPublicTheme = Partial<IPublicThemeFull>
 
