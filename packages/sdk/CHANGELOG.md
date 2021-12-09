@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0-alpha.2](https://github.com/ironplans/js/compare/@ironplans/sdk@0.7.0-alpha.1...@ironplans/sdk@0.7.0-alpha.2) (2021-12-09)
+
+### Features
+
+- add granular theme for different card modal elements ([#34](https://github.com/ironplans/js/issues/34)) ([a207fbd](https://github.com/ironplans/js/commit/a207fbd7682ffa7a7779a2ccc63fbec6e04294c0))
+
 # [0.7.0-alpha.1](https://github.com/ironplans/js/compare/@ironplans/sdk@0.7.0-alpha.0...@ironplans/sdk@0.7.0-alpha.1) (2021-12-08)
 
 **Note:** Version bump only for package @ironplans/sdk
