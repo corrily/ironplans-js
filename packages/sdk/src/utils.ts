@@ -30,11 +30,10 @@ interface BaseThemeOptions {
   colors: Partial<ThemeColorVariants>
 }
 
-export interface CardModalTheme {
-  card: Partial<CSSStyleDeclaration>
-  header: Partial<CSSStyleDeclaration>
-  body: Partial<CSSStyleDeclaration>
-  button: Partial<CSSStyleDeclaration>
+export type CardElement = 'card' | 'header' | 'body' | 'button'
+
+export type CardModalTheme = {
+  [key in CardElement]: Partial<CSSStyleDeclaration>
 }
 
 export type CardModalVariant =
@@ -43,7 +42,7 @@ export type CardModalVariant =
   | 'selectFreePlanConfirmation'
   | 'cancelConfirmation'
   | 'switchPlanConfirmation'
-  | 'customConfirm'
+  | 'customPlanConfirmation'
   | 'renewConfirmation'
   | 'paymentConfirmation'
 
