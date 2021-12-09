@@ -30,19 +30,37 @@ interface BaseThemeOptions {
   colors: Partial<ThemeColorVariants>
 }
 
+export interface CardModalTheme {
+  card: Partial<CSSStyleDeclaration>
+  header: Partial<CSSStyleDeclaration>
+  body: Partial<CSSStyleDeclaration>
+  button: Partial<CSSStyleDeclaration>
+}
+
+export type CardModalVariant =
+  | 'base'
+  | 'checkoutForm'
+  | 'selectFreePlanConfirmation'
+  | 'cancelConfirmation'
+  | 'switchPlanConfirmation'
+  | 'customConfirm'
+  | 'renewConfirmation'
+  | 'paymentConfirmation'
+
+export type CardModalVariants = {
+  [key in CardModalVariant]: Partial<CardModalTheme>
+}
+
 export interface IPublicThemeFull {
   base: Partial<BaseThemeOptions>
   card: Partial<CSSStyleDeclaration>
   button: Partial<ThemeButtonVariants>
   planPrice: Partial<CSSStyleDeclaration>
   planBillingPeriod: Partial<CSSStyleDeclaration>
-  cardModal: Partial<CSSStyleDeclaration>
-  cardModalHeader: Partial<CSSStyleDeclaration>
-  cardModalBody: Partial<CSSStyleDeclaration>
-  cardModalButton: Partial<CSSStyleDeclaration>
+  cardModal: Partial<CardModalVariants>
 }
-export type IPublicTheme = Partial<IPublicThemeFull>
 
+export type IPublicTheme = Partial<IPublicThemeFull>
 export interface IFrameOptions {
   url: string | URL
   theme?: IPublicTheme
