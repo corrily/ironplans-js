@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0-alpha.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.7.0...@ironplans/sdk@0.8.0-alpha.0) (2021-12-10)
+
+### Features
+
+- support custom copy for modal dialogs ([#35](https://github.com/ironplans/js/issues/35)) ([5726696](https://github.com/ironplans/js/commit/57266963828bd13e800b4e8cb7db8d71f23e7400))
+
 # [0.7.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.7.0-alpha.2...@ironplans/sdk@0.7.0) (2021-12-09)
 
 **Note:** Version bump only for package @ironplans/sdk
