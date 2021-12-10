@@ -36,6 +36,10 @@ export type CardModalTheme = {
   [key in CardElement]: Partial<CSSStyleDeclaration>
 }
 
+export type CardModalCopy = {
+  [key in CardElement]: string
+}
+
 export type CardModalVariant =
   | 'base'
   | 'checkoutForm'
@@ -50,6 +54,10 @@ export type CardModalVariants = {
   [key in CardModalVariant]: Partial<CardModalTheme>
 }
 
+export type CardModalCopyVariants = {
+  [key in CardModalVariant]: Partial<CardModalCopy>
+}
+
 export interface IPublicThemeFull {
   base: Partial<BaseThemeOptions>
   card: Partial<CSSStyleDeclaration>
@@ -59,10 +67,16 @@ export interface IPublicThemeFull {
   cardModal: Partial<CardModalVariants>
 }
 
+export interface IPublicCustomCopy {
+  cardModal?: Partial<CardModalCopyVariants>
+}
+
 export type IPublicTheme = Partial<IPublicThemeFull>
+
 export interface IFrameOptions {
   url: string | URL
   theme?: IPublicTheme
+  customCopy?: IPublicCustomCopy
   token?: string
   publicToken?: string
   teamId?: string
@@ -108,6 +122,10 @@ export function themeToQueryString(theme: IPublicTheme): string {
   return stringify({ theme })
 }
 
+export function customCopyToQueryString(customCopy: IPublicCustomCopy): string {
+  return stringify({ customCopy })
+}
+
 export function urlish(url: string | URL): URL {
   if (typeof url === 'string') {
     return new URL(url)
@@ -118,12 +136,14 @@ export function urlish(url: string | URL): URL {
 export function createIframeUrl(opts: IFrameOptions) {
   const url = urlish(opts.url)
 
-  const { token, publicToken, teamId, theme } = opts
+  const { token, publicToken, teamId, theme, customCopy } = opts
   url.searchParams.set('ct', token ?? '')
   url.searchParams.set('pt', publicToken ?? '')
   url.searchParams.set('tid', teamId ?? '')
 
-  return `${url}${theme ? `&${themeToQueryString(theme)}` : ''}`
+  return `${url}${theme ? `&${themeToQueryString(theme)}` : ''}${
+    customCopy ? `&${customCopyToQueryString(customCopy)}` : ''
+  }`
 }
 
 function createIframe({ zIndex = 1 } = {}) {

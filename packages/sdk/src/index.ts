@@ -8,10 +8,11 @@ export { default as Invite } from './invite'
 export { default as Subscription } from './subscription'
 export { default as Pricing } from './pricing'
 export { APIOptions, createAPI } from './api'
-export { clone, themeToQueryString } from './utils'
+export { clone, themeToQueryString, createIframeUrl } from './utils'
 
 export type {
   IPublicTheme as Theme,
+  IPublicCustomCopy as CustomCopy,
   ThemeState,
   ThemeButtonVariants,
   ThemeColorVariants,
