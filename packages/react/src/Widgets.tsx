@@ -7,11 +7,13 @@ import {
   IFrameOptions,
   TeamWidgetType,
   APIOptions,
+  CustomCopy,
 } from '@ironplans/sdk'
 import { useCustomer } from './CustomerProvider'
 
 interface Props {
   theme?: Theme
+  customCopy?: CustomCopy
 }
 
 interface WidgetProps extends Props {
@@ -26,7 +28,12 @@ interface PublicWidgetProps extends Props {
   iframeOpts?: IFrameOptions
 }
 
-export const Widget: FC<WidgetProps> = ({ customer: c, theme, widget }) => {
+export const Widget: FC<WidgetProps> = ({
+  customer: c,
+  theme,
+  widget,
+  customCopy,
+}) => {
   const { customer, error, isLoading } = useCustomer(c)
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
