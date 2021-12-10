@@ -7,8 +7,8 @@ import {
   showWidgetModal,
   IPublicTheme,
   TeamWidgetType,
+  IPublicCustomCopy,
 } from './utils'
-import { CustomCopy } from './index'
 
 export default class Team extends Resource<TeamDetail> {
   static async fromId(api: IPAPI, id: string) {
@@ -143,7 +143,7 @@ export default class Team extends Resource<TeamDetail> {
   createWidgetUrl(
     widget: TeamWidgetType,
     theme?: IPublicTheme,
-    customCopy?: CustomCopy
+    customCopy?: IPublicCustomCopy
   ) {
     return createIframeUrl({
       theme,
@@ -171,7 +171,7 @@ export default class Team extends Resource<TeamDetail> {
     widget: TeamWidgetType,
     theme?: IPublicTheme,
     elOrSelector?: string | Element,
-    customCopy?: CustomCopy
+    customCopy?: IPublicCustomCopy
   ) {
     const url = this.createWidgetUrl(widget, theme, customCopy)
     if (elOrSelector) {
