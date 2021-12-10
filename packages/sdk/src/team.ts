@@ -8,6 +8,7 @@ import {
   IPublicTheme,
   TeamWidgetType,
 } from './utils'
+import { CustomCopy } from './index'
 
 export default class Team extends Resource<TeamDetail> {
   static async fromId(api: IPAPI, id: string) {
@@ -139,9 +140,14 @@ export default class Team extends Resource<TeamDetail> {
    *  * `invoices` - Shows a table of invoices.
    *  * `payment_methods` - Shows a customer's payment methods.
    */
-  createWidgetUrl(widget: TeamWidgetType, theme?: IPublicTheme) {
+  createWidgetUrl(
+    widget: TeamWidgetType,
+    theme?: IPublicTheme,
+    customCopy?: CustomCopy
+  ) {
     return createIframeUrl({
       theme,
+      customCopy,
       teamId: this.id,
       token: this.api.token,
       url: new URL(widget, this.api.appBaseUrl),
@@ -164,9 +170,10 @@ export default class Team extends Resource<TeamDetail> {
   showWidget(
     widget: TeamWidgetType,
     theme?: IPublicTheme,
-    elOrSelector?: string | Element
+    elOrSelector?: string | Element,
+    customCopy?: CustomCopy
   ) {
-    const url = this.createWidgetUrl(widget, theme)
+    const url = this.createWidgetUrl(widget, theme, customCopy)
     if (elOrSelector) {
       showWidgetAt(url, elOrSelector)
       return () => {
