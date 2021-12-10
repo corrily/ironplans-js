@@ -46,7 +46,7 @@ export const Widget: FC<WidgetProps> = ({
       }
     })
     return () => unsub()
-  }, [customer, error, isLoading, theme, widget])
+  }, [customer, error, isLoading, theme, widget, customCopy])
 
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>Error: {error.message}</div>
@@ -79,7 +79,7 @@ export const PublicWidget: FC<PublicWidgetProps> = ({
       customCopy
     )
     return () => {}
-  }, [iframeOpts, publicToken, redirectUrl, theme, apiOpts])
+  }, [iframeOpts, publicToken, redirectUrl, theme, apiOpts, customCopy])
   return <div ref={ref} style={{ width: '100%', height: '100%' }} />
 }
 
