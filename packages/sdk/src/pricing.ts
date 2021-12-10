@@ -1,6 +1,7 @@
 import {
   createIframeUrl,
   IFrameOptions,
+  IPublicCustomCopy,
   IPublicTheme,
   showWidgetAt,
   showWidgetModal,
@@ -50,7 +51,11 @@ export default class Pricing {
    * Optionally, pass in planId and highlightText in opts to highlight a plan
    * card that you want to highlight, e.g. to encourage customers to select.
    */
-  createWidgetUrl(theme?: IPublicTheme, opts?: Partial<IFrameOptions>) {
+  createWidgetUrl(
+    theme?: IPublicTheme,
+    opts?: Partial<IFrameOptions>,
+    customCopy?: IPublicCustomCopy
+  ) {
     if (!opts?.redirectUrl) throw Error('redirectUrl required')
 
     const url = new URL('pricing', this.api.appBaseUrl)
@@ -64,6 +69,7 @@ export default class Pricing {
       theme,
       publicToken: this.api.publicToken,
       url,
+      customCopy,
     })
   }
 
@@ -77,9 +83,10 @@ export default class Pricing {
   showWidget(
     theme?: IPublicTheme,
     elOrSelector?: string | Element,
-    opts?: Partial<IFrameOptions>
+    opts?: Partial<IFrameOptions>,
+    customCopy?: IPublicCustomCopy
   ) {
-    const url = this.createWidgetUrl(theme, opts)
+    const url = this.createWidgetUrl(theme, opts, customCopy)
     if (elOrSelector) {
       showWidgetAt(url, elOrSelector)
       return () => {
