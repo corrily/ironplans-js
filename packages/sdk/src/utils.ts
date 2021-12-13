@@ -30,7 +30,7 @@ interface BaseThemeOptions {
   colors: Partial<ThemeColorVariants>
 }
 
-export type CardElement = 'card' | 'header' | 'body' | 'button'
+export type CardElement = 'card' | 'innerCard' | 'header' | 'body' | 'button'
 
 export type CardModalTheme = {
   [key in CardElement]: Partial<CSSStyleDeclaration>
