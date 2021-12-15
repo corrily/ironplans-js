@@ -470,8 +470,8 @@ export interface components {
       email: string
     }
     InnerError: {
-      non_field_errors: { [key: string]: unknown }[]
-      field_errors: { [key: string]: unknown }[]
+      non_field_errors: { [key: string]: any }[]
+      field_errors: { [key: string]: any }[]
     }
     Invite: {
       id: string
@@ -835,6 +835,7 @@ export interface components {
       webhook_url?: string | null
       invoice_logo_url?: string | null
       default_plan: components['schemas']['Plan'] | null
+      default_plan_id?: string | null
       trial_days?: number
       is_card_required?: boolean
       owner_id: string
@@ -2021,8 +2022,8 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/vnd.oai.openapi+json': { [key: string]: unknown }
-          'application/json': { [key: string]: unknown }
+          'application/vnd.oai.openapi+json': { [key: string]: any }
+          'application/json': { [key: string]: any }
         }
       }
     }
@@ -2138,8 +2139,8 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/vnd.oai.openapi': { [key: string]: unknown }
-          'application/yaml': { [key: string]: unknown }
+          'application/vnd.oai.openapi': { [key: string]: any }
+          'application/yaml': { [key: string]: any }
         }
       }
     }

@@ -5081,7 +5081,6 @@ components:
         default_plan_id:
           type: string
           format: uuid
-          writeOnly: true
           nullable: true
         trial_days:
           type: integer
@@ -5507,6 +5506,10 @@ components:
             - $ref: '#/components/schemas/Plan'
           readOnly: true
           nullable: true
+        default_plan_id:
+          type: string
+          format: uuid
+          nullable: true
         trial_days:
           type: integer
           maximum: 2147483647
@@ -5590,7 +5593,6 @@ components:
         default_plan_id:
           type: string
           format: uuid
-          writeOnly: true
           nullable: true
         trial_days:
           type: integer
