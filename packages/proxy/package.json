@@ -33,7 +33,7 @@
     "url": "https://github.com/ironplans/js/issues"
   },
   "devDependencies": {
-    "@ironplans/types": "^0.0.30-alpha.0",
+    "@ironplans/types": "^0.6.0-alpha.0",
     "@size-limit/preset-small-lib": "^5.0.4",
     "@types/jsonwebtoken": "^8.5.5",
     "@types/node": "^16.10.1",
