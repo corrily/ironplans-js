@@ -49,6 +49,12 @@ export interface Team {
    * @memberof Team
    */
   readonly metadata: any
+  /**
+   *
+   * @type {string}
+   * @memberof Team
+   */
+  readonly subscriptionId: string | null
 }
 
 export function TeamFromJSON(json: any): Team {
@@ -68,6 +74,7 @@ export function TeamFromJSONTyped(
     createdAt: new Date(json['created_at']),
     updatedAt: new Date(json['updated_at']),
     metadata: json['metadata'],
+    subscriptionId: json['subscription_id'],
   }
 }
 

@@ -2510,6 +2510,15 @@ paths:
     get:
       operationId: subscriptions_v1_list
       parameters:
+        - in: query
+          name: customer_email
+          schema:
+            type: string
+          description: Search subscriptions by team member email.
+        - in: query
+          name: is_active
+          schema:
+            type: boolean
         - name: limit
           required: false
           in: query
@@ -2524,6 +2533,11 @@ paths:
             type: integer
         - in: query
           name: plan_id
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: team_id
           schema:
             type: string
             format: uuid
@@ -2798,6 +2812,11 @@ paths:
     get:
       operationId: subscriptions_v1_usage_list
       parameters:
+        - in: query
+          name: customer_email
+          schema:
+            type: string
+          description: Search subscriptions by team member email.
         - in: path
           name: id
           schema:
@@ -2806,7 +2825,16 @@ paths:
           description: A UUID string identifying this subscription.
           required: true
         - in: query
+          name: is_active
+          schema:
+            type: boolean
+        - in: query
           name: plan_id
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: team_id
           schema:
             type: string
             format: uuid
@@ -6029,10 +6057,16 @@ components:
           allOf:
             - $ref: '#/components/schemas/Metadata'
           readOnly: true
+        subscription_id:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
       required:
         - created_at
         - id
         - metadata
+        - subscription_id
         - updated_at
     TeamAccess:
       type: object
@@ -6236,8 +6270,8 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://ironplans.us.auth0.com/authorize?audience=https://api.ironplans.com/
-          tokenUrl: https://ironplans.us.auth0.com/oauth/token
+          authorizationUrl: https://auth.ironplans.com/authorize?audience=https://api.ironplans.com/
+          tokenUrl: https://auth.ironplans.com/oauth/token
           scopes:
             openid: OIDC
             profile: Profile

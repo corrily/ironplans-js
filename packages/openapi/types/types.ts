@@ -470,8 +470,8 @@ export interface components {
       email: string
     }
     InnerError: {
-      non_field_errors: { [key: string]: any }[]
-      field_errors: { [key: string]: any }[]
+      non_field_errors: { [key: string]: unknown }[]
+      field_errors: { [key: string]: unknown }[]
     }
     Invite: {
       id: string
@@ -989,6 +989,7 @@ export interface components {
       created_at: string
       updated_at: string
       metadata: components['schemas']['Metadata']
+      subscription_id: string | null
     }
     TeamAccess: {
       id?: string
@@ -2020,8 +2021,8 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/vnd.oai.openapi+json': { [key: string]: any }
-          'application/json': { [key: string]: any }
+          'application/vnd.oai.openapi+json': { [key: string]: unknown }
+          'application/json': { [key: string]: unknown }
         }
       }
     }
@@ -2137,8 +2138,8 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/vnd.oai.openapi': { [key: string]: any }
-          'application/yaml': { [key: string]: any }
+          'application/vnd.oai.openapi': { [key: string]: unknown }
+          'application/yaml': { [key: string]: unknown }
         }
       }
     }
@@ -2809,11 +2810,15 @@ export interface operations {
   subscriptions_v1_list: {
     parameters: {
       query: {
+        /** Search subscriptions by team member email. */
+        customer_email?: string
+        is_active?: boolean
         /** Number of results to return per page. */
         limit?: number
         /** The initial index from which to return the results. */
         offset?: number
         plan_id?: string
+        team_id?: string
       }
     }
     responses: {
@@ -2998,12 +3003,16 @@ export interface operations {
   }
   subscriptions_v1_usage_list: {
     parameters: {
+      query: {
+        /** Search subscriptions by team member email. */
+        customer_email?: string
+        is_active?: boolean
+        plan_id?: string
+        team_id?: string
+      }
       path: {
         /** A UUID string identifying this subscription. */
         id: string
-      }
-      query: {
-        plan_id?: string
       }
     }
     responses: {
