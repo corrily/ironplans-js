@@ -52,9 +52,12 @@ export interface SubscriptionsV1DestroyRequest {
 }
 
 export interface SubscriptionsV1ListRequest {
+  customerEmail?: string
+  isActive?: boolean
   limit?: number
   offset?: number
   planId?: string
+  teamId?: string
 }
 
 export interface SubscriptionsV1PartialUpdateRequest {
@@ -96,7 +99,10 @@ export interface SubscriptionsV1UsageExceededRetrieveRequest {
 
 export interface SubscriptionsV1UsageListRequest {
   id: string
+  customerEmail?: string
+  isActive?: boolean
   planId?: string
+  teamId?: string
 }
 
 /**
@@ -226,6 +232,14 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   ): Promise<runtime.ApiResponse<PaginatedSubscriptionList>> {
     const queryParameters: any = {}
 
+    if (requestParameters.customerEmail !== undefined) {
+      queryParameters['customer_email'] = requestParameters.customerEmail
+    }
+
+    if (requestParameters.isActive !== undefined) {
+      queryParameters['is_active'] = requestParameters.isActive
+    }
+
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit
     }
@@ -236,6 +250,10 @@ export class SubscriptionsApi extends runtime.BaseAPI {
 
     if (requestParameters.planId !== undefined) {
       queryParameters['plan_id'] = requestParameters.planId
+    }
+
+    if (requestParameters.teamId !== undefined) {
+      queryParameters['team_id'] = requestParameters.teamId
     }
 
     const headerParameters: runtime.HTTPHeaders = {}
@@ -784,8 +802,20 @@ export class SubscriptionsApi extends runtime.BaseAPI {
 
     const queryParameters: any = {}
 
+    if (requestParameters.customerEmail !== undefined) {
+      queryParameters['customer_email'] = requestParameters.customerEmail
+    }
+
+    if (requestParameters.isActive !== undefined) {
+      queryParameters['is_active'] = requestParameters.isActive
+    }
+
     if (requestParameters.planId !== undefined) {
       queryParameters['plan_id'] = requestParameters.planId
+    }
+
+    if (requestParameters.teamId !== undefined) {
+      queryParameters['team_id'] = requestParameters.teamId
     }
 
     const headerParameters: runtime.HTTPHeaders = {}
