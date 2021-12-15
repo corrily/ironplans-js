@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0-alpha.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.9.0...@ironplans/sdk@0.10.0-alpha.0) (2021-12-15)
+
+### Features
+
+- **sdk:** add subscribeintents api ([#39](https://github.com/ironplans/js/issues/39)) ([f8599e4](https://github.com/ironplans/js/commit/f8599e4d65762c72c5b1f6de5ef94d90830f41fa))
+
 # [0.9.0](https://github.com/ironplans/js/compare/@ironplans/sdk@0.9.0-alpha.0...@ironplans/sdk@0.9.0) (2021-12-14)
 
 **Note:** Version bump only for package @ironplans/sdk
