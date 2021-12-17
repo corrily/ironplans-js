@@ -85,6 +85,12 @@ export interface Plan {
    * @type {boolean}
    * @memberof Plan
    */
+  readonly isTrialPossible: boolean | null
+  /**
+   *
+   * @type {boolean}
+   * @memberof Plan
+   */
   readonly isDefault: boolean
   /**
    *
@@ -173,6 +179,7 @@ export function PlanFromJSONTyped(
     isActive: json['is_active'],
     isPublic: json['is_public'],
     isTrialAllowed: json['is_trial_allowed'],
+    isTrialPossible: json['is_trial_possible'],
     isDefault: json['is_default'],
     isSelfServe: !exists(json, 'is_self_serve')
       ? undefined

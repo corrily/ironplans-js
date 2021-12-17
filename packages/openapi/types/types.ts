@@ -320,7 +320,7 @@ export interface components {
       teams: components['schemas']['Team'][] | null
     }
     AggregationEnum: 'sum' | 'last'
-    AuthIssuerEnum: 'firebase' | 'cognito'
+    AuthIssuerEnum: 'none' | 'firebase' | 'cognito'
     BillPeriodEnum: 'month' | 'year'
     BillingPeriodEnum: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'annually'
     BulkCreateInviteRequest: {
@@ -470,8 +470,8 @@ export interface components {
       email: string
     }
     InnerError: {
-      non_field_errors: { [key: string]: any }[]
-      field_errors: { [key: string]: any }[]
+      non_field_errors: { [key: string]: unknown }[]
+      field_errors: { [key: string]: unknown }[]
     }
     Invite: {
       id: string
@@ -731,6 +731,7 @@ export interface components {
       is_active: boolean
       is_public: boolean
       is_trial_allowed: boolean
+      is_trial_possible: boolean | null
       is_default: boolean
       is_self_serve?: boolean
       redirect_url?: string | null
@@ -2022,8 +2023,8 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/vnd.oai.openapi+json': { [key: string]: any }
-          'application/json': { [key: string]: any }
+          'application/vnd.oai.openapi+json': { [key: string]: unknown }
+          'application/json': { [key: string]: unknown }
         }
       }
     }
@@ -2139,8 +2140,8 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/vnd.oai.openapi': { [key: string]: any }
-          'application/yaml': { [key: string]: any }
+          'application/vnd.oai.openapi': { [key: string]: unknown }
+          'application/yaml': { [key: string]: unknown }
         }
       }
     }

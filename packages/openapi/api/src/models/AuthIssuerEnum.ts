@@ -18,6 +18,7 @@
  * @enum {string}
  */
 export enum AuthIssuerEnum {
+  None = 'none',
   Firebase = 'firebase',
   Cognito = 'cognito',
 }

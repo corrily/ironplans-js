@@ -3939,6 +3939,7 @@ components:
       type: string
     AuthIssuerEnum:
       enum:
+        - none
         - firebase
         - cognito
       type: string
@@ -5094,7 +5095,9 @@ components:
           nullable: true
           maxLength: 254
         auth_issuer:
-          $ref: '#/components/schemas/AuthIssuerEnum'
+          allOf:
+            - $ref: '#/components/schemas/AuthIssuerEnum'
+          default: none
     PatchedSubscribeIntentRequest:
       type: object
       properties:
@@ -5190,6 +5193,10 @@ components:
           type: boolean
         is_trial_allowed:
           type: boolean
+        is_trial_possible:
+          type: boolean
+          readOnly: true
+          nullable: true
         is_default:
           type: boolean
           readOnly: true
@@ -5250,6 +5257,7 @@ components:
         - is_default
         - is_public
         - is_trial_allowed
+        - is_trial_possible
         - name
         - options
         - state
@@ -5542,7 +5550,9 @@ components:
           nullable: true
           maxLength: 254
         auth_issuer:
-          $ref: '#/components/schemas/AuthIssuerEnum'
+          allOf:
+            - $ref: '#/components/schemas/AuthIssuerEnum'
+          default: none
         cognito_auth_config:
           allOf:
             - $ref: '#/components/schemas/CognitoAuthConfig'
@@ -5606,7 +5616,9 @@ components:
           nullable: true
           maxLength: 254
         auth_issuer:
-          $ref: '#/components/schemas/AuthIssuerEnum'
+          allOf:
+            - $ref: '#/components/schemas/AuthIssuerEnum'
+          default: none
       required:
         - name
         - slug
