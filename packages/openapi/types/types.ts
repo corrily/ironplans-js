@@ -76,7 +76,7 @@ export interface paths {
     post: operations['customers_v1_setup_intent_create']
   }
   '/customers/v1/token/': {
-    /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
+    /** Create a token for a customer.  The token can be used to perform customer-scoped operations, like subscribing to plans only available to them, creating teams, and sending invites to their team.  If this endpoint is called with `customer_email`, then the customer will be created if it does not exist.  `customer_source_id` can be included to link the Iron Plans Customer to your internally defined user ID. If `plan_id` or `plan_option_id` is specified, or you have configured a default sign-up plan, and the customer does not exist, the customer will automatically be subscribed to the specified plan. */
     post: operations['customers_v1_token_create']
   }
   '/features/v1/': {
@@ -320,7 +320,7 @@ export interface components {
       teams: components['schemas']['Team'][] | null
     }
     AggregationEnum: 'sum' | 'last'
-    AuthIssuerEnum: 'none' | 'firebase' | 'cognito'
+    AuthIssuerEnum: 'none' | 'firebase' | 'cognito' | 'frontegg'
     BillPeriodEnum: 'month' | 'year'
     BillingPeriodEnum: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'annually'
     BulkCreateInviteRequest: {
@@ -1548,8 +1548,16 @@ export interface operations {
       }
     }
   }
-  /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
+  /** Create a token for a customer.  The token can be used to perform customer-scoped operations, like subscribing to plans only available to them, creating teams, and sending invites to their team.  If this endpoint is called with `customer_email`, then the customer will be created if it does not exist.  `customer_source_id` can be included to link the Iron Plans Customer to your internally defined user ID. If `plan_id` or `plan_option_id` is specified, or you have configured a default sign-up plan, and the customer does not exist, the customer will automatically be subscribed to the specified plan. */
   customers_v1_token_create: {
+    parameters: {
+      query: {
+        /** The plan ID the customer should be subscribed to if the customer does not already exist.   Will always subscribe to the **monthly** plan option.   Specify `plan_option_id` to subscribe to a specific plan option, e.g. yearly.   If the customer already exists, this parameter is ignored. */
+        plan_id?: string
+        /** The plan option ID the customer should be subscribed to if the customer does not already exist.  If the customer already exists, this parameter is ignored. */
+        plan_option_id?: string
+      }
+    }
     responses: {
       200: {
         content: {

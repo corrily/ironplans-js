@@ -93,6 +93,8 @@ export interface CustomersV1SetupIntentCreateRequest {
 }
 
 export interface CustomersV1TokenCreateRequest {
+  planId?: string
+  planOptionId?: string
   issueCustomerTokenRequest?: IssueCustomerTokenRequest
 }
 
@@ -855,13 +857,21 @@ export class CustomersApi extends runtime.BaseAPI {
   }
 
   /**
-   * Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
+   * Create a token for a customer.  The token can be used to perform customer-scoped operations, like subscribing to plans only available to them, creating teams, and sending invites to their team.  If this endpoint is called with `customer_email`, then the customer will be created if it does not exist.  `customer_source_id` can be included to link the Iron Plans Customer to your internally defined user ID. If `plan_id` or `plan_option_id` is specified, or you have configured a default sign-up plan, and the customer does not exist, the customer will automatically be subscribed to the specified plan.
    */
   async customersV1TokenCreateRaw(
     requestParameters: CustomersV1TokenCreateRequest,
     initOverrides?: RequestInit
   ): Promise<runtime.ApiResponse<CustomerTokenResponse>> {
     const queryParameters: any = {}
+
+    if (requestParameters.planId !== undefined) {
+      queryParameters['plan_id'] = requestParameters.planId
+    }
+
+    if (requestParameters.planOptionId !== undefined) {
+      queryParameters['plan_option_id'] = requestParameters.planOptionId
+    }
 
     const headerParameters: runtime.HTTPHeaders = {}
 
@@ -910,7 +920,7 @@ export class CustomersApi extends runtime.BaseAPI {
   }
 
   /**
-   * Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers).
+   * Create a token for a customer.  The token can be used to perform customer-scoped operations, like subscribing to plans only available to them, creating teams, and sending invites to their team.  If this endpoint is called with `customer_email`, then the customer will be created if it does not exist.  `customer_source_id` can be included to link the Iron Plans Customer to your internally defined user ID. If `plan_id` or `plan_option_id` is specified, or you have configured a default sign-up plan, and the customer does not exist, the customer will automatically be subscribed to the specified plan.
    */
   async customersV1TokenCreate(
     requestParameters: CustomersV1TokenCreateRequest,
