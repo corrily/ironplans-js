@@ -20,9 +20,18 @@ make
 Commit the changes, and push to origin
 
 ```
-git commit -m "chore(openapi): bump"
+git add . && git commit -m "chore(openapi): bump"
 git push origin main
 ```
+
+Upgrade the package in the ironplans repo's `dash` package.
+
+```
+cd /path/to/ironplans/dash
+yarn upgrade @ironplans/api
+```
+
+> **_NOTE:_** If you have any packages linked through yalc, you may want to unlink them to test your build.
 
 ## Testing locally
 
