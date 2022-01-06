@@ -22,6 +22,10 @@ import {
   CognitoAuthConfigFromJSON,
   CognitoAuthConfigFromJSONTyped,
   CognitoAuthConfigToJSON,
+  FronteggAuthConfig,
+  FronteggAuthConfigFromJSON,
+  FronteggAuthConfigFromJSONTyped,
+  FronteggAuthConfigToJSON,
   Plan,
   PlanFromJSON,
   PlanFromJSONTyped,
@@ -148,6 +152,12 @@ export interface Provider {
    * @memberof Provider
    */
   readonly cognitoAuthConfig: CognitoAuthConfig | null
+  /**
+   *
+   * @type {FronteggAuthConfig}
+   * @memberof Provider
+   */
+  readonly fronteggAuthConfig: FronteggAuthConfig | null
 }
 
 export function ProviderFromJSON(json: any): Provider {
@@ -191,6 +201,9 @@ export function ProviderFromJSONTyped(
       ? undefined
       : AuthIssuerEnumFromJSON(json['auth_issuer']),
     cognitoAuthConfig: CognitoAuthConfigFromJSON(json['cognito_auth_config']),
+    fronteggAuthConfig: FronteggAuthConfigFromJSON(
+      json['frontegg_auth_config']
+    ),
   }
 }
 
