@@ -34,7 +34,23 @@ Come talk to the authors, founders, and happy users:
 [api]: https://www.npmjs.com/package/@ironplans/api
 [types]: https://www.npmjs.com/package/@ironplans/types
 
-## Releasing (for Iron Plans Developers)
+## Contributing
+
+Tools required for building:
+
+- `make`
+- `git`
+- `jq`
+- `wget`
+- `npx`
+
+Build all packages:
+
+```
+make
+```
+
+### Releasing (for Iron Plans Developers)
 
 Graduate all packages from next to latest:
 

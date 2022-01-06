@@ -30,6 +30,7 @@
 .cache
 .yalc
 yalc.lock
+.yarn
 
 # debug
 npm-debug.log*
