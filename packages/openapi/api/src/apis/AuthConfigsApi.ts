@@ -20,12 +20,24 @@ import {
   CognitoAuthConfigRequest,
   CognitoAuthConfigRequestFromJSON,
   CognitoAuthConfigRequestToJSON,
+  FronteggAuthConfig,
+  FronteggAuthConfigFromJSON,
+  FronteggAuthConfigToJSON,
+  FronteggAuthConfigRequest,
+  FronteggAuthConfigRequestFromJSON,
+  FronteggAuthConfigRequestToJSON,
   PaginatedCognitoAuthConfigList,
   PaginatedCognitoAuthConfigListFromJSON,
   PaginatedCognitoAuthConfigListToJSON,
+  PaginatedFronteggAuthConfigList,
+  PaginatedFronteggAuthConfigListFromJSON,
+  PaginatedFronteggAuthConfigListToJSON,
   PatchedCognitoAuthConfigRequest,
   PatchedCognitoAuthConfigRequestFromJSON,
   PatchedCognitoAuthConfigRequestToJSON,
+  PatchedFronteggAuthConfigRequest,
+  PatchedFronteggAuthConfigRequestFromJSON,
+  PatchedFronteggAuthConfigRequestToJSON,
 } from '../models'
 
 export interface AuthConfigsCognitoV1CreateRequest {
@@ -53,6 +65,33 @@ export interface AuthConfigsCognitoV1RetrieveRequest {
 export interface AuthConfigsCognitoV1UpdateRequest {
   id: string
   cognitoAuthConfigRequest: CognitoAuthConfigRequest
+}
+
+export interface AuthConfigsFronteggV1CreateRequest {
+  fronteggAuthConfigRequest: FronteggAuthConfigRequest
+}
+
+export interface AuthConfigsFronteggV1DestroyRequest {
+  id: string
+}
+
+export interface AuthConfigsFronteggV1ListRequest {
+  limit?: number
+  offset?: number
+}
+
+export interface AuthConfigsFronteggV1PartialUpdateRequest {
+  id: string
+  patchedFronteggAuthConfigRequest?: PatchedFronteggAuthConfigRequest
+}
+
+export interface AuthConfigsFronteggV1RetrieveRequest {
+  id: string
+}
+
+export interface AuthConfigsFronteggV1UpdateRequest {
+  id: string
+  fronteggAuthConfigRequest: FronteggAuthConfigRequest
 }
 
 /**
@@ -502,6 +541,455 @@ export class AuthConfigsApi extends runtime.BaseAPI {
     initOverrides?: RequestInit
   ): Promise<CognitoAuthConfig> {
     const response = await this.authConfigsCognitoV1UpdateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1CreateRaw(
+    requestParameters: AuthConfigsFronteggV1CreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<FronteggAuthConfig>> {
+    if (
+      requestParameters.fronteggAuthConfigRequest === null ||
+      requestParameters.fronteggAuthConfigRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'fronteggAuthConfigRequest',
+        'Required parameter requestParameters.fronteggAuthConfigRequest was null or undefined when calling authConfigsFronteggV1Create.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/auth_configs/frontegg/v1/`,
+        method: 'POST',
+        headers: headerParameters,
+        query: queryParameters,
+        body: FronteggAuthConfigRequestToJSON(
+          requestParameters.fronteggAuthConfigRequest
+        ),
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      FronteggAuthConfigFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1Create(
+    requestParameters: AuthConfigsFronteggV1CreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<FronteggAuthConfig> {
+    const response = await this.authConfigsFronteggV1CreateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1DestroyRaw(
+    requestParameters: AuthConfigsFronteggV1DestroyRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling authConfigsFronteggV1Destroy.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/auth_configs/frontegg/v1/{id}/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'DELETE',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1Destroy(
+    requestParameters: AuthConfigsFronteggV1DestroyRequest,
+    initOverrides?: RequestInit
+  ): Promise<void> {
+    await this.authConfigsFronteggV1DestroyRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1ListRaw(
+    requestParameters: AuthConfigsFronteggV1ListRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<PaginatedFronteggAuthConfigList>> {
+    const queryParameters: any = {}
+
+    if (requestParameters.limit !== undefined) {
+      queryParameters['limit'] = requestParameters.limit
+    }
+
+    if (requestParameters.offset !== undefined) {
+      queryParameters['offset'] = requestParameters.offset
+    }
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/auth_configs/frontegg/v1/`,
+        method: 'GET',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      PaginatedFronteggAuthConfigListFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1List(
+    requestParameters: AuthConfigsFronteggV1ListRequest,
+    initOverrides?: RequestInit
+  ): Promise<PaginatedFronteggAuthConfigList> {
+    const response = await this.authConfigsFronteggV1ListRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1PartialUpdateRaw(
+    requestParameters: AuthConfigsFronteggV1PartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<FronteggAuthConfig>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling authConfigsFronteggV1PartialUpdate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/auth_configs/frontegg/v1/{id}/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'PATCH',
+        headers: headerParameters,
+        query: queryParameters,
+        body: PatchedFronteggAuthConfigRequestToJSON(
+          requestParameters.patchedFronteggAuthConfigRequest
+        ),
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      FronteggAuthConfigFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1PartialUpdate(
+    requestParameters: AuthConfigsFronteggV1PartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<FronteggAuthConfig> {
+    const response = await this.authConfigsFronteggV1PartialUpdateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1RetrieveRaw(
+    requestParameters: AuthConfigsFronteggV1RetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<FronteggAuthConfig>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling authConfigsFronteggV1Retrieve.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/auth_configs/frontegg/v1/{id}/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'GET',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      FronteggAuthConfigFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1Retrieve(
+    requestParameters: AuthConfigsFronteggV1RetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<FronteggAuthConfig> {
+    const response = await this.authConfigsFronteggV1RetrieveRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1UpdateRaw(
+    requestParameters: AuthConfigsFronteggV1UpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<FronteggAuthConfig>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling authConfigsFronteggV1Update.'
+      )
+    }
+
+    if (
+      requestParameters.fronteggAuthConfigRequest === null ||
+      requestParameters.fronteggAuthConfigRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'fronteggAuthConfigRequest',
+        'Required parameter requestParameters.fronteggAuthConfigRequest was null or undefined when calling authConfigsFronteggV1Update.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/auth_configs/frontegg/v1/{id}/`.replace(
+          `{${'id'}}`,
+          encodeURIComponent(String(requestParameters.id))
+        ),
+        method: 'PUT',
+        headers: headerParameters,
+        query: queryParameters,
+        body: FronteggAuthConfigRequestToJSON(
+          requestParameters.fronteggAuthConfigRequest
+        ),
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      FronteggAuthConfigFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async authConfigsFronteggV1Update(
+    requestParameters: AuthConfigsFronteggV1UpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<FronteggAuthConfig> {
+    const response = await this.authConfigsFronteggV1UpdateRaw(
       requestParameters,
       initOverrides
     )

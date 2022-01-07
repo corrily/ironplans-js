@@ -262,6 +262,246 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: ''
+  /auth_configs/frontegg/v1/:
+    get:
+      operationId: auth_configs_frontegg_v1_list
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+      tags:
+        - auth_configs
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedFronteggAuthConfigList'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    post:
+      operationId: auth_configs_frontegg_v1_create
+      tags:
+        - auth_configs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FronteggAuthConfigRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FronteggAuthConfigRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FronteggAuthConfigRequest'
+        required: true
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FronteggAuthConfig'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /auth_configs/frontegg/v1/{id}/:
+    get:
+      operationId: auth_configs_frontegg_v1_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this frontegg auth config.
+          required: true
+      tags:
+        - auth_configs
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FronteggAuthConfig'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    put:
+      operationId: auth_configs_frontegg_v1_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this frontegg auth config.
+          required: true
+      tags:
+        - auth_configs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FronteggAuthConfigRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FronteggAuthConfigRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FronteggAuthConfigRequest'
+        required: true
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FronteggAuthConfig'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    patch:
+      operationId: auth_configs_frontegg_v1_partial_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this frontegg auth config.
+          required: true
+      tags:
+        - auth_configs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFronteggAuthConfigRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFronteggAuthConfigRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFronteggAuthConfigRequest'
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FronteggAuthConfig'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    delete:
+      operationId: auth_configs_frontegg_v1_destroy
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this frontegg auth config.
+          required: true
+      tags:
+        - auth_configs
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '204':
+          description: No response body
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /customers/v1/:
     get:
       operationId: customers_v1_list
@@ -4385,6 +4625,33 @@ components:
           format: uuid
       required:
         - name
+    FronteggAuthConfig:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider_id:
+          type: string
+        public_key:
+          type: string
+      required:
+        - id
+        - provider_id
+        - public_key
+    FronteggAuthConfigRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          minLength: 1
+        public_key:
+          type: string
+          minLength: 1
+      required:
+        - provider_id
+        - public_key
     IDTokenExchangeRequest:
       type: object
       properties:
@@ -4695,6 +4962,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FeatureSpec'
+    PaginatedFronteggAuthConfigList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/FronteggAuthConfig'
     PaginatedInviteList:
       type: object
       properties:
@@ -4966,6 +5253,15 @@ components:
         provider_id:
           type: string
           format: uuid
+    PatchedFronteggAuthConfigRequest:
+      type: object
+      properties:
+        provider_id:
+          type: string
+          minLength: 1
+        public_key:
+          type: string
+          minLength: 1
     PatchedInviteRequest:
       type: object
       properties:
@@ -5587,9 +5883,15 @@ components:
             - $ref: '#/components/schemas/CognitoAuthConfig'
           readOnly: true
           nullable: true
+        frontegg_auth_config:
+          allOf:
+            - $ref: '#/components/schemas/FronteggAuthConfig'
+          readOnly: true
+          nullable: true
       required:
         - cognito_auth_config
         - default_plan
+        - frontegg_auth_config
         - id
         - is_shadow
         - name
@@ -6313,8 +6615,8 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://auth.ironplans.com/authorize?audience=https://api.ironplans.com/
-          tokenUrl: https://auth.ironplans.com/oauth/token
+          authorizationUrl: https://ironplans.us.auth0.com/authorize?audience=https://api.ironplans.com/
+          tokenUrl: https://ironplans.us.auth0.com/oauth/token
           scopes:
             openid: OIDC
             profile: Profile
