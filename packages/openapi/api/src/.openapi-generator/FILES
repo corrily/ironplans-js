@@ -44,8 +44,6 @@ models/Feature.ts
 models/FeatureRequest.ts
 models/FeatureSpec.ts
 models/FeatureSpecRequest.ts
-models/FronteggAuthConfig.ts
-models/FronteggAuthConfigRequest.ts
 models/IDTokenExchangeRequest.ts
 models/Identity.ts
 models/IdentityRequest.ts
@@ -64,7 +62,6 @@ models/PaginatedCognitoAuthConfigList.ts
 models/PaginatedCustomerList.ts
 models/PaginatedFeatureList.ts
 models/PaginatedFeatureSpecList.ts
-models/PaginatedFronteggAuthConfigList.ts
 models/PaginatedInviteList.ts
 models/PaginatedInvoiceList.ts
 models/PaginatedMembershipList.ts
@@ -79,7 +76,6 @@ models/PatchedCognitoAuthConfigRequest.ts
 models/PatchedCustomerRequest.ts
 models/PatchedFeatureRequest.ts
 models/PatchedFeatureSpecRequest.ts
-models/PatchedFronteggAuthConfigRequest.ts
 models/PatchedInviteRequest.ts
 models/PatchedInvoiceRequest.ts
 models/PatchedMembershipRequest.ts
