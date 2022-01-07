@@ -101,7 +101,6 @@ export class Server extends Koa {
           shadowId: null,
           defaultPlan: null,
           cognitoAuthConfig: null,
-          fronteggAuthConfig: null,
         }),
       }),
     },
