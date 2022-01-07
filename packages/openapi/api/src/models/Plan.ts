@@ -45,7 +45,7 @@ export interface Plan {
    */
   readonly id: string
   /**
-   *
+   * DEPRECATED
    * @type {string}
    * @memberof Plan
    */

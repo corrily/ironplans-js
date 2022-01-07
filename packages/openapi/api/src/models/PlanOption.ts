@@ -50,6 +50,12 @@ export interface PlanOption {
    * @memberof PlanOption
    */
   priceCents: number
+  /**
+   *
+   * @type {boolean}
+   * @memberof PlanOption
+   */
+  isPaymentUpfront?: boolean
 }
 
 export function PlanOptionFromJSON(json: any): PlanOption {
@@ -68,6 +74,9 @@ export function PlanOptionFromJSONTyped(
     planId: json['plan_id'],
     billPeriod: BillPeriodEnumFromJSON(json['bill_period']),
     priceCents: json['price_cents'],
+    isPaymentUpfront: !exists(json, 'is_payment_upfront')
+      ? undefined
+      : json['is_payment_upfront'],
   }
 }
 
@@ -83,5 +92,6 @@ export function PlanOptionToJSON(value?: PlanOption | null): any {
     plan_id: value.planId,
     bill_period: BillPeriodEnumToJSON(value.billPeriod),
     price_cents: value.priceCents,
+    is_payment_upfront: value.isPaymentUpfront,
   }
 }

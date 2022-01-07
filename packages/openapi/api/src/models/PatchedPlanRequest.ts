@@ -31,7 +31,7 @@ import {
  */
 export interface PatchedPlanRequest {
   /**
-   *
+   * DEPRECATED
    * @type {string}
    * @memberof PatchedPlanRequest
    */
@@ -120,6 +120,12 @@ export interface PatchedPlanRequest {
    * @memberof PatchedPlanRequest
    */
   teamsAccess?: Array<TeamAccessRequest>
+  /**
+   *
+   * @type {boolean}
+   * @memberof PatchedPlanRequest
+   */
+  isPaymentUpfront?: boolean
 }
 
 export function PatchedPlanRequestFromJSON(json: any): PatchedPlanRequest {
@@ -167,6 +173,9 @@ export function PatchedPlanRequestFromJSONTyped(
     teamsAccess: !exists(json, 'teams_access')
       ? undefined
       : (json['teams_access'] as Array<any>).map(TeamAccessRequestFromJSON),
+    isPaymentUpfront: !exists(json, 'is_payment_upfront')
+      ? undefined
+      : json['is_payment_upfront'],
   }
 }
 
@@ -201,5 +210,6 @@ export function PatchedPlanRequestToJSON(
       value.teamsAccess === undefined
         ? undefined
         : (value.teamsAccess as Array<any>).map(TeamAccessRequestToJSON),
+    is_payment_upfront: value.isPaymentUpfront,
   }
 }

@@ -83,13 +83,29 @@ export class PlansApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/plans/v1/contact_us/`,
@@ -140,13 +156,29 @@ export class PlansApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/plans/v1/`,
@@ -195,13 +227,29 @@ export class PlansApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/plans/v1/{id}/`.replace(
@@ -258,13 +306,29 @@ export class PlansApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/plans/v1/`,
@@ -310,13 +374,29 @@ export class PlansApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/plans/v1/{id}/`.replace(
@@ -367,13 +447,29 @@ export class PlansApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/plans/v1/{id}/`.replace(
@@ -436,13 +532,29 @@ export class PlansApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/plans/v1/{id}/`.replace(

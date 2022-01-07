@@ -31,7 +31,7 @@ import {
  */
 export interface PlanRequest {
   /**
-   *
+   * DEPRECATED
    * @type {string}
    * @memberof PlanRequest
    */
@@ -120,6 +120,12 @@ export interface PlanRequest {
    * @memberof PlanRequest
    */
   teamsAccess: Array<TeamAccessRequest>
+  /**
+   *
+   * @type {boolean}
+   * @memberof PlanRequest
+   */
+  isPaymentUpfront?: boolean
 }
 
 export function PlanRequestFromJSON(json: any): PlanRequest {
@@ -163,6 +169,9 @@ export function PlanRequestFromJSONTyped(
     teamsAccess: (json['teams_access'] as Array<any>).map(
       TeamAccessRequestFromJSON
     ),
+    isPaymentUpfront: !exists(json, 'is_payment_upfront')
+      ? undefined
+      : json['is_payment_upfront'],
   }
 }
 
@@ -191,5 +200,6 @@ export function PlanRequestToJSON(value?: PlanRequest | null): any {
     teams_access: (value.teamsAccess as Array<any>).map(
       TeamAccessRequestToJSON
     ),
+    is_payment_upfront: value.isPaymentUpfront,
   }
 }

@@ -23,6 +23,16 @@ export interface paths {
     delete: operations['auth_configs_cognito_v1_destroy']
     patch: operations['auth_configs_cognito_v1_partial_update']
   }
+  '/auth_configs/frontegg/v1/': {
+    get: operations['auth_configs_frontegg_v1_list']
+    post: operations['auth_configs_frontegg_v1_create']
+  }
+  '/auth_configs/frontegg/v1/{id}/': {
+    get: operations['auth_configs_frontegg_v1_retrieve']
+    put: operations['auth_configs_frontegg_v1_update']
+    delete: operations['auth_configs_frontegg_v1_destroy']
+    patch: operations['auth_configs_frontegg_v1_partial_update']
+  }
   '/customers/v1/': {
     /** Management API for [Customers](https://docs.ironplans.com/concepts/teams/customers). */
     get: operations['customers_v1_list']
@@ -460,6 +470,15 @@ export interface components {
       units_included?: number | null
       provider_id?: string
     }
+    FronteggAuthConfig: {
+      id: string
+      provider_id: string
+      public_key: string
+    }
+    FronteggAuthConfigRequest: {
+      provider_id: string
+      public_key: string
+    }
     IDTokenExchangeRequest: {
       id_token: string
     }
@@ -553,6 +572,12 @@ export interface components {
       previous?: string | null
       results?: components['schemas']['FeatureSpec'][]
     }
+    PaginatedFronteggAuthConfigList: {
+      count?: number
+      next?: string | null
+      previous?: string | null
+      results?: components['schemas']['FronteggAuthConfig'][]
+    }
     PaginatedInviteList: {
       count?: number
       next?: string | null
@@ -638,6 +663,10 @@ export interface components {
       units_included?: number | null
       provider_id?: string
     }
+    PatchedFronteggAuthConfigRequest: {
+      provider_id?: string
+      public_key?: string
+    }
     PatchedInviteRequest: {
       sent_to_email?: string
       is_claimed?: boolean
@@ -657,6 +686,7 @@ export interface components {
     /** String to string mapping.  Keys may be up to 128 bytes and values may be up to 512 bytes. */
     PatchedMetadataRequest: { [key: string]: string }
     PatchedPlanRequest: {
+      /** DEPRECATED */
       provider_id?: string
       name?: string
       tier?: number
@@ -674,6 +704,7 @@ export interface components {
       per_month_price_cents?: number | null
       features?: components['schemas']['PlanFeatureRequest'][]
       teams_access?: components['schemas']['TeamAccessRequest'][]
+      is_payment_upfront?: boolean
     }
     PatchedPlanSwitchRequest: {
       plan_id?: string
@@ -725,6 +756,7 @@ export interface components {
     PaymentStateEnum: 'complete' | 'incomplete'
     Plan: {
       id: string
+      /** DEPRECATED */
       provider_id?: string
       name: string
       tier?: number
@@ -784,14 +816,17 @@ export interface components {
       plan_id: string
       bill_period: components['schemas']['BillPeriodEnum']
       price_cents: number
+      is_payment_upfront?: boolean
     }
     PlanOptionRequest: {
       id: string
       plan_id: string
       bill_period: components['schemas']['BillPeriodEnum']
       price_cents: number
+      is_payment_upfront?: boolean
     }
     PlanRequest: {
+      /** DEPRECATED */
       provider_id?: string
       name: string
       tier?: number
@@ -809,6 +844,7 @@ export interface components {
       per_month_price_cents?: number | null
       features: components['schemas']['PlanFeatureRequest'][]
       teams_access: components['schemas']['TeamAccessRequest'][]
+      is_payment_upfront?: boolean
     }
     /**
      * State of a plan, including possible actions and other caller context.
@@ -847,6 +883,7 @@ export interface components {
       support_email?: string | null
       auth_issuer?: components['schemas']['AuthIssuerEnum']
       cognito_auth_config: components['schemas']['CognitoAuthConfig'] | null
+      frontegg_auth_config: components['schemas']['FronteggAuthConfig'] | null
     }
     ProviderRequest: {
       name: string
@@ -1232,6 +1269,170 @@ export interface operations {
         'application/json': components['schemas']['PatchedCognitoAuthConfigRequest']
         'application/x-www-form-urlencoded': components['schemas']['PatchedCognitoAuthConfigRequest']
         'multipart/form-data': components['schemas']['PatchedCognitoAuthConfigRequest']
+      }
+    }
+  }
+  auth_configs_frontegg_v1_list: {
+    parameters: {
+      query: {
+        /** Number of results to return per page. */
+        limit?: number
+        /** The initial index from which to return the results. */
+        offset?: number
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['PaginatedFronteggAuthConfigList']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  auth_configs_frontegg_v1_create: {
+    responses: {
+      201: {
+        content: {
+          'application/json': components['schemas']['FronteggAuthConfig']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FronteggAuthConfigRequest']
+        'application/x-www-form-urlencoded': components['schemas']['FronteggAuthConfigRequest']
+        'multipart/form-data': components['schemas']['FronteggAuthConfigRequest']
+      }
+    }
+  }
+  auth_configs_frontegg_v1_retrieve: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this frontegg auth config. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['FronteggAuthConfig']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  auth_configs_frontegg_v1_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this frontegg auth config. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['FronteggAuthConfig']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['FronteggAuthConfigRequest']
+        'application/x-www-form-urlencoded': components['schemas']['FronteggAuthConfigRequest']
+        'multipart/form-data': components['schemas']['FronteggAuthConfigRequest']
+      }
+    }
+  }
+  auth_configs_frontegg_v1_destroy: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this frontegg auth config. */
+        id: string
+      }
+    }
+    responses: {
+      /** No response body */
+      204: never
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  auth_configs_frontegg_v1_partial_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this frontegg auth config. */
+        id: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['FronteggAuthConfig']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['PatchedFronteggAuthConfigRequest']
+        'application/x-www-form-urlencoded': components['schemas']['PatchedFronteggAuthConfigRequest']
+        'multipart/form-data': components['schemas']['PatchedFronteggAuthConfigRequest']
       }
     }
   }
@@ -2361,6 +2562,16 @@ export interface operations {
           'application/json': components['schemas']['PaginatedPlanList']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
   /** Add a feature and optionally specification to a plan by specifying a `feature_id` and `spec_id` in the list of features. */
@@ -2369,6 +2580,16 @@ export interface operations {
       201: {
         content: {
           'application/json': components['schemas']['Plan']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -2393,6 +2614,16 @@ export interface operations {
           'application/json': components['schemas']['Plan']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
   /** Remove a feature and spec from a plan by specifying `id` and `is_active: false` in the plan feature list in an update operation.  An empty list for PUT or PATCH does nothing.  A PlanFeature cannot change which feature or spec once created. A deactivated PlanFeature can be reactivated by setting `is_active: true`. */
@@ -2407,6 +2638,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['Plan']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -2428,6 +2669,16 @@ export interface operations {
     responses: {
       /** No response body */
       204: never
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
   plans_v1_partial_update: {
@@ -2441,6 +2692,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['Plan']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -2457,6 +2718,16 @@ export interface operations {
     responses: {
       /** No response body */
       200: unknown
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
     requestBody: {
       content: {
