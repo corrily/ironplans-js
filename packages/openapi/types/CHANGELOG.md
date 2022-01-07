@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0-alpha.3](https://github.com/ironplans/js/compare/@ironplans/types@0.6.0-alpha.2...@ironplans/types@0.6.0-alpha.3) (2022-01-07)
+
+### Reverts
+
+- Revert "chore(openapi): bump (#42)" ([8cbbf40](https://github.com/ironplans/js/commit/8cbbf40fe266c6bf22720e663d55d3cd3833fe68)), closes [#42](https://github.com/ironplans/js/issues/42)
+
 # [0.6.0-alpha.2](https://github.com/ironplans/js/compare/@ironplans/types@0.6.0-alpha.1...@ironplans/types@0.6.0-alpha.2) (2022-01-05)
 
 **Note:** Version bump only for package @ironplans/types

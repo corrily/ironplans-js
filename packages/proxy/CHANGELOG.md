@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2-alpha.4](https://github.com/ironplans/js/compare/@ironplans/proxy@0.5.2-alpha.3...@ironplans/proxy@0.5.2-alpha.4) (2022-01-07)
+
+### Bug Fixes
+
+- add fronteggAuthConfig in proxy server ([4832dd8](https://github.com/ironplans/js/commit/4832dd8a8d3519c489c4925d1d3007d968aaef4d))
+
 ## [0.5.2-alpha.3](https://github.com/ironplans/js/compare/@ironplans/proxy@0.5.2-alpha.2...@ironplans/proxy@0.5.2-alpha.3) (2022-01-05)
 
 **Note:** Version bump only for package @ironplans/proxy
