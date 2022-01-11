@@ -69,7 +69,7 @@ export function createAPI(opts: APIOptions): IPAPI {
     teams: new TeamsApi(config),
     authConfigs: new AuthConfigsApi(config),
     subscribeIntents: new SubscribeIntentsApi(config),
-    plans: new PlansApi(legacyConfig),
+    plans: new PlansApi(config),
     invites: new InvitesApi(legacyConfig),
     providers: new ProvidersApi(legacyConfig),
     subscriptions: new SubscriptionsApi(legacyConfig),

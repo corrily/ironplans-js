@@ -41,6 +41,12 @@ export interface Account {
   readonly isVerified: boolean
   /**
    *
+   * @type {string}
+   * @memberof Account
+   */
+  readonly token: string
+  /**
+   *
    * @type {Array<Team>}
    * @memberof Account
    */
@@ -62,6 +68,7 @@ export function AccountFromJSONTyped(
     id: json['id'],
     email: json['email'],
     isVerified: json['is_verified'],
+    token: json['token'],
     teams:
       json['teams'] === null
         ? null
