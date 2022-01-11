@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0-alpha.6](https://github.com/ironplans/js/compare/@ironplans/api@0.6.0-alpha.5...@ironplans/api@0.6.0-alpha.6) (2022-01-11)
+
+### Features
+
+- **api,sdk,react:** update to use latest API spec ([#43](https://github.com/ironplans/js/issues/43)) ([0fb5150](https://github.com/ironplans/js/commit/0fb51508c0d0f12b2beaeb3006afea20f867ca35))
+
 # [0.6.0-alpha.5](https://github.com/ironplans/js/compare/@ironplans/api@0.6.0-alpha.4...@ironplans/api@0.6.0-alpha.5) (2022-01-07)
 
 ### Reverts
