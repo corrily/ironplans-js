@@ -327,6 +327,7 @@ export interface components {
       id: string
       email: string
       is_verified: boolean
+      token: string
       teams: components['schemas']['Team'][] | null
     }
     AggregationEnum: 'sum' | 'last'

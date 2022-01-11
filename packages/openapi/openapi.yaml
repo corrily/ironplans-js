@@ -4287,6 +4287,9 @@ components:
         is_verified:
           type: boolean
           readOnly: true
+        token:
+          type: string
+          readOnly: true
         teams:
           type: array
           items:
@@ -4298,6 +4301,7 @@ components:
         - id
         - is_verified
         - teams
+        - token
     AggregationEnum:
       enum:
         - sum
