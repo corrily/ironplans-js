@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0-alpha.6](https://github.com/ironplans/js/compare/@ironplans/sdk@0.10.0-alpha.5...@ironplans/sdk@0.10.0-alpha.6) (2022-01-12)
+
+### Features
+
+- more theme options for v2 elems + table, bump proxy/api ([#44](https://github.com/ironplans/js/issues/44)) ([a63b9e3](https://github.com/ironplans/js/commit/a63b9e3e999b6240998008993b08e5704721bcd0))
+
 # [0.10.0-alpha.5](https://github.com/ironplans/js/compare/@ironplans/sdk@0.10.0-alpha.4...@ironplans/sdk@0.10.0-alpha.5) (2022-01-11)
 
 ### Features

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0-alpha.0](https://github.com/ironplans/js/compare/@ironplans/proxy@0.5.2-alpha.5...@ironplans/proxy@0.6.0-alpha.0) (2022-01-12)
+
+### Features
+
+- more theme options for v2 elems + table, bump proxy/api ([#44](https://github.com/ironplans/js/issues/44)) ([a63b9e3](https://github.com/ironplans/js/commit/a63b9e3e999b6240998008993b08e5704721bcd0))
+
 ## [0.5.2-alpha.5](https://github.com/ironplans/js/compare/@ironplans/proxy@0.5.2-alpha.4...@ironplans/proxy@0.5.2-alpha.5) (2022-01-11)
 
 **Note:** Version bump only for package @ironplans/proxy
