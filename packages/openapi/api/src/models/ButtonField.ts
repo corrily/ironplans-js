@@ -25,6 +25,12 @@ export interface ButtonField {
    * @memberof ButtonField
    */
   text: string
+  /**
+   *
+   * @type {string}
+   * @memberof ButtonField
+   */
+  themeState: string
 }
 
 export function ButtonFieldFromJSON(json: any): ButtonField {
@@ -40,6 +46,7 @@ export function ButtonFieldFromJSONTyped(
   }
   return {
     text: json['text'],
+    themeState: json['theme_state'],
   }
 }
 
@@ -52,5 +59,6 @@ export function ButtonFieldToJSON(value?: ButtonField | null): any {
   }
   return {
     text: value.text,
+    theme_state: value.themeState,
   }
 }

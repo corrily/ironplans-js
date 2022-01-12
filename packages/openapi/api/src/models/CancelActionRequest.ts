@@ -13,12 +13,25 @@
  */
 
 import { exists, mapValues } from '../runtime'
+import {
+  ButtonFieldRequest,
+  ButtonFieldRequestFromJSON,
+  ButtonFieldRequestFromJSONTyped,
+  ButtonFieldRequestToJSON,
+} from './'
+
 /**
  * Base serializer for all actions.
  * @export
  * @interface CancelActionRequest
  */
 export interface CancelActionRequest {
+  /**
+   *
+   * @type {ButtonFieldRequest}
+   * @memberof CancelActionRequest
+   */
+  button?: ButtonFieldRequest
   /**
    *
    * @type {string}
@@ -39,6 +52,9 @@ export function CancelActionRequestFromJSONTyped(
     return json
   }
   return {
+    button: !exists(json, 'button')
+      ? undefined
+      : ButtonFieldRequestFromJSON(json['button']),
     subscriptionId: !exists(json, 'subscription_id')
       ? undefined
       : json['subscription_id'],
@@ -55,6 +71,7 @@ export function CancelActionRequestToJSON(
     return null
   }
   return {
+    button: ButtonFieldRequestToJSON(value.button),
     subscription_id: value.subscriptionId,
   }
 }

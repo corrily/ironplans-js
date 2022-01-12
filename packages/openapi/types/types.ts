@@ -344,16 +344,20 @@ export interface components {
     }
     ButtonField: {
       text: string
+      theme_state: string
     }
     ButtonFieldRequest: {
       text: string
+      theme_state: string
     }
     /** Base serializer for all actions. */
     CancelAction: {
+      button?: components['schemas']['ButtonField']
       subscription_id?: string
     }
     /** Base serializer for all actions. */
     CancelActionRequest: {
+      button?: components['schemas']['ButtonFieldRequest']
       subscription_id?: string
     }
     ClientSecret: {
@@ -374,10 +378,12 @@ export interface components {
     }
     /** Base serializer for all actions. */
     ContactAction: {
+      button?: components['schemas']['ButtonField']
       url: string
     }
     /** Base serializer for all actions. */
     ContactActionRequest: {
+      button?: components['schemas']['ButtonFieldRequest']
       url: string
     }
     CreateCustomer: {
@@ -956,15 +962,15 @@ export interface components {
     }
     /** Base serializer for all actions. */
     SubscribeAction: {
+      button?: components['schemas']['ButtonField']
       requirements: components['schemas']['RequirementsEnum'][]
       requirements_met: components['schemas']['RequirementsMetEnum'][]
-      button: components['schemas']['ButtonField']
     }
     /** Base serializer for all actions. */
     SubscribeActionRequest: {
+      button?: components['schemas']['ButtonFieldRequest']
       requirements: components['schemas']['RequirementsEnum'][]
       requirements_met: components['schemas']['RequirementsMetEnum'][]
-      button: components['schemas']['ButtonFieldRequest']
     }
     SubscribeIntent: {
       id: string

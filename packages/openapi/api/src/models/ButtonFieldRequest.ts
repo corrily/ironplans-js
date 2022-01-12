@@ -25,6 +25,12 @@ export interface ButtonFieldRequest {
    * @memberof ButtonFieldRequest
    */
   text: string
+  /**
+   *
+   * @type {string}
+   * @memberof ButtonFieldRequest
+   */
+  themeState: string
 }
 
 export function ButtonFieldRequestFromJSON(json: any): ButtonFieldRequest {
@@ -40,6 +46,7 @@ export function ButtonFieldRequestFromJSONTyped(
   }
   return {
     text: json['text'],
+    themeState: json['theme_state'],
   }
 }
 
@@ -54,5 +61,6 @@ export function ButtonFieldRequestToJSON(
   }
   return {
     text: value.text,
+    theme_state: value.themeState,
   }
 }
