@@ -59,6 +59,22 @@ export type CardModalCopyVariants = {
   [key in CardModalVariant]: Partial<CardModalCopy>
 }
 
+export type TableVariant = 'invoices' | 'invoice' | 'selectPaymentMethod'
+
+export interface TableTheme {
+  table?: Partial<CSSStyleDeclaration>
+  thead?: {
+    th?: Partial<CSSStyleDeclaration>
+  }
+  tbody?: {
+    td?: Partial<CSSStyleDeclaration>
+  }
+}
+
+export type TableVariants = {
+  [key in TableVariant]: Partial<TableTheme>
+}
+
 export interface IPublicThemeFull {
   base: Partial<BaseThemeOptions>
   card: Partial<CSSStyleDeclaration>
@@ -67,15 +83,7 @@ export interface IPublicThemeFull {
   planPrice: Partial<CSSStyleDeclaration>
   planBillingPeriod: Partial<CSSStyleDeclaration>
   cardModal: Partial<CardModalVariants>
-  table?: {
-    base?: Partial<CSSStyleDeclaration>
-    thead?: {
-      th?: Partial<CSSStyleDeclaration>
-    }
-    tbody?: {
-      td?: Partial<CSSStyleDeclaration>
-    }
-  }
+  table?: Partial<TableVariants>
 }
 
 export interface IPublicCustomCopy {
