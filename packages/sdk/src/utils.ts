@@ -49,6 +49,7 @@ export type CardModalVariant =
   | 'customPlanConfirmation'
   | 'renewConfirmation'
   | 'paymentConfirmation'
+  | 'cancelSuccess'
 
 export type CardModalVariants = {
   [key in CardModalVariant]: Partial<CardModalTheme>
@@ -61,10 +62,20 @@ export type CardModalCopyVariants = {
 export interface IPublicThemeFull {
   base: Partial<BaseThemeOptions>
   card: Partial<CSSStyleDeclaration>
+  gridCard: Partial<CSSStyleDeclaration>
   button: Partial<ThemeButtonVariants>
   planPrice: Partial<CSSStyleDeclaration>
   planBillingPeriod: Partial<CSSStyleDeclaration>
   cardModal: Partial<CardModalVariants>
+  table?: {
+    base?: Partial<CSSStyleDeclaration>
+    thead?: {
+      th?: Partial<CSSStyleDeclaration>
+    }
+    tbody?: {
+      td?: Partial<CSSStyleDeclaration>
+    }
+  }
 }
 
 export interface IPublicCustomCopy {
