@@ -13,12 +13,25 @@
  */
 
 import { exists, mapValues } from '../runtime'
+import {
+  ButtonField,
+  ButtonFieldFromJSON,
+  ButtonFieldFromJSONTyped,
+  ButtonFieldToJSON,
+} from './'
+
 /**
  * Base serializer for all actions.
  * @export
  * @interface CancelAction
  */
 export interface CancelAction {
+  /**
+   *
+   * @type {ButtonField}
+   * @memberof CancelAction
+   */
+  button?: ButtonField
   /**
    *
    * @type {string}
@@ -39,6 +52,9 @@ export function CancelActionFromJSONTyped(
     return json
   }
   return {
+    button: !exists(json, 'button')
+      ? undefined
+      : ButtonFieldFromJSON(json['button']),
     subscriptionId: !exists(json, 'subscription_id')
       ? undefined
       : json['subscription_id'],
@@ -53,6 +69,7 @@ export function CancelActionToJSON(value?: CancelAction | null): any {
     return null
   }
   return {
+    button: ButtonFieldToJSON(value.button),
     subscription_id: value.subscriptionId,
   }
 }

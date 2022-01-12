@@ -36,6 +36,12 @@ import {
 export interface SubscribeAction {
   /**
    *
+   * @type {ButtonField}
+   * @memberof SubscribeAction
+   */
+  button?: ButtonField
+  /**
+   *
    * @type {Array<RequirementsEnum>}
    * @memberof SubscribeAction
    */
@@ -46,12 +52,6 @@ export interface SubscribeAction {
    * @memberof SubscribeAction
    */
   requirementsMet: Array<RequirementsMetEnum>
-  /**
-   *
-   * @type {ButtonField}
-   * @memberof SubscribeAction
-   */
-  button: ButtonField
 }
 
 export function SubscribeActionFromJSON(json: any): SubscribeAction {
@@ -66,13 +66,15 @@ export function SubscribeActionFromJSONTyped(
     return json
   }
   return {
+    button: !exists(json, 'button')
+      ? undefined
+      : ButtonFieldFromJSON(json['button']),
     requirements: (json['requirements'] as Array<any>).map(
       RequirementsEnumFromJSON
     ),
     requirementsMet: (json['requirements_met'] as Array<any>).map(
       RequirementsMetEnumFromJSON
     ),
-    button: ButtonFieldFromJSON(json['button']),
   }
 }
 
@@ -84,12 +86,12 @@ export function SubscribeActionToJSON(value?: SubscribeAction | null): any {
     return null
   }
   return {
+    button: ButtonFieldToJSON(value.button),
     requirements: (value.requirements as Array<any>).map(
       RequirementsEnumToJSON
     ),
     requirements_met: (value.requirementsMet as Array<any>).map(
       RequirementsMetEnumToJSON
     ),
-    button: ButtonFieldToJSON(value.button),
   }
 }

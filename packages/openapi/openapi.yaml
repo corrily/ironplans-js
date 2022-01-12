@@ -4358,20 +4358,29 @@ components:
       properties:
         text:
           type: string
+        theme_state:
+          type: string
       required:
         - text
+        - theme_state
     ButtonFieldRequest:
       type: object
       properties:
         text:
           type: string
           minLength: 1
+        theme_state:
+          type: string
+          minLength: 1
       required:
         - text
+        - theme_state
     CancelAction:
       type: object
       description: Base serializer for all actions.
       properties:
+        button:
+          $ref: '#/components/schemas/ButtonField'
         subscription_id:
           type: string
           format: uuid
@@ -4379,6 +4388,8 @@ components:
       type: object
       description: Base serializer for all actions.
       properties:
+        button:
+          $ref: '#/components/schemas/ButtonFieldRequest'
         subscription_id:
           type: string
           format: uuid
@@ -4434,6 +4445,8 @@ components:
       type: object
       description: Base serializer for all actions.
       properties:
+        button:
+          $ref: '#/components/schemas/ButtonField'
         url:
           type: string
           format: uri
@@ -4443,6 +4456,8 @@ components:
       type: object
       description: Base serializer for all actions.
       properties:
+        button:
+          $ref: '#/components/schemas/ButtonFieldRequest'
         url:
           type: string
           format: uri
@@ -6259,6 +6274,8 @@ components:
       type: object
       description: Base serializer for all actions.
       properties:
+        button:
+          $ref: '#/components/schemas/ButtonField'
         requirements:
           type: array
           items:
@@ -6267,16 +6284,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RequirementsMetEnum'
-        button:
-          $ref: '#/components/schemas/ButtonField'
       required:
-        - button
         - requirements
         - requirements_met
     SubscribeActionRequest:
       type: object
       description: Base serializer for all actions.
       properties:
+        button:
+          $ref: '#/components/schemas/ButtonFieldRequest'
         requirements:
           type: array
           items:
@@ -6285,10 +6301,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RequirementsMetEnum'
-        button:
-          $ref: '#/components/schemas/ButtonFieldRequest'
       required:
-        - button
         - requirements
         - requirements_met
     SubscribeIntent:

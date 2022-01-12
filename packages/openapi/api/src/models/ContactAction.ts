@@ -13,12 +13,25 @@
  */
 
 import { exists, mapValues } from '../runtime'
+import {
+  ButtonField,
+  ButtonFieldFromJSON,
+  ButtonFieldFromJSONTyped,
+  ButtonFieldToJSON,
+} from './'
+
 /**
  * Base serializer for all actions.
  * @export
  * @interface ContactAction
  */
 export interface ContactAction {
+  /**
+   *
+   * @type {ButtonField}
+   * @memberof ContactAction
+   */
+  button?: ButtonField
   /**
    *
    * @type {string}
@@ -39,6 +52,9 @@ export function ContactActionFromJSONTyped(
     return json
   }
   return {
+    button: !exists(json, 'button')
+      ? undefined
+      : ButtonFieldFromJSON(json['button']),
     url: json['url'],
   }
 }
@@ -51,6 +67,7 @@ export function ContactActionToJSON(value?: ContactAction | null): any {
     return null
   }
   return {
+    button: ButtonFieldToJSON(value.button),
     url: value.url,
   }
 }

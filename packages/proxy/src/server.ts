@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 import { JwtPayload } from 'jwt-decode'
 import Koa from 'koa'
 import { Server as NodeServer } from 'http'
-import { paginate, Routes, StubResponse, withDates } from './stub'
+import { dummyTeam, paginate, Routes, StubResponse, withDates } from './stub'
 
 const providerClaim = 'https://api.ironplans.com/.jwt/provider/'
 const dummyProviderId = 'uuid'
@@ -77,13 +77,10 @@ export class Server extends Koa {
         }
         return {
           data: {
+            ...dummyTeam,
             ...team,
             id: team.id,
             name: `${team.name}`,
-            available_plans: [],
-            invites: [],
-            members: [],
-            subscription: null,
           },
         }
       },
@@ -123,7 +120,7 @@ export class Server extends Koa {
 
     this.providerId = `proxy`
     this.customerId = `customer`
-    this.teams = [withDates({ id: '1', name: 'dumdums' })]
+    this.teams = [withDates(dummyTeam)]
 
     Object.entries(this.routes).forEach(([path, handlers]) => {
       const matcher = pathToRegexp(path)

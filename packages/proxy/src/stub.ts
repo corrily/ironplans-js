@@ -59,6 +59,19 @@ export function paginate<T>(list: T[]) {
   }
 }
 
+export const dummyTeam = {
+  id: '1',
+  name: 'dumdum',
+  subscription_id: '',
+  available_plans: [],
+  invites: [],
+  members: [],
+  subscription: null,
+  total_credits: 0,
+  metadata: {},
+  provider_id: '',
+}
+
 export function withDates<T>(
   object: T
 ): T & { created_at: string; updated_at: string } {
@@ -80,19 +93,12 @@ const defaultMatches: Stub = {
   },
   '/teams/v1/': {
     get: {
-      data: paginate([withDates({ id: '1', name: 'dumdum' })]),
+      data: paginate([withDates(dummyTeam)]),
     },
   },
   '/teams/v1/{id}/': {
     get: {
-      data: withDates({
-        id: '1',
-        name: 'dumdum',
-        available_plans: [],
-        invites: [],
-        members: [],
-        subscription: null,
-      }),
+      data: withDates(dummyTeam),
     },
   },
   '/providers/v1/{id}/': {
@@ -103,6 +109,13 @@ const defaultMatches: Stub = {
         owner_id: '1',
         slug: 'dumdum',
         stripe_account_id: 'stripe_acct_id',
+        auth_issuer: undefined,
+        cognito_auth_config: null,
+        frontegg_auth_config: null,
+        is_shadow: false,
+        shadow_id: null,
+        parent_id: null,
+        default_plan: null,
       }),
     },
   },
