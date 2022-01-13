@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0-alpha.7](https://github.com/ironplans/js/compare/@ironplans/sdk@0.10.0-alpha.6...@ironplans/sdk@0.10.0-alpha.7) (2022-01-13)
+
+### Bug Fixes
+
+- add base table theme ([5891f7f](https://github.com/ironplans/js/commit/5891f7fbf2ef8f02ccc75160301990d39fa9ec72))
+
 # [0.10.0-alpha.6](https://github.com/ironplans/js/compare/@ironplans/sdk@0.10.0-alpha.5...@ironplans/sdk@0.10.0-alpha.6) (2022-01-12)
 
 ### Features
