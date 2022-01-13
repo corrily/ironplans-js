@@ -59,7 +59,11 @@ export type CardModalCopyVariants = {
   [key in CardModalVariant]: Partial<CardModalCopy>
 }
 
-export type TableVariant = 'invoices' | 'invoice' | 'selectPaymentMethod'
+export type TableVariant =
+  | 'base'
+  | 'invoices'
+  | 'invoice'
+  | 'selectPaymentMethod'
 
 export interface TableTheme {
   table?: Partial<CSSStyleDeclaration>
