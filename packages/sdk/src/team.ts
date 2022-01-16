@@ -135,7 +135,8 @@ export default class Team extends Resource<TeamDetail> {
    * widget.
    *
    * Widgets:
-   *  * `plans` - Shows a customer's available plans.
+   *  * `v2/plans` - Shows a customer's available plans. Includes updated checkout with invoice.
+   *  * `plans` (deprecated) - Shows a customer's available plans.
    *  * `team` - Shows a team management widget.
    *  * `invoices` - Shows a table of invoices.
    *  * `payment_methods` - Shows a customer's payment methods.
@@ -162,7 +163,8 @@ export default class Team extends Resource<TeamDetail> {
    * modal.
    *
    * Widgets:
-   *  * `plans` - Shows a customer's available plans.
+   *  * `v2/plans` - Shows a customer's available plans. Includes latest checkout flow.
+   *  * `plans` (deprecated) - Shows a customer's available plans.
    *  * `team` - Shows a team management widget.
    *  * `invoices` - Shows a table of invoices.
    *  * `payment_methods` - Shows a customer's payment methods.

@@ -306,6 +306,11 @@ export async function parseRequestError(e: unknown) {
   return e
 }
 
-export type TeamWidgetType = 'plans' | 'team' | 'invoices' | 'payment_methods'
+export type TeamWidgetType =
+  | 'plans'
+  | 'team'
+  | 'invoices'
+  | 'payment_methods'
+  | 'v2/plans'
 export type PublicWidgetType = 'pricing'
 export type WidgetType = TeamWidgetType | PublicWidgetType
