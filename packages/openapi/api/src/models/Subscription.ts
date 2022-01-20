@@ -48,7 +48,7 @@ export interface Subscription {
    * @type {Date}
    * @memberof Subscription
    */
-  readonly endAt: Date
+  readonly endAt: Date | null
   /**
    *
    * @type {Date}
@@ -97,7 +97,7 @@ export function SubscriptionFromJSONTyped(
     planId: json['plan_id'],
     teamId: json['team_id'],
     startAt: new Date(json['start_at']),
-    endAt: new Date(json['end_at']),
+    endAt: json['end_at'] === null ? null : new Date(json['end_at']),
     freeTrialEndAt: !exists(json, 'free_trial_end_at')
       ? undefined
       : json['free_trial_end_at'] === null

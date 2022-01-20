@@ -70,9 +70,9 @@ export function createAPI(opts: APIOptions): IPAPI {
     authConfigs: new AuthConfigsApi(config),
     subscribeIntents: new SubscribeIntentsApi(config),
     plans: new PlansApi(config),
+    subscriptions: new SubscriptionsApi(config),
     invites: new InvitesApi(legacyConfig),
     providers: new ProvidersApi(legacyConfig),
-    subscriptions: new SubscriptionsApi(legacyConfig),
     teamMemberships: new TeamMembershipsApi(legacyConfig),
   }
 }

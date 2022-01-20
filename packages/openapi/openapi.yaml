@@ -1995,7 +1995,7 @@ paths:
         - customer-token: []
         - auth0-token: []
       responses:
-        '204':
+        '200':
           content:
             application/json:
               schema:
@@ -2914,13 +2914,27 @@ paths:
       tags:
         - subscriptions
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedSubscriptionList'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     post:
       operationId: subscriptions_v1_create
@@ -2939,7 +2953,9 @@ paths:
               $ref: '#/components/schemas/SubscriptionRequest'
         required: true
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '201':
           content:
@@ -2947,10 +2963,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Subscription'
           description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /subscriptions/v1/{id}/:
     get:
       operationId: subscriptions_v1_retrieve
-      description: Detailed subscription data.
       parameters:
         - in: path
           name: id
@@ -2962,13 +2989,27 @@ paths:
       tags:
         - subscriptions
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     put:
       operationId: subscriptions_v1_update
@@ -2995,13 +3036,27 @@ paths:
               $ref: '#/components/schemas/SubscriptionRequest'
         required: true
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     patch:
       operationId: subscriptions_v1_partial_update
@@ -3027,13 +3082,27 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedSubscriptionRequest'
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
     delete:
       operationId: subscriptions_v1_destroy
@@ -3048,7 +3117,9 @@ paths:
       tags:
         - subscriptions
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -3056,9 +3127,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/SubscriptionDetail'
           description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
   /subscriptions/v1/{id}/purge/:
     delete:
       operationId: subscriptions_v1_purge_destroy
+      description: |-
+        In future version, this endpoint will not return the subscription that
+        was purged.
       parameters:
         - in: path
           name: id
@@ -3070,13 +3156,27 @@ paths:
       tags:
         - subscriptions
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /subscriptions/v1/{id}/renew/:
     patch:
@@ -3091,25 +3191,28 @@ paths:
           required: true
       tags:
         - subscriptions
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedSubscriptionRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedSubscriptionRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedSubscriptionRequest'
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /subscriptions/v1/{id}/report/:
     post:
@@ -3137,13 +3240,27 @@ paths:
               $ref: '#/components/schemas/ReportUsageRequest'
         required: true
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Usage'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /subscriptions/v1/{id}/switch/:
     patch:
@@ -3170,13 +3287,27 @@ paths:
             schema:
               $ref: '#/components/schemas/PatchedPlanSwitchRequest'
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionDetail'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /subscriptions/v1/{id}/usage/:
     get:
@@ -3211,7 +3342,9 @@ paths:
       tags:
         - subscriptions
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
@@ -3220,6 +3353,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Usage'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /subscriptions/v1/{id}/usage_exceeded/:
     get:
@@ -3236,13 +3381,249 @@ paths:
       tags:
         - subscriptions
       security:
-        - oauth2-deprecated: []
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UsageExceeded'
+                $ref: '#/components/schemas/Subscription'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /subscriptions/v1/{subscription_pk}/usages/:
+    get:
+      operationId: subscriptions_v1_usages_list
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          description: Number of results to return per page.
+          schema:
+            type: integer
+        - name: offset
+          required: false
+          in: query
+          description: The initial index from which to return the results.
+          schema:
+            type: integer
+        - in: path
+          name: subscription_pk
+          schema:
+            type: string
+            format: uuid
+          required: true
+      tags:
+        - subscriptions
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUsageRecordList'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    post:
+      operationId: subscriptions_v1_usages_create
+      parameters:
+        - in: path
+          name: subscription_pk
+          schema:
+            type: string
+            format: uuid
+          required: true
+      tags:
+        - subscriptions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUsageRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateUsageRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateUsageRequest'
+        required: true
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageRecord'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+  /subscriptions/v1/{subscription_pk}/usages/{id}/:
+    get:
+      operationId: subscriptions_v1_usages_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this usage metric.
+          required: true
+        - in: path
+          name: subscription_pk
+          schema:
+            type: string
+            format: uuid
+          required: true
+      tags:
+        - subscriptions
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageRecord'
+          description: ''
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+    put:
+      operationId: subscriptions_v1_usages_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this usage metric.
+          required: true
+        - in: path
+          name: subscription_pk
+          schema:
+            type: string
+            format: uuid
+          required: true
+      tags:
+        - subscriptions
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: subscriptions_v1_usages_partial_update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this usage metric.
+          required: true
+        - in: path
+          name: subscription_pk
+          schema:
+            type: string
+            format: uuid
+          required: true
+      tags:
+        - subscriptions
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: subscriptions_v1_usages_destroy
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: A UUID string identifying this usage metric.
+          required: true
+        - in: path
+          name: subscription_pk
+          schema:
+            type: string
+            format: uuid
+          required: true
+      tags:
+        - subscriptions
+      security:
+        - private-provider-token: []
+        - customer-token: []
+        - auth0-token: []
+      responses:
+        '204':
+          description: No response body
+        4XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: ''
+        5XX:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
           description: ''
   /team_memberships/v1/:
     get:
@@ -4554,6 +4935,30 @@ components:
       required:
         - plan_option_id
         - team_id
+    CreateUsageRequest:
+      type: object
+      properties:
+        idempotency_key:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 255
+          pattern: ^[-a-zA-Z0-9_]+$
+        slug:
+          type: string
+          minLength: 1
+          pattern: ^[-a-zA-Z0-9_]+$
+        op:
+          $ref: '#/components/schemas/OpEnum'
+        value:
+          type: integer
+          default: 1
+        occurred_at:
+          type: string
+          format: date-time
+      required:
+        - op
+        - slug
     Customer:
       type: object
       properties:
@@ -5308,6 +5713,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Token'
+    PaginatedUsageRecordList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageRecord'
     PatchedCognitoAuthConfigRequest:
       type: object
       properties:
@@ -6402,6 +6827,7 @@ components:
           type: string
           format: date-time
           readOnly: true
+          nullable: true
         free_trial_end_at:
           type: string
           format: date-time
@@ -6700,6 +7126,7 @@ components:
           type: string
           format: date-time
           readOnly: true
+          nullable: true
         created_at:
           type: string
           format: date-time
@@ -6746,13 +7173,29 @@ components:
         - per_unit
         - slug
         - value
-    UsageExceeded:
+    UsageRecord:
       type: object
       properties:
-        exceeded:
-          type: boolean
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        slug:
+          type: string
+        op:
+          $ref: '#/components/schemas/OpEnum'
+        value:
+          type: integer
+        occurred_at:
+          type: string
+          format: date-time
+        idempotency_key:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
       required:
-        - exceeded
+        - id
+        - op
+        - slug
   securitySchemes:
     auth0-token:
       type: http

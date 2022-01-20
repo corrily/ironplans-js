@@ -48,18 +48,21 @@ once = build/${1}
 
 esb_opts = \
 	--bundle \
+	--minify \
 	--sourcemap
 
 cjs_opts = \
 	--format=cjs \
 	--target=$(cjs_target) \
 	--platform=node \
+	--minify \
 	--outfile=$@ \
 	$(patsubst %,--external:% ,$(dependencies))
 
 cdn_outfile = $@
 cdn_opts = \
 	--format=iife \
+	--minify \
 	--target=$(cdn_target) \
 	--platform=browser \
 	--global-name=IP \

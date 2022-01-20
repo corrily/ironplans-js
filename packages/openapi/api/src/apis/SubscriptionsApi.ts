@@ -14,9 +14,15 @@
 
 import * as runtime from '../runtime'
 import {
+  CreateUsageRequest,
+  CreateUsageRequestFromJSON,
+  CreateUsageRequestToJSON,
   PaginatedSubscriptionList,
   PaginatedSubscriptionListFromJSON,
   PaginatedSubscriptionListToJSON,
+  PaginatedUsageRecordList,
+  PaginatedUsageRecordListFromJSON,
+  PaginatedUsageRecordListToJSON,
   PatchedPlanSwitchRequest,
   PatchedPlanSwitchRequestFromJSON,
   PatchedPlanSwitchRequestToJSON,
@@ -38,9 +44,9 @@ import {
   Usage,
   UsageFromJSON,
   UsageToJSON,
-  UsageExceeded,
-  UsageExceededFromJSON,
-  UsageExceededToJSON,
+  UsageRecord,
+  UsageRecordFromJSON,
+  UsageRecordToJSON,
 } from '../models'
 
 export interface SubscriptionsV1CreateRequest {
@@ -71,7 +77,6 @@ export interface SubscriptionsV1PurgeDestroyRequest {
 
 export interface SubscriptionsV1RenewPartialUpdateRequest {
   id: string
-  patchedSubscriptionRequest?: PatchedSubscriptionRequest
 }
 
 export interface SubscriptionsV1ReportCreateRequest {
@@ -105,6 +110,37 @@ export interface SubscriptionsV1UsageListRequest {
   teamId?: string
 }
 
+export interface SubscriptionsV1UsagesCreateRequest {
+  subscriptionPk: string
+  createUsageRequest: CreateUsageRequest
+}
+
+export interface SubscriptionsV1UsagesDestroyRequest {
+  id: string
+  subscriptionPk: string
+}
+
+export interface SubscriptionsV1UsagesListRequest {
+  subscriptionPk: string
+  limit?: number
+  offset?: number
+}
+
+export interface SubscriptionsV1UsagesPartialUpdateRequest {
+  id: string
+  subscriptionPk: string
+}
+
+export interface SubscriptionsV1UsagesRetrieveRequest {
+  id: string
+  subscriptionPk: string
+}
+
+export interface SubscriptionsV1UsagesUpdateRequest {
+  id: string
+  subscriptionPk: string
+}
+
 /**
  *
  */
@@ -132,13 +168,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/`,
@@ -186,13 +238,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/`.replace(
@@ -259,13 +327,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/`,
@@ -314,13 +398,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/`.replace(
@@ -356,6 +456,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   }
 
   /**
+   * In future version, this endpoint will not return the subscription that was purged.
    */
   async subscriptionsV1PurgeDestroyRaw(
     requestParameters: SubscriptionsV1PurgeDestroyRequest,
@@ -373,13 +474,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/purge/`.replace(
@@ -399,6 +516,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   }
 
   /**
+   * In future version, this endpoint will not return the subscription that was purged.
    */
   async subscriptionsV1PurgeDestroy(
     requestParameters: SubscriptionsV1PurgeDestroyRequest,
@@ -428,16 +546,30 @@ export class SubscriptionsApi extends runtime.BaseAPI {
 
     const headerParameters: runtime.HTTPHeaders = {}
 
-    headerParameters['Content-Type'] = 'application/json'
-
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/renew/`.replace(
@@ -447,9 +579,6 @@ export class SubscriptionsApi extends runtime.BaseAPI {
         method: 'PATCH',
         headers: headerParameters,
         query: queryParameters,
-        body: PatchedSubscriptionRequestToJSON(
-          requestParameters.patchedSubscriptionRequest
-        ),
       },
       initOverrides
     )
@@ -502,13 +631,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/report/`.replace(
@@ -542,7 +687,6 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   }
 
   /**
-   * Detailed subscription data.
    */
   async subscriptionsV1RetrieveRaw(
     requestParameters: SubscriptionsV1RetrieveRequest,
@@ -560,13 +704,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/`.replace(
@@ -586,7 +746,6 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   }
 
   /**
-   * Detailed subscription data.
    */
   async subscriptionsV1Retrieve(
     requestParameters: SubscriptionsV1RetrieveRequest,
@@ -619,13 +778,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/switch/`.replace(
@@ -690,13 +865,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     headerParameters['Content-Type'] = 'application/json'
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/`.replace(
@@ -735,7 +926,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1UsageExceededRetrieveRaw(
     requestParameters: SubscriptionsV1UsageExceededRetrieveRequest,
     initOverrides?: RequestInit
-  ): Promise<runtime.ApiResponse<UsageExceeded>> {
+  ): Promise<runtime.ApiResponse<Subscription>> {
     if (requestParameters.id === null || requestParameters.id === undefined) {
       throw new runtime.RequiredError(
         'id',
@@ -748,13 +939,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/usage_exceeded/`.replace(
@@ -769,7 +976,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     )
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      UsageExceededFromJSON(jsonValue)
+      SubscriptionFromJSON(jsonValue)
     )
   }
 
@@ -779,7 +986,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
   async subscriptionsV1UsageExceededRetrieve(
     requestParameters: SubscriptionsV1UsageExceededRetrieveRequest,
     initOverrides?: RequestInit
-  ): Promise<UsageExceeded> {
+  ): Promise<Subscription> {
     const response = await this.subscriptionsV1UsageExceededRetrieveRaw(
       requestParameters,
       initOverrides
@@ -821,13 +1028,29 @@ export class SubscriptionsApi extends runtime.BaseAPI {
     const headerParameters: runtime.HTTPHeaders = {}
 
     if (this.configuration && this.configuration.accessToken) {
-      // oauth required
-      headerParameters['Authorization'] = await this.configuration.accessToken(
-        'oauth2-deprecated',
-        []
-      )
-    }
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
 
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
     const response = await this.request(
       {
         path: `/subscriptions/v1/{id}/usage/`.replace(
@@ -857,5 +1080,509 @@ export class SubscriptionsApi extends runtime.BaseAPI {
       initOverrides
     )
     return await response.value()
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesCreateRaw(
+    requestParameters: SubscriptionsV1UsagesCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<UsageRecord>> {
+    if (
+      requestParameters.subscriptionPk === null ||
+      requestParameters.subscriptionPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'subscriptionPk',
+        'Required parameter requestParameters.subscriptionPk was null or undefined when calling subscriptionsV1UsagesCreate.'
+      )
+    }
+
+    if (
+      requestParameters.createUsageRequest === null ||
+      requestParameters.createUsageRequest === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'createUsageRequest',
+        'Required parameter requestParameters.createUsageRequest was null or undefined when calling subscriptionsV1UsagesCreate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    headerParameters['Content-Type'] = 'application/json'
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/subscriptions/v1/{subscription_pk}/usages/`.replace(
+          `{${'subscription_pk'}}`,
+          encodeURIComponent(String(requestParameters.subscriptionPk))
+        ),
+        method: 'POST',
+        headers: headerParameters,
+        query: queryParameters,
+        body: CreateUsageRequestToJSON(requestParameters.createUsageRequest),
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      UsageRecordFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesCreate(
+    requestParameters: SubscriptionsV1UsagesCreateRequest,
+    initOverrides?: RequestInit
+  ): Promise<UsageRecord> {
+    const response = await this.subscriptionsV1UsagesCreateRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesDestroyRaw(
+    requestParameters: SubscriptionsV1UsagesDestroyRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1UsagesDestroy.'
+      )
+    }
+
+    if (
+      requestParameters.subscriptionPk === null ||
+      requestParameters.subscriptionPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'subscriptionPk',
+        'Required parameter requestParameters.subscriptionPk was null or undefined when calling subscriptionsV1UsagesDestroy.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/subscriptions/v1/{subscription_pk}/usages/{id}/`
+          .replace(
+            `{${'id'}}`,
+            encodeURIComponent(String(requestParameters.id))
+          )
+          .replace(
+            `{${'subscription_pk'}}`,
+            encodeURIComponent(String(requestParameters.subscriptionPk))
+          ),
+        method: 'DELETE',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesDestroy(
+    requestParameters: SubscriptionsV1UsagesDestroyRequest,
+    initOverrides?: RequestInit
+  ): Promise<void> {
+    await this.subscriptionsV1UsagesDestroyRaw(requestParameters, initOverrides)
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesListRaw(
+    requestParameters: SubscriptionsV1UsagesListRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<PaginatedUsageRecordList>> {
+    if (
+      requestParameters.subscriptionPk === null ||
+      requestParameters.subscriptionPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'subscriptionPk',
+        'Required parameter requestParameters.subscriptionPk was null or undefined when calling subscriptionsV1UsagesList.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    if (requestParameters.limit !== undefined) {
+      queryParameters['limit'] = requestParameters.limit
+    }
+
+    if (requestParameters.offset !== undefined) {
+      queryParameters['offset'] = requestParameters.offset
+    }
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/subscriptions/v1/{subscription_pk}/usages/`.replace(
+          `{${'subscription_pk'}}`,
+          encodeURIComponent(String(requestParameters.subscriptionPk))
+        ),
+        method: 'GET',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      PaginatedUsageRecordListFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesList(
+    requestParameters: SubscriptionsV1UsagesListRequest,
+    initOverrides?: RequestInit
+  ): Promise<PaginatedUsageRecordList> {
+    const response = await this.subscriptionsV1UsagesListRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesPartialUpdateRaw(
+    requestParameters: SubscriptionsV1UsagesPartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1UsagesPartialUpdate.'
+      )
+    }
+
+    if (
+      requestParameters.subscriptionPk === null ||
+      requestParameters.subscriptionPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'subscriptionPk',
+        'Required parameter requestParameters.subscriptionPk was null or undefined when calling subscriptionsV1UsagesPartialUpdate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/subscriptions/v1/{subscription_pk}/usages/{id}/`
+          .replace(
+            `{${'id'}}`,
+            encodeURIComponent(String(requestParameters.id))
+          )
+          .replace(
+            `{${'subscription_pk'}}`,
+            encodeURIComponent(String(requestParameters.subscriptionPk))
+          ),
+        method: 'PATCH',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesPartialUpdate(
+    requestParameters: SubscriptionsV1UsagesPartialUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<void> {
+    await this.subscriptionsV1UsagesPartialUpdateRaw(
+      requestParameters,
+      initOverrides
+    )
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesRetrieveRaw(
+    requestParameters: SubscriptionsV1UsagesRetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<UsageRecord>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1UsagesRetrieve.'
+      )
+    }
+
+    if (
+      requestParameters.subscriptionPk === null ||
+      requestParameters.subscriptionPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'subscriptionPk',
+        'Required parameter requestParameters.subscriptionPk was null or undefined when calling subscriptionsV1UsagesRetrieve.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/subscriptions/v1/{subscription_pk}/usages/{id}/`
+          .replace(
+            `{${'id'}}`,
+            encodeURIComponent(String(requestParameters.id))
+          )
+          .replace(
+            `{${'subscription_pk'}}`,
+            encodeURIComponent(String(requestParameters.subscriptionPk))
+          ),
+        method: 'GET',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      UsageRecordFromJSON(jsonValue)
+    )
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesRetrieve(
+    requestParameters: SubscriptionsV1UsagesRetrieveRequest,
+    initOverrides?: RequestInit
+  ): Promise<UsageRecord> {
+    const response = await this.subscriptionsV1UsagesRetrieveRaw(
+      requestParameters,
+      initOverrides
+    )
+    return await response.value()
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesUpdateRaw(
+    requestParameters: SubscriptionsV1UsagesUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<runtime.ApiResponse<void>> {
+    if (requestParameters.id === null || requestParameters.id === undefined) {
+      throw new runtime.RequiredError(
+        'id',
+        'Required parameter requestParameters.id was null or undefined when calling subscriptionsV1UsagesUpdate.'
+      )
+    }
+
+    if (
+      requestParameters.subscriptionPk === null ||
+      requestParameters.subscriptionPk === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'subscriptionPk',
+        'Required parameter requestParameters.subscriptionPk was null or undefined when calling subscriptionsV1UsagesUpdate.'
+      )
+    }
+
+    const queryParameters: any = {}
+
+    const headerParameters: runtime.HTTPHeaders = {}
+
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('auth0-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('customer-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    if (this.configuration && this.configuration.accessToken) {
+      const token = this.configuration.accessToken
+      const tokenString = await token('private-provider-token', [])
+
+      if (tokenString) {
+        headerParameters['Authorization'] = `Bearer ${tokenString}`
+      }
+    }
+    const response = await this.request(
+      {
+        path: `/subscriptions/v1/{subscription_pk}/usages/{id}/`
+          .replace(
+            `{${'id'}}`,
+            encodeURIComponent(String(requestParameters.id))
+          )
+          .replace(
+            `{${'subscription_pk'}}`,
+            encodeURIComponent(String(requestParameters.subscriptionPk))
+          ),
+        method: 'PUT',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides
+    )
+
+    return new runtime.VoidApiResponse(response)
+  }
+
+  /**
+   */
+  async subscriptionsV1UsagesUpdate(
+    requestParameters: SubscriptionsV1UsagesUpdateRequest,
+    initOverrides?: RequestInit
+  ): Promise<void> {
+    await this.subscriptionsV1UsagesUpdateRaw(requestParameters, initOverrides)
   }
 }

@@ -38,7 +38,7 @@
   },
   "size-limit": [
     {
-      "path": "dist/sdk.min.js",
+      "path": "dist/sdk.esm.js",
       "limit": "30 kB"
     }
   ],
