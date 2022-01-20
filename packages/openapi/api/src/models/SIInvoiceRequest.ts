@@ -54,6 +54,12 @@ export interface SIInvoiceRequest {
    * @memberof SIInvoiceRequest
    */
   lineItems: Array<SILineItemRequest>
+  /**
+   *
+   * @type {Date}
+   * @memberof SIInvoiceRequest
+   */
+  dueAt: Date
 }
 
 export function SIInvoiceRequestFromJSON(json: any): SIInvoiceRequest {
@@ -74,6 +80,7 @@ export function SIInvoiceRequestFromJSONTyped(
     lineItems: (json['line_items'] as Array<any>).map(
       SILineItemRequestFromJSON
     ),
+    dueAt: new Date(json['due_at']),
   }
 }
 
@@ -89,5 +96,6 @@ export function SIInvoiceRequestToJSON(value?: SIInvoiceRequest | null): any {
     state: StateEnumToJSON(value.state),
     cents: value.cents,
     line_items: (value.lineItems as Array<any>).map(SILineItemRequestToJSON),
+    due_at: value.dueAt.toISOString(),
   }
 }

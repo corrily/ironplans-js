@@ -923,12 +923,14 @@ export interface components {
       state: components['schemas']['StateEnum']
       cents: number
       line_items: components['schemas']['SILineItem'][]
+      due_at: string
     }
     SIInvoiceRequest: {
       id: string
       state: components['schemas']['StateEnum']
       cents: number
       line_items: components['schemas']['SILineItemRequest'][]
+      due_at: string
     }
     SILineItem: {
       title: string
@@ -2559,6 +2561,7 @@ export interface operations {
         is_trial_allowed?: boolean
         /** Number of results to return per page. */
         limit?: number
+        name?: string
         /** The initial index from which to return the results. */
         offset?: number
       }
@@ -3472,6 +3475,8 @@ export interface operations {
         with_member_email?: string
         /** Search for teams by name. */
         with_name?: string
+        /** Search for teams by subscription plan name. */
+        with_plan_name?: string
       }
     }
     responses: {

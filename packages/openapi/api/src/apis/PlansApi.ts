@@ -48,6 +48,7 @@ export interface PlansV1ListRequest {
   isPublic?: boolean
   isTrialAllowed?: boolean
   limit?: number
+  name?: string
   offset?: number
 }
 
@@ -297,6 +298,10 @@ export class PlansApi extends runtime.BaseAPI {
 
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit
+    }
+
+    if (requestParameters.name !== undefined) {
+      queryParameters['name'] = requestParameters.name
     }
 
     if (requestParameters.offset !== undefined) {

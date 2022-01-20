@@ -2082,6 +2082,10 @@ paths:
           description: Number of results to return per page.
           schema:
             type: integer
+        - in: query
+          name: name
+          schema:
+            type: string
         - name: offset
           required: false
           in: query
@@ -3462,6 +3466,11 @@ paths:
           schema:
             type: string
           description: Search for teams by name.
+        - in: query
+          name: with_plan_name
+          schema:
+            type: string
+          description: Search for teams by subscription plan name.
       tags:
         - teams
       security:
@@ -6151,8 +6160,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SILineItem'
+        due_at:
+          type: string
+          format: date-time
       required:
         - cents
+        - due_at
         - id
         - line_items
         - state
@@ -6170,8 +6183,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SILineItemRequest'
+        due_at:
+          type: string
+          format: date-time
       required:
         - cents
+        - due_at
         - id
         - line_items
         - state
