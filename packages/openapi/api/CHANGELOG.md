@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0-alpha.9](https://github.com/ironplans/js/compare/@ironplans/api@0.6.0-alpha.8...@ironplans/api@0.6.0-alpha.9) (2022-01-20)
+
+### Features
+
+- **api,sdk:** update spec for sub and usage v2 ([#49](https://github.com/ironplans/js/issues/49)) ([070f569](https://github.com/ironplans/js/commit/070f5691c6065bd0e220d67eaeecb308b00d43ce))
+
 # [0.6.0-alpha.8](https://github.com/ironplans/js/compare/@ironplans/api@0.6.0-alpha.7...@ironplans/api@0.6.0-alpha.8) (2022-01-20)
 
 **Note:** Version bump only for package @ironplans/api
