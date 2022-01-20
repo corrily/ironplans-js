@@ -35,6 +35,7 @@ models/CreateCustomer.ts
 models/CreateCustomerRequest.ts
 models/CreateMembershipRequest.ts
 models/CreateSubscribeIntentRequest.ts
+models/CreateUsageRequest.ts
 models/Customer.ts
 models/CustomerConfirmCardRequest.ts
 models/CustomerIntentRequest.ts
@@ -75,6 +76,7 @@ models/PaginatedSubscribeIntentList.ts
 models/PaginatedSubscriptionList.ts
 models/PaginatedTeamList.ts
 models/PaginatedTokenList.ts
+models/PaginatedUsageRecordList.ts
 models/PatchedCognitoAuthConfigRequest.ts
 models/PatchedCustomerRequest.ts
 models/PatchedFeatureRequest.ts
@@ -137,6 +139,6 @@ models/Token.ts
 models/TokenRequest.ts
 models/UpdatePaymentMethodRequest.ts
 models/Usage.ts
-models/UsageExceeded.ts
+models/UsageRecord.ts
 models/index.ts
 runtime.ts

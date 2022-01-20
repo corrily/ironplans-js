@@ -54,7 +54,7 @@ export interface Token {
    * @type {Date}
    * @memberof Token
    */
-  readonly lastUsedAt: Date
+  readonly lastUsedAt: Date | null
   /**
    *
    * @type {Date}
@@ -80,7 +80,8 @@ export function TokenFromJSONTyped(
     token: json['token'],
     isActive: !exists(json, 'is_active') ? undefined : json['is_active'],
     isPublic: !exists(json, 'is_public') ? undefined : json['is_public'],
-    lastUsedAt: new Date(json['last_used_at']),
+    lastUsedAt:
+      json['last_used_at'] === null ? null : new Date(json['last_used_at']),
     createdAt: new Date(json['created_at']),
   }
 }

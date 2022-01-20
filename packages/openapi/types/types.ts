@@ -218,13 +218,16 @@ export interface paths {
     post: operations['subscriptions_v1_create']
   }
   '/subscriptions/v1/{id}/': {
-    /** Detailed subscription data. */
     get: operations['subscriptions_v1_retrieve']
     put: operations['subscriptions_v1_update']
     delete: operations['subscriptions_v1_destroy']
     patch: operations['subscriptions_v1_partial_update']
   }
   '/subscriptions/v1/{id}/purge/': {
+    /**
+     * In future version, this endpoint will not return the subscription that
+     * was purged.
+     */
     delete: operations['subscriptions_v1_purge_destroy']
   }
   '/subscriptions/v1/{id}/renew/': {
@@ -242,6 +245,16 @@ export interface paths {
   '/subscriptions/v1/{id}/usage_exceeded/': {
     /** Convenience endpoint so providers don't need to loop through usages. */
     get: operations['subscriptions_v1_usage_exceeded_retrieve']
+  }
+  '/subscriptions/v1/{subscription_pk}/usages/': {
+    get: operations['subscriptions_v1_usages_list']
+    post: operations['subscriptions_v1_usages_create']
+  }
+  '/subscriptions/v1/{subscription_pk}/usages/{id}/': {
+    get: operations['subscriptions_v1_usages_retrieve']
+    put: operations['subscriptions_v1_usages_update']
+    delete: operations['subscriptions_v1_usages_destroy']
+    patch: operations['subscriptions_v1_usages_partial_update']
   }
   '/team_memberships/v1/': {
     /**
@@ -414,6 +427,13 @@ export interface components {
       team_id: string
       plan_option_id: string
       payment_method_id?: string
+    }
+    CreateUsageRequest: {
+      idempotency_key?: string | null
+      slug: string
+      op: components['schemas']['OpEnum']
+      value?: number
+      occurred_at?: string
     }
     Customer: {
       id: string
@@ -644,6 +664,12 @@ export interface components {
       next?: string | null
       previous?: string | null
       results?: components['schemas']['Token'][]
+    }
+    PaginatedUsageRecordList: {
+      count?: number
+      next?: string | null
+      previous?: string | null
+      results?: components['schemas']['UsageRecord'][]
     }
     PatchedCognitoAuthConfigRequest: {
       provider_id?: string
@@ -999,7 +1025,7 @@ export interface components {
       plan_id: string
       team_id: string
       start_at: string
-      end_at: string
+      end_at: string | null
       free_trial_end_at?: string | null
       is_paused?: boolean
       is_active: boolean
@@ -1078,7 +1104,7 @@ export interface components {
       token: string
       is_active?: boolean
       is_public?: boolean
-      last_used_at: string
+      last_used_at: string | null
       created_at: string
     }
     TokenRequest: {
@@ -1095,8 +1121,13 @@ export interface components {
       limit: number
       per_unit: number
     }
-    UsageExceeded: {
-      exceeded: boolean
+    UsageRecord: {
+      id: string
+      slug: string
+      op: components['schemas']['OpEnum']
+      value?: number
+      occurred_at?: string
+      idempotency_key?: string
     }
   }
 }
@@ -2473,7 +2504,7 @@ export interface operations {
       }
     }
     responses: {
-      204: {
+      200: {
         content: {
           'application/json': components['schemas']['StripeCardPaymentMethod']
         }
@@ -3118,6 +3149,16 @@ export interface operations {
           'application/json': components['schemas']['PaginatedSubscriptionList']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
   subscriptions_v1_create: {
@@ -3125,6 +3166,16 @@ export interface operations {
       201: {
         content: {
           'application/json': components['schemas']['Subscription']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -3136,7 +3187,6 @@ export interface operations {
       }
     }
   }
-  /** Detailed subscription data. */
   subscriptions_v1_retrieve: {
     parameters: {
       path: {
@@ -3148,6 +3198,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['SubscriptionDetail']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -3163,6 +3223,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['SubscriptionDetail']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -3187,6 +3257,16 @@ export interface operations {
           'application/json': components['schemas']['SubscriptionDetail']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
   subscriptions_v1_partial_update: {
@@ -3202,6 +3282,16 @@ export interface operations {
           'application/json': components['schemas']['SubscriptionDetail']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
     requestBody: {
       content: {
@@ -3211,6 +3301,10 @@ export interface operations {
       }
     }
   }
+  /**
+   * In future version, this endpoint will not return the subscription that
+   * was purged.
+   */
   subscriptions_v1_purge_destroy: {
     parameters: {
       path: {
@@ -3222,6 +3316,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['SubscriptionDetail']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -3239,12 +3343,15 @@ export interface operations {
           'application/json': components['schemas']['SubscriptionDetail']
         }
       }
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['PatchedSubscriptionRequest']
-        'application/x-www-form-urlencoded': components['schemas']['PatchedSubscriptionRequest']
-        'multipart/form-data': components['schemas']['PatchedSubscriptionRequest']
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
       }
     }
   }
@@ -3259,6 +3366,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['Usage']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -3281,6 +3398,16 @@ export interface operations {
       200: {
         content: {
           'application/json': components['schemas']['SubscriptionDetail']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
         }
       }
     }
@@ -3312,6 +3439,16 @@ export interface operations {
           'application/json': components['schemas']['Usage'][]
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
     }
   }
   /** Convenience endpoint so providers don't need to loop through usages. */
@@ -3325,9 +3462,155 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['UsageExceeded']
+          'application/json': components['schemas']['Subscription']
         }
       }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  subscriptions_v1_usages_list: {
+    parameters: {
+      query: {
+        /** Number of results to return per page. */
+        limit?: number
+        /** The initial index from which to return the results. */
+        offset?: number
+      }
+      path: {
+        subscription_pk: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['PaginatedUsageRecordList']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  subscriptions_v1_usages_create: {
+    parameters: {
+      path: {
+        subscription_pk: string
+      }
+    }
+    responses: {
+      201: {
+        content: {
+          'application/json': components['schemas']['UsageRecord']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateUsageRequest']
+        'application/x-www-form-urlencoded': components['schemas']['CreateUsageRequest']
+        'multipart/form-data': components['schemas']['CreateUsageRequest']
+      }
+    }
+  }
+  subscriptions_v1_usages_retrieve: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this usage metric. */
+        id: string
+        subscription_pk: string
+      }
+    }
+    responses: {
+      200: {
+        content: {
+          'application/json': components['schemas']['UsageRecord']
+        }
+      }
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  subscriptions_v1_usages_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this usage metric. */
+        id: string
+        subscription_pk: string
+      }
+    }
+    responses: {
+      /** No response body */
+      200: unknown
+    }
+  }
+  subscriptions_v1_usages_destroy: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this usage metric. */
+        id: string
+        subscription_pk: string
+      }
+    }
+    responses: {
+      /** No response body */
+      204: never
+      '4XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+      '5XX': {
+        content: {
+          'application/json': components['schemas']['Error']
+        }
+      }
+    }
+  }
+  subscriptions_v1_usages_partial_update: {
+    parameters: {
+      path: {
+        /** A UUID string identifying this usage metric. */
+        id: string
+        subscription_pk: string
+      }
+    }
+    responses: {
+      /** No response body */
+      200: unknown
     }
   }
   /**
