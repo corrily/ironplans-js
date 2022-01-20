@@ -36,11 +36,11 @@
   "size-limit": [
     {
       "path": "dist/api.esm.js",
-      "limit": "20 kB"
+      "limit": "300 kB"
     },
     {
       "path": "dist/api.cjs.js",
-      "limit": "20 kB"
+      "limit": "300 kB"
     }
   ],
   "devDependencies": {
