@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/ironplans/js/compare/@ironplans/proxy@0.6.0-alpha.3...@ironplans/proxy@0.6.0) (2022-01-26)
+
+**Note:** Version bump only for package @ironplans/proxy
+
 # [0.6.0-alpha.3](https://github.com/ironplans/js/compare/@ironplans/proxy@0.6.0-alpha.2...@ironplans/proxy@0.6.0-alpha.3) (2022-01-26)
 
 **Note:** Version bump only for package @ironplans/proxy

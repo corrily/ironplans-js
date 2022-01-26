@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.5](https://github.com/ironplans/js/compare/@ironplans/react@0.5.5-alpha.12...@ironplans/react@0.5.5) (2022-01-26)
+
+**Note:** Version bump only for package @ironplans/react
+
 ## [0.5.5-alpha.12](https://github.com/ironplans/js/compare/@ironplans/react@0.5.5-alpha.11...@ironplans/react@0.5.5-alpha.12) (2022-01-26)
 
 **Note:** Version bump only for package @ironplans/react
