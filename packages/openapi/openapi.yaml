@@ -6154,10 +6154,13 @@ components:
           $ref: '#/components/schemas/ContactAction'
         cancel:
           $ref: '#/components/schemas/CancelAction'
+        undo_cancel:
+          $ref: '#/components/schemas/UndoCancelAction'
       required:
         - cancel
         - contact
         - subscribe
+        - undo_cancel
     PlanActionsRequest:
       type: object
       description: Serializer for plan actions.  Requires customer context.
@@ -6168,10 +6171,13 @@ components:
           $ref: '#/components/schemas/ContactActionRequest'
         cancel:
           $ref: '#/components/schemas/CancelActionRequest'
+        undo_cancel:
+          $ref: '#/components/schemas/UndoCancelActionRequest'
       required:
         - cancel
         - contact
         - subscribe
+        - undo_cancel
     PlanContactFormRequest:
       type: object
       properties:
@@ -7146,6 +7152,24 @@ components:
           type: boolean
         is_public:
           type: boolean
+    UndoCancelAction:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        button:
+          $ref: '#/components/schemas/ButtonField'
+        subscription_id:
+          type: string
+          format: uuid
+    UndoCancelActionRequest:
+      type: object
+      description: Base serializer for all actions.
+      properties:
+        button:
+          $ref: '#/components/schemas/ButtonFieldRequest'
+        subscription_id:
+          type: string
+          format: uuid
     UpdatePaymentMethodRequest:
       type: object
       properties:

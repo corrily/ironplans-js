@@ -26,6 +26,10 @@ import {
   SubscribeActionFromJSON,
   SubscribeActionFromJSONTyped,
   SubscribeActionToJSON,
+  UndoCancelAction,
+  UndoCancelActionFromJSON,
+  UndoCancelActionFromJSONTyped,
+  UndoCancelActionToJSON,
 } from './'
 
 /**
@@ -52,6 +56,12 @@ export interface PlanActions {
    * @memberof PlanActions
    */
   cancel: CancelAction
+  /**
+   *
+   * @type {UndoCancelAction}
+   * @memberof PlanActions
+   */
+  undoCancel: UndoCancelAction
 }
 
 export function PlanActionsFromJSON(json: any): PlanActions {
@@ -69,6 +79,7 @@ export function PlanActionsFromJSONTyped(
     subscribe: SubscribeActionFromJSON(json['subscribe']),
     contact: ContactActionFromJSON(json['contact']),
     cancel: CancelActionFromJSON(json['cancel']),
+    undoCancel: UndoCancelActionFromJSON(json['undo_cancel']),
   }
 }
 
@@ -83,5 +94,6 @@ export function PlanActionsToJSON(value?: PlanActions | null): any {
     subscribe: SubscribeActionToJSON(value.subscribe),
     contact: ContactActionToJSON(value.contact),
     cancel: CancelActionToJSON(value.cancel),
+    undo_cancel: UndoCancelActionToJSON(value.undoCancel),
   }
 }

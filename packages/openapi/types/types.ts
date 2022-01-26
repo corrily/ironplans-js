@@ -817,12 +817,14 @@ export interface components {
       subscribe: components['schemas']['SubscribeAction']
       contact: components['schemas']['ContactAction']
       cancel: components['schemas']['CancelAction']
+      undo_cancel: components['schemas']['UndoCancelAction']
     }
     /** Serializer for plan actions.  Requires customer context. */
     PlanActionsRequest: {
       subscribe: components['schemas']['SubscribeActionRequest']
       contact: components['schemas']['ContactActionRequest']
       cancel: components['schemas']['CancelActionRequest']
+      undo_cancel: components['schemas']['UndoCancelActionRequest']
     }
     PlanContactFormRequest: {
       email?: string
@@ -1111,6 +1113,16 @@ export interface components {
       provider_id?: string
       is_active?: boolean
       is_public?: boolean
+    }
+    /** Base serializer for all actions. */
+    UndoCancelAction: {
+      button?: components['schemas']['ButtonField']
+      subscription_id?: string
+    }
+    /** Base serializer for all actions. */
+    UndoCancelActionRequest: {
+      button?: components['schemas']['ButtonFieldRequest']
+      subscription_id?: string
     }
     UpdatePaymentMethodRequest: {
       is_default?: boolean | null
