@@ -62,6 +62,7 @@ export interface TeamsV1InvoicesListRequest {
   teamPk: string
   limit?: number
   offset?: number
+  state?: TeamsV1InvoicesListStateEnum
 }
 
 export interface TeamsV1InvoicesPartialUpdateRequest {
@@ -459,6 +460,10 @@ export class TeamsApi extends runtime.BaseAPI {
 
     if (requestParameters.offset !== undefined) {
       queryParameters['offset'] = requestParameters.offset
+    }
+
+    if (requestParameters.state !== undefined) {
+      queryParameters['state'] = requestParameters.state
     }
 
     const headerParameters: runtime.HTTPHeaders = {}
@@ -1343,4 +1348,16 @@ export class TeamsApi extends runtime.BaseAPI {
     )
     return await response.value()
   }
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum TeamsV1InvoicesListStateEnum {
+  C = 'C',
+  D = 'D',
+  O = 'O',
+  P = 'P',
+  V = 'V',
 }

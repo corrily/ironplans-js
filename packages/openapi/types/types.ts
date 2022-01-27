@@ -4031,6 +4031,7 @@ export interface operations {
         limit?: number
         /** The initial index from which to return the results. */
         offset?: number
+        state?: 'C' | 'D' | 'O' | 'P' | 'V'
       }
       path: {
         team_pk: string

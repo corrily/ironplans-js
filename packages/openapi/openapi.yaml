@@ -4232,6 +4232,16 @@ paths:
           description: The initial index from which to return the results.
           schema:
             type: integer
+        - in: query
+          name: state
+          schema:
+            type: string
+            enum:
+              - C
+              - D
+              - O
+              - P
+              - V
         - in: path
           name: team_pk
           schema:
