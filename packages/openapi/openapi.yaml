@@ -5929,7 +5929,6 @@ components:
             $ref: '#/components/schemas/TeamAccessRequest'
         is_payment_upfront:
           type: boolean
-          writeOnly: true
           default: true
     PatchedPlanSwitchRequest:
       type: object
@@ -6142,6 +6141,9 @@ components:
             - $ref: '#/components/schemas/PlanState'
           readOnly: true
           nullable: true
+        is_payment_upfront:
+          type: boolean
+          default: true
       required:
         - features
         - id
@@ -6350,7 +6352,6 @@ components:
             $ref: '#/components/schemas/TeamAccessRequest'
         is_payment_upfront:
           type: boolean
-          writeOnly: true
           default: true
       required:
         - features

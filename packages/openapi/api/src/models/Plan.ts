@@ -158,6 +158,12 @@ export interface Plan {
    * @memberof Plan
    */
   readonly state: PlanState | null
+  /**
+   *
+   * @type {boolean}
+   * @memberof Plan
+   */
+  isPaymentUpfront?: boolean
 }
 
 export function PlanFromJSON(json: any): Plan {
@@ -207,6 +213,9 @@ export function PlanFromJSONTyped(
         ? null
         : (json['options'] as Array<any>).map(PlanOptionFromJSON),
     state: PlanStateFromJSON(json['state']),
+    isPaymentUpfront: !exists(json, 'is_payment_upfront')
+      ? undefined
+      : json['is_payment_upfront'],
   }
 }
 
@@ -233,5 +242,6 @@ export function PlanToJSON(value?: Plan | null): any {
     per_month_price_cents: value.perMonthPriceCents,
     features: (value.features as Array<any>).map(PlanFeatureToJSON),
     teams_access: (value.teamsAccess as Array<any>).map(TeamAccessToJSON),
+    is_payment_upfront: value.isPaymentUpfront,
   }
 }

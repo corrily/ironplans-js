@@ -811,6 +811,7 @@ export interface components {
       teams_access: components['schemas']['TeamAccess'][]
       options: components['schemas']['PlanOption'][] | null
       state: components['schemas']['PlanState'] | null
+      is_payment_upfront?: boolean
     }
     /** Serializer for plan actions.  Requires customer context. */
     PlanActions: {
