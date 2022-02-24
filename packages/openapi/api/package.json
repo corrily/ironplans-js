@@ -1,7 +1,7 @@
 {
   "name": "@ironplans/api",
   "license": "MIT",
-  "version": "0.6.1-alpha.0",
+  "version": "0.6.1-alpha.1",
   "typings": "dist/index.d.ts",
   "main": "dist/api.cjs",
   "browser": "dist/api.esm.js",
