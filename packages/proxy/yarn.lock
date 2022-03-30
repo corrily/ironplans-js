@@ -14,10 +14,10 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
-"@ironplans/api@^0.0.35-alpha.4":
-  version "0.0.35-alpha.4"
-  resolved "https://registry.yarnpkg.com/@ironplans/api/-/api-0.0.35-alpha.4.tgz#14b08709fbdf88c7e8b66c8ba388c20728b2a3e0"
-  integrity sha512-LQmjxb150CF6ic+J8TBI9623q2FagyaR1rPw4iG05pmQjrNC/aF6Ip/Pt3kJWKEmdA45FFpKJe78+DEUCvcQOQ==
+"@ironplans/api@^0.6.1-alpha.1":
+  version "0.6.1-alpha.1"
+  resolved "https://registry.yarnpkg.com/@ironplans/api/-/api-0.6.1-alpha.1.tgz#3cb9622a3b339c7f8182e65f3159a9d234ad3c2d"
+  integrity sha512-CSnvYy1Fv4vU7xuQP3NS6JaBHvbl2b6Ea6GJE5R0DF7uPay/CvXGNxsn3xttEn8Rbenjm4MHiW/VIFV7PAUpwg==
 
 "@ironplans/types@^0.0.30-alpha.0":
   version "0.0.30-alpha.0"
@@ -2602,9 +2602,9 @@ minimatch@^3.0.4:
     brace-expansion "^1.1.7"
 
 minimist@^1.2.0, minimist@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
+  integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
 mississippi@^3.0.0:
   version "3.0.0"
