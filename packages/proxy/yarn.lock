@@ -14,10 +14,10 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
-"@ironplans/api@^0.0.35-alpha.4":
-  version "0.0.35-alpha.4"
-  resolved "https://registry.yarnpkg.com/@ironplans/api/-/api-0.0.35-alpha.4.tgz#14b08709fbdf88c7e8b66c8ba388c20728b2a3e0"
-  integrity sha512-LQmjxb150CF6ic+J8TBI9623q2FagyaR1rPw4iG05pmQjrNC/aF6Ip/Pt3kJWKEmdA45FFpKJe78+DEUCvcQOQ==
+"@ironplans/api@^0.6.1-alpha.1":
+  version "0.6.1-alpha.1"
+  resolved "https://registry.yarnpkg.com/@ironplans/api/-/api-0.6.1-alpha.1.tgz#3cb9622a3b339c7f8182e65f3159a9d234ad3c2d"
+  integrity sha512-CSnvYy1Fv4vU7xuQP3NS6JaBHvbl2b6Ea6GJE5R0DF7uPay/CvXGNxsn3xttEn8Rbenjm4MHiW/VIFV7PAUpwg==
 
 "@ironplans/types@^0.0.30-alpha.0":
   version "0.0.30-alpha.0"
@@ -2685,9 +2685,9 @@ nanocolors@^0.2.2:
   integrity sha512-aymgS4Xe0LMqHOHl7jSUEkFh/6O/pcF0j61dBtreQZ1nmbyYdYjSYSJzz0iPLbKPkMtSmdRgyBGywNZGjKOEfw==
 
 nanoid@^3.1.25:
-  version "3.1.28"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.28.tgz#3c01bac14cb6c5680569014cc65a2f26424c6bd4"
-  integrity sha512-gSu9VZ2HtmoKYe/lmyPFES5nknFrHa+/DT9muUFWFMi6Jh9E1I7bkvlQ8xxf1Kos9pi9o8lBnIOkatMhKX/YUw==
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
+  integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
 
 nanomatch@^1.2.9:
   version "1.2.13"
