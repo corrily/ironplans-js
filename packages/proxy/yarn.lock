@@ -14,10 +14,10 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
-"@ironplans/api@^0.0.35-alpha.4":
-  version "0.0.35-alpha.4"
-  resolved "https://registry.yarnpkg.com/@ironplans/api/-/api-0.0.35-alpha.4.tgz#14b08709fbdf88c7e8b66c8ba388c20728b2a3e0"
-  integrity sha512-LQmjxb150CF6ic+J8TBI9623q2FagyaR1rPw4iG05pmQjrNC/aF6Ip/Pt3kJWKEmdA45FFpKJe78+DEUCvcQOQ==
+"@ironplans/api@^0.6.1-alpha.1":
+  version "0.6.1-alpha.1"
+  resolved "https://registry.yarnpkg.com/@ironplans/api/-/api-0.6.1-alpha.1.tgz#3cb9622a3b339c7f8182e65f3159a9d234ad3c2d"
+  integrity sha512-CSnvYy1Fv4vU7xuQP3NS6JaBHvbl2b6Ea6GJE5R0DF7uPay/CvXGNxsn3xttEn8Rbenjm4MHiW/VIFV7PAUpwg==
 
 "@ironplans/types@^0.0.30-alpha.0":
   version "0.0.30-alpha.0"
@@ -445,9 +445,9 @@ ansi-align@^3.0.0:
     string-width "^3.0.0"
 
 ansi-regex@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-4.1.0.tgz#8b9f8f08cf1acb843756a839ca8c7e3168c51997"
-  integrity sha512-1apePfXM1UOSqw0o9IiFAovVz9M5S1Dg+4TrDwfMewQ6p/rmMueb7tWZjQ1rx4Loy1ArBggoqGpfqqdI4rondg==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-4.1.1.tgz#164daac87ab2d6f6db3a29875e2d1766582dabed"
+  integrity sha512-ILlv4k/3f6vfQ4OoP2AGvirOktlQ98ZEL1k9FaQjxa3L1abBgbuTDAdPOpvbGncC0BTVQrl+OM8xZGK6tWXt7g==
 
 ansi-regex@^5.0.1:
   version "5.0.1"
